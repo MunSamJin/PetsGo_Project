@@ -5,6 +5,6 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import kosta.mvc.domain.Residence;
 
-public interface ResidenceRepository extends JpaRepository<Residence, Long> {
+public interface ResidenceRepository extends JpaRepository<Residence, Long>, QuerydslPredicateExecutor<Residence> {
 
 }
