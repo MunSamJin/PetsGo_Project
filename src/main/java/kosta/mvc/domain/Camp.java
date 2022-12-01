@@ -25,8 +25,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Builder
+//@Entity
+//@Builder
 /**
  *  캠핑장 도메인
  */
