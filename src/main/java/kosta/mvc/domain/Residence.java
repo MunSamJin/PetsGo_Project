@@ -59,21 +59,21 @@ public class Residence {
 	@Transient
 	private MultipartFile resiFile;
 	
-	@Column(length = 1000, name = "resi_file_name")
-	private String resiFileName;
+	@Column(length = 1000, name = "resi_filename")
+	private String resiFilename;
 	
 	private int resiPeople;
 	
 	private int resiPet;
 	
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "campNo") private Camp camp;
-	 * 
-	 * @OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) private
-	 * List<Reservation> reservationList;
-	 */
 	
-
+	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	@JoinColumn(name = "campNo") 
+	private Camp camp;
+	
+	/*@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
+	private List<Reservation> reservationList;*/
+	
+	@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
+	private List<ResidenceDetail> residenceDetailList;
 }

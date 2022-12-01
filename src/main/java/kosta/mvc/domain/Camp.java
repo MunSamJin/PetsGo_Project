@@ -72,7 +72,7 @@ public class Camp {
 	private MultipartFile campImg;
 	
 	@Column(nullable = false, length = 1000)
-	private String campFileName;//파일이름
+	private String campFilename;//파일이름
 	
 	@Column(nullable = false, length = 1000)
 	private String campNotify;
@@ -93,16 +93,15 @@ public class Camp {
 	
 	private String campRole;
 	
-	/*
-	 * @OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) private
-	 * List<Residence> residenceList;
-	 * 
-	 * @OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) private List<Scrap>
-	 * scrapList;
-	 * 
-	 * @OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) private
-	 * List<Reservation> reservationList;
-	 */
+	
+	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 
+	private List<Residence> residenceList;
+	
+	/*@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) private List<Scrap>
+	scrapList;*/
+	
+	/*@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 
+	private List<Reservation> reservationList;*/
 	
 
 }
