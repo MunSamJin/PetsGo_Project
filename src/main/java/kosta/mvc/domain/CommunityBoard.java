@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -44,10 +45,11 @@ public class CommunityBoard {
 	@CreationTimestamp
 	private LocalDateTime boardDate;
 	
-	@Column(nullable = false, length = 1000)
+	//@Column(nullable = false, length = 1000)
 	private String boardTag;
 	
-	@Column(nullable = false, length = 1000)
+	//@Column(nullable = false, length = 1000)
+	//@Lob
 	private String boardContent;
 	
 	@Transient
@@ -56,17 +58,13 @@ public class CommunityBoard {
 	@Column(length = 1000, name = "board_file_name")
 	private String boardFileName;
 	
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "memberNo") private Member member;
-	 * 
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "reservNo") private Reservation reservation;
-	 * 
-	 * @OneToMany(mappedBy = "communityBoard", cascade = CascadeType.ALL) private
-	 * List<LikeBoard> likeList;
-	 */
+	
+	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	@JoinColumn(name = "memberNo") 
+	private Member member;
+	 
+	@OneToMany(mappedBy = "communityBoard", cascade = CascadeType.ALL) 
+	private List<LikeBoard> likeList;
+	 
 
 }

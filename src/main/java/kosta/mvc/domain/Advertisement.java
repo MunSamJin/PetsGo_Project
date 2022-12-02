@@ -26,8 +26,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Builder
+//@Entity
+//@Builder
 public class Advertisement {
 	
 	@Id
