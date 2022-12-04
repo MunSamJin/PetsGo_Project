@@ -25,6 +25,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -32,6 +33,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Builder
+//@ToString
 /**
  *  커뮤니티 도메인
  */
@@ -58,6 +60,8 @@ public class CommunityBoard {
 	@Column(length = 1000, name = "board_file_name")
 	private String boardFileName;
 	
+	@Transient
+	private long fileSize;
 	
 	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
 	@JoinColumn(name = "memberNo") 
@@ -65,6 +69,8 @@ public class CommunityBoard {
 	 
 	@OneToMany(mappedBy = "communityBoard", cascade = CascadeType.ALL) 
 	private List<LikeBoard> likeList;
+	
+	
 	 
 
 }

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +24,18 @@
 				    f.boardContent.focus();
 					return false;
 				}
-			});
-		});	
+			
+			//select 값 합치기
+				 var boardTag1 =$("[name=boardTag1]").val();
+				 var boardTag2 =$("[name=boardTag2]").val();
+				
+				 var boardTag ="";
+				 
+				 boardTag = "#"+boardTag1+"#"+boardTag2;
+				 
+				$("[name=boardTag]").attr("value", boardTag);
+			});		
+		});		
 	
 	</script>
 	
@@ -46,43 +58,66 @@
 	
 </head>
 <body>
-
-	<form name="writeForm" method="post" action="${pageContext.request.contextPath}/community/insert" 
-		  onSubmit='return checkValid()' enctype="multipart/form-data">
-		  
-		<%-- <input type=hidden name="bno" value="${member.memberNo}"> --%>
-				  
-		<table>
+	<div style="margin-left:35%">
+		<select name="boardTag1">
+				<option value="">캠핑유형</option>
+			    <option value="오토캠핑">오토캠핑</option>
+			    <option value="방갈로">방갈로</option>
+			    <option value="카라반">카라반</option>
+			    <option value="글램핑">글램핑</option>
+			    <option value="펜션">펜션</option>
+			    <option value="차박">차박</option>
+			</select>
 			
-			<tr>
-				<td>
-					<p style="white-space: pre-line;">
-						<textarea name="boardContent" rows="20" cols="60" placeholder="내용을 입력해주세요." style="font-size: 10pt;"></textarea>
-					</p>
-				</td>
-			</tr>
-		</table>
-		
-		<br>
-		
-		<div id='image_preview' >
-        	<input type='file' id='btnAtt' name="file" multiple='multiple' />
-    		<div id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
-  		</div>
-  		
-  		<br>
-  		
-  		<div>
-  			<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/community/list'">
-  			<input type=submit value=글쓰기>
-  		</div>
-  	</form>	
+			<select name="boardTag2">
+				<option value="">환경</option>
+				<option value="바다">바다</option>
+			    <option value="산">산</option>
+			    <option value="강">강</option>
+			    <option value="호수">호수</option>
+			    <option value="계곡">계곡</option>
+			    <option value="기타">기타</option>
+			</select>
+
+		<form name="writeForm" method="post" action="${pageContext.request.contextPath}/community/insert" 
+			  onSubmit='return checkValid()' enctype="multipart/form-data">			  
+			  
+			<%-- <input type=hidden name="bno" value="${member.memberNo}"> --%>
+			
+			<input type="hidden" name="boardTag" value="">
+					  
+			<table>
+				
+				<tr>
+					<td>
+						<p style="white-space: pre-line;">
+							<textarea name="boardContent" rows="20" cols="60" placeholder="내용을 입력해주세요." style="font-size: 10pt;"></textarea>
+						</p>
+					</td>
+				</tr>
+			</table>
+			
+			<br>
+			
+			<div id='image_preview' >
+	        	<input type='file' id='btnAtt' name="file" multiple='multiple' />
+	        	 <!-- <input type='file' id='btnAtt' name="files" multiple='multiple' />  -->
+	    		<div id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
+	  		</div>
+	  		
+	  		<br>
+	  		
+	  		<div>
+	  			<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/community/list'">
+	  			<input type=submit value=글쓰기>
+	  		</div>
+	  	</form>	
+	</div>
 
 
 
-
-  		<script>
-	  		/* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
+	<script>
+  			/* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
 			(imageView = function imageView(att_zone, btn){
 
 			    var attZone = document.getElementById(att_zone);
@@ -133,7 +168,7 @@
     
 
     
-			    /*첨부된 이미리즐을 배열에 넣고 미리보기 */
+			    /*첨부된 이미지를 배열에 넣고 미리보기 */
 			    imageLoader = function(file){
 			      sel_files.push(file);
 			      var reader = new FileReader();
@@ -183,8 +218,8 @@
 			)('att_zone', 'btnAtt')
 
 		</script>
-		
-	
-	
+
+
+
 </body>
 </html>

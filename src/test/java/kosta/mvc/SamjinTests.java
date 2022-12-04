@@ -17,6 +17,8 @@ public class SamjinTests {
 	@Autowired
 	private CommunityRepository communityRepository;
 	
+	
+	
 
 
 }
