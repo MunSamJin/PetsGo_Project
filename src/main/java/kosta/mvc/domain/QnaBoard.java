@@ -26,8 +26,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@Entity
-//@Builder
+@Entity
+@Builder
 /**
  *  QnA 도메인
  */

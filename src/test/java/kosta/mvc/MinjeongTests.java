@@ -31,6 +31,17 @@ class MinjeongTests {
 		member.setMemberPhone("010-8975-2643");
 		member.setMemberBirthDate("2022-12-01");
 		
-		memberService.join(member);
+		memberService.register(member);
+	}
+	
+	@Test
+	void 로그인() {		
+		Member member = new Member();
+		member.setMemberEmail("minjeongg24@gmail.com");
+		member.setMemberPassword("1234");
+		
+		memberService.login(member);
+		System.out.println("member email = " + member.getMemberEmail());
+		System.out.println("로그인 성공!!!");
 	}
 }

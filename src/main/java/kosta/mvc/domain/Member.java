@@ -1,6 +1,5 @@
 package kosta.mvc.domain;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,14 +15,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@Entity
-//@Builder
+@Entity
+@Builder
+@RequiredArgsConstructor
 /**
  * 회원 도메인
  */
@@ -32,6 +34,7 @@ public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_mno_seq")
 	@SequenceGenerator(name = "member_mno_seq", allocationSize = 1, sequenceName = "member_mno_seq")
+	@NonNull
 	private Long memberNo; //회원번호
 	
 	private String memberProfile; //프로필아이콘
@@ -55,11 +58,10 @@ public class Member {
 	
 	private String memberRole;
 	
-	/*
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private List<Pet>
-	 * petList;
-	 * 
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	private List<Pet> petList;
+	  
+	 /* @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
 	 * List<QnaBoard> qnaBoardList;
 	 * 
 	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
