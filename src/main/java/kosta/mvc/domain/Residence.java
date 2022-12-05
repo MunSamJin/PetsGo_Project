@@ -67,13 +67,15 @@ public class Residence {
 	private String resiPet;
 	
 	
+
 	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
 	@JoinColumn(name = "camp_no") 
 	private Camp camp;
+
 	
 	/*@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
-	private List<Reservation> reservationList;*/
+	private List<Reservation> reservationList;/*
 	
-	@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
-	private List<ResidenceDetail> residenceDetailList;
+	/*@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
+	private List<ResidenceDetail> residenceDetailList;*/
 }

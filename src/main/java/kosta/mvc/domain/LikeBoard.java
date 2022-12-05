@@ -21,8 +21,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@Entity
-//@Builder
+@Entity
+@Builder
 /**
  *  좋아요 누른 커뮤니티 도메인
  */
@@ -33,13 +33,13 @@ public class LikeBoard {
 	@SequenceGenerator(name = "like_lno_seq", allocationSize = 1, sequenceName = "like_lno_seq")
 	private Long likeNo;
 	
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "memberNo") private Member member;
-	 * 
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "boardNo") private CommunityBoard communityBoard;
-	 */
+	
+	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	@JoinColumn(name = "memberNo") 
+	private Member member;
+	  
+	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	@JoinColumn(name = "boardNo") 
+	private CommunityBoard communityBoard;
+	 
 }

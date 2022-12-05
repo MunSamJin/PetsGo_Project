@@ -38,7 +38,7 @@ public class ResidenceDetail {
 	private String resiDetailNo;
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	/*@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "resiNo")
-	private Residence residence;
+	private Residence residence;*/
 }

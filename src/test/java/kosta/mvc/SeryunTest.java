@@ -28,7 +28,7 @@ public class SeryunTest {
 	private ResidenceDetailRepository resiDetailRep;
 	
 	
-	@Test
+	/*@Test
 	public void contextLoads() {
 		//캠핑장 테스트 데이터
 		campRep.save(new Camp(null, "1234", "zzangah99@naver.com", 1, "﻿CDFI2262132016000034", "141-12-01303", "안성 용설호수캠핑장", "010-8502-2863",17523,
@@ -49,6 +49,6 @@ public class SeryunTest {
 				null, "﻿camp_21_resi_01_01.jpeg,camp_21_resi_01_02.jpg,camp_21_resi_01_03.jpg,camp_21_resi_01_04.jpg",
 				5, "﻿5kg 미만 소형견 1마리" , new Camp(), null));
 		
-	}
+	}*/
 
 }
