@@ -53,27 +53,27 @@ public class Member {
 	
 	private String memberAuth; //본인인증
 	
-	private String memberRole;
+	private String memberRole;//권한
 	
 	/*
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private List<Pet>
-	 * petList;
-	 * 
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	 * List<QnaBoard> qnaBoardList;
-	 * 
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	 * List<Scrap> scrapList;
-	 * 
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	 * List<Reservation> reservationList;
-	 * 
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	 * List<CommunityBoard> communityBoardList;
-	 * 
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	 * List<LikeBoard> likeList;
-	 */ 
+	 @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	 private List<Pet> petList;
+	 
+	 @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	 private List<QnaBoard> qnaBoardList;
+	 
+	 @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	 private List<Scrap> scrapList;
+	 
+	 @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	 private List<Reservation> reservationList;*/
+	 
+	 @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	 private List<CommunityBoard> communityBoardList;
+	 
+	 @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	 private List<LikeBoard> likeList;
+	 
 	
 	
 }

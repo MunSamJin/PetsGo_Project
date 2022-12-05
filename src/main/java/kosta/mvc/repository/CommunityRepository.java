@@ -1,5 +1,9 @@
 package kosta.mvc.repository;
 
-public class CommunityRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import kosta.mvc.domain.CommunityBoard;
+
+public interface CommunityRepository extends JpaRepository<CommunityBoard, Long>{
 
 }
