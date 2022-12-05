@@ -69,8 +69,5 @@ public class CommunityBoard {
 	 
 	@OneToMany(mappedBy = "communityBoard", cascade = CascadeType.ALL) 
 	private List<LikeBoard> likeList;
-	
-	
-	 
 
 }

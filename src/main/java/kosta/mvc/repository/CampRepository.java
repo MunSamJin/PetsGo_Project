@@ -7,7 +7,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import kosta.mvc.domain.Camp;
 
-public interface CampRepository extends JpaRepository<Camp, Long>, QuerydslPredicateExecutor<Camp>{
+public interface CampRepository extends JpaRepository<Camp, Long>, QuerydslPredicateExecutor<Camp> {
 	
 	
 	//@Query("select c from Camp c where c.campManageNo ='CDFI2262132016000034'")

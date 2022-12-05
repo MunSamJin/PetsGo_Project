@@ -1,5 +1,6 @@
 package kosta.mvc.service;
 
+
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -39,4 +40,10 @@ public interface CampService {
 	 * 삭제하기
 	 */
 	void delete(Long bno, String password);
+	
+	/**
+	 * 로그인
+	 * */
+	//Camp login(Camp camp);
+
 }
