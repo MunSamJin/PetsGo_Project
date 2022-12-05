@@ -25,8 +25,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@Entity
-//@Builder
+@Entity
+@Builder
 /**
  *  캠핑장 도메인
  */
@@ -94,8 +94,8 @@ public class Camp {
 	private String campRole;
 	
 	
-	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 
-	private List<Residence> residenceList;
+	/*@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 
+	private List<Residence> residenceList;*/
 	
 	/*@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) private List<Scrap>
 	scrapList;*/

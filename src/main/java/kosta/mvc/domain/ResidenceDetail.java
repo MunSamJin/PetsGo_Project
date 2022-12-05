@@ -22,8 +22,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@Entity
-//@Builder
+@Entity
+@Builder
 /**
  *  숙소 도메인
  */
@@ -38,7 +38,7 @@ public class ResidenceDetail {
 	private String resiDetailNo;
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	/*@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "resiNo")
-	private Residence residence;
+	private Residence residence;*/
 }

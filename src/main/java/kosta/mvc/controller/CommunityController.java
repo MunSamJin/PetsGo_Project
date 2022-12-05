@@ -59,7 +59,7 @@ public class CommunityController {
 	public ModelAndView insert(CommunityBoard communityBoard, MultipartFile file, HttpSession session) { //2번째 시도 - 성공 (파일1개 업로드)
 	//public String insert(CommunityBoard communityBoard, MultipartHttpServletRequest multiRequest, HttpSession session) { //3번째 시도 - 실패
 		
-		String saveDir = session.getServletContext().getRealPath("/WEB-INF/save/samjin");
+		String saveDir = session.getServletContext().getRealPath("/img/samjin");
 		
 		/*1번째 시도
 		 * String originalName = communityBoard.getBoardFile().getOriginalFilename();
@@ -89,7 +89,7 @@ public class CommunityController {
 			e.printStackTrace();
 		}
 
-		communityService.insert(communityBoard);
+		//communityService.insert(communityBoard);
 
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("saveDir", saveDir);
@@ -140,20 +140,23 @@ public class CommunityController {
 	
 	
 	@RequestMapping("/insert")
-	// public String uploadMultipartFile(@RequestParam("files") MultipartFile files,
+	// public String uploadMultipartFile(@RequestParam("files") MultipartFile[] files,
 	// Model modal, HttpSession session) {//4번째 시도 - 실패
-	public String uploadMultipartFile(@RequestParam("files") List<MultipartFile> files, Model modal,
+	public ModelAndView insert(CommunityBoard communityBoard, @RequestParam("files") List<MultipartFile> files,
 			HttpSession session) {//5번째 시도 - 성공 (다중 파일 업로드)
 		// String saveDir2 =
 		// session.getServletContext().getRealPath("WEB-INF/save/samjin");
-		String saveDir2 = session.getServletContext().getRealPath("/static/img/");
-
+		String saveDir2 = session.getServletContext().getRealPath("/img/samjin/");
+		String imgNames = "";
+		
 		try {
 			// Declare empty list for collect the files data
 			// which will come from UI
 			// List<CommunityFiles> fileList = new ArrayList<CommunityFiles>();
 			System.out.println("개수 = " + files.size());
-			String imgNames = "";
+			
+			
+			
 
 			// for (MultipartFile file : files) {
 			for (int i = 0; i < files.size(); i++) {
@@ -169,28 +172,25 @@ public class CommunityController {
 				System.out.println("imgNames = " + imgNames);
 
 				m.transferTo(new File(saveDir2 + "/" + m.getOriginalFilename()));
-
-				// String fileContentType = file.getContentType();
-
-				// String sourceFileContent = new String(file.getBytes(),
-				// StandardCharsets.UTF_8);
-				// String fileName = file.getOriginalFilename();
-				// CommunityFiles communityFiles = new CommunityFiles(fileName,
-				// sourceFileContent, fileContentType);
-
-				// Adding file into fileList
-				// fileList.add(communityFiles);
-
-				// Saving all the list item into database
-				// communityFilesServiceImpl.saveAllFilesList(fileList);
-
-				// ((MultipartFile) fileList).transferTo(new File(saveDir2 + "/" + files));
+				
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return "community/list";
+		
+		
+		communityBoard.setBoardFileName(imgNames);
+		
+		communityService.insert(communityBoard);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("saveDir2", saveDir2);
+		mv.addObject("originalFileName", imgNames);
+		mv.addObject("fileSize", files.size());
+		mv.setViewName("community/list");
+		
+		return mv;
 	}
 
 }

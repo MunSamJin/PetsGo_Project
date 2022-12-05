@@ -27,8 +27,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@Entity
-//@Builder
+@Entity
+@Builder
 /**
  *  숙소 도메인
  */
@@ -67,13 +67,13 @@ public class Residence {
 	private int resiPet;
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	/*@ManyToOne(fetch = FetchType.LAZY)//지연로딩
 	@JoinColumn(name = "campNo") 
-	private Camp camp;
+	private Camp camp;*/
 	
 	/*@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
-	private List<Reservation> reservationList;*/
+	private List<Reservation> reservationList;/*
 	
-	@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
-	private List<ResidenceDetail> residenceDetailList;
+	/*@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
+	private List<ResidenceDetail> residenceDetailList;*/
 }

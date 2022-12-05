@@ -82,8 +82,8 @@
 		<form name="writeForm" method="post" action="${pageContext.request.contextPath}/community/insert" 
 			  onSubmit='return checkValid()' enctype="multipart/form-data">			  
 			  
-			<%-- <input type=hidden name="bno" value="${member.memberNo}"> --%>
-			
+			<%-- <input type=hidden name="memberNo" value="${member.memberNo}"> --%>
+			<input type=hidden name="memberNo" value="1">
 			<input type="hidden" name="boardTag" value="">
 					  
 			<table>
@@ -91,7 +91,9 @@
 				<tr>
 					<td>
 						<p style="white-space: pre-line;">
-							<textarea name="boardContent" rows="20" cols="60" placeholder="내용을 입력해주세요." style="font-size: 10pt;"></textarea>
+							<textarea name="boardContent" rows="20" cols="60" 
+									  placeholder="내용을 입력해주세요." 
+									  style="font-size: 10pt; white-space: pre-line; "></textarea>
 						</p>
 					</td>
 				</tr>

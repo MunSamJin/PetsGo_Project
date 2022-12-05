@@ -27,7 +27,7 @@ public class SeryunTest {
 	private ResidenceDetailRepository resiDetailRep;
 	
 	
-	@Test
+	/*@Test
 	public void contextLoads() {
 		//캠핑장 테스트 데이터
 		campRep.save(new Camp(null, "1234", "zzangah99@naver.com", 1, "﻿CDFI2262132016000034", "141-12-01303", "﻿안성 용설호수캠핑장", "010-8502-2863",17523,
@@ -36,6 +36,6 @@ public class SeryunTest {
 				"﻿전사이트 바로앞 용설호수뷰 캠핑 가능. <br>캠핑과 낚시 둘레길 걷기, 허브와 풍뎅이, 등산 주변 골프장 등을 즐길 수 있는 조용한 가족 캠핑장입니다.(사이트 바로 앞 주차)", 
 				"﻿화장실,샤워실,개수대,매점,와이파이,체험활동,산책로,반려동물,물놀이,낚시,골프,스키,등산,MTB,기타", null, "13:00", "11:00", "﻿ROLE_OWNER", null));
 		
-	}
+	}*/
 
 }
