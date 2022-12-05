@@ -50,7 +50,7 @@
 	<br>
 	<h3>회원 정보 수정</h3>
 	<b>비밀번호 재확인</b> <p>
-	<form id="loginForm" action="${pageContext.request.contextPath}/updateForm" method="post">
+	<form id="loginForm" action="${pageContext.request.contextPath}/member/updateForm" method="post">
 		이메일 <input type="text" name="memberEmail" id="email" readonly value="${member.memberEmail}"> <br>
 		비밀번호 <input type="password" name="memberPassword" id="password" placeholder="현재 비밀번호를 입력해 주세요"> <br>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

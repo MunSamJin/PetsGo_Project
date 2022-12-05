@@ -31,13 +31,13 @@
 	<c:if test="${not empty member}">
 	    ${member.memberEmail}님 / ${member.memberNickname}님 반갑습니다! <p>
 	    
-	    <form action="${pageContext.request.contextPath}/logout" method="post">
+	    <form action="${pageContext.request.contextPath}/member/logout" method="post">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<input type="submit" value="로그아웃">
 		</form>
 		
-		<a href="${pageContext.request.contextPath}/myPage">마이페이지</a> <br>
-		<a href="${pageContext.request.contextPath}/logout">로그아웃</a> <br>
+		<a href="${pageContext.request.contextPath}/member/myReservation">마이페이지</a> <br>
+		<a href="${pageContext.request.contextPath}/member/logout">로그아웃</a> <br>
 	</c:if>
 	
 	<a href="${pageContext.request.contextPath}"> index</a></h3>
@@ -46,8 +46,8 @@
 	<a href="${pageContext.request.contextPath}/user/loginForm"> user/loginForm - 인증없이 접근 가능</a><p> --%>
 
 	<h2> MEMBER </h2>
-	<a href="${pageContext.request.contextPath}/registerForm">회원 가입 하기</a> <p>
-	<a href="${pageContext.request.contextPath}/loginForm">로그인 하기</a> <p>
+	<a href="${pageContext.request.contextPath}/member/registerForm">회원 가입 하기</a> <p>
+	<a href="${pageContext.request.contextPath}/member/loginForm">로그인 하기</a> <p>
 	
 	////////////////////////////////////////////////////////////////////// <p>
 	

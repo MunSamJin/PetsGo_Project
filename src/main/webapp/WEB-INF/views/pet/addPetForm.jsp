@@ -15,7 +15,7 @@
 	
 	<script>
 		$(document).ready(function(){	
-			alert( $("input[name=petNeuter]:checked").val() );
+			//alert( $("input[name=petNeuter]:checked").val() );
 			
 			/////////////////////////////////////
 			//등록 버튼 클릭 시 유효성 체크

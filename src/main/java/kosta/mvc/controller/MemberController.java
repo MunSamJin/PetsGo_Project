@@ -14,24 +14,11 @@ import kosta.mvc.domain.Member;
 import kosta.mvc.service.MemberService;
 
 @Controller //ajax 처리할 메소드는 @Reponsebody를 붙여주면 됨
+@RequestMapping("/member")
 public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
-	
-	/**
-	 * 테스트용 인덱스
-	 * */
-	@RequestMapping("/member/index")
-	public void index() {}
-
-	/**
-	 * 회원 가입 폼
-	 * */
-	@RequestMapping("registerForm")
-	public String registerForm() {
-		return "member/registerForm";
-	}
 	
 	/**
 	 * 이메일 중복 확인
@@ -62,17 +49,9 @@ public class MemberController {
 	}	
 	
 	/**
-	 * 로그인 폼
-	 * */
-	@RequestMapping("loginForm")
-	public String loginForm() {
-		return "member/loginForm";
-	}
-	
-	/**
 	 * 로그인
 	 * */
-	@RequestMapping("/member/login")
+	@RequestMapping("/login")
 	public String login(Member member, HttpSession session) {
 		member = memberService.login(member);
 		
@@ -89,64 +68,8 @@ public class MemberController {
 		session.invalidate();
 		
 		return "redirect:/member/index";
-	}
-	
-	/**
-	 * 마이페이지 이동(예약내역-예약목록이 바로 뜸)
-	 * */
-	@RequestMapping("myPage")
-	public String myPage() {
-		return "member/myReservation";
-	}
-	
-	/**
-	 * 마이페이지 내 스크랩북 이동
-	 * */
-	@RequestMapping("myScrap")
-	public String myScrap() {
-		return "member/myScrap";
-	}
-	
-	/**
-	 * 마이페이지 내 커뮤니티 이동
-	 * */
-	@RequestMapping("myCommunity")
-	public String myCommunity() {
-		return "member/myCommunity";
-	}
-	
-	/**
-	 * 마이페이지 내 문의사항 이동
-	 * */
-	@RequestMapping("myQna")
-	public String myQna() {
-		return "member/myQna";
-	}
-	
-	/**
-	 * 마이페이지 내 회원 정보(회원정보-회원 정보) 이동
-	 * */
-	@RequestMapping("myInfo")
-	public String myInfo() {
-		return "member/myInfo";
-	}
-	
-	/**
-	 * 회원 정보 수정 전 비밀번호 일치 여부 확인
-	 * */
-	@RequestMapping("passwordCheck")
-	public String passwordCheck() {
-		return "member/passwordCheck";
-	}
-	
-	/**
-	 * 회원 정보 수정 폼
-	 * */
-	@RequestMapping("updateForm")
-	public String updateForm() {
-		return "member/updateForm";
-	}
-	
+	}	
+
 	/**
 	 * 회원 정보 수정하기
 	 * */
@@ -160,10 +83,13 @@ public class MemberController {
 	/**
 	 * 마이페이지 내 반려견 정보(회원정보-반려견 정보) 이동
 	 * */
-	@RequestMapping("myPet")
+	/* @RequestMapping("myPet")
 	public String myPet() {
 		return "member/myPet";
-	}
+	} */
+	
+	@RequestMapping("{url}")
+	public void url() {}
 }
 
 

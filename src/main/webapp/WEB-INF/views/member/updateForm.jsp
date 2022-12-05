@@ -105,7 +105,7 @@
 			/////////////////////////////////////
 			//취소 버튼 클릭 시 마이 페이지로 이동
 			$("#updateForm > button").click(function(){								
-				location.href = "${pageContext.request.contextPath}/myInfo";
+				location.href = "${pageContext.request.contextPath}/member/myInfo";
 			})
 			
 		}) //ready

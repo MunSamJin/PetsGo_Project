@@ -11,11 +11,11 @@
 <body>
 	<h3>member/myReservation.jsp</h3>
 	///// 메뉴 ////////////////////////////// <p>
-	<a href="${pageContext.request.contextPath}/myPage">예약내역</a>
-	<a href="${pageContext.request.contextPath}/myScrap">스크랩북</a>
-	<a href="${pageContext.request.contextPath}/myCommunity">커뮤니티</a>
-	<a href="${pageContext.request.contextPath}/myQna">문의사항</a>
-	<a href="${pageContext.request.contextPath}/myInfo">회원정보</a>
+	<a href="${pageContext.request.contextPath}/member/myPage">예약내역</a>
+	<a href="${pageContext.request.contextPath}/member/myScrap">스크랩북</a>
+	<a href="${pageContext.request.contextPath}/member/myCommunity">커뮤니티</a>
+	<a href="${pageContext.request.contextPath}/member/myQna">문의사항</a>
+	<a href="${pageContext.request.contextPath}/member/myInfo">회원정보</a>
 	
 	
 </body>
