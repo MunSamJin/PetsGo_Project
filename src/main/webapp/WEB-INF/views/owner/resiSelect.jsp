@@ -88,7 +88,7 @@
           <!-- /widget --> 
           <div class="widget widget-nopad">
             <div class="widget-header"> <i class="icon-list-alt"></i>
-              <h3>캠핑장 이름</h3>
+              <h3>숙소 리스트</h3>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">

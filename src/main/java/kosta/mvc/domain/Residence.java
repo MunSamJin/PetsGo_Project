@@ -64,11 +64,11 @@ public class Residence {
 	
 	private int resiPeople;
 	
-	private int resiPet;
+	private String resiPet;
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	@JoinColumn(name = "campNo") 
+	@JoinColumn(name = "camp_no") 
 	private Camp camp;
 	
 	/*@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 

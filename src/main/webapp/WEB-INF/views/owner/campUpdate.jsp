@@ -85,13 +85,15 @@
     <div class="container">
       <div class="row">
         <!-- /span6 -->
+        <form name="campUpdate" method="post" action="${pageContext.request.contextPath}/owner/campUpdate">
         <div class="span6">
           
           <!-- /widget --> 
           <div class="widget widget-nopad">
             <div class="widget-header"> <i class="icon-list-alt"></i>
               <h3>${camp.campName}</h3>
-              <input type="button" value="수정" id="campUpdateForm" name="campUpdateForm">
+              <input type="submit" value="수정" id="campUpdate" name="campUpdate">
+              <input type="reset" value="취소" id="campUpdate" name="campUpdate">
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
@@ -100,12 +102,14 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">29</span> <span class="news-item-month">Aug</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/thursday-roundup-40/" class="news-item-title" target="_blank">사진</a>
-                  	
                   	<c:set value="${fn:split(camp.campFilename , ',')}" var="filenameArr"/>
                   	<c:forEach items="${filenameArr}" var="filename">
-                  		<p><img class="news-item-preview" src="/img/camp/${filename}">${filename}</p>
+                  		<p><img class="news-item-preview" name="campFilename"  src="/img/camp/${filename}"></p>
+                  		<form action="${pageContext.request.contextPath}/owner/upload" method="post" enctype="multipart/form-data">
+							<input type="file" name="files" multiple="multiple"/>
+							<input type="submit" value="파일업로드"/>
+						</form>
                   	</c:forEach>
-                    
                   </div>
                   
                 </li>
@@ -113,7 +117,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">주소</a>
-                    <p class="news-item-preview">${camp.campAddr}</p>
+                    <p><input type="text" class="news-item-preview" name="campAddr" value="${camp.campAddr}"></p>
                   </div>
                   
                 </li>
@@ -121,7 +125,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">우편번호</a>
-                    <p class="news-item-preview">${camp.campPost}</p>
+                    <p><input type="text" class="news-item-preview" name="campPost" value="${camp.campPost}"></p>
                   </div>
                   
                 </li>
@@ -129,7 +133,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">전화번호</a>
-                    <p class="news-item-preview">${camp.campPhone}</p>
+                    <p><input type="text" class="news-item-preview" name="campPhone" value="${camp.campPhone}"></p>
                   </div>
                   
                 </li>
@@ -137,7 +141,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">공지사항</a>
-                    <p class="news-item-preview">${camp.campNotify}</p>
+                    <p><textarea class="news-item-preview" name="campNotify">${camp.campNotify}</textarea></p>
                   </div>
                   
                 </li>
@@ -145,7 +149,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">소개글</a>
-                    <p class="news-item-preview">${camp.campIntro}</p>
+                    <p><textarea class="news-item-preview" name="campIntro">${camp.campIntro}</textarea></p>
                   </div>
                   
                 </li>
@@ -153,7 +157,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">부대시설</a>
-                    <p class="news-item-preview">${camp.campFacility}</p>
+                    <p><input type="text" class="news-item-preview" name="campFacility" value="${camp.campFacility}"></p>
                   </div>
                   
                 </li>
@@ -161,7 +165,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">체크인 시간</a>
-                    <p class="news-item-preview">${camp.campCheckin}</p>
+                    <p><input type="text" class="news-item-preview" name="campCheckin" value="${camp.campCheckin}"></p>
                   </div>
                   
                 </li>
@@ -169,7 +173,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">체크아웃 시간</a>
-                    <p class="news-item-preview">${camp.campCheckout}</p>
+                    <p><input type="text" class="news-item-preview" name="campCheckout" value="${camp.campCheckout}"></p>
                   </div>
                   
                 </li>
@@ -181,6 +185,7 @@
        
         </div>
         <!-- /span6 --> 
+        </form>
       </div>
       <!-- /row --> 
     </div>
@@ -261,25 +266,14 @@
 <!-- Le javascript
 ================================================== --> 
 <!-- Placed at the end of the document so the pages load faster --> 
-<script src="/js/seryun/jquery-1.7.2.min.js"></script> 
-<script src="/js/seryun/excanvas.min.js"></script> 
-<script src="/js/seryun/chart.min.js" type="text/javascript"></script> 
-<script src="/js/seryun/bootstrap.js"></script>
-<script language="javascript" type="text/javascript" src="/js/seryun/full-calendar/fullcalendar.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/seryun/jquery-1.7.2.min.js"></script> 
+<script src="${pageContext.request.contextPath}/js/seryun/excanvas.min.js"></script> 
+<script src="${pageContext.request.contextPath}/js/seryun/chart.min.js" type="text/javascript"></script> 
+<script src="${pageContext.request.contextPath}/js/seryun/bootstrap.js"></script>
+<script language="javascript" type="text/javascript" src="${pageContext.request.contextPath}/js/seryun/full-calendar/fullcalendar.min.js"></script>
  
-<script src="/js/seryun//base.js"></script> 
+<script src="${pageContext.request.contextPath}/js/seryun//base.js"></script> 
 <script>     
-
-		$(function(){
-			  $("input[value=수정]").click(function(){
-				  $(location).attr('href','${pageContext.request.contextPath}/owner/campUpdateForm');
-			  })
-		});
-		
-		
-		//var filename = ${camp.campFilename}.split(",");
-		
-		
 
         var lineChartData = {
             labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -399,7 +393,14 @@
           ]
         });
       });
-   
+        
+      $(function(){
+    	  alert();
+    	  
+    	  $("input[value=수정]").click(function(){
+    		  alert();
+    	  })
+      })
     </script><!-- /Calendar -->
 </body>
 </html>

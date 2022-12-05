@@ -101,7 +101,7 @@
               <div class="widget big-stats-container">
                 <div class="widget-content">
 	                <div class="plan-actions">			
-						<a href="javascript:;" class="btn">신규 숙소 등록</a>				
+						<a href="${pageContext.request.contextPath}/owner/resiInsert" class="btn">신규 숙소 등록</a>				
 					</div>
                   <h6 class="bigstats"> </h6>
                   <!-- <div id="big_stats" class="cf">
