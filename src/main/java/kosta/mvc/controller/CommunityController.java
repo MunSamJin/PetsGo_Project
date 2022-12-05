@@ -22,8 +22,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.CommunityBoard;
-import kosta.mvc.domain.CommunityFiles;
-import kosta.mvc.service.CommunityFilesServiceImpl;
 import kosta.mvc.service.CommunityService;
 
 @Controller
@@ -32,9 +30,6 @@ public class CommunityController {
 	
 	@Autowired
 	private CommunityService communityService;
-	
-	@Autowired
-	private CommunityFilesServiceImpl communityFilesServiceImpl; 
 	
 	private final static int PAGE_COUNT=10;
 
@@ -55,15 +50,16 @@ public class CommunityController {
 	@RequestMapping("/write")
 	public void write() {}
 	
+	
 	/**
 	 *  등록하기 : 글 + 파일 동시에 등록
 	 */
-	@RequestMapping("/insert")
+	//@RequestMapping("/insert")
 	//public String insert(CommunityBoard communityBoard, HttpSession session) {//1번째 시도 - 실패	
-	public ModelAndView insert(CommunityBoard communityBoard, MultipartFile file, HttpSession session) { //2번째 시도 - 성공
+	public ModelAndView insert(CommunityBoard communityBoard, MultipartFile file, HttpSession session) { //2번째 시도 - 성공 (파일1개 업로드)
 	//public String insert(CommunityBoard communityBoard, MultipartHttpServletRequest multiRequest, HttpSession session) { //3번째 시도 - 실패
 		
-		String saveDir = session.getServletContext().getRealPath("WEB-INF/save/samjin");
+		String saveDir = session.getServletContext().getRealPath("/WEB-INF/save/samjin");
 		
 		/*1번째 시도
 		 * String originalName = communityBoard.getBoardFile().getOriginalFilename();
@@ -76,28 +72,30 @@ public class CommunityController {
 		 * communityService.insert(communityBoard);
 		 */
 		
-		//2번째 시도
-		
-		System.out.println("boardTag"+communityBoard.getBoardTag());		
-		 
-		 String originalFileName = file.getOriginalFilename();
-		 
-		 //System.out.println("originalFileName = " + originalFileName);
-		 
-		 communityBoard.setBoardFileName(originalFileName);
-		 
-		 try { 
-			 file.transferTo(new File(saveDir + "/" +originalFileName));
-		 
-		 }catch(Exception e) { 
-			 e.printStackTrace(); 
+		// 2번째 시도
+
+		System.out.println("boardTag" + communityBoard.getBoardTag());
+
+		String originalFileName = file.getOriginalFilename();
+
+		// System.out.println("originalFileName = " + originalFileName);
+
+		communityBoard.setBoardFileName(originalFileName);
+
+		try {
+			file.transferTo(new File(saveDir + "/" + originalFileName));
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		 
-		 communityService.insert(communityBoard);
-		 
-		 ModelAndView mv = new ModelAndView(); mv.addObject("saveDir", saveDir);
-		 mv.addObject("originalFileName", originalFileName); mv.addObject("fileSize", file.getSize()); 
-		 mv.setViewName("community/list");
+
+		communityService.insert(communityBoard);
+
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("saveDir", saveDir);
+		mv.addObject("originalFileName", originalFileName);
+		mv.addObject("fileSize", file.getSize());
+		mv.setViewName("community/list");
 		 
 		 //System.out.println("mv = " + mv);
 		
@@ -140,44 +138,59 @@ public class CommunityController {
 		//return "redirect:/community/list"; //3번째 시도
 	}
 	
-	//4번째 시도
-	//@RequestMapping("/insert")
-    public String uploadMultipartFile(@RequestParam("files") MultipartFile[] files, Model modal, HttpSession session) {
-		
-		String saveDir2 = session.getServletContext().getRealPath("WEB-INF/save/samjin");
-		
-	    try {
-	        // Declare empty list for collect the files data
-	        // which will come from UI
-	        List<CommunityFiles> fileList = new ArrayList<CommunityFiles>();
-	        for (MultipartFile file : files) {
-	            String fileContentType = file.getContentType();
-	            
-	            String sourceFileContent = new String(file.getBytes(), StandardCharsets.UTF_8);
-	            String fileName = file.getOriginalFilename();
-	            CommunityFiles communityFiles = new CommunityFiles(fileName, sourceFileContent, fileContentType);
-	             
-	            // Adding file into fileList
-	            fileList.add(communityFiles);
-	     
-	            
-	            }
-	       
-	            // Saving all the list item into database
-	        	communityFilesServiceImpl.saveAllFilesList(fileList);
-	        	
-	        	//((MultipartFile) fileList).transferTo(new File(saveDir2 + "/" + files));
-	 
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	       
-	        // Send file list to View using modal class   
-	        //fileServiceImplementation.getAllFiles() used to
-	        // fetch all file list from DB
-	        modal.addAttribute("allFiles", communityFilesServiceImpl.getAllFiles());
-	       
-	        return "community/fileList";
-	    }
+	
+	@RequestMapping("/insert")
+	// public String uploadMultipartFile(@RequestParam("files") MultipartFile files,
+	// Model modal, HttpSession session) {//4번째 시도 - 실패
+	public String uploadMultipartFile(@RequestParam("files") List<MultipartFile> files, Model modal,
+			HttpSession session) {//5번째 시도 - 성공 (다중 파일 업로드)
+		// String saveDir2 =
+		// session.getServletContext().getRealPath("WEB-INF/save/samjin");
+		String saveDir2 = session.getServletContext().getRealPath("/static/img/");
+
+		try {
+			// Declare empty list for collect the files data
+			// which will come from UI
+			// List<CommunityFiles> fileList = new ArrayList<CommunityFiles>();
+			System.out.println("개수 = " + files.size());
+			String imgNames = "";
+
+			// for (MultipartFile file : files) {
+			for (int i = 0; i < files.size(); i++) {
+				MultipartFile m = files.get(i);
+				System.out.println("첨부파일이름 = " + m.getOriginalFilename());
+				
+				if (i == (files.size() - 1))
+					imgNames += m.getOriginalFilename();
+				else
+					imgNames += m.getOriginalFilename() + ",";
+
+				//////////////////////////////////////////////
+				System.out.println("imgNames = " + imgNames);
+
+				m.transferTo(new File(saveDir2 + "/" + m.getOriginalFilename()));
+
+				// String fileContentType = file.getContentType();
+
+				// String sourceFileContent = new String(file.getBytes(),
+				// StandardCharsets.UTF_8);
+				// String fileName = file.getOriginalFilename();
+				// CommunityFiles communityFiles = new CommunityFiles(fileName,
+				// sourceFileContent, fileContentType);
+
+				// Adding file into fileList
+				// fileList.add(communityFiles);
+
+				// Saving all the list item into database
+				// communityFilesServiceImpl.saveAllFilesList(fileList);
+
+				// ((MultipartFile) fileList).transferTo(new File(saveDir2 + "/" + files));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "community/list";
+	}
 
 }
