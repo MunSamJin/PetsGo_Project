@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@Entity
+@Entity
 @Builder
 /**
  *  스크랩 도메인

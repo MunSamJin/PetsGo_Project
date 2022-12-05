@@ -31,7 +31,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@Entity
+@Entity
 @Builder
 //@ToString
 /**
