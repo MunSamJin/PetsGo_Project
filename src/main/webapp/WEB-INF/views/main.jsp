@@ -55,7 +55,7 @@
                 <div class="row align-items-center ">
                     <div class="col-lg-12">
                         <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                            <a class="navbar-brand" href="index.html"> <img src="${pageContext.request.contextPath}/img/logo.png" alt="logo"> </a>
+                            <a class="navbar-brand" href="${pageContext.request.contextPath}/main"> <img src="${pageContext.request.contextPath}/img/logo.png" alt="logo"> </a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
@@ -94,10 +94,10 @@
                                         </div>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="contact.html">회원가입</a>
+                                        <a class="nav-link" href="${pageContext.request.contextPath}/registerForm">회원가입</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="https://www.tripbtoz.com/">로그인</a>
+                                        <a class="nav-link" href="${pageContext.request.contextPath}/loginForm">로그인</a>
                                     </li>
                                 </ul>
                             </div>

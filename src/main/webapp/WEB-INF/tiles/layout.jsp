@@ -6,11 +6,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<style type="text/css">
+	<!-- <style type="text/css">
 		header{width: 800px; height: 100px; background-color: yellow;}
 		section{width: 800px; height: 400px; background-color: pink;}
 		footer{width: 800px; height: 150px; background-color: skyblue;}
-	</style>
+	</style> -->
 </head>
 <body>
 

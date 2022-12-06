@@ -57,7 +57,7 @@ public class MemberController {
 		
 		session.setAttribute("member", member);
 		
-		return "redirect:/member/index";
+		return "redirect:/member/main";
 	}
 	
 	/**
@@ -67,7 +67,7 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		
-		return "redirect:/member/index";
+		return "redirect:/main";
 	}	
 
 	/**
