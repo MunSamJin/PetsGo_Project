@@ -65,7 +65,7 @@ public class OwnerController {
 	
 	@RequestMapping("/campUpdate")
 	//@ResponseBody
-	public ModelAndView campUpdate(Camp camp, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
+	public String campUpdate(Camp camp, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
 		
 		String saveDir = session.getServletContext().getRealPath("/img/seryun/");
 		String filenames = "";
@@ -75,6 +75,7 @@ public class OwnerController {
 		
 		try {
 			//upload.getFile().transferTo(new File(saveDir + "/" + originalFileName));
+			
 			for (int i = 0; i < files.size(); i++) {
 				MultipartFile m = files.get(i);
 				System.out.println("첨부파일이름 = " + m.getOriginalFilename());
@@ -91,8 +92,14 @@ public class OwnerController {
 			e.printStackTrace();
 		} 
 		
+		if(filenames.equals("")) {
+			Camp camp2 = campService.selectAll();
+			camp.setCampFilename(camp2.getCampFilename());
+		} else {
+			camp.setCampFilename(filenames);
+		}
 		
-		camp.setCampFilename(filenames);
+		
 		campService.update(camp);
 		
 		ModelAndView mv = new ModelAndView();
@@ -101,7 +108,7 @@ public class OwnerController {
 		mv.addObject("fileSize", files.size());
 		mv.setViewName("owner/campSelect");
 		
-		return mv;
+		return "redirect:/owner/campSelect";
 	}
 	
 	
