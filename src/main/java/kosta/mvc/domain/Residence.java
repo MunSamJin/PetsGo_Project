@@ -17,6 +17,8 @@ import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -70,6 +72,7 @@ public class Residence {
 
 	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
 	@JoinColumn(name = "camp_no") 
+	@JsonIgnore
 	private Camp camp;
 
 	

@@ -39,7 +39,8 @@ public class CampServiceImpl implements CampService {
 
 	@Override
 	public void insert(Camp camp) {
-		// TODO Auto-generated method stub
+		camp.setCampState(0);
+		campRep.save(camp);
 
 	}
 
@@ -51,13 +52,13 @@ public class CampServiceImpl implements CampService {
 
 	@Override
 	public Camp update(Camp camp) {
-		String str="CDFI2262132016000034";
+		String str="141-12-01303";
 		Camp dbCamp = campRep.selectCamp(str);
 		dbCamp.setCampAddr(camp.getCampAddr());
 		dbCamp.setCampCheckin(camp.getCampCheckin());
 		dbCamp.setCampCheckout(camp.getCampCheckout());
 		dbCamp.setCampFacility(camp.getCampFacility());
-		//dbCamp.setCampFilename(camp.getCampFilename());
+		dbCamp.setCampFilename(camp.getCampFilename());
 		dbCamp.setCampIntro(camp.getCampIntro());
 		dbCamp.setCampNotify(camp.getCampNotify());
 		dbCamp.setCampPhone(camp.getCampPhone());

@@ -1,11 +1,16 @@
 package kosta.mvc.controller;
 
+import java.io.File;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Camp;
@@ -43,32 +48,61 @@ public class OwnerController {
 	}
 	
 	
-	@RequestMapping("/campUpdate")
-	public String campUpdate(Camp camp) {
-		Camp dbCamp = campService.update(camp);
-		return "redirect:/owner/campSelect";
+	/*
+	 * @RequestMapping("/campUpdate") public String campUpdate(Camp camp) { 
+	 * 	Camp dbCamp = campService.update(camp); 
+	 * 	return "redirect:/owner/campSelect"; }
+	 */
+	
+	
+	@RequestMapping("/campInsert")
+	public ModelAndView campInsert(Camp camp) {
+		campService.insert(camp);
+		
+		return new ModelAndView("관리자 승인페이지");
 	}
 	
 	
-	/*@RequestMapping("/upload")
+	@RequestMapping("/campUpdate")
 	//@ResponseBody
-	public String upload( HttpSession session, @RequestParam("files") List<MultipartFile> files) {
+	public ModelAndView campUpdate(Camp camp, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
 		
-		String saveDir = session.getServletContext().getRealPath("/WEB-INF/save/seryun");
-		//String originalFileName = upload.getFile().getOriginalFilename();
+		String saveDir = session.getServletContext().getRealPath("/img/seryun/");
 		String filenames = "";
 		
 		//upload.setFileName(originalFileName);
 		//upload.setFileSize(upload.getFile().getSize());
 		
 		try {
-			upload.getFile().transferTo(new File(saveDir + "/" + originalFileName));
+			//upload.getFile().transferTo(new File(saveDir + "/" + originalFileName));
+			for (int i = 0; i < files.size(); i++) {
+				MultipartFile m = files.get(i);
+				System.out.println("첨부파일이름 = " + m.getOriginalFilename());
+				
+				if (i == (files.size() - 1))
+					filenames += m.getOriginalFilename();
+				else
+					filenames += m.getOriginalFilename() + ",";
+				
+				System.out.println("filenames = " + filenames);
+				m.transferTo(new File(saveDir + "/" + m.getOriginalFilename()));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 		
-		return "";
-	}*/
+		
+		camp.setCampFilename(filenames);
+		campService.update(camp);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("saveDir", saveDir);
+		mv.addObject("originalFileName", filenames);
+		mv.addObject("fileSize", files.size());
+		mv.setViewName("owner/campSelect");
+		
+		return mv;
+	}
 	
 	
 	@RequestMapping("/delete")

@@ -103,7 +103,7 @@
                   	
                   	<c:set value="${fn:split(camp.campFilename , ',')}" var="filenameArr"/>
                   	<c:forEach items="${filenameArr}" var="filename">
-                  		<p><img class="news-item-preview" src="/img/camp/${filename}">${filename}</p>
+                  		<p><img class="news-item-preview" src="/img/seryun/${filename}">${filename}</p>
                   	</c:forEach>
                     
                   </div>
