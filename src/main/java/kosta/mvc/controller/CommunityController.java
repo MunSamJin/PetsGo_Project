@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -142,7 +143,7 @@ public class CommunityController {
 	@RequestMapping("/insert")
 	// public String uploadMultipartFile(@RequestParam("files") MultipartFile[] files,
 	// Model modal, HttpSession session) {//4번째 시도 - 실패
-	public ModelAndView insert(CommunityBoard communityBoard, @RequestParam("files") List<MultipartFile> files,
+	public String insert(CommunityBoard communityBoard, @RequestParam("files") List<MultipartFile> files,
 			HttpSession session) {//5번째 시도 - 성공 (다중 파일 업로드)
 		// String saveDir2 =
 		// session.getServletContext().getRealPath("WEB-INF/save/samjin");
@@ -188,9 +189,77 @@ public class CommunityController {
 		mv.addObject("saveDir2", saveDir2);
 		mv.addObject("originalFileName", imgNames);
 		mv.addObject("fileSize", files.size());
-		mv.setViewName("community/list");
+		//mv.setViewName("community/list");
 		
-		return mv;
+		//return mv;
+		return "redirect:/community/list";
 	}
-
+	
+	
+	/**
+	 *  상세보기
+	 */
+	@RequestMapping("/read/{boardNo}")
+	public ModelAndView read(@PathVariable Long boardNo) {
+		
+		CommunityBoard communityBoard = communityService.selectBy(boardNo);
+		
+		return new ModelAndView("community/read", "communityBoard", communityBoard);
+	}
+	
+	/**
+	 *  수정폼
+	 */
+	@RequestMapping("/updateForm")
+	public ModelAndView updateForm(Long boardNo) {
+		CommunityBoard board = communityService.selectBy(boardNo);
+		return new ModelAndView("community/updateForm", "board", board);
+	}
+	
+	/**
+	 *  수정완료하기
+	 */
+	@RequestMapping("/update")
+	public ModelAndView update(CommunityBoard board, @RequestParam("files") List<MultipartFile> files,
+			HttpSession session) {
+		
+		
+		System.out.println("board.getboardNo" + board.getBoardNo());
+		
+		String saveDir3 = session.getServletContext().getRealPath("/img/samjin/");
+		String imgNames = "";
+		
+		try {
+			for (int i = 0; i < files.size(); i++) {
+				MultipartFile m = files.get(i);
+				System.out.println("첨부파일이름 = " + m.getOriginalFilename());
+				
+				if (i == (files.size() - 1))
+					imgNames += m.getOriginalFilename();
+				else
+					imgNames += m.getOriginalFilename() + ",";
+					
+				System.out.println("imgNames = " + imgNames);
+				m.transferTo(new File(saveDir3 + "/" + m.getOriginalFilename()));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		board.setBoardFileName(imgNames);
+		
+		CommunityBoard dbBoard = communityService.update(board);
+		
+		return new ModelAndView("community/read", "communityBoard", dbBoard);
+	}
+	
+	/**
+	 *  삭제하기
+	 */
+	@RequestMapping("/delete")
+	public String delete(Long boardNo) {
+		communityService.delete(boardNo);
+		return "redirect:/community/list";
+	}
 }

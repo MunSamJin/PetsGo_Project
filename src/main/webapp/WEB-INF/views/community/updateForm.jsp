@@ -81,12 +81,13 @@
 				width: 80%; margin-top: 50px; margin-left: auto; margin-right: auto; margin-bottom: 50px">
 		
 
-		<form name="writeForm" method="post" action="${pageContext.request.contextPath}/community/insert" 
+		<form name="writeForm" method="post" action="${pageContext.request.contextPath}/community/update" 
 			  onSubmit='return checkValid()' enctype="multipart/form-data">			  
 			  
 			<%-- <input type=hidden name="memberNo" value="${member.memberNo}"> --%>
 			
 			<input type="hidden" name="boardTag" value="">
+			<input type="hidden" name="boardNo" value="${board.boardNo }"/>
 					  
 			<table style="width: 70%; margin-left: auto; margin-right: auto;">
 				<tr>
@@ -122,8 +123,8 @@
 				<tr>
 					<td>
 						<p style="white-space: pre-line;">
-							<textarea name="boardContent" rows="10" cols="100" placeholder="내용을 입력해주세요." 
-									  style="font-size: 10pt; white-space: pre-line; border: 1px solid #edeef0; border-radius: 8px;"></textarea>
+							<textarea name="boardContent" rows="10" cols="100" 
+									  style="font-size: 10pt; white-space: pre-line; border: 1px solid #edeef0; border-radius: 8px;">${board.boardContent }</textarea>
 						</p>
 					</td>
 				</tr>
@@ -141,12 +142,12 @@
 					<td>
 						<div style="text-align: right;">
 							<br>
-	  						<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/community/list'"
+	  						<input type="button" value="뒤로가기" onclick="javascript:history.back();"
 	  								style="display: inline-block; margin-left: 6px; border-color: #4876ef; color: #4876ef; background-color: #fff;
 					 					   border: 1px solid #4876ef; box-sizing: border-box; text-align: center;padding: 0 8px 1px; height: 24px;
 					 					   border-radius: 4px; font-size: 12px; letter-spacing: -0.5px; line-height: 20px; cursor: pointer;"/>
 					  
-	  						<input type=submit value=글쓰기
+	  						<input type=submit value=수정하기
 	  							   style="display: inline-block; margin-left: 6px;border-color: #d7dce5; color: #5c667b; background-color: #fff;
 			   		  					  padding: 0 8px 1px; height: 24px; border-radius: 4px; font-size: 12px; letter-spacing: -0.5px;
 			   		  					  line-height: 20px; border: 1px solid #edeef0; box-sizing: border-box; text-align: center;cursor: pointer;"/>
@@ -154,13 +155,6 @@
 					</td>
 				</tr>
 			</table>
-			
-			<br>
-			
-			
-	  		
-	  		<br>
-	  		
 	  		
 	  	</form>	
 	</div>

@@ -16,6 +16,21 @@ public interface CommunityService {
 	 */
 	void insert(CommunityBoard communityBoard);
 	
+	/**
+	 * 상세보기
+	 */
+	CommunityBoard selectBy(Long boardNo);
+	
+	/**
+	 *  수정하기
+	 */
+	CommunityBoard update(CommunityBoard board);
+	
+	/**
+     * 삭제하기
+     * */
+    void delete(Long boardNo);
+	
 	
 	
 }

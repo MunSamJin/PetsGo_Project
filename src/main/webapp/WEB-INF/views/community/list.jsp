@@ -9,14 +9,24 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
+	
+	
+	<style type="text/css">
+	
+/* 전체검색 : 태그 */
+		body > section > div > table:nth-child(4) > tbody > tr > td{width: 100px}
+		
+		
+/* 상세보기 : 모달창 */
+		
+	</style>
 
 </head>
 <body>
-<div style="margin-left:10%;">
-	<h2>community/list 페이지 입니다.</h2>
+<div>
 	<a href="${pageContext.request.contextPath}/community/write">글쓰기</a> <br><br>
-	
-	<table>
+<!-- 전체검색 : 태그 -->	
+	<table style="width: 75%; margin-left: auto; margin-right: auto; text-align: center;" >
 		<tr>
 			<td>
 				<img src="${pageContext.request.contextPath}/img/samjin/tag/오토캠핑.png" width="30px" height="30px"/><br>
@@ -65,7 +75,10 @@
 		</tr>
 	</table>	
 	<br>
-		<table>
+	
+	
+<!-- 커뮤니티 전체조회 -->	
+		<table style="width: 80%; margin-left: auto; margin-right: auto; margin-bottom: 50px">
 			<tr>
 				<c:forEach items="${requestScope.communityBoardList}" var="communityBoardList" varStatus="status">
 				<c:if test="${status.index%3==0}">
@@ -76,7 +89,9 @@
 				    	<c:choose>
 				    		<c:when test="${empty communityBoardList.boardFileName }">
 								<div style="width: 320px; height: 350px; text-align: center;">
-									<div style="width: 300px; height: 300px; border: 1px solid gray; border-radius: 10px"></div>		
+									<img src=""
+										 width="400px" height="300px" style="border-radius: 10px; cursor: pointer;" 
+								 		 onclick="javascript:location.href='${pageContext.request.contextPath}/community/read/${communityBoardList.boardNo}';"/><br>	
 										<div style="text-align: left;">
 											<span>${communityBoardList.boardTag}</span><br>
 											<c:choose>
@@ -98,7 +113,8 @@
 								<div style="width: 320px; height: 350px; text-align: center;">
 									
 									<img src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList.boardFileName,',')[0]}" 
-								 		 width="300px" height="300px" style="border-radius: 10px"/><br> 
+								 		 width="400px" height="300px" style="border-radius: 10px; cursor: pointer;" 
+								 		 onclick="javascript:location.href='${pageContext.request.contextPath}/community/read/${communityBoardList.boardNo}';"/><br> 
 								 	
 								 	<%-- <c:set var="boardFileName" value="${fn:split(communityBoardList.boardFileName,',')}"></c:set>
 								 	<c:forEach items="${boardFileName}" var="boardFileName">
@@ -129,12 +145,7 @@
 				    </td>
 				</c:forEach>
 			</tr>
-		</table>
-	</div>
- 
-	
-	
-
-	
+		</table>	
+	</div>			
 </body>
 </html>
