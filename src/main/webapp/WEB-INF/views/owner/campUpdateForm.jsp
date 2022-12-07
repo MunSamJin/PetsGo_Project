@@ -70,9 +70,9 @@
         <li class="active dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-long-arrow-down"></i><span>캠핑장조회</span> <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="${pageContext.request.contextPath}/owner/campSelect">캠핑장조회</a></li>
-            <li><a href="${pageContext.request.contextPath}/owner/campInsert">캠핑장등록</a></li>
+            <%-- <li><a href="${pageContext.request.contextPath}/owner/campInsert">캠핑장등록</a></li> --%>
             <li><a href="${pageContext.request.contextPath}/owner/resiSelect">숙소조회</a></li>
-            <li><a href="${pageContext.request.contextPath}/owner/resiInsert">숙소등록</a></li>
+            <li><a href="${pageContext.request.contextPath}/owner/resiInsertForm">숙소등록</a></li>
           </ul>
         </li>
         <li><a href="${pageContext.request.contextPath}/owner/reservManagement"><i class="icon-facetime-video"></i><span>예약관리</span> </a></li>
@@ -162,7 +162,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">공지사항</a>
-                    <p><textarea class="news-item-preview" name="campNotify">${camp.campNotify}</textarea></p>
+                    <p><textarea class="news-item-preview" name="campNotify" style="white-space: pre-line;">${camp.campNotify}</textarea></p>
                   </div>
                   
                 </li>
@@ -170,7 +170,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">소개글</a>
-                    <p><textarea class="news-item-preview" name="campIntro">${camp.campIntro}</textarea></p>
+                    <p><textarea class="news-item-preview" name="campIntro" style="white-space: pre-line;">${camp.campIntro}</textarea></p>
                   </div>
                   
                 </li>

@@ -1,35 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
 <head>
+<head>
 <meta charset="utf-8">
 <title>Pet's Go</title>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<link
-	href="${pageContext.request.contextPath}/css/seryun/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/css/seryun/bootstrap-responsive.min.css"
-	rel="stylesheet">
-<link
-	href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/css/seryun/font-awesome.css"
-	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/seryun/style.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/css/seryun/pages/dashboard.css"
-	rel="stylesheet">
-	
-	
-	<style type="text/css">
+<link href="${pageContext.request.contextPath}/css/seryun/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/seryun/bootstrap-responsive.min.css" rel="stylesheet">
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
+        rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/seryun/font-awesome.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/seryun/style.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/seryun/pages/dashboard.css" rel="stylesheet">
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <style type="text/css">
 		
 		
 		#att_zone {
@@ -59,12 +52,12 @@
 				
 				$("#edit-profile").ajaxForm({
 					type:"POST",
-					url:"${pageContext.request.contextPath}/owner/campInsert",
+					url:"${pageContext.request.contextPath}/owner/resiInsert",
 					//data:$("#edit-profile").serialize(),
 					dataType:"text",
 					success:function(result){
-						 alert("캠핑장 등록 신청이 완료되었습니다. 결과는 입력하신 이메일로 발송됩니다.");
-						 location.href = "${pageContext.request.contextPath}/main";
+						 //alert("등록되었습니다");
+						 location.href = "${pageContext.request.contextPath}/owner/resiSelect";
 						 	
 					},
 					error:function(err){
@@ -77,33 +70,64 @@
 		})
 	
 	</script>
-	
-	
 </head>
 <body>
-
-	<div class="navbar navbar-fixed-top">
-
-		<div class="navbar-inner">
-
-			<div class="container">
-
-				<a class="btn btn-navbar" data-toggle="collapse"
-					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span>
-				</a> <a class="brand" href="index.html">캠핑장 등록 신청</a>
-
-
-			</div>
-			<!-- /container -->
-
-		</div>
-		<!-- /navbar-inner -->
-
-	</div>
-	<!-- /navbar -->
-
-	<div class="main">
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
+                    class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a><a class="brand" href="${pageContext.request.contextPath}/owner/campHome">캠핑장 관리</a>
+      <div class="nav-collapse">
+        <ul class="nav pull-right">
+          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                            class="icon-cog"></i> Account <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="javascript:;">Settings</a></li>
+              <li><a href="javascript:;">Help</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                            class="icon-user"></i> EGrappler.com <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="javascript:;">Profile</a></li>
+              <li><a href="javascript:;">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="navbar-search pull-right">
+          <input type="text" class="search-query" placeholder="Search">
+        </form>
+      </div>
+      <!--/.nav-collapse --> 
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /navbar-inner --> 
+</div>
+<!-- /navbar -->
+<div class="subnavbar">
+  <div class="subnavbar-inner">
+    <div class="container">
+      <ul class="mainnav">
+        <li><a href="${pageContext.request.contextPath}/owner/campHome"><i class="icon-dashboard"></i><span>관리홈</span> </a> </li>
+        <%-- <li class="active"><a href="${pageContext.request.contextPath}/owner/campManagement"><i class="icon-list-alt"></i><span>캠핑장관리</span> </a> </li> --%>
+        <li class="active dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-long-arrow-down"></i><span>숙소등록</span> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="${pageContext.request.contextPath}/owner/campSelect">캠핑장조회</a></li>
+            <%-- <li><a href="${pageContext.request.contextPath}/owner/campInsert">캠핑장등록</a></li> --%>
+            <li><a href="${pageContext.request.contextPath}/owner/resiSelect">숙소조회</a></li>
+            <li><a href="${pageContext.request.contextPath}/owner/resiInsertForm">숙소등록</a></li>
+          </ul>
+        </li>
+        <li><a href="${pageContext.request.contextPath}/owner/reservManagement"><i class="icon-facetime-video"></i><span>예약관리</span> </a></li>
+        <li><a href="${pageContext.request.contextPath}/owner/reservChart"><i class="icon-bar-chart"></i><span>예약통계</span> </a> </li>
+      </ul>
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /subnavbar-inner --> 
+</div>
+<!-- /subnavbar -->
+<div class="main">
 
 		<div class="main-inner">
 
@@ -117,7 +141,7 @@
 
 							<div class="widget-header">
 								<i class="icon-user"></i>
-								<h3>캠핑장 등록 신청 폼</h3>
+								<h3>숙소 등록 폼</h3>
 							</div>
 							<!-- /widget-header -->
 
@@ -128,97 +152,98 @@
 								<div class="tabbable">
 									<ul class="nav nav-tabs">
 										<li class="active"><a href="#formcontrols"
-											data-toggle="tab">신청폼</a></li>
+											data-toggle="tab">등록폼</a></li>
 										
 									</ul>
-
 									<br>
 
 									<div class="tab-content">
 										<div class="tab-pane active" id="formcontrols">
-											<form id="edit-profile" class="form-horizontal" method="post" enctype="multipart/form-data" name="campInsert"
-												action="${pageContext.request.contextPath}/owner/campInsert">
+											<form id="edit-profile" class="form-horizontal" method="post" enctype="multipart/form-data" name="resiInsert"
+												action="${pageContext.request.contextPath}/owner/resiInsert">
 												<fieldset>
-													<!-- <div class="control-group">
-														<label class="control-label" for="campState">등록상태</label>
+												
+													<!-- campNo를 hidden으로 넘긴다(외래키) -->
+												
+												 	<div class="control-group">
+														<label class="control-label" for="campName">${camp.campName}</label>
 														<div class="controls">
-															<input type="text" class="span6 disabled" id="campState" name="campState"
+															<input type="text" class="span6 disabled" id="campName" 
 																value=0 disabled>
-															<p class="help-block">등록 승인 이후 로그인 가능</p>
+															<p class="help-block"></p>
 														</div>
-														/controls
-													</div> -->
+													</div>
 													<!-- /control-group -->
 
 
 													<div class="control-group">
-														<label class="control-label" for="campName">캠핑장 이름</label>
+														<label class="control-label" for="resiName">숙소 이름</label>
 														<div class="controls">
-															<input type="text" class="span6" id="campName" name="campName">
+															<input type="text" class="span6" id="resiName" name="resiName">
 														</div>
 														<!-- /controls -->
 													</div>
 													<!-- /control-group -->
 													
 													<div class="control-group">
-														<label class="control-label" for="campName">사업자 이메일</label>
+														<label class="control-label" for="resiType">숙소 유형</label>
 														<div class="controls">
-															<input type="text" class="span6" id="campEmail" name="campEmail">
+															<input type="text" class="span6" id="resiType" name="resiType">
 														</div>
 														<!-- /controls -->
 													</div>
 													<!-- /control-group -->
 													
 													<div class="control-group">
-														<label class="control-label" for="campPassword">사업자 비밀번호</label>
+														<label class="control-label" for="resiEnv">숙소 주변 환경</label>
 														<div class="controls">
-															<input type="password" class="span4" id="campPassword" name="campPassword">
+															<input type="text" class="span4" id="resiEnv" name="resiEnv">
 														</div>
 														<!-- /controls -->
 													</div>
 													<!-- /control-group -->
 													
 													<div class="control-group">
-														<label class="control-label" for="campRegNo">사업자 등록 번호</label>
+														<label class="control-label" for="resiGround">숙소 바닥 형태</label>
 														<div class="controls">
-															<input type="text" class="span6" id="campRegNo" name="campRegNo" >
+															<input type="text" class="span6" id="resiGround" name="resiGround" >
 														</div>
 														<!-- /controls -->
 													</div>
 													<!-- /control-group -->
 													
 													<div class="control-group">
-														<label class="control-label" for="campPhone">연락처</label>
+														<label class="control-label" for="resiAmeniti">숙소 편의시설</label>
 														<div class="controls">
-															<input type="text" class="span6" id="campPhone" name="campPhone" placeholder="하이픈(-) 포함해서 작성">
+															<input type="text" class="span6" id="resiAmeniti" name="resiAmeniti" placeholder="공백없이 ','를 기준으로 작성하세요">
 														</div>
 														<!-- /controls -->
 													</div>
 													<!-- /control-group -->
 													
 													<div class="control-group">
-														<label class="control-label" for="campPost">캠핑장 우편번호</label>
+														<label class="control-label" for="resiPrice">숙소 가격</label>
 														<div class="controls">
-															<input type="text" id="sample6_postcode" name="campPost">
-															<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+															<input type="text" class="span6" id="resiPrice" name="resiPrice">
 														</div>
 														<!-- /controls -->
 													</div>
 													<!-- /control-group -->
 													
+													
 													<div class="control-group">
-														<label class="control-label" for="campAddr">캠핑장 주소</label>
+														<label class="control-label" for="resiIntro">숙소 소개글</label>
 														<div class="controls">
-															<p><input type="text" class="news-item-preview" id="sample6_address" name="campAddr" placeholder="주소"></p>
-											                   <input type="text" id="sample6_detailAddress" placeholder="상세주소">
-																<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+															<!-- <input type="text" class="span6" id="campIntro" name="campIntro"> -->
+															<textarea class="news-item-preview" name="resiIntro" style="white-space: pre-line;"></textarea>
 														</div>
 														<!-- /controls -->
 													</div>
 													<!-- /control-group -->
 													
+													
 													<div class="control-group">
-														<label class="control-label" for="campFilename">캠핑장 사진</label>
+														<label class="control-label" for="resiFilename">숙소 사진</label>
 														<!-- <div class="controls">
 															<input type="text" class="span6" id="campFilename" name="campFilename">
 														</div> -->
@@ -230,65 +255,31 @@
 													</div>
 													<!-- /control-group -->
 													
+													
 													<div class="control-group">
-														<label class="control-label" for="campNotify">캠핑장 공지사항</label>
+														<label class="control-label" for="resiPeople">총 제한 인원</label>
 														<div class="controls">
-															<!-- <input type="text" class="span6" id="campNotify" name="campNotify"> -->
-															<textarea class="news-item-preview" name="campNotify" style="white-space: pre-line;"></textarea>
+															<input type="text" class="span6" id="resiPeople" name="resiPeople">
+														</div>
+														<!-- /controls -->
+													</div>
+													
+													<div class="control-group">
+														<label class="control-label" for="resiPet">입장 가능 반려견 정보</label>
+														<div class="controls">
+															<input type="text" class="span6" id="resiPet" name="resiPet">
 														</div>
 														<!-- /controls -->
 													</div>
 													<!-- /control-group -->
-													
-													<div class="control-group">
-														<label class="control-label" for="campIntro">캠핑장 소개글</label>
-														<div class="controls">
-															<!-- <input type="text" class="span6" id="campIntro" name="campIntro"> -->
-															<textarea class="news-item-preview" name="campIntro" style="white-space: pre-line;"></textarea>
-														</div>
-														<!-- /controls -->
-													</div>
-													<!-- /control-group -->
-													
-													<div class="control-group">
-														<label class="control-label" for="campFacility">캠핑장 부대시설</label>
-														<div class="controls">
-															<input type="text" class="span6" id="campFacility" name="campFacility" placeholder="공백없이 ','를 기준으로 작성하세요">
-														</div>
-														<!-- /controls -->
-													</div>
-													
-													<div class="control-group">
-														<label class="control-label" for="campSurround">캠핑장 주변시설</label>
-														<div class="controls">
-															<input type="text" class="span6" id="campSurround" name="campSurround" placeholder="공백없이 ','를 기준으로 작성하세요">
-														</div>
-														<!-- /controls -->
-													</div>
-													
-													<div class="control-group">
-														<label class="control-label" for="campCheckin">캠핑장 체크인 시간</label>
-														<div class="controls">
-															<input type="text" class="span6" id="campCheckin" name="campCheckin">
-														</div>
-														<!-- /controls -->
-													</div>
-													
-													<div class="control-group">
-														<label class="control-label" for="campCheckout">캠핑장 체크아웃 시간</label>
-														<div class="controls">
-															<input type="text" class="span6" id="campCheckout" name="campCheckout">
-														</div>
-														<!-- /controls -->
-													</div>
-													<!-- /control-group -->
+
 
 													<br />
 													<br />
 
 
 													<div class="form-actions">
-														<button class="btn btn-primary" id="campRequest" type="button">신청</button>
+														<button class="btn btn-primary" id="resiInsert">신청</button>
 														<button class="btn">취소</button>
 													</div>
 													<!-- /form-actions -->
@@ -320,101 +311,114 @@
 	<!-- /main -->
 
 
-
-
-	<div class="extra">
-
-		<div class="extra-inner">
-
-			<div class="container">
-
-				<div class="row">
-					<div class="span3">
-						<h4>About Free Admin Template</h4>
-						<ul>
-							<li><a href="javascript:;">EGrappler.com</a></li>
-							<li><a href="javascript:;">Web Development Resources</a></li>
-							<li><a href="javascript:;">Responsive HTML5 Portfolio
-									Templates</a></li>
-							<li><a href="javascript:;">Free Resources and Scripts</a></li>
-						</ul>
-					</div>
-					<!-- /span3 -->
-					<div class="span3">
-						<h4>Support</h4>
-						<ul>
-							<li><a href="javascript:;">Frequently Asked Questions</a></li>
-							<li><a href="javascript:;">Ask a Question</a></li>
-							<li><a href="javascript:;">Video Tutorial</a></li>
-							<li><a href="javascript:;">Feedback</a></li>
-						</ul>
-					</div>
-					<!-- /span3 -->
-					<div class="span3">
-						<h4>Something Legal</h4>
-						<ul>
-							<li><a href="javascript:;">Read License</a></li>
-							<li><a href="javascript:;">Terms of Use</a></li>
-							<li><a href="javascript:;">Privacy Policy</a></li>
-						</ul>
-					</div>
-					<!-- /span3 -->
-					<div class="span3">
-						<h4>Open Source jQuery Plugins</h4>
-						<ul>
-							<li><a href="">Open Source jQuery Plugins</a></li>
-							<li><a href="">HTML5 Responsive Tempaltes</a></li>
-							<li><a href="">Free Contact Form Plugin</a></li>
-							<li><a href="">Flat UI PSD</a></li>
-						</ul>
-					</div>
-					<!-- /span3 -->
-				</div>
-				<!-- /row -->
-
-			</div>
-			<!-- /container -->
-
-		</div>
-		<!-- /extra-inner -->
-
-	</div>
-	<!-- /extra -->
-
-
-
-
-	<div class="footer">
-
-		<div class="footer-inner">
-
-			<div class="container">
-
-				<div class="row">
-
-					<div class="span12">
-						&copy; 2013 <a href="#">Bootstrap Responsive Admin Template</a>.
-					</div>
-					<!-- /span12 -->
-
-				</div>
-				<!-- /row -->
-
-			</div>
-			<!-- /container -->
-
-		</div>
-		<!-- /footer-inner -->
-
-	</div>
-	<!-- /footer -->
-
-
-
-	<%-- <script src="${pageContext.request.contextPath}/js/seryun/jquery-1.7.2.min.js"></script> --%>
-
-	<script src="${pageContext.request.contextPath}/js/seryun/bootstrap.js"></script>
-	<script src="${pageContext.request.contextPath}/js/seryun/base.js"></script>
+<div class="extra">
+  <div class="extra-inner">
+    <div class="container">
+      <div class="row">
+                    <div class="span3">
+                        <h4>
+                            About Free Admin Template</h4>
+                        <ul>
+                            <li><a href="javascript:;">EGrappler.com</a></li>
+                            <li><a href="javascript:;">Web Development Resources</a></li>
+                            <li><a href="javascript:;">Responsive HTML5 Portfolio Templates</a></li>
+                            <li><a href="javascript:;">Free Resources and Scripts</a></li>
+                        </ul>
+                    </div>
+                    <!-- /span3 -->
+                    <div class="span3">
+                        <h4>
+                            Support</h4>
+                        <ul>
+                            <li><a href="javascript:;">Frequently Asked Questions</a></li>
+                            <li><a href="javascript:;">Ask a Question</a></li>
+                            <li><a href="javascript:;">Video Tutorial</a></li>
+                            <li><a href="javascript:;">Feedback</a></li>
+                        </ul>
+                    </div>
+                    <!-- /span3 -->
+                    <div class="span3">
+                        <h4>
+                            Something Legal</h4>
+                        <ul>
+                            <li><a href="javascript:;">Read License</a></li>
+                            <li><a href="javascript:;">Terms of Use</a></li>
+                            <li><a href="javascript:;">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <!-- /span3 -->
+                    <div class="span3">
+                        <h4>
+                            Open Source jQuery Plugins</h4>
+                        <ul>
+                            <li><a href="">Open Source jQuery Plugins</a></li>
+                            <li><a href="">HTML5 Responsive Tempaltes</a></li>
+                            <li><a href="">Free Contact Form Plugin</a></li>
+                            <li><a href="">Flat UI PSD</a></li>
+                        </ul>
+                    </div>
+                    <!-- /span3 -->
+                </div>
+      <!-- /row --> 
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /extra-inner --> 
+</div>
+<!-- /extra -->
+<div class="footer">
+  <div class="footer-inner">
+    <div class="container">
+      <div class="row">
+        <div class="span12"> &copy; 2013 <a href="#">Bootstrap Responsive Admin Template</a>. </div>
+        <!-- /span12 --> 
+      </div>
+      <!-- /row --> 
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /footer-inner --> 
+</div>
+<!-- /footer --> 
+<!-- Le javascript
+================================================== --> 
+<!-- Placed at the end of the document so the pages load faster --> 
+<script src="${pageContext.request.contextPath}/js/seryun/jquery-1.7.2.min.js"></script> 
+<script src="${pageContext.request.contextPath}/js/seryun/excanvas.min.js"></script> 
+<script src="${pageContext.request.contextPath}/js/seryun/chart.min.js" type="text/javascript"></script> 
+<script src="${pageContext.request.contextPath}/js/seryun/bootstrap.js"></script>
+<script language="javascript" type="text/javascript" src="${pageContext.request.contextPath}/js/seryun/full-calendar/fullcalendar.min.js"></script>
+ 
+<script src="${pageContext.request.contextPath}/js/seryun//base.js"></script> 
+	<script type="text/javascript">
+		$(function(){
+			
+			$("#campRequest").click(function(){			
+				//$("#memberListView").empty();
+				
+				/* if($("#address").val()==""){
+					return;
+				} */
+				$.ajax({
+					type:"POST",
+					url:"${pageContext.request.contextPath}/owner/campInsert",
+					data:$("#edit-profile").serialize(),
+					dataType:"json",
+					success:function(result){
+						
+						 alert("캠핑장 등록 신청이 완료되었습니다. 결과는 입력하신 이메일로 발송됩니다.");
+						 
+						 	
+					}//function
+					error:function(err){
+						alert("입력사항을 다시 확인해주세요.")
+						history.back();
+					}
+				});//ajax
+			});//click
+		})
+	
+	</script>
 	
 	<script>
   			/* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
@@ -572,5 +576,4 @@
 		</script>
 
 </body>
-
 </html>
