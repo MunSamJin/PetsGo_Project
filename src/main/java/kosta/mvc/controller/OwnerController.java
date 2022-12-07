@@ -141,12 +141,27 @@ public class OwnerController {
 	}
 	
 	
+	@RequestMapping("/campRegNoCheck")
+	@ResponseBody
+	public String campRegNoCheck() {
+		Camp camp = campService.selectAll();
+		System.out.println("camp = " + camp);
+		if(camp==null) return "success";
+		else return "fail";
+	}
+	
 	
 	
 	@RequestMapping("/resiSelect")
 	public void resiSelect(Model model) {
 		List<Residence> resiList = resiService.selectAll();
 		model.addAttribute("resiList", resiList);
+	}
+	
+	
+	@RequestMapping("/resiInsert")
+	public void resiInsert(Residence resi) {
+		resiService.insert(resi);
 	}
 	
 	

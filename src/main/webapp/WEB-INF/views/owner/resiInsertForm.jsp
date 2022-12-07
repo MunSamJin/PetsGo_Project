@@ -168,8 +168,7 @@
 												 	<div class="control-group">
 														<label class="control-label" for="campName">${camp.campName}</label>
 														<div class="controls">
-															<input type="text" class="span6 disabled" id="campName" 
-																value=0 disabled>
+															<input type="text" class="span6 disabled" id="campName" value=0 disabled>
 															<p class="help-block"></p>
 														</div>
 													</div>
@@ -197,7 +196,7 @@
 													<div class="control-group">
 														<label class="control-label" for="resiEnv">숙소 주변 환경</label>
 														<div class="controls">
-															<input type="text" class="span4" id="resiEnv" name="resiEnv">
+															<input type="text" class="span4" id="resiEnv" name="resiEnv" placeholder="공백없이 ','를 기준으로 작성하세요">
 														</div>
 														<!-- /controls -->
 													</div>
@@ -206,7 +205,7 @@
 													<div class="control-group">
 														<label class="control-label" for="resiGround">숙소 바닥 형태</label>
 														<div class="controls">
-															<input type="text" class="span6" id="resiGround" name="resiGround" >
+															<input type="text" class="span6" id="resiGround" name="resiGround" placeholder="공백없이 ','를 기준으로 작성하세요">
 														</div>
 														<!-- /controls -->
 													</div>
