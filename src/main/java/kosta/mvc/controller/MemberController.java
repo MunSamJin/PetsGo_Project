@@ -1,5 +1,7 @@
 package kosta.mvc.controller;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -7,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Member;
@@ -23,7 +25,7 @@ public class MemberController {
 	/**
 	 * 이메일 중복 확인
 	 * */
-	@RequestMapping("emailCheck")
+	@RequestMapping("/emailCheck")
 	@ResponseBody
 	public String emailCheck(HttpServletRequest request) {
 		return memberService.emailCheck(request.getParameter("memberEmail"));
@@ -32,7 +34,7 @@ public class MemberController {
 	/**
 	 * 닉네임 중복 확인
 	 * */
-	@RequestMapping("nicknameCheck")
+	@RequestMapping("/nicknameCheck")
 	@ResponseBody
 	public String nicknameCheck(HttpServletRequest request) {
 		return memberService.nicknameCheck(request.getParameter("memberNickname"));
@@ -41,11 +43,13 @@ public class MemberController {
 	/**
 	 * 회원 가입
 	 * */
-	@RequestMapping("register")
-	public String register(Member member) {
+	@RequestMapping("/register")
+	public String register(Member member, HttpSession session) {
 		memberService.register(member);
+		
+		session.setAttribute("member", member);
 
-		return "redirect:/member/index";
+		return "redirect:/member/main";
 	}	
 	
 	/**
@@ -58,8 +62,8 @@ public class MemberController {
 		session.setAttribute("member", member);
 		
 		return "redirect:/member/main";
-	}
-	
+	} 
+		
 	/**
 	 * 로그아웃
 	 * */
@@ -73,7 +77,7 @@ public class MemberController {
 	/**
 	 * 회원 정보 수정하기
 	 * */
-	@RequestMapping("updateInfo")
+	@RequestMapping("/updateInfo")
 	public ModelAndView updateInfo(Member member) {
 		member = memberService.updateInfo(member);
 		

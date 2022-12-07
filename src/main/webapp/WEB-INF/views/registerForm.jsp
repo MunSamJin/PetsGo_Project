@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Insert title here</title>
+<title>PetsGo</title>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 	
 	<!-- 추가한 것 -->
@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <!-- main CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main_petsgo.css">
+    <!-- register CSS -->
+    <link href="${pageContext.request.contextPath}/css/minjeong/registerForm.css" rel="stylesheet">
     
     <!-- register js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -93,32 +95,76 @@
 	<!-- Header part end-->
 
 	<!-- register part start -->
-	<h2>Member Register Form</h2><p>
-	<form method="post" action="${pageContext.request.contextPath}/register" id="registerForm">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-		아이콘 <input type="file" name="memberProfile"><br><br>
-		이메일 <input type="text" name="memberEmail" id="email"> <span id="emailCheck"></span> <br>
-		<span id="emailValid"></span><br><br>
-		비밀번호 <input type="password" name="memberPassword" id="password"><br>
-		<span id="passwordValid"></span><br><br>
-		비밀번호 확인 <input type="password" name="passwordCheck" id="passwordCheck"><br>
-		<span id="passwordEqual"></span><br><br>
-		닉네임 <input type="text" name="memberNickname" id="nickname"> <span id="nicknameCheck"></span> <br>
-		<span id="nicknameValid"></span><br><br>
-		휴대폰번호 <input type="text" name="memberPhone" oninput="autoHyphen(this)" maxlength="13" placeholder="'-'없이 숫자만 입력해 주세요."><br><br>
-		<script>
-            const autoHyphen = (target) => {
-                target.value = target.value
-                    .replace(/[^0-9]/g, '')
-                    .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
-            }
-        </script>
-        생년월일 <input type="text" name="memberBirthDate" id="datepicker"><br><br>
-<!-- 		USER TYPE <input type="radio" value="0" name="userType">ROLE_MEMBER
-				  <input type="radio" value="1" name="userType">ROLE_ADMIN<br><br> -->
-		<input type="submit" value="회원 가입">
-		<input type="reset" value="취소">
-	</form>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-12 col-lg-6">
+				<div class="registerForm">
+					<h1>회원가입</h1>
+                    <div class="line">
+                        <span class="necessary">*</span>
+                        필수입력사항
+                    </div>
+                    
+					<form id="registerForm" action="${pageContext.request.contextPath}/member/register" method="post">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                        <div class="form-content">
+                            <label for="file" class="form-label">아이콘</label>
+                           <!--  <input type="file" class="form-control" name="memberProfile" id="file"> -->
+                           <!--  <input type="radio" class="form-control" name="memberProfile" id="file" value="member1.png"> -->
+                            <input type="radio" name="memberProfile" id="file" value="member1.png" checked> &nbsp;&nbsp;&nbsp;
+                            <img src="${pageContext.request.contextPath}/img/minjeong/member1.png" alt="">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="memberProfile" id="file" value="member2.png"> &nbsp;&nbsp;&nbsp;
+                            <img src="${pageContext.request.contextPath}/img/minjeong/member2.png" alt="">
+                        </div>
+                        <div class="form-content">
+                            <label for="email" class="form-label">이메일<span class="necessary">*</span></label>
+                            <input type="text" class="form-control" name="memberEmail" id="email"> 
+                        </div>
+                        <div id="emailValid"></div>
+                        <div id="emailCheck"></div> 
+                        <div class="form-content">
+                            <label for="password" class="form-label">비밀번호<span class="necessary">*</span></label>
+                            <input type="password" class="form-control" name="memberPassword" id="password">
+                        </div>
+						<div id="passwordValid"></div>
+                        <div class="form-content">
+                            <label for="passwordCheck" class="form-label">비밀번호 확인<span class="necessary">*</span></label>
+                            <input type="password" class="form-control" name="passwordCheck" id="passwordCheck">
+                        </div>
+						<div id="passwordEqual"></div>
+                        <div class="form-content">
+                            <label for="nickname" class="form-label">닉네임<span class="necessary">*</span></label>
+                            <input type="text" class="form-control" name="memberNickname" id="nickname">
+                        </div>
+						<div id="nicknameValid"></div>
+						<div id="nicknameCheck"></div> 
+                        <div class="form-content">
+                            <label for="phone" class="form-label">휴대폰번호<span class="necessary">*</span></label>
+                            <input type="text" class="form-control" name="memberPhone" id="phone" oninput="autoHyphen(this)" maxlength="13" placeholder="'-'없이 숫자만 입력해 주세요">
+                        </div>						 
+						<script>
+				            const autoHyphen = (target) => {
+				                target.value = target.value
+				                    .replace(/[^0-9]/g, '')
+				                    .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+				            }
+				        </script>
+                        <div class="form-content">
+                            <label for="datepicker" class="form-label">생년월일<span class="necessary">*</span></label>
+                            <input type="text" class="form-control" name="memberBirthDate" id="datepicker">
+                        </div>
+				        <!-- 		USER TYPE <input type="radio" value="0" name="userType">ROLE_MEMBER
+								  <input type="radio" value="1" name="userType">ROLE_ADMIN<br><br> -->
+                        <div class="buttons">
+                            <input type="submit" class="btn btn-primary" value="가입하기">			
+                            <a href="${pageContext.request.contextPath}/main"><button type="button" class="btn btn-light">취소</button></a>	
+                        </div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- register part end -->
 	
 	<!-- footer part start-->

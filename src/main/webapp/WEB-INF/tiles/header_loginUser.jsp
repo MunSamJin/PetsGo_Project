@@ -77,7 +77,7 @@
                 <div class="row align-items-center ">
                     <div class="col-lg-12">
                         <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                            <a class="navbar-brand" href="index.html"> <img src="${pageContext.request.contextPath}/img/logo.png" alt="logo"> </a>
+                            <a class="navbar-brand" href="${pageContext.request.contextPath}/member/main"> <img src="${pageContext.request.contextPath}/img/logo.png" alt="logo"> </a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
@@ -102,18 +102,22 @@
                                         <a class="nav-link" href="#">예약 확인</a>
                                     </li>
                                     <li class="nav-item dropdown" style="display:block;">
-	                                   
+										<!-- 회원 프로필 아이콘 -->
+										<%-- <c:if test="${not empty member}">
+	    									${member.memberProfile}
+										</c:if> --%>
+										
                                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1"
                                             role="button" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             마이페이지
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                            <a class="dropdown-item" href="#">예약내역</a>
-                                            <a class="dropdown-item" href="#">스크랩북</a>
-                                            <a class="dropdown-item" href="#">내 커뮤니티</a>
-                                             <a class="dropdown-item" href="#">회원정보</a>
-                                              <a class="dropdown-item" href="#">문의하기</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myReservation">예약내역</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myScrap">스크랩북</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myCommunity">내 커뮤니티</a>
+                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myInfo">회원정보</a>
+                                              <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myQna">문의하기</a>
                                         </div>
                                     </li>
                                     <li class="nav-item">

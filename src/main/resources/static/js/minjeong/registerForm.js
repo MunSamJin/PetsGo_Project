@@ -51,21 +51,21 @@ $(document).ready(function(){
 	$("#email").change(function() {
 		//alert($("#email").val());
 		checkEmail($("#email").val());
+		$("#emailCheck").html("");
 	});
 
 	function checkEmail(email) {
 		let expectEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 		if (!(expectEmail.test(email))) {
-			$("#emailValid").html("이메일 형식을 확인해 주세요").css("color", "red");
+			$("#emailValid").html("이메일 형식을 확인해 주세요.").css("color", "red");
 			$("#email").focus();
 			//emailCheckRs = "";
 			return false;
 		}
 
-		alert(email);
 		$.ajax({
 			type: "POST",
-			url: "${pageContext.request.contextPath}/emailCheck",
+			url: "/member/emailCheck",
 			dataType: "text",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
 			data: "memberEmail=" + email, //서버에게 보낼 parameter 정보 
 			//data:"${_csrf.parameterName}=${_csrf.token}&email=" + email,	
@@ -136,6 +136,7 @@ $(document).ready(function(){
 	//닉네임 유효성&중복 체크			
 	$("#nickname").keyup(function() {
 		let nickname = $(this).val().trim();
+		$("#nicknameCheck").html("");
 
 		if (nickname.length < 2 || nickname.length > 15) {
 			$("#nicknameValid").html("닉네임은 최소 2자 이상 15자 미만이어야 합니다.").css("color", "red");
@@ -145,10 +146,9 @@ $(document).ready(function(){
 
 		$("#nicknameValid").html(""); //ajax 활용 시 없애도 됨.......???
 
-		alert(nickname);
 		$.ajax({
 			type: "POST",
-			url: "${pageContext.request.contextPath}/nicknameCheck",
+			url: "/member/nicknameCheck",
 			dataType: "text",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
 			data: "memberNickname=" + nickname, //서버에게 보낼 parameter 정보 
 			//data:"${_csrf.parameterName}=${_csrf.token}&email=" + email,	

@@ -7,13 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>PetsGo</title>
-
+<title>PetsGo</title>
     <link rel="icon" href="${pageContext.request.contextPath}/img/petsgoweb.png">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    
     <!-- style CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <!-- main CSS -->
@@ -79,7 +77,7 @@
                                         </div>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="contact.html">회원가입</a>
+                                        <a class="nav-link" href="${pageContext.request.contextPath}/registerForm">회원가입</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="${pageContext.request.contextPath}/loginForm">로그인</a>
@@ -100,20 +98,16 @@
 			<div class="col-12 col-lg-6">
 				<div class="loginForm">
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
-					
 					  <li class="nav-item" role="presentation">
 					    <button class="nav-link active" id="member-tab" data-bs-toggle="tab" data-bs-target="#member-tab-pane" type="button" role="tab" aria-controls="member-tab-pane" aria-selected="true">회원</button>
 					  </li>
 					  <li class="nav-item" role="presentation">
-					    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">사업자</button>
+					    <button class="nav-link" id="owner-tab" data-bs-toggle="tab" data-bs-target="#owner-tab-pane" type="button" role="tab" aria-controls="owner-tab-pane" aria-selected="false">사업자</button>
 					  </li>
-					  
 					</ul>
-					
 					<div class="tab-content" id="myTabContent">
 					<h1>로그인</h1>
 					  <div class="tab-pane fade show active" id="member-tab-pane" role="tabpanel" aria-labelledby="member-tab" tabindex="0">
-						
 						<form id="memberLoginForm" action="${pageContext.request.contextPath}/member/login" method="post">
 							<input type="email" class="form-control" name="memberEmail" id="email" placeholder="이메일"> 
 							<div id="emailValid"></div>
@@ -125,8 +119,7 @@
 							</div>
 						</form>
 					  </div>					  
-					  
-					  <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+					  <div class="tab-pane fade" id="owner-tab-pane" role="tabpanel" aria-labelledby="owner-tab" tabindex="0">
 						<form id="ownerLoginForm" action="${pageContext.request.contextPath}/admin/login" method="post">
 							<input type="text" class="form-control" name="memberEmail" id="email" placeholder="사업자 등록 번호"> 
 							<span id="emailValid"></span>
