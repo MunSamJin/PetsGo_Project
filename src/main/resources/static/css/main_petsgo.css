@@ -7,6 +7,22 @@ z-index: 9;
 position: relative;
 }
 
+.booking_part .form-row .form_colum input::placeholder {color:#f7612f;}
+.booking_part .form-row .form_colum input {border: 1px solid #f7612f !important;}
+.booking_part .form-row .form_colum .gj-datepicker-md [role=right-icon] {
+    color:#f7612f ;
+}
+.current {color:#f7612f;}
+.list {color:#f7612f;}
+.booking_part .form-row .form_colum .nc_select, .booking_part .form-row .form_colum .gj-datepicker{
+    border-color: #f7612f;
+}
+
+.btn_1 {background-color: #2c6b52;}
+.btn_1:hover {background-color: #f7612f;}
+
+.gj-textbox-md { border: 1px solid #f7612f !important;}
+
 .banner_part{
     height: 580px;
     position: relative;

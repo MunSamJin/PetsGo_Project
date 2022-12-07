@@ -8,9 +8,8 @@ public class HomeController {
 	@RequestMapping("/index")
 	public void index() {}
 	
-	@RequestMapping("/main")
-	public void main() {
-	}
+	@RequestMapping("{url}")
+	public void url() {}
 	
 	@RequestMapping("/test2")
 	public String test2() {

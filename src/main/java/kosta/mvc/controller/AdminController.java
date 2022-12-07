@@ -7,13 +7,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminController {
 
-	@RequestMapping("/main")
-	public void main() {
+	@RequestMapping("{url}")
+	public void url() {
 		
 	}
 	
-	@RequestMapping("/reply")
-	public void reply() {
+	@RequestMapping("/{main}/{pages}/{url}")
+	public void url2() {
 		
 	}
+	
+	
+	/*@RequestMapping("/reply") public void reply() {
+	 
+	}*/
+	 
 }

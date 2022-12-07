@@ -843,3 +843,10 @@ html {
 	border: 1px solid hsla(0, 0%, 100%, .5);
 	background: hsla(0, 0%, 100%, .1)
 }
+
+.card-tags__item {
+	font-weight: bold;
+}
+
+
+

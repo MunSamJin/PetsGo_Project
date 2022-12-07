@@ -37,13 +37,17 @@
 <link rel='stylesheet' href='${pageContext.request.contextPath}/css/swiper.min.css'>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/comu_style.css">
 
-<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
-  integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" crossorigin="anonymous"></script>
-<script>
-  Kakao.init('d32f3063e698e99009c22188c7a65c7e'); // 사용하려는 앱의 JavaScript 키 입력
-</script>
+
     <style type="text/css">
     </style>
+    
+    <!-- 카카오톡 공유하기 -->
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
+  	integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" crossorigin="anonymous">
+    </script>
+	<script>
+ 	 Kakao.init('d32f3063e698e99009c22188c7a65c7e'); // 사용하려는 앱의 JavaScript 키 입력
+	</script>
 
 </head>
 
@@ -55,7 +59,7 @@
                 <div class="row align-items-center ">
                     <div class="col-lg-12">
                         <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                            <a class="navbar-brand" href="index.html"> <img src="${pageContext.request.contextPath}/img/logo.png" alt="logo"> </a>
+                            <a class="navbar-brand" href="index.html"> <img src="${pageContext.request.contextPath}/img/logo_petsgo.png" alt="logo_petsgo"> </a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
@@ -130,10 +134,29 @@
                                 <div class="booking_form">
                                     <form action="#">
                                         <div class="form-row">
-                                            <div class="form_colum" style="width: 260px;">
+                                            <!-- <div class="form_colum" style="width: 260px;">
                                                 <div class="mt">
-                                                    <input type="text" name="first_name" placeholder="지역명, 캠핑장명 검색" onfocus="this.placeholder = ''" onblur="this.placeholder = '지역명, 캠핑장명 검색'" required="" class="single-input-primary" style="padding: 4px 20px 3px 20px; color:#f7612f;">
+                                                    <input type="text" name="first_name" placeholder="지역명, 캠핑장명 검색" onfocus="this.placeholder = ''" 
+                                                    onblur="this.placeholder = '지역명, 캠핑장명 검색'" required="" class="single-input-primary" 
+                                                    style="padding: 4px 20px 3px 20px;">
                                                 </div>
+                                            </div> -->
+                                            <div class="form_colum">
+                                                <select class="nc_select">
+                                                    <option selected>지역명 검색 </option>
+                                                    <option value="1">포천시</option>
+                                                    <option value="2">평택시</option>
+                                                    <option value="3">여주시</option>
+                                                    <option value="4">가평군</option>
+                                                    <option value="5">동두천시</option>
+                                                    <option value="6">안산시</option>
+                                                    <option value="7">김포시</option>
+                                                    <option value="8">하남시</option>
+                                                    <option value="9">용인시</option>
+                                                    <option value="10">파주시</option>
+                                                    <option value="11">연천시</option>
+                                                    <option value="12">광주시</option>
+                                                </select>
                                             </div>
 
                                             <div class="form_colum">
@@ -550,7 +573,12 @@
                                     <div class="header-in-card__share-and-like">
                                       <div class="share-block">
                                         <div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
-                                        <div class="share-block__facebook-icon" href="javascript:;"></div>                            
+                                        <div class="share-block__facebook-icon">
+                                        <a id="kakaotalk-sharing-btn01">
+										  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+										    alt="카카오톡 공유 보내기 버튼" />
+										</a>
+										</div>                    
                                         <div class="share-block__twitter-icon"></div>
                                       </div>
                                       <div class="like-block">
@@ -560,14 +588,10 @@
                                   </div>
                                 </div>
                                 <div class="card__body">
-                                
-                                
+                                               
                                  
-                                  <div class="card-tags"><a href="#" target="_blank" class="card-tags__item">Animals</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Dog</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Smiling</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Fluffy</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Awesome</a>
+                                  <div class="card-tags">
+                                    <a href="#" target="_blank" class="card-tags__item">#가평군321-1</a>
                                 </div>
                                 </div><img src="${pageContext.request.contextPath}/img/community_01.jpg" alt="" class="card__image">
                               </div>
@@ -579,7 +603,12 @@
                                     <div class="header-in-card__share-and-like">
                                       <div class="share-block">
                                         <div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
-                                        <div class="share-block__facebook-icon" id="kakaotalk-sharing-btn" href="javascript:;"></div>
+                                        <div class="share-block__facebook-icon">
+                                         <a id="kakaotalk-sharing-btn02">
+										  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+										    alt="카카오톡 공유 보내기 버튼" />
+										 </a>
+                                        </div>
                                         <div class="share-block__twitter-icon"></div>
                                       </div>
                                       <div class="like-block">
@@ -590,11 +619,8 @@
                                 </div>
                                 <div class="card__body">
                                  
-                                  <div class="card-tags"><a href="#" target="_blank" class="card-tags__item">Animals</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Dog</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Smiling</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Fluffy</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Awesome</a>
+                                  <div class="card-tags">
+                                    <a href="#" target="_blank" class="card-tags__item">#성남시521-1</a>
                                 </div>
                                 </div><img src="${pageContext.request.contextPath}/img/community_02.jpg" alt="" class="card__image">
                               </div>
@@ -606,7 +632,12 @@
                                     <div class="header-in-card__share-and-like">
                                       <div class="share-block">
                                         <div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
-                                        <div class="share-block__facebook-icon" id="kakaotalk-sharing-btn" href="javascript:;"></div>
+                                        <div class="share-block__facebook-icon">
+                                         <a id="kakaotalk-sharing-btn03">
+										  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+										    alt="카카오톡 공유 보내기 버튼" />
+										 </a>
+                                        </div>
                                         <div class="share-block__twitter-icon"></div>
                                       </div>
                                       <div class="like-block">
@@ -617,11 +648,8 @@
                                 </div>
                                 <div class="card__body">
                                  
-                                  <div class="card-tags"><a href="#" target="_blank" class="card-tags__item">Animals</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Dog</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Smiling</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Fluffy</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Awesome</a>
+                                  <div class="card-tags">
+                                    <a href="#" target="_blank" class="card-tags__item">#용인시431-3</a>
                                 </div>
                                 </div><img src="${pageContext.request.contextPath}/img/community_03.jpg" alt="" class="card__image">
                               </div>
@@ -633,7 +661,12 @@
                                     <div class="header-in-card__share-and-like">
                                       <div class="share-block">
                                         <div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
-                                        <div class="share-block__facebook-icon" id="kakaotalk-sharing-btn" href="javascript:;"></div>
+                                        <div class="share-block__facebook-icon">
+                                         <a id="kakaotalk-sharing-btn04">
+										  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+										    alt="카카오톡 공유 보내기 버튼" />
+										 </a>
+                                        </div>
                                         <div class="share-block__twitter-icon"></div>
                                       </div>
                                       <div class="like-block">
@@ -644,11 +677,8 @@
                                 </div>
                                 <div class="card__body">
                                  
-                                  <div class="card-tags"><a href="#" target="_blank" class="card-tags__item">Animals</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Dog</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Smiling</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Fluffy</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Awesome</a>
+                                  <div class="card-tags">
+                                    <a href="#" target="_blank" class="card-tags__item">#포천시567-2</a>
                                 </div>
                                 </div><img src="${pageContext.request.contextPath}/img/community_04.jpg" alt="" class="card__image">
                               </div>
@@ -660,7 +690,12 @@
                                     <div class="header-in-card__share-and-like">
                                       <div class="share-block">
                                         <div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
-                                        <div class="share-block__facebook-icon" id="kakaotalk-sharing-btn" href="javascript:;"></div>
+                                        <div class="share-block__facebook-icon">
+                                         <a id="kakaotalk-sharing-btn05">
+										  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+										    alt="카카오톡 공유 보내기 버튼" />
+										 </a>
+                                        </div>
                                         <div class="share-block__twitter-icon"></div>
                                       </div>
                                       <div class="like-block">
@@ -671,11 +706,8 @@
                                 </div>
                                 <div class="card__body">
                                  
-                                  <div class="card-tags"><a href="#" target="_blank" class="card-tags__item">Animals</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Dog</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Smiling</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Fluffy</a>
-                                    <a href="#" target="_blank" class="card-tags__item">Awesome</a>
+                                  <div class="card-tags">
+                                    <a href="#" target="_blank" class="card-tags__item">#수원시235</a>
                                 </div>
                                 </div><img src="${pageContext.request.contextPath}/img/community_05.jpg" alt="" class="card__image">
                               </div>
@@ -780,7 +812,7 @@
                 <div class="col-lg-12">
                     <div class="copyright_part_text text-center">
                         <p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with by <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Pet's Go</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with<i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Pet's Go</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
                 </div>
@@ -788,6 +820,71 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </footer>
 <!-- footer part end-->
+
+
+<!-- 카카오톡 공유하기 -->
+<script>
+  Kakao.Share.createDefaultButton({
+    container: '#kakaotalk-sharing-btn01',
+    objectType: 'text',
+    text:
+      '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+    link: {
+      // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+      mobileWebUrl: 'https://localhost:9000',
+      webUrl: 'https://localhost:9000',
+    },
+  });
+  
+  Kakao.Share.createDefaultButton({
+	    container: '#kakaotalk-sharing-btn02',
+	    objectType: 'text',
+	    text:
+	      '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+	    link: {
+	      // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+	      mobileWebUrl: 'https://localhost:9000',
+	      webUrl: 'https://localhost:9000',
+	    },
+	  });
+  
+  Kakao.Share.createDefaultButton({
+	    container: '#kakaotalk-sharing-btn03',
+	    objectType: 'text',
+	    text:
+	      '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+	    link: {
+	      // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+	      mobileWebUrl: 'https://localhost:9000',
+	      webUrl: 'https://localhost:9000',
+	    },
+	  });
+  
+  Kakao.Share.createDefaultButton({
+	    container: '#kakaotalk-sharing-btn04',
+	    objectType: 'text',
+	    text:
+	      '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+	    link: {
+	      // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+	      mobileWebUrl: 'https://localhost:9000',
+	      webUrl: 'https://localhost:9000',
+	    },
+	  });
+  
+  Kakao.Share.createDefaultButton({
+	    container: '#kakaotalk-sharing-btn05',
+	    objectType: 'text',
+	    text:
+	      '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+	    link: {
+	      // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+	      mobileWebUrl: 'https://localhost:9000',
+	      webUrl: 'https://localhost:9000',
+	    },
+	  });
+  
+</script>
 
     <!-- jquery plugins here-->
     <script src="${pageContext.request.contextPath}/js/jquery-1.12.1.min.js"></script>
@@ -804,47 +901,21 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- masonry js -->
     <script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/gijgo.min.js"></script>
-    <!-- contact js -->
+    <!-- contact js
     <script src="${pageContext.request.contextPath}/js/jquery.ajaxchimp.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
     <script src="${pageContext.request.contextPath}/js/jquery.validate.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/mail-script.js"></script>
-    <script src="${pageContext.request.contextPath}/js/contact.js"></script>
+    <script src="${pageContext.request.contextPath}/js/contact.js"></script> -->
     <!-- custom js -->
     <script src="${pageContext.request.contextPath}/js/custom.js"></script>
-
+    
+  
 <!-- partial -->
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js'></script>
 <script  src="${pageContext.request.contextPath}/js/comu_script.js"></script>
 
-
-
-<!-- <a id="kakaotalk-sharing-btn" href="javascript:;">
-  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-    alt="카카오톡 공유 보내기 버튼" />
-</a> -->
-
-<script type="text/javascript">
-	$(function(){
-		//alert(11)
-		
-		$(".share-block__facebook-icon").click(function(){
-			//alert(11);
-			Kakao.Share.createDefaultButton({
-			    container: '.share-block__facebook-icon',
-			    objectType: 'text',
-			    text:
-			      '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
-			    link: {
-			      // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-			      mobileWebUrl: 'https://localhost:9000',
-			      webUrl: 'https://localhost:9000',
-			    },
-			  });
-		})
-	})
-</script>
 
 
 </body>

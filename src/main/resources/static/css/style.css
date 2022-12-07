@@ -2615,9 +2615,9 @@ ul {
 /* line 43, /Applications/MAMP/htdocs/palash/cl/july 2019/193 Travel/193 travel html/sass/_booking.scss */
 .booking_part .form-row .form_colum .nc_select, .booking_part .form-row .form_colum .gj-datepicker {
   width: 100%;
-  border-color: #2493e0;
+  border-color: #f7612f;
   border-radius: 0;
-  color: #2493e0;
+  color: #f7612f;
   height: 50px;
   display: flex;
   align-items: center;
@@ -2625,8 +2625,8 @@ ul {
 
 /* line 52, /Applications/MAMP/htdocs/palash/cl/july 2019/193 Travel/193 travel html/sass/_booking.scss */
 .booking_part .form-row .form_colum .nice-select:after {
-  border-bottom: 2px solid #2493e0;
-  border-right: 2px solid #2493e0;
+  border-bottom: 2px solid #f7612f;
+  border-right: 2px solid #f7612f;
   content: '';
   display: block;
   height: 8px;
@@ -2636,9 +2636,9 @@ ul {
 
 /* line 61, /Applications/MAMP/htdocs/palash/cl/july 2019/193 Travel/193 travel html/sass/_booking.scss */
 .booking_part .form-row .form_colum .gj-textbox-md {
-  border: 1px solid #2493e0;
+  border: 1px solid #f7612f;
   padding: 16px;
-  color: #2493e0;
+  color: #f7612f;
   font-size: 14px;
 }
 
