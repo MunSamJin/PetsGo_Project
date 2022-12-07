@@ -64,9 +64,9 @@
         <li class="active dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-long-arrow-down"></i><span>숙소조회</span> <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="${pageContext.request.contextPath}/owner/campSelect">캠핑장조회</a></li>
-            <li><a href="${pageContext.request.contextPath}/owner/campInsert">캠핑장등록</a></li>
+            <%-- <li><a href="${pageContext.request.contextPath}/owner/campInsert">캠핑장등록</a></li> --%>
             <li><a href="${pageContext.request.contextPath}/owner/resiSelect">숙소조회</a></li>
-            <li><a href="${pageContext.request.contextPath}/owner/resiInsert">숙소등록</a></li>
+            <li><a href="${pageContext.request.contextPath}/owner/resiInsertForm">숙소등록</a></li>
           </ul>
         </li>
         <li><a href="${pageContext.request.contextPath}/owner/reservManagement"><i class="icon-facetime-video"></i><span>예약관리</span> </a></li>

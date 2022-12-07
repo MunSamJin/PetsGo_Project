@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,7 +45,7 @@ public class OwnerController {
 	public ModelAndView campUpdateForm() {
 		//FreeBoard board = campService.selectBy(bno, false); //조회수 증가 안 함
 		Camp camp = campService.selectAll();
-		return new ModelAndView("owner/campUpdate","camp", camp);
+		return new ModelAndView("owner/campUpdateForm","camp", camp);
 	}
 	
 	
@@ -56,10 +57,35 @@ public class OwnerController {
 	
 	
 	@RequestMapping("/campInsert")
-	public ModelAndView campInsert(Camp camp) {
+	@ResponseBody
+	public String campInsert(Camp camp, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
+		
+		String saveDir = session.getServletContext().getRealPath("/img/seryun/");
+		String filenames = "";
+		
+		try {
+			//upload.getFile().transferTo(new File(saveDir + "/" + originalFileName));
+			
+			for (int i = 0; i < files.size(); i++) {
+				MultipartFile m = files.get(i);
+				System.out.println("첨부파일이름 = " + m.getOriginalFilename());
+				
+				if (i == (files.size() - 1))
+					filenames += m.getOriginalFilename();
+				else
+					filenames += m.getOriginalFilename() + ",";
+				
+				System.out.println("filenames = " + filenames);
+				m.transferTo(new File(saveDir + "/" + m.getOriginalFilename()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		camp.setCampFilename(filenames);
 		campService.insert(camp);
 		
-		return new ModelAndView("관리자 승인페이지");
+		return "success";
 	}
 	
 	
@@ -70,11 +96,7 @@ public class OwnerController {
 		String saveDir = session.getServletContext().getRealPath("/img/seryun/");
 		String filenames = "";
 		
-		//upload.setFileName(originalFileName);
-		//upload.setFileSize(upload.getFile().getSize());
-		
 		try {
-			//upload.getFile().transferTo(new File(saveDir + "/" + originalFileName));
 			
 			for (int i = 0; i < files.size(); i++) {
 				MultipartFile m = files.get(i);
@@ -102,11 +124,11 @@ public class OwnerController {
 		
 		campService.update(camp);
 		
-		ModelAndView mv = new ModelAndView();
+		/*ModelAndView mv = new ModelAndView();
 		mv.addObject("saveDir", saveDir);
 		mv.addObject("originalFileName", filenames);
 		mv.addObject("fileSize", files.size());
-		mv.setViewName("owner/campSelect");
+		mv.setViewName("owner/campSelect");*/
 		
 		return "redirect:/owner/campSelect";
 	}
@@ -119,12 +141,27 @@ public class OwnerController {
 	}
 	
 	
+	@RequestMapping("/campRegNoCheck")
+	@ResponseBody
+	public String campRegNoCheck() {
+		Camp camp = campService.selectAll();
+		System.out.println("camp = " + camp);
+		if(camp==null) return "success";
+		else return "fail";
+	}
+	
 	
 	
 	@RequestMapping("/resiSelect")
 	public void resiSelect(Model model) {
 		List<Residence> resiList = resiService.selectAll();
 		model.addAttribute("resiList", resiList);
+	}
+	
+	
+	@RequestMapping("/resiInsert")
+	public void resiInsert(Residence resi) {
+		resiService.insert(resi);
 	}
 	
 	

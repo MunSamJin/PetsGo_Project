@@ -22,7 +22,7 @@
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    
+ 
 <style type="text/css">
 	img {width:200px;}
 </style>
@@ -89,13 +89,19 @@
     <div class="container">
       <div class="row">
         <!-- /span6 -->
+        <form name="campUpdate" method="post" action="${pageContext.request.contextPath}/owner/campUpdate" 
+        		onSubmit='return checkValid()' enctype="multipart/form-data">
+        
+       	
+        
         <div class="span6">
           
           <!-- /widget --> 
           <div class="widget widget-nopad">
             <div class="widget-header"> <i class="icon-list-alt"></i>
               <h3>${camp.campName}</h3>
-              <input type="button" value="수정" id="campUpdateForm" name="campUpdateForm">
+              <input type="submit" value="수정" id="campUpdate" name="campUpdate">
+              <input type="reset" value="취소" id="campUpdate" name="campUpdate">
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
@@ -104,28 +110,43 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">29</span> <span class="news-item-month">Aug</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/thursday-roundup-40/" class="news-item-title" target="_blank">사진</a>
-                  	
+                  
                   	<c:set value="${fn:split(camp.campFilename , ',')}" var="filenameArr"/>
                   	<c:forEach items="${filenameArr}" var="filename">
-                  		<p><img class="news-item-preview" src="/img/seryun/${filename}"></p>
+                  		<p><img class="news-item-preview" name="campFilename"  src="/img/seryun/${filename}"></p>
                   	</c:forEach>
-                    
+                  	
+                  	<div id='image_preview' >
+						<input type="file" id="btnAtt" name="files" multiple="multiple"/>
+                  		<div id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
+                  	</div>
                   </div>
                   
                 </li>
+               
                 <li>
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">우편번호</a>
-                    <p class="news-item-preview">${camp.campPost}</p>
+                   <%--  <p><input type="text" class="news-item-preview" name="campPost" value="${camp.campPost}"></p> --%>
+                    <%-- <p><input type="text" id="campPost" placeholder="우편번호" name="campPost" value="${camp.campPost}">
+					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></p> --%>
+					
+					<p>
+	                <input type="text" id="sample6_postcode" name="campPost" value="${camp.campPost}">
+					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+					
+					</p>
                   </div>
                   
-                </li>
+                </li> 
                 <li>
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">주소</a>
-                    <p class="news-item-preview">${camp.campAddr}</p>
+                    <p><input type="text" class="news-item-preview" id="sample6_address" name="campAddr" value="${camp.campAddr}"></p>
+                    <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+					<input type="text" id="sample6_extraAddress" placeholder="참고항목">
                   </div>
                   
                 </li>
@@ -133,7 +154,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">전화번호</a>
-                    <p class="news-item-preview">${camp.campPhone}</p>
+                    <p><input type="text" class="news-item-preview" name="campPhone" value="${camp.campPhone}"></p>
                   </div>
                   
                 </li>
@@ -141,7 +162,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">공지사항</a>
-                    <p class="news-item-preview">${camp.campNotify}</p>
+                    <p><textarea class="news-item-preview" name="campNotify" style="white-space: pre-line;">${camp.campNotify}</textarea></p>
                   </div>
                   
                 </li>
@@ -149,7 +170,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">소개글</a>
-                    <p class="news-item-preview">${camp.campIntro}</p>
+                    <p><textarea class="news-item-preview" name="campIntro" style="white-space: pre-line;">${camp.campIntro}</textarea></p>
                   </div>
                   
                 </li>
@@ -157,7 +178,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">부대시설</a>
-                    <p class="news-item-preview">${camp.campFacility}</p>
+                    <p><input type="text" class="news-item-preview" name="campFacility" value="${camp.campFacility}"></p>
                   </div>
                   
                 </li>
@@ -165,7 +186,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">체크인 시간</a>
-                    <p class="news-item-preview">${camp.campCheckin}</p>
+                    <p><input type="text" class="news-item-preview" name="campCheckin" value="${camp.campCheckin}"></p>
                   </div>
                   
                 </li>
@@ -173,10 +194,11 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">체크아웃 시간</a>
-                    <p class="news-item-preview">${camp.campCheckout}</p>
+                    <p><input type="text" class="news-item-preview" name="campCheckout" value="${camp.campCheckout}"></p>
                   </div>
                   
                 </li>
+                
               </ul>
             </div>
             <!-- /widget-content --> 
@@ -185,6 +207,7 @@
        
         </div>
         <!-- /span6 --> 
+        </form>
       </div>
       <!-- /row --> 
     </div>
@@ -265,25 +288,14 @@
 <!-- Le javascript
 ================================================== --> 
 <!-- Placed at the end of the document so the pages load faster --> 
-<script src="/js/seryun/jquery-1.7.2.min.js"></script> 
-<script src="/js/seryun/excanvas.min.js"></script> 
-<script src="/js/seryun/chart.min.js" type="text/javascript"></script> 
-<script src="/js/seryun/bootstrap.js"></script>
-<script language="javascript" type="text/javascript" src="/js/seryun/full-calendar/fullcalendar.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/seryun/jquery-1.7.2.min.js"></script> 
+<script src="${pageContext.request.contextPath}/js/seryun/excanvas.min.js"></script> 
+<script src="${pageContext.request.contextPath}/js/seryun/chart.min.js" type="text/javascript"></script> 
+<script src="${pageContext.request.contextPath}/js/seryun/bootstrap.js"></script>
+<script language="javascript" type="text/javascript" src="${pageContext.request.contextPath}/js/seryun/full-calendar/fullcalendar.min.js"></script>
  
-<script src="/js/seryun//base.js"></script> 
+<script src="${pageContext.request.contextPath}/js/seryun//base.js"></script> 
 <script>     
-
-		$(function(){
-			  $("input[value=수정]").click(function(){
-				  $(location).attr('href','${pageContext.request.contextPath}/owner/campUpdateForm');
-			  })
-		});
-		
-		
-		//var filename = ${camp.campFilename}.split(",");
-		
-		
 
         var lineChartData = {
             labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -403,7 +415,167 @@
           ]
         });
       });
-   
+        
+      $(function(){
+    	  alert();
+    	  
+    	  $("input[value=수정]").click(function(){
+    		  alert();
+    	  })
+      })
     </script><!-- /Calendar -->
+    <script>
+  			/* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
+			(imageView = function imageView(att_zone, btn){
+
+			    var attZone = document.getElementById(att_zone);
+			    var btnAtt = document.getElementById(btn)
+			    var sel_files = [];
+    
+			    // 이미지와 체크 박스를 감싸고 있는 div 속성
+			    var div_style = 'display:inline-block;position:relative;'
+			                  + 'width:150px;height:120px;margin:5px;border:1px solid #00f;z-index:1';
+			    // 미리보기 이미지 속성
+			    var img_style = 'width:100%;height:100%;z-index:none';
+			    // 이미지안에 표시되는 체크박스의 속성
+			    var chk_style = 'width:30px;height:30px;position:absolute;font-size:24px;'
+			                  + 'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:white';
+  
+			    btnAtt.onchange = function(e){
+			      var files = e.target.files;
+			      var fileArr = Array.prototype.slice.call(files)
+			      for(f of fileArr){
+			        imageLoader(f);
+			      }
+			    }  
+			    
+  
+			    // 탐색기에서 드래그앤 드롭 사용
+			    attZone.addEventListener('dragenter', function(e){
+			      e.preventDefault();
+			      e.stopPropagation();
+			    }, false)
+    
+			    attZone.addEventListener('dragover', function(e){
+			      e.preventDefault();
+			      e.stopPropagation();
+			      
+			    }, false)
+  
+			    attZone.addEventListener('drop', function(e){
+			      var files = {};
+			      e.preventDefault();
+			      e.stopPropagation();
+			      var dt = e.dataTransfer;
+			      files = dt.files;
+			      for(f of files){
+			        imageLoader(f);
+			      }
+			      
+			    }, false)
+    
+
+    
+			    /*첨부된 이미지를 배열에 넣고 미리보기 */
+			    imageLoader = function(file){
+			      sel_files.push(file);
+			      var reader = new FileReader();
+			      reader.onload = function(ee){
+			        let img = document.createElement('img')
+			        img.setAttribute('style', img_style)
+			        img.src = ee.target.result;
+			        attZone.appendChild(makeDiv(img, file));
+			      }
+			      
+			      reader.readAsDataURL(file);
+			    }
+    
+			    /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
+			    makeDiv = function(img, file){
+			      var div = document.createElement('div')
+			      div.setAttribute('style', div_style)
+			      
+			      var btn = document.createElement('input')
+			      btn.setAttribute('type', 'button')
+			      btn.setAttribute('value', 'x')
+			      btn.setAttribute('delFile', file.name);
+			      btn.setAttribute('style', chk_style);
+			      btn.onclick = function(ev){
+			        var ele = ev.srcElement;
+			        var delFile = ele.getAttribute('delFile');
+			        for(var i=0 ;i<sel_files.length; i++){
+			          if(delFile== sel_files[i].name){
+			            sel_files.splice(i, 1);      
+			          }
+			        }
+        
+			        dt = new DataTransfer();
+			        for(f in sel_files) {
+			          var file = sel_files[f];
+			          dt.items.add(file);
+			        }
+			        btnAtt.files = dt.files;
+			        var p = ele.parentNode;
+			        attZone.removeChild(p)
+			      }
+			      div.appendChild(img)
+			      div.appendChild(btn)
+			      return div
+			    }
+			  }
+			)('att_zone', 'btnAtt')
+
+		</script>
+		
+		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script>
+		    function sample6_execDaumPostcode() {
+		        new daum.Postcode({
+		            oncomplete: function(data) {
+		                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+		
+		                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+		                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+		                var addr = ''; // 주소 변수
+		                var extraAddr = ''; // 참고항목 변수
+		
+		                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+		                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+		                    addr = data.roadAddress;
+		                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+		                    addr = data.jibunAddress;
+		                }
+		
+		                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+		                if(data.userSelectedType === 'R'){
+		                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+		                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+		                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+		                        extraAddr += data.bname;
+		                    }
+		                    // 건물명이 있고, 공동주택일 경우 추가한다.
+		                    if(data.buildingName !== '' && data.apartment === 'Y'){
+		                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		                    }
+		                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+		                    if(extraAddr !== ''){
+		                        extraAddr = ' (' + extraAddr + ')';
+		                    }
+		                    // 조합된 참고항목을 해당 필드에 넣는다.
+		                    document.getElementById("sample6_extraAddress").value = extraAddr;
+		                
+		                } else {
+		                    document.getElementById("sample6_extraAddress").value = '';
+		                }
+		
+		                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+		                document.getElementById('sample6_postcode').value = data.zonecode;
+		                document.getElementById("sample6_address").value = addr;
+		                // 커서를 상세주소 필드로 이동한다.
+		                document.getElementById("sample6_detailAddress").focus();
+		            }
+		        }).open();
+		    }
+		</script>
 </body>
 </html>

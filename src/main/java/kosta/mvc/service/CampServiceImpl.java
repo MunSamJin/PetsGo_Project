@@ -40,6 +40,9 @@ public class CampServiceImpl implements CampService {
 	@Override
 	public void insert(Camp camp) {
 		camp.setCampState(0);
+		camp.setCampLat("0");
+		camp.setCampLong("0");
+		camp.setCampManageNo("guest");
 		campRep.save(camp);
 
 	}

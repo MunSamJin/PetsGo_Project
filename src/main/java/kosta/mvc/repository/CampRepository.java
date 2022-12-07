@@ -13,5 +13,4 @@ public interface CampRepository extends JpaRepository<Camp, Long>, QuerydslPredi
 	//@Query("select c from Camp c where c.campManageNo ='CDFI2262132016000034'")
 	@Query("select c from Camp c where c.campRegNo =?1")
 	Camp selectCamp(String campRegNo);
-	
 }
