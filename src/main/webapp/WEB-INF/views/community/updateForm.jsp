@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html>
@@ -43,12 +43,11 @@
 				
 				 var boardTag ="";
 				 
-				 boardTag = "#"+boardTag1+"#"+boardTag2;
+				 boardTag = "#" + boardTag1 + "#" + boardTag2;
 				 
 				$("[name=boardTag]").attr("value", boardTag);
 			});
-			
-			
+
 			
 		});		
 	
@@ -64,7 +63,6 @@
 		  border-radius: 8px;
 		  width: 720px;
 		  height: 250px;
-		  overflow: auto;
 		  
 		}
 		
@@ -82,17 +80,19 @@
 				width: 80%; margin-top: 50px; margin-left: auto; margin-right: auto; margin-bottom: 50px">
 		
 
-		<form name="writeForm" method="post" action="${pageContext.request.contextPath}/community/insert" 
+		<form name="writeForm" method="post" action="${pageContext.request.contextPath}/community/update" 
 			  onSubmit='return checkValid()' enctype="multipart/form-data">			  
 			  
-			<input type=hidden name="memberNo" value="${member.memberNo}">
+			<%-- <input type=hidden name="memberNo" value="${member.memberNo}"> --%>
 			
 			<input type="hidden" name="boardTag" value="">
+			
+			<input type="hidden" name="boardNo" value="${board.boardNo }"/>
 					  
 			<table style="width: 70%; margin-left: auto; margin-right: auto;">
 				<tr>
 					<td>
-						<select name="boardTag1"
+						<select name="boardTag1" 
 								style="display: inline-block; margin-left: 6px; border-color: #4876ef; color: gray; background-color: #fff;
 									   border: 1px solid #edeef0; box-sizing: border-box; text-align: center;padding: 0 8px 1px; height: 24px;
 									   border-radius: 4px; font-size: 12px; letter-spacing: -0.5px; line-height: 20px; cursor: pointer;">
@@ -123,8 +123,8 @@
 				<tr>
 					<td>
 						<p style="white-space: pre-line;">
-							<textarea name="boardContent" rows="10" cols="100" placeholder="내용을 입력해주세요." 
-									  style="font-size: 10pt; white-space: pre-line; border: 1px solid #edeef0; border-radius: 8px;"></textarea>
+							<textarea name="boardContent" rows="10" cols="100" 
+									  style="font-size: 10pt; white-space: pre-line; border: 1px solid #edeef0; border-radius: 8px;">${board.boardContent }</textarea>
 						</p>
 					</td>
 				</tr>
@@ -142,12 +142,12 @@
 					<td>
 						<div style="text-align: right;">
 							<br>
-	  						<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/community/list'"
+	  						<input type="button" value="뒤로가기" onclick="javascript:history.back();"
 	  								style="display: inline-block; margin-left: 6px; border-color: #4876ef; color: #4876ef; background-color: #fff;
 					 					   border: 1px solid #4876ef; box-sizing: border-box; text-align: center;padding: 0 8px 1px; height: 24px;
 					 					   border-radius: 4px; font-size: 12px; letter-spacing: -0.5px; line-height: 20px; cursor: pointer;"/>
 					  
-	  						<input type=submit value=글쓰기
+	  						<input type=submit value=수정하기
 	  							   style="display: inline-block; margin-left: 6px;border-color: #d7dce5; color: #5c667b; background-color: #fff;
 			   		  					  padding: 0 8px 1px; height: 24px; border-radius: 4px; font-size: 12px; letter-spacing: -0.5px;
 			   		  					  line-height: 20px; border: 1px solid #edeef0; box-sizing: border-box; text-align: center;cursor: pointer;"/>
@@ -155,13 +155,6 @@
 					</td>
 				</tr>
 			</table>
-			
-			<br>
-			
-			
-	  		
-	  		<br>
-	  		
 	  		
 	  	</form>	
 	</div>
@@ -178,11 +171,11 @@
     
 			    // 이미지와 체크 박스를 감싸고 있는 div 속성
 			    var div_style = 'display:inline-block;position:relative;'
-			                  + 'width:150px;height:120px;margin:5px;border:1px solid white;z-index:1';
+			                  + 'width:150px;height:120px;margin:5px;border:1px solid #00f;z-index:1';
 			    // 미리보기 이미지 속성
 			    var img_style = 'width:100%;height:100%;z-index:none';
 			    // 이미지안에 표시되는 체크박스의 속성
-			    var chk_style = 'width:30px;height:30px;position:absolute;font-size:20px;'
+			    var chk_style = 'width:30px;height:30px;position:absolute;font-size:24px;'
 			                  + 'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:white';
   
 			    btnAtt.onchange = function(e){

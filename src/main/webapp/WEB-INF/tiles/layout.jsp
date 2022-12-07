@@ -7,9 +7,10 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<!-- <style type="text/css">
-		header{width: 800px; height: 100px; background-color: yellow;}
-		section{width: 800px; height: 400px; background-color: pink;}
-		footer{width: 800px; height: 150px; background-color: skyblue;}
+		header{height: 100px;}
+		section{height: 400px;}
+		footer{height: 150px;}
+
 	</style> -->
 </head>
 <body>

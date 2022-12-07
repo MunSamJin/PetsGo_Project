@@ -8,10 +8,17 @@
 		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
 	</definition>
 	
-<!-- 	<definition name="boardLayout" template="/WEB-INF/tiles/boardLayout.jsp">
+
+	<!-- <definition name="boardLayout" template="/WEB-INF/tiles/boardLayout.jsp">
 		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
 		<put-attribute name="aside" value="/WEB-INF/tiles/aside.jsp"/>
+	</definition> -->
+	
+	<!-- Controller에서 */* 리턴하는 뷰의 정보에 따라 화면구성을 처리한다. -->
+	<!-- <definition name="*/*" extends="layout">
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
+
 	</definition> -->
 	
 	<!-- Controller에서 */* 리턴하는 뷰의 정보에 따라 화면구성을 처리한다. -->
@@ -19,10 +26,11 @@
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
 	</definition>
 	
-	<!-- 뷰의 정보가 user/* 경우 -->
-	<!-- <definition name="/*" extends="layout">
-		<put-attribute name="content" value="/WEB-INF/views/{1}.jsp"/>
-	</definition> -->
+
+	<definition name="community/**" extends="layout">
+		<put-attribute name="content" value="/WEB-INF/views/community/{1}.jsp"/>
+	</definition>
+
 
 	<!-- 뷰의 정보가 board/* 경우 -->
 	<!-- <definition name="board/*" extends="boardLayout">
