@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -151,9 +152,6 @@ public class CommunityController {
 		String saveDir2 = session.getServletContext().getRealPath("/img/samjin/");
 		String imgNames = "";
 		
-		//System.out.println("memberNo = " + communityBoard.getMember().getMemberNo());
-		
-		//Long mno = communityBoard.getMember().getMemberNo();
 
 		try {
 			// Declare empty list for collect the files data
@@ -276,6 +274,25 @@ public class CommunityController {
 		communityService.delete(boardNo);
 		return "redirect:/community/list";
 	}
+	
+	/**
+	 * 태그 검색하기
+	 */
+	@RequestMapping("/tagSelect")
+	@ResponseBody
+	public List<CommunityBoard> tagSelect(String tag){
+	//public void tagSelect(String tag){
+		
+		//System.out.println("태그 왔니?" +tag);
+		
+		 List<CommunityBoard> list = communityService.selectByTag(tag);
+		// System.out.println("컨트롤러 list = " + list);
+		
+		
+		 return list;
+		 
+	}
+	
 	
 	
 }

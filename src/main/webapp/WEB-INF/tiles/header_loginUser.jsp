@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="en">
 
@@ -94,8 +95,8 @@
                                             커뮤니티
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="#">홈</a>
-                                            <a class="dropdown-item" href="#">글쓰기</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/community/list">홈</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/community/write">글쓰기</a>
                                         </div>
                                     </li>
                                      <li class="nav-item" style="display: none;">
@@ -120,12 +121,24 @@
                                               <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myQna">문의하기</a>
                                         </div>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="contact.html" style="display: none;">회원가입</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
-                                    </li>
+                                    <c:choose>
+                                    	<c:when test="${empty member}">
+                                    		<li class="nav-item">
+		                                        <a class="nav-link" href="${pageContext.request.contextPath}/loginForm">로그인</a>
+		                                    </li>
+		                                    <li class="nav-item">
+		                                        <a class="nav-link" href="contact.html" style="display: none;">회원가입</a>
+		                                    </li>
+                                    	</c:when>
+                                    	<c:otherwise>
+                                    		<li class="nav-item">
+		                                        <a class="nav-link" href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
+		                                    </li>
+                                    	</c:otherwise>
+                                    </c:choose>
+	                                    
+                                    
+                                    
                                 </ul>
                             </div>
                             <!--  <div style="display: inline-block; margin-right:10px"><a href="#" class="btn_1 d-none d-lg-block">회원가입</a></div>

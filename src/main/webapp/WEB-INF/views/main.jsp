@@ -49,7 +49,7 @@
 
 <body>
 <!--::header part start - 비회원MODE ::-->
-   <header class="main_menu">
+<%--    <header class="main_menu">
         <div class="main_menu_iner">
             <div class="container">
                 <div class="row align-items-center ">
@@ -108,7 +108,7 @@
                 </div>
             </div>
         </div>
-    </header>
+    </header> --%>
 <!-- Header part end-->
 
     <!-- banner part start-->

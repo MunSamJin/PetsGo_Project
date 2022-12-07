@@ -78,4 +78,12 @@ public class CommunityServiceImpl implements CommunityService {
 		
 	}
 
+	@Override
+	public List<CommunityBoard> selectByTag(String tag) {
+		List<CommunityBoard> list = communityRepository.tagSelect("%"+tag+"%");
+		//System.out.println("서비스 list = " + list);
+		
+		return list;
+	}
+
 }

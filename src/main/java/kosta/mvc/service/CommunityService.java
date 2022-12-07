@@ -30,6 +30,13 @@ public interface CommunityService {
      * 삭제하기
      * */
     void delete(Long boardNo);
+
+    /**
+     * 태그 검색하기
+     * @param tag
+     * @return 
+     */
+	List<CommunityBoard> selectByTag(String tag);
 	
 	
 	

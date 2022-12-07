@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 	@RequestMapping("/")
-	public void index() {}
+	public String index() {
+		return "main";
+	}
 	
-	@RequestMapping("{url}")
+	@RequestMapping("/{url}")
 	public void url() {}
 	
 	
@@ -21,6 +23,8 @@ public class HomeController {
 	@RequestMapping("/samjinTest")
 	public void samjinTest() {
 	}
+	
+
 	
 	
 }
