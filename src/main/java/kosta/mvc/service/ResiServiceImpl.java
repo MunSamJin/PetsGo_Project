@@ -41,13 +41,14 @@ public class ResiServiceImpl implements ResiService {
 	}
 
 	@Override
-	public Camp selectBy(Long bno, boolean state) {
-		// TODO Auto-generated method stub
-		return null;
+	public Residence selectByResiNo(Long resiNo) {
+		Residence resi = resiRep.findById(resiNo).orElse(null);
+		if(resi==null) throw new RuntimeException("해당 숙소는 존재하지 않습니다");
+		return resi;
 	}
 
 	@Override
-	public Camp update(Residence resi) {
+	public Residence update(Residence resi) {
 		// TODO Auto-generated method stub
 		return null;
 	}

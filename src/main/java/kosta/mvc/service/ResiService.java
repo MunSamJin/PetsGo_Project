@@ -26,15 +26,15 @@ public interface ResiService {
 	void insert(Residence resi);
 
 	/**
-	 * 글번호 검색 : 조회수 증가.... - state가 true이면 조회수 증가한다.
+	 * 글번호 검색
 	 */
-	Camp selectBy(Long bno, boolean state);
+	Residence selectByResiNo(Long resiNo);
 
 	/**
 	 * 수정하기
 	 */
 
-	Camp update(Residence resi);
+	Residence update(Residence resi);
 
 	/**
 	 * 삭제하기
