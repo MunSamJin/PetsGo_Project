@@ -26,9 +26,9 @@
 </head>
 <body>
 	
-	<%-- <c:if test="${param.err !=null}">
+	<c:if test="${param.err !=null}">
 		Error message: <b style="color: red">${SPRING_SECURITY_LAST_EXCEPTION.message} / 정보가 일치하지 않습니다. </b>
-	</c:if> --%>
+	</c:if> 
 	<!-- param.err: loginForm에서 get 방식으로 err이 넘어왔는지 아닌지 알 수 o. ${SPRING_SECURITY_LAST_EXCEPTION.message}: spring이 기본적으로 갖고 있는 에러 메시지(Bad credential)가 나옴 -->
 	
 	<!--::header part start - 비회원MODE ::-->
@@ -108,11 +108,11 @@
 					<div class="tab-content" id="myTabContent">
 					<h1>로그인</h1>
 					  <div class="tab-pane fade show active" id="member-tab-pane" role="tabpanel" aria-labelledby="member-tab" tabindex="0">
-						<form id="memberLoginForm" action="${pageContext.request.contextPath}/member/login" method="post">
+						<form id="memberLoginForm" action="${pageContext.request.contextPath}/login/member" method="post">
 							<input type="email" class="form-control" name="memberEmail" id="email" placeholder="이메일"> 
 							<div id="emailValid"></div>
 							<input type="password" class="form-control" name="memberPassword" id="password" placeholder="비밀번호"> 
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />	
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />		
 							<div class="buttons">
 								<input type="submit" class="btn btn-primary" value="로그인">			
 								<a href="${pageContext.request.contextPath}/main"><button type="button" class="btn btn-light">취소</button></a>	
@@ -120,7 +120,10 @@
 						</form>
 					  </div>					  
 					  <div class="tab-pane fade" id="owner-tab-pane" role="tabpanel" aria-labelledby="owner-tab" tabindex="0">
-						<form id="ownerLoginForm" action="${pageContext.request.contextPath}/admin/login" method="post">
+						<form id="ownerLoginForm" action="${pageContext.request.contextPath}/owner/login" method="post">
+						
+						
+						
 							<input type="text" class="form-control" name="memberEmail" id="email" placeholder="사업자 등록 번호"> 
 							<span id="emailValid"></span>
 							<input type="password" class="form-control" name="memberPassword" id="password" placeholder="비밀번호"> 

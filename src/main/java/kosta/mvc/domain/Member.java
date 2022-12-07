@@ -41,17 +41,7 @@ public class Member {
 	@NonNull
 	private Long memberNo; //회원번호
 	
-	private String memberProfile; //수정 전 프로필 아이콘
-	
-	//수정 후 프로필 아이콘
-	/* @Transient
-	private MultipartFile memberProfile;
-	
-	@Column(length = 1000, name = "member_profile_name")
-	private String memberProfileName;
-	
-	@Transient
-	private long fileSize; */
+	private String memberProfile;
 	
 	@Column(nullable = false)
 	private String memberEmail; //이메일

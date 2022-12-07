@@ -34,7 +34,7 @@ class MinjeongTests {
 		memberService.register(member);
 	}
 	
-	@Test
+	/* @Test
 	void 로그인() {		
 		Member member = new Member();
 		member.setMemberEmail("minjeongg24@gmail.com");
@@ -43,5 +43,5 @@ class MinjeongTests {
 		memberService.login(member);
 		System.out.println("member email = " + member.getMemberEmail());
 		System.out.println("로그인 성공!!!");
-	}
+	} */
 }

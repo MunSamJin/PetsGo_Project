@@ -35,19 +35,6 @@
 	</script>
 </head>
 <body>
-	<h1>member/passwordCheck.jsp</h1>
-	///// 메뉴 ////////////////////////////// <p>
-	<a href="${pageContext.request.contextPath}/myPage">예약내역</a>
-	<a href="${pageContext.request.contextPath}/myScrap">스크랩북</a>
-	<a href="${pageContext.request.contextPath}/myCommunity">커뮤니티</a>
-	<a href="${pageContext.request.contextPath}/myQna">문의사항</a>
-	<a href="${pageContext.request.contextPath}/myInfo">회원정보</a>
-	
-	<br>
-	<a href="${pageContext.request.contextPath}/myInfo">회원 정보</a>
-	<a href="${pageContext.request.contextPath}/myPet">반려견 정보</a>
-	
-	<br>
 	<h3>회원 정보 수정</h3>
 	<b>비밀번호 재확인</b> <p>
 	<form id="loginForm" action="${pageContext.request.contextPath}/member/updateForm" method="post">
