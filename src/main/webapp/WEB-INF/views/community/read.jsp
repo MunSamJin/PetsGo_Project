@@ -64,7 +64,7 @@
 			</tr>
 			<tr>
 				<td>
-					<c:if test="${!empty communityBoard.boardFileName }">
+					<c:if test="${not empty communityBoard.boardFileName }">
 						<c:set var="boardFileName" value="${fn:split(communityBoard.boardFileName,',')}"/>
 						<c:forEach items="${boardFileName}" var="boardFileName">
 							<img src="${pageContext.request.contextPath}/img/samjin/${boardFileName}"

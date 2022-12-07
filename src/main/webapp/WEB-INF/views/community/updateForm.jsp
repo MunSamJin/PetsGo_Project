@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html>
@@ -43,12 +43,11 @@
 				
 				 var boardTag ="";
 				 
-				 boardTag = "#"+boardTag1+"#"+boardTag2;
+				 boardTag = "#" + boardTag1 + "#" + boardTag2;
 				 
 				$("[name=boardTag]").attr("value", boardTag);
 			});
-			
-			
+
 			
 		});		
 	
@@ -87,12 +86,13 @@
 			<%-- <input type=hidden name="memberNo" value="${member.memberNo}"> --%>
 			
 			<input type="hidden" name="boardTag" value="">
+			
 			<input type="hidden" name="boardNo" value="${board.boardNo }"/>
 					  
 			<table style="width: 70%; margin-left: auto; margin-right: auto;">
 				<tr>
 					<td>
-						<select name="boardTag1"
+						<select name="boardTag1" 
 								style="display: inline-block; margin-left: 6px; border-color: #4876ef; color: gray; background-color: #fff;
 									   border: 1px solid #edeef0; box-sizing: border-box; text-align: center;padding: 0 8px 1px; height: 24px;
 									   border-radius: 4px; font-size: 12px; letter-spacing: -0.5px; line-height: 20px; cursor: pointer;">

@@ -7,17 +7,47 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+
 	<title>Insert title here</title>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
 	
+	<script type="text/javascript">
+		$(function(){
+			
+			//alert(11);
+			
+			$("span[id=heart]").click(function(){
+				//alert("클릭");
+				/* $.ajax({
+					type:"POST",
+					url:"${pageContext.request.contextPath}/idcheckLike",				
+					data:"${_csrf.parameterName}=${_csrf.token}&id="+id,	
+					/* data:{
+						"${_csrf.parameterName}":"${_csrf.token}"
+					} ,*/
+					success:function(data){						
+						if(data=="fail"){
+						$("#idCheckView").html("  "+id+" ID Can't Use!! ").css("background","red");
+							checkResultId="";
+						}else{						
+							$("#idCheckView").html("  "+id+" ID Can Use!! ").css("background","yellow");		
+							checkResultId=id;
+						}					
+					}//callback			
+				});//ajax */
+			
+			});
+			
+			
+		});
+	</script>
 	
 	<style type="text/css">
 	
 /* 전체검색 : 태그 */
-		body > section > div > table:nth-child(4) > tbody > tr > td{width: 100px}
-		
-		
-/* 상세보기 : 모달창 */
+		body > section > div > table:nth-child(4) > tbody > tr > td{width: 100px; }
+		a{color: gray;}
+
 		
 	</style>
 
@@ -25,52 +55,53 @@
 <body>
 <div>
 	<a href="${pageContext.request.contextPath}/community/write">글쓰기</a> <br><br>
+							
 <!-- 전체검색 : 태그 -->	
 	<table style="width: 75%; margin-left: auto; margin-right: auto; text-align: center;" >
 		<tr>
 			<td>
 				<img src="${pageContext.request.contextPath}/img/samjin/tag/오토캠핑.png" width="30px" height="30px"/><br>
-				<a href="">#오토캠핑</a>
+				<a>#오토캠핑</a>
 			</td>
 			<td>
 				<img src="${pageContext.request.contextPath}/img/samjin/tag/방갈로.png" width="30px" height="30px"/><br>
-				<a href="">#방갈로</a>
+				<a>#방갈로</a>
 			</td>
 			<td>
 				<img src="${pageContext.request.contextPath}/img/samjin/tag/카라반.png" width="30px" height="30px"/><br>
-				<a href="">#카라반</a>
+				<a>#카라반</a>
 			</td>
 			<td>
 				<img src="${pageContext.request.contextPath}/img/samjin/tag/글램핑.png" width="30px" height="30px"/><br>
-				<a href="">#글램핑</a>
+				<a>#글램핑</a>
 			</td>
 			<td>
 				<img src="${pageContext.request.contextPath}/img/samjin/tag/펜션.png" width="30px" height="30px"/><br>
-				<a href="">#펜션</a>
+				<a>#펜션</a>
 			</td>
 			<td>
 				<img src="${pageContext.request.contextPath}/img/samjin/tag/차박.png" width="30px" height="30px"/><br>
-				<a href="">#차박</a>
+				<a>#차박</a>
 			</td>
 			<td>
 				<img src="${pageContext.request.contextPath}/img/samjin/tag/바다.png" width="30px" height="30px"/><br>
-				<a href="">#바다</a>
+				<a>#바다</a>
 			</td>
 			<td>
 				<img src="${pageContext.request.contextPath}/img/samjin/tag/산.png" width="30px" height="30px"/><br>
-				<a href="">#산</a>
+				<a>#산</a>
 			</td>
 			<td>
 				<img src="${pageContext.request.contextPath}/img/samjin/tag/강.png" width="30px" height="30px"/><br>
-				<a href="">#강</a>
+				<a>#강</a>
 			</td>
 			<td>
 				<img src="${pageContext.request.contextPath}/img/samjin/tag/호수.png" width="30px" height="30px"/><br>
-				<a href="">#호수</a>
+				<a>#호수</a>
 			</td>
 			<td>
 				<img src="${pageContext.request.contextPath}/img/samjin/tag/계곡.png" width="30px" height="30px"/><br>
-				<a href="">#계곡</a>
+				<a>#계곡</a>
 			</td>
 		</tr>
 	</table>	
@@ -124,12 +155,17 @@
 								 	</c:forEach> --%>
 		
 								 	<div style="text-align: left;">
-								 		<span>${communityBoardList.boardTag}</span><br>
+								 		<span id="heart" style="cursor: pointer;">
+								 			<img src="${pageContext.request.contextPath}/img/samjin/heart.png" 
+								 				 width="15px" height="15px" style="padding-bottom: 3px;">
+								 		</span>
+								 		<span><b>좋아요&nbsp30개</b></span>
+								 		<span><b>${communityBoardList.boardTag}</b></span><br>
 								 		<c:choose>
 												<c:when test="${fn:length(communityBoardList.boardContent)>17}">
 													 <c:out value="${fn:substring(communityBoardList.boardContent,0,16)}"/>
 													 ... 
-													 <a href="${pageContext.request.contextPath}/community/read/${communityBoardList.boardNo}">더보기</a>
+													 <a href="${pageContext.request.contextPath}/community/read/${communityBoardList.boardNo}" style="color: gray">더보기</a>
 													 
 													 
 												</c:when>
@@ -146,6 +182,7 @@
 				</c:forEach>
 			</tr>
 		</table>	
-	</div>			
+	</div>	
+		
 </body>
 </html>

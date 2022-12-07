@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.service.CommunityService;
+import lombok.NonNull;
 
 @Controller
 @RequestMapping("/community")
@@ -150,6 +151,10 @@ public class CommunityController {
 		String saveDir2 = session.getServletContext().getRealPath("/img/samjin/");
 		String imgNames = "";
 		
+		//System.out.println("memberNo = " + communityBoard.getMember().getMemberNo());
+		
+		//Long mno = communityBoard.getMember().getMemberNo();
+
 		try {
 			// Declare empty list for collect the files data
 			// which will come from UI
@@ -223,7 +228,7 @@ public class CommunityController {
 	public ModelAndView update(CommunityBoard board, @RequestParam("files") List<MultipartFile> files,
 			HttpSession session) {
 		
-		
+		Long boardNo = board.getBoardNo();
 		System.out.println("board.getboardNo" + board.getBoardNo());
 		
 		String saveDir3 = session.getServletContext().getRealPath("/img/samjin/");
@@ -246,8 +251,17 @@ public class CommunityController {
 			e.printStackTrace();
 		}
 		
+		//수정할 때 사진파일을 첨부하지 않는다면!
+		System.out.println("imgNames = " + imgNames );
 		
-		board.setBoardFileName(imgNames);
+		if(imgNames == null || imgNames.equals("") ) {
+			CommunityBoard board2 = communityService.selectBy(boardNo);
+			String dbFileName = board2.getBoardFileName();
+			board.setBoardFileName(dbFileName);
+		}else {
+			board.setBoardFileName(imgNames);
+		}
+		
 		
 		CommunityBoard dbBoard = communityService.update(board);
 		
@@ -262,4 +276,6 @@ public class CommunityController {
 		communityService.delete(boardNo);
 		return "redirect:/community/list";
 	}
+	
+	
 }

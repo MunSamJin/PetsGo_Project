@@ -60,8 +60,8 @@ public class Member {
 	private String memberRole;//권한
 	
 
-	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
-	private List<Pet> petList;
+	/*@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	private List<Pet> petList;*/
 	  
 	 /* @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
 	 * List<QnaBoard> qnaBoardList;
