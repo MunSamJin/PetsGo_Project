@@ -36,7 +36,8 @@ public class ResiServiceImpl implements ResiService {
 
 	@Override
 	public void insert(Residence resi) {
-		// TODO Auto-generated method stub
+		resi.setCamp(null);
+		resiRep.save(resi);
 
 	}
 

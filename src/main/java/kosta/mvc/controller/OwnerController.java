@@ -83,6 +83,9 @@ public class OwnerController {
 		} 
 		
 		camp.setCampFilename(filenames);
+		//String text = camp.getCampIntro().replace("\r\n","<br>");
+		//camp.setCampIntro(text);
+		
 		campService.insert(camp);
 		
 		return "success";
@@ -121,6 +124,8 @@ public class OwnerController {
 			camp.setCampFilename(filenames);
 		}
 		
+		//String text = camp.getCampIntro().replace("\r\n","<br>");
+		//camp.setCampIntro(text);
 		
 		campService.update(camp);
 		
@@ -162,6 +167,19 @@ public class OwnerController {
 	@RequestMapping("/resiInsert")
 	public void resiInsert(Residence resi) {
 		resiService.insert(resi);
+	}
+	
+	
+	@RequestMapping("/resiDetail")
+	public void resiDetail(Long resiNo, Model model) {
+		Residence resi = resiService.selectByResiNo(resiNo);
+		model.addAttribute("resi", resi);
+	}
+	
+	@RequestMapping("/resiUpdateForm")
+	public void resiUpdateForm(Long resiNo, Model model) {
+		Residence resi = resiService.selectByResiNo(resiNo);
+		model.addAttribute("resi", resi);
 	}
 	
 	
