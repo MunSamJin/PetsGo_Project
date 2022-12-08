@@ -27,4 +27,10 @@ public interface MemberRepository extends JpaRepository<Member, Long>, QuerydslP
 	//@Query("SELECT m FROM member m WHERE m.memberEmail=?1 AND m.memberPassword=?2")
 	@Query(value = "SELECT * FROM MEMBER WHERE MEMBER_EMAIL=?1 AND MEMBER_PASSWORD=?2", nativeQuery = true)
 	Member login(String memberEmail, String memberPassword);
+	
+	/**
+	 * security 관련
+	 * */
+	@Query(value = "SELECT * FROM MEMBER WHERE MEMBER_EMAIL=?1", nativeQuery = true)
+	Member findMember(String memberEmail);
 }

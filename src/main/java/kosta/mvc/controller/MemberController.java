@@ -1,7 +1,5 @@
 package kosta.mvc.controller;
 
-import java.io.File;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Member;
@@ -45,24 +42,28 @@ public class MemberController {
 	 * */
 	@RequestMapping("/register")
 	public String register(Member member, HttpSession session) {
+		System.out.println("controller 회원가입 member = " + member);
+		
 		memberService.register(member);
+		
+		System.out.println("service 갔다 온 회원가입~");
 		
 		session.setAttribute("member", member);
 
 		return "redirect:/member/main";
-	}	
+	}
 	
 	/**
 	 * 로그인
 	 * */
-	@RequestMapping("/login")
+	/* @RequestMapping("/login")
 	public String login(Member member, HttpSession session) {
 		member = memberService.login(member);
 		
 		session.setAttribute("member", member);
 		
 		return "redirect:/member/main";
-	} 
+	} */
 		
 	/**
 	 * 로그아웃

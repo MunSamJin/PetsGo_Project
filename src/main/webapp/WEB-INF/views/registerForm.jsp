@@ -107,6 +107,7 @@
                     
 					<form id="registerForm" action="${pageContext.request.contextPath}/member/register" method="post">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+						<input type="hidden" name="memberRole" value="ROLE_MEMBER">
                         <div class="form-content">
                             <label for="file" class="form-label">아이콘</label>
                            <!--  <input type="file" class="form-control" name="memberProfile" id="file"> -->

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Member;
-import kosta.mvc.domain.Pet;
 import kosta.mvc.repository.MemberRepository;
 
 @Service
@@ -31,13 +30,18 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void register(Member member) {
+	public void register(Member member) {		
 		memberRep.save(member);
 	}
 
 	@Override
 	public Member login(Member member) {
+		System.out.println("service login member = " + member);
+		
 		member = memberRep.login(member.getMemberEmail(), member.getMemberPassword());
+		
+		System.out.println("rep login 갔다 옴~");
+		
 		if(member == null) throw new RuntimeException("일치하는 정보가 없습니다.");
 		
 		return member;

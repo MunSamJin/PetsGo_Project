@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>   
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -116,7 +117,7 @@
         </div>
     </header> --%>
 <!-- Header part end-->
-
+ 	
     <!-- banner part start-->
     <section class="banner_part" style="">
         <div class="container" alt="main_banner">
