@@ -107,8 +107,11 @@
 					</ul>
 					<div class="tab-content" id="myTabContent">
 					<h1>로그인</h1>
+					<c:if test="${not empty requestScope.errorMessage}">
+						<span style="color:red">${requestScope.errorMessage}</span>
+					</c:if>
 					  <div class="tab-pane fade show active" id="member-tab-pane" role="tabpanel" aria-labelledby="member-tab" tabindex="0">
-						<form id="memberLoginForm" action="${pageContext.request.contextPath}/login/member" method="post">
+						<form id="memberLoginForm" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
 							<input type="email" class="form-control" name="memberEmail" id="email" placeholder="이메일"> 
 							<div id="emailValid"></div>
 							<input type="password" class="form-control" name="memberPassword" id="password" placeholder="비밀번호"> 
@@ -120,13 +123,13 @@
 						</form>
 					  </div>					  
 					  <div class="tab-pane fade" id="owner-tab-pane" role="tabpanel" aria-labelledby="owner-tab" tabindex="0">
-						<form id="ownerLoginForm" action="${pageContext.request.contextPath}/owner/login" method="post">
+						<form id="ownerLoginForm" action="${pageContext.request.contextPath}/loginCheck" method="post">
 						
 						
 						
-							<input type="text" class="form-control" name="memberEmail" id="email" placeholder="사업자 등록 번호"> 
-							<span id="emailValid"></span>
-							<input type="password" class="form-control" name="memberPassword" id="password" placeholder="비밀번호"> 
+							<input type="text" class="form-control" name="campRegNo" id="no" placeholder="사업자 등록 번호"> 
+							<span id="noValid"></span>
+							<input type="password" class="form-control" name="campPassword" id="campPassword" placeholder="비밀번호"> 
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />		
 							<div class="buttons">
 								<input type="submit" class="btn btn-primary" value="로그인">			

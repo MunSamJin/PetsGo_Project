@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>   
+    
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <!doctype html>
 <html lang="en">
@@ -111,6 +115,14 @@
         </div>
     </header>
 <!-- Header part end-->
+
+ 	<c:if test="${not empty pageContext.request.userPrincipal}">
+	    ${pageContext.request.userPrincipal.name}님 /${pageContext.request.userPrincipal}  <p>
+	    <sec:authentication var="mvo" property="principal" /> 
+		<b>${mvo.memberEmail}, ${mvo.memberNickname}님 환영합니다.</b><p>
+		<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
+		<a href="${pageContext.request.contextPath}/member/myInfo">마이페이지</a>
+	</c:if>
  	
     <!-- banner part start-->
     <section class="banner_part" style="">
