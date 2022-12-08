@@ -26,4 +26,10 @@ public class ReservationController {
 		
 		return "";
 	}
+	
+	@RequestMapping("/test")
+	public String test() {
+		System.out.println("왔니?");
+		return "왔니";
+	}
 }
