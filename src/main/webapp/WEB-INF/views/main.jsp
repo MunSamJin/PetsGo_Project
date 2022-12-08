@@ -34,8 +34,8 @@
     <!-- map CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/kakao_map.css">
 
-<link rel='stylesheet' href='${pageContext.request.contextPath}/css/swiper.min.css'>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/comu_style.css">
+	<link rel='stylesheet' href='${pageContext.request.contextPath}/css/swiper.min.css'>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/comu_style.css">
 
 
     <style type="text/css">
@@ -53,13 +53,15 @@
 
 <body>
 <!--::header part start - 비회원MODE ::-->
-   <header class="main_menu">
+<%--    <header class="main_menu">
         <div class="main_menu_iner">
             <div class="container">
                 <div class="row align-items-center ">
                     <div class="col-lg-12">
                         <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                            <a class="navbar-brand" href="index.html"> <img src="${pageContext.request.contextPath}/img/logo_petsgo.png" alt="logo_petsgo"> </a>
+
+                            <a class="navbar-brand" href="${pageContext.request.contextPath}/main"> <img src="${pageContext.request.contextPath}/img/logo.png" alt="logo"> </a>
+
                             <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
@@ -98,10 +100,10 @@
                                         </div>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="contact.html">회원가입</a>
+                                        <a class="nav-link" href="${pageContext.request.contextPath}/registerForm">회원가입</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="https://www.tripbtoz.com/">로그인</a>
+                                        <a class="nav-link" href="${pageContext.request.contextPath}/loginForm">로그인</a>
                                     </li>
                                 </ul>
                             </div>
@@ -112,7 +114,7 @@
                 </div>
             </div>
         </div>
-    </header>
+    </header> --%>
 <!-- Header part end-->
 
     <!-- banner part start-->

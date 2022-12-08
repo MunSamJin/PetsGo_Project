@@ -68,9 +68,9 @@ public class Residence {
 	
 	
 
-	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	/*@ManyToOne(fetch = FetchType.LAZY)//지연로딩
 	@JoinColumn(name = "camp_no") 
-	private Camp camp;
+	private Camp camp;*/
 
 	
 	/*@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 

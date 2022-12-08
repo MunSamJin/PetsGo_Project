@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,7 +41,17 @@ public class Member {
 	@NonNull
 	private Long memberNo; //회원번호
 	
-	private String memberProfile; //프로필아이콘
+	private String memberProfile; //수정 전 프로필 아이콘
+	
+	//수정 후 프로필 아이콘
+	/* @Transient
+	private MultipartFile memberProfile;
+	
+	@Column(length = 1000, name = "member_profile_name")
+	private String memberProfileName;
+	
+	@Transient
+	private long fileSize; */
 	
 	@Column(nullable = false)
 	private String memberEmail; //이메일
@@ -60,8 +73,8 @@ public class Member {
 	private String memberRole;//권한
 	
 
-	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
-	private List<Pet> petList;
+	/*@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	private List<Pet> petList;*/
 	  
 	 /* @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
 	 * List<QnaBoard> qnaBoardList;
