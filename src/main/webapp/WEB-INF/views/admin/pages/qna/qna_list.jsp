@@ -160,6 +160,7 @@
                         </tr>
                       </thead>
                       <tbody>
+                      
                         <tr>
                           <td class="py-1">
                             <div>1203450</div>
@@ -227,7 +228,6 @@
                             답변상태
                           </td>
                         </tr>
-
                       </tbody>
                     </table>
                   </div>
