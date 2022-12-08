@@ -94,8 +94,8 @@ public class Camp {
 	private String campRole;
 	
 	
-	/*@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 
-	private List<Residence> residenceList;*/
+	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 
+	private List<Residence> residenceList;
 	
 	/*@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) private List<Scrap>
 	scrapList;*/

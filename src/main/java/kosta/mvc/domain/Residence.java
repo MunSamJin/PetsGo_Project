@@ -17,6 +17,8 @@ import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -68,14 +70,16 @@ public class Residence {
 	
 	
 
-	/*@ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
 	@JoinColumn(name = "camp_no") 
-	private Camp camp;*/
+	@JsonIgnore
+	private Camp camp;
+
 
 	
-	/*@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
-	private List<Reservation> reservationList;/*
+	@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
+	private List<Reservation> reservationList;
 	
-	/*@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
-	private List<ResidenceDetail> residenceDetailList;*/
+	@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
+	private List<ResidenceDetail> residenceDetailList;
 }

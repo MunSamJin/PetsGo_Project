@@ -22,6 +22,10 @@
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    
+<style type="text/css">
+	img {width:200px;}
+</style>
  
 </head>
 <body>
@@ -66,9 +70,9 @@
         <li class="active dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-long-arrow-down"></i><span>캠핑장조회</span> <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="${pageContext.request.contextPath}/owner/campSelect">캠핑장조회</a></li>
-            <li><a href="${pageContext.request.contextPath}/owner/campInsert">캠핑장등록</a></li>
+            <%-- <li><a href="${pageContext.request.contextPath}/owner/campInsert">캠핑장등록</a></li> --%>
             <li><a href="${pageContext.request.contextPath}/owner/resiSelect">숙소조회</a></li>
-            <li><a href="${pageContext.request.contextPath}/owner/resiInsert">숙소등록</a></li>
+            <li><a href="${pageContext.request.contextPath}/owner/resiInsertForm">숙소등록</a></li>
           </ul>
         </li>
         <li><a href="${pageContext.request.contextPath}/owner/reservManagement"><i class="icon-facetime-video"></i><span>예약관리</span> </a></li>
@@ -103,7 +107,7 @@
                   	
                   	<c:set value="${fn:split(camp.campFilename , ',')}" var="filenameArr"/>
                   	<c:forEach items="${filenameArr}" var="filename">
-                  		<p><img class="news-item-preview" src="/img/camp/${filename}">${filename}</p>
+                  		<p><img class="news-item-preview" src="/img/seryun/${filename}"></p>
                   	</c:forEach>
                     
                   </div>
@@ -112,16 +116,16 @@
                 <li>
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
-                  <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">주소</a>
-                    <p class="news-item-preview">${camp.campAddr}</p>
+                  <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">우편번호</a>
+                    <p class="news-item-preview">${camp.campPost}</p>
                   </div>
                   
                 </li>
                 <li>
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
-                  <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">우편번호</a>
-                    <p class="news-item-preview">${camp.campPost}</p>
+                  <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">주소</a>
+                    <p class="news-item-preview">${camp.campAddr}</p>
                   </div>
                   
                 </li>
@@ -137,7 +141,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">공지사항</a>
-                    <p class="news-item-preview">${camp.campNotify}</p>
+                    <p class="news-item-preview" style="white-space: pre-line;">${camp.campNotify}</p>
                   </div>
                   
                 </li>
@@ -145,7 +149,7 @@
                   
                   <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
                   <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">소개글</a>
-                    <p class="news-item-preview">${camp.campIntro}</p>
+                    <p class="news-item-preview" style="white-space: pre-line;">${camp.campIntro}</p>
                   </div>
                   
                 </li>
