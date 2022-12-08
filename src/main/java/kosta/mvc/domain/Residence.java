@@ -77,8 +77,8 @@ public class Residence {
 
 
 	
-	@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
-	private List<Reservation> reservationList;
+	/*@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
+	private List<Reservation> reservationList;*/
 	
 	@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
 	private List<ResidenceDetail> residenceDetailList;
