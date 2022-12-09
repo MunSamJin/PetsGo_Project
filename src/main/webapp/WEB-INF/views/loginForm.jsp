@@ -63,9 +63,6 @@
 					  </div>					  
 					  <div class="tab-pane fade" id="owner-tab-pane" role="tabpanel" aria-labelledby="owner-tab" tabindex="0">
 						<form id="ownerLoginForm" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
-						
-						
-						
 							<input type="text" class="form-control" name="id" id="no" placeholder="사업자 등록 번호"> 
 							<span id="noValid"></span>
 							<input type="password" class="form-control" name="password" id="campPassword" placeholder="비밀번호"> 
