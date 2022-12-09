@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
+
 
 <!DOCTYPE html>
 <html>
@@ -37,8 +37,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <!-- main CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main_petsgo.css">
-    <!-- map CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/kakao_map.css">
+   
 
 	<link rel='stylesheet' href='${pageContext.request.contextPath}/css/swiper.min.css'>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/comu_style.css">
@@ -52,22 +51,23 @@
 			//alert(11);
 			
 			/* 페이지 처리 */
-			$("#moreBtn").on("click", function() {
-			let len = $("div[name=hideview]").length;
-			if(len===0) {
-				alert("더 이상 게시물이 없습니다.");
-			} else {
-				let arr = new Array(len);
-				for(var i=0; i<6; i++){         
-					arr[i] = $("div[name=hideview]").eq(i);
-			    }
-				for(var j=0; j<arr.length; j++) {
-					arr[j].attr('name', 'showview');
-					arr[j].css('display', 'block');
+			/* $("#moreBtn").click(function() {
+				let len = $("div[name=hideview]").length;
+				if(len===0) {
+					alert("더 이상 게시물이 없습니다.");
+				} else {
+					let arr = new Array(len);
+					for(var i=0; i<6; i++){         
+						arr[i] = $("div[name=hideview]").eq(i);
+				    }
+					for(var j=0; j<arr.length; j++) {
+						arr[j].attr('name', 'showview');
+						arr[j].css('display', 'block');
+					}
+					$("html, body").animate({scrollTop:$(document).height()}, 3000);
 				}
-				$("html, body").animate({scrollTop:$(document).height()}, 500);
-			}
-		});
+			}); */
+			
 			
 			/* 태그 검색 */			
 			$("a[name=tag]").on("click", function(){
@@ -79,15 +79,7 @@
 			});//태그검색 끝
 			
 			/* 좋아요 기능 */
-			$("span[class=heart]").on("click", function(){
-				//alert("하트 클릭!");
-				
-				//비회원이면 로그인하세요!
-				if(){
-					alert("로그인이 필요한 서비스입니다.");
-					$(location).attr('href', "");
-				}
-			});
+			
 			
 		}); //readyEnd
 	</script>
@@ -199,15 +191,15 @@
 			
 			<ul id="tagResult">
 				<c:forEach items="${requestScope.communityBoardList}" var="communityBoardList" varStatus="status" >
-				    
-				    <c:choose>
+				  
+				    <%-- <c:choose>
                     	<c:when test="${status.count<=6}">
-                    		<div class="containerList"  name="showview">
+                    		<div name="showview"></div>
                     	</c:when>
                     	<c:otherwise>
-                    		<div class="containerList"  style="display: none" name="hideview">
+                    		<div style="display: none" name="hideview"></div>
                     	</c:otherwise>
-                    </c:choose>
+                    </c:choose> --%>
 				    
 				    <li>
 						<div class="communityCard">
@@ -218,7 +210,7 @@
 								<c:choose>
 								   <c:when test="${communityBoardList.likeList.size()>0}">
 								     <c:forEach items="${communityBoardList.likeList}" var="like">
-								          <c:if test="${like.member.memberNo}">
+								          <c:if test="${like.member.memberNo==sessionScope.memberNo}">
 									           <span class="heart" style="cursor: pointer;">
 													<img src="${pageContext.request.contextPath}/img/samjin/redheart.png" 
 												 		 width="15px" height="15px" style="padding-bottom: 3px;">
@@ -244,7 +236,7 @@
 				    </li>
 				</c:forEach>
 			</ul> 
-			<button type="button" id="moreBtn">더보기</button>
+			<!-- <button type="button" id="moreBtn">더보기</button> -->
 		</div>	
 	</div>	
 
