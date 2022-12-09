@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Member;
+import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.service.MemberService;
 
 @Controller //ajax 처리할 메소드는 @Reponsebody를 붙여주면 됨

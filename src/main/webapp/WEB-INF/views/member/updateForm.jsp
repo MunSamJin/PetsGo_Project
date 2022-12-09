@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -130,7 +131,7 @@
 		        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		        <input type="radio" name="memberProfile" id="file" value="member2.png"> &nbsp;&nbsp;&nbsp;
 		        <img src="${pageContext.request.contextPath}/img/minjeong/member2.png" alt="">
-				
+				<br>
 				이메일 ${mvo.memberEmail} <br><br>
 				새 비밀번호 <input type="password" name="memberPassword" id="password"><br>
 				<span id="passwordValid"></span><br><br>

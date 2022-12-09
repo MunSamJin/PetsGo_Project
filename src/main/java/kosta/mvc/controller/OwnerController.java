@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,18 +35,18 @@ public class OwnerController {
 	public void ownerIndex(Model model) {
 	}
 	
-	@RequestMapping("/campSelect")
+	@RequestMapping("/camp/campSelect")
 	public void campSelect(Model model) {
 		Camp camp = campService.selectAll();
 		model.addAttribute("camp",camp);
 	}
 	
 	
-	@RequestMapping("/campUpdateForm")
+	@RequestMapping("/camp/campUpdateForm")
 	public ModelAndView campUpdateForm() {
 		//FreeBoard board = campService.selectBy(bno, false); //조회수 증가 안 함
 		Camp camp = campService.selectAll();
-		return new ModelAndView("owner/campUpdateForm","camp", camp);
+		return new ModelAndView("owner/camp/campUpdateForm","camp", camp);
 	}
 	
 	
@@ -94,7 +95,7 @@ public class OwnerController {
 	
 	@RequestMapping("/campUpdate")
 	//@ResponseBody
-	public String campUpdate(Camp camp, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
+	public ModelAndView campUpdate(Camp camp, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
 		
 		String saveDir = session.getServletContext().getRealPath("/img/seryun/");
 		String filenames = "";
@@ -135,14 +136,16 @@ public class OwnerController {
 		mv.addObject("fileSize", files.size());
 		mv.setViewName("owner/campSelect");*/
 		
-		return "redirect:/owner/campSelect";
+		return new ModelAndView("owner/camp/campSelect") ;
 	}
 	
 	
-	@RequestMapping("/delete")
-	public String campDelete() {
-		
-		return "";
+	@RequestMapping("/camp/campDeleteForm/{campNo}")  //wner/camp/campDeleteForm?campNo=1
+	public String campDelete(@PathVariable Long campNo, Model model) {
+		System.out.println("campNo= " + campNo);
+		Camp camp = campService.selectBy(campNo);
+		model.addAttribute("camp",camp);
+		return "/owner/camp/campDeleteForm";
 	}
 	
 	
@@ -157,7 +160,7 @@ public class OwnerController {
 	
 	
 	
-	@RequestMapping("/resiSelect")
+	@RequestMapping("/resi/resiSelect")
 	public void resiSelect(Model model) {
 		List<Residence> resiList = resiService.selectAll();
 		model.addAttribute("resiList", resiList);
@@ -165,24 +168,90 @@ public class OwnerController {
 	
 	
 	@RequestMapping("/resiInsert")
-	public void resiInsert(Residence resi) {
+	public String risiInsert(Residence resi, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
+		
+		String saveDir = session.getServletContext().getRealPath("/img/seryun/");
+		String filenames = "";
+		
+		try {
+			//upload.getFile().transferTo(new File(saveDir + "/" + originalFileName));
+			
+			for (int i = 0; i < files.size(); i++) {
+				MultipartFile m = files.get(i);
+				System.out.println("첨부파일이름 = " + m.getOriginalFilename());
+				
+				if (i == (files.size() - 1))
+					filenames += m.getOriginalFilename();
+				else
+					filenames += m.getOriginalFilename() + ",";
+				
+				System.out.println("filenames = " + filenames);
+				m.transferTo(new File(saveDir + "/" + m.getOriginalFilename()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		resi.setResiFilename(filenames);
 		resiService.insert(resi);
+		
+		return "owner/resi/resiDetail?resiNo="+resi.getResiNo();
 	}
 	
 	
-	@RequestMapping("/resiDetail")
+	@RequestMapping("/resi/resiDetail")
 	public void resiDetail(Long resiNo, Model model) {
 		Residence resi = resiService.selectByResiNo(resiNo);
 		model.addAttribute("resi", resi);
 	}
 	
-	@RequestMapping("/resiUpdateForm")
+	@RequestMapping("/resi/resiUpdateForm")
 	public void resiUpdateForm(Long resiNo, Model model) {
 		Residence resi = resiService.selectByResiNo(resiNo);
 		model.addAttribute("resi", resi);
 	}
 	
 	
+	@RequestMapping("/resiUpdate")
+	public ModelAndView resiUpdate(Residence resi, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
+		
+		String saveDir = session.getServletContext().getRealPath("/img/seryun/");
+		String filenames = "";
+		
+		try {
+			
+			for (int i = 0; i < files.size(); i++) {
+				MultipartFile m = files.get(i);
+				System.out.println("첨부파일이름 = " + m.getOriginalFilename());
+				
+				if (i == (files.size() - 1))
+					filenames += m.getOriginalFilename();
+				else
+					filenames += m.getOriginalFilename() + ",";
+				
+				System.out.println("filenames = " + filenames);
+				m.transferTo(new File(saveDir + "/" + m.getOriginalFilename()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		if(filenames.equals("")) {
+			Residence resi2 = resiService.selectByResiNo(resi.getResiNo());
+			resi.setResiFilename(resi2.getResiFilename());
+		} else {
+			resi.setResiFilename(filenames);
+		}
+		
+		resiService.update(resi);
+		
+		return new ModelAndView("owner/resi/resiDetail","resi",resi) ;
+	}
+	
+	
 	@RequestMapping("/{url}")
-	public void test() {}
+	public void url1() {}
+	
+	@RequestMapping("/{url}/{url2}")
+	public void url2() {}
 }
