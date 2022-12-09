@@ -83,7 +83,6 @@
 		</div>
 	</div>
 	<!-- login part end -->
-
 	
 	<!-- jquery plugins here-->
    <%--  <script src="${pageContext.request.contextPath}/js/jquery-1.12.1.min.js"></script> --%>

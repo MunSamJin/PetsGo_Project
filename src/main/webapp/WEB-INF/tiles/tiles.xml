@@ -37,6 +37,7 @@
 		<put-attribute name="content" value="/WEB-INF/views/community/{1}.jsp"/>
 	</definition>
 	
+
 	<definition name="camp/**" extends="layout">
 		<put-attribute name="content" value="/WEB-INF/views/camp/{1}.jsp"/>
 	</definition>

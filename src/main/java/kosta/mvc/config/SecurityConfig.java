@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	MemberAuthenticationProvider memberAuthenticationProvider;
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -37,11 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.loginProcessingUrl("/j_spring_security_check")
 				.usernameParameter("id")
 				.passwordParameter("password")
-				.defaultSuccessUrl("/main")
+				.defaultSuccessUrl("/default")
 				.failureHandler(memberAuthenticationFailurHandler)
-				//.defaultSuccessUrl("/default", true)
-				//.successForwardUrl("/default")
-                //.failureUrl("/")
 				.and()
 			.logout()
 				.logoutUrl("/logout")

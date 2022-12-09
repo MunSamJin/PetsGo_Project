@@ -10,12 +10,8 @@
 </head>
 <body>
 	<h3>member/myQna.jsp</h3>
-	///// 메뉴 ////////////////////////////// <p>
-	<a href="${pageContext.request.contextPath}/member/myPage">예약내역</a>
-	<a href="${pageContext.request.contextPath}/member/myScrap">스크랩북</a>
-	<a href="${pageContext.request.contextPath}/member/myCommunity">커뮤니티</a>
-	<a href="${pageContext.request.contextPath}/member/myQna">문의사항</a>
-	<a href="${pageContext.request.contextPath}/member/myInfo">회원정보</a>
+	출력돼야 할 문의사항들~ <br>
+	<a href="${pageContext.request.contextPath}/member/qnaForm">글쓰기</a>
 
 </body>
 </html>
