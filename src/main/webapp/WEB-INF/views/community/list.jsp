@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 
 <!DOCTYPE html>
 <html>
@@ -48,7 +49,25 @@
 	<script type="text/javascript">
 	
 		$(function(){
-			//alert(11);			
+			//alert(11);
+			
+			/* 페이지 처리 */
+			$("#moreBtn").on("click", function() {
+			let len = $("div[name=hideview]").length;
+			if(len===0) {
+				alert("더 이상 게시물이 없습니다.");
+			} else {
+				let arr = new Array(len);
+				for(var i=0; i<6; i++){         
+					arr[i] = $("div[name=hideview]").eq(i);
+			    }
+				for(var j=0; j<arr.length; j++) {
+					arr[j].attr('name', 'showview');
+					arr[j].css('display', 'block');
+				}
+				$("html, body").animate({scrollTop:$(document).height()}, 500);
+			}
+		});
 			
 			/* 태그 검색 */			
 			$("a[name=tag]").on("click", function(){
@@ -177,8 +196,19 @@
 	
 <!-- 커뮤니티 전체조회 -->	
 		<div class="container" ><!-- style="width: 80%; margin-left: auto; margin-right: auto; margin-bottom: 50px" -->
+			
 			<ul id="tagResult">
 				<c:forEach items="${requestScope.communityBoardList}" var="communityBoardList" varStatus="status" >
+				    
+				    <c:choose>
+                    	<c:when test="${status.count<=6}">
+                    		<div class="containerList"  name="showview">
+                    	</c:when>
+                    	<c:otherwise>
+                    		<div class="containerList"  style="display: none" name="hideview">
+                    	</c:otherwise>
+                    </c:choose>
+				    
 				    <li>
 						<div class="communityCard">
 							<img class="communityImg" src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList.boardFileName,',')[0]}"
@@ -188,7 +218,7 @@
 								<c:choose>
 								   <c:when test="${communityBoardList.likeList.size()>0}">
 								     <c:forEach items="${communityBoardList.likeList}" var="like">
-								          <c:if test="${like.member.memberNo==sessionScope.memberNo}">
+								          <c:if test="${like.member.memberNo}">
 									           <span class="heart" style="cursor: pointer;">
 													<img src="${pageContext.request.contextPath}/img/samjin/redheart.png" 
 												 		 width="15px" height="15px" style="padding-bottom: 3px;">
@@ -214,6 +244,7 @@
 				    </li>
 				</c:forEach>
 			</ul> 
+			<button type="button" id="moreBtn">더보기</button>
 		</div>	
 	</div>	
 

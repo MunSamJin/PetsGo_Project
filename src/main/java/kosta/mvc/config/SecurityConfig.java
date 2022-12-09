@@ -30,6 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.hasRole("OWNER")            //      access="isAuthenticated()"
 				.antMatchers("/member/**")
 				.hasRole("MEMBER") 
+				.antMatchers("/community/write")
+				.hasRole("MEMBER")
 				.and()
 				//.csrf().disable() // <security:csrf disabled="true"/>
 			.formLogin()
