@@ -48,13 +48,7 @@
 	<script type="text/javascript">
 	
 		$(function(){
-			//alert(11);
-			/* $("#communityImg").click(function(){
-							//alert("클릭");
-							//${pageContext.request.contextPath}/community/read/item.boardNo
-							$(location).attr('href', '${pageContext.request.contextPath}/community/read/'+item.boardNo);
-						}); */
-			
+			//alert(11);			
 			
 			/* 태그 검색 */			
 			$("a[name=tag]").on("click", function(){
@@ -62,66 +56,19 @@
 				var tag = $(this).text();
 				console.log(tag);
 				$(location).attr('href', "${pageContext.request.contextPath}/community/list?tag="+ tag);
-				//alert(tag);
-				
-			 /*$.ajax({
-					type:"get",
-					url:"${pageContext.request.contextPath}/community/list",				
-					data:{tag:tag},	
-					dataType:"json" ,
-					success:function(result){	 	
-						
-						alert(result);
-						$("#tagResult").empty();
-						
-						let str = "";
-						let fileName = "";
-						
-						
-						
-						$.each(result, function(index, item){
-							alert(item.boardFileName.split(","));
-							fileName = item.boardFileName.split(",");
-							alert(fileName[0]);
-							
-							$.each(filename, function(i, j){
-								alert(j);
-							})
-							
-							alert(item.boardTag)
-							alert(item.boardContent)
-							
-							
-							str += `<li>`;
-							str += `<div class="communityCard">`;
-							str += '<img id="communityImg" class="communityImg" src="${pageContext.request.contextPath}/img/samjin/' 
-									+ fileName[0] 
-									+ '" onclick="javascript:location.href=\'${pageContext.request.contextPath}/community/read/' 
-									+ item.boardNo 
-									+ '\'"><br>';
-							str += `<div style="text-align: left">`;
-							str += `<span><b>` + item.boardTag + `</b></span><br>`;
-							str += `<span class="communityBoardContent">` + item.boardContent + `</span>`;
-							str += '<a href="${pageContext.request.contextPath}/community/read/' 
-									+ item.boardNo 
-									+ '" style="color: gray">더보기</a>';						
-							str += `</div>`;
-							str += `</div>`;
-							str += `</li>`;
-							
-						});
-						
-						$("#tagResult").append(str);
-						
-						
-						
-					},//callback
-					error:function(err){
-						alert(err);
-					}
-					
-				});*/ //ajaxEnd
+				//alert(tag);			
 			});//태그검색 끝
+			
+			/* 좋아요 기능 */
+			$("span[class=heart]").on("click", function(){
+				//alert("하트 클릭!");
+				
+				//비회원이면 로그인하세요!
+				if(){
+					alert("로그인이 필요한 서비스입니다.");
+					$(location).attr('href', "");
+				}
+			});
 			
 		}); //readyEnd
 	</script>
@@ -147,9 +94,7 @@
 						cursor: pointer; -webkit-appearance: none;}
 		.inpSel select option {height: 32px; font-size: 13px; color: #444; line-height: 16px;
 								font-family: inherit; font-weight: inherit; font-style: inherit; display: block;
-								white-space: nowrap; min-height: 1.2em; padding: 0px 2px 1px;}
-		
-
+								white-space: nowrap; min-height: 1.2em; padding: 0px 2px 1px;}		
 		
 /* 커뮤니티 게시글 */	
 		.communityBoardList{margin-bottom: 50px}
@@ -244,7 +189,7 @@
 								   <c:when test="${communityBoardList.likeList.size()>0}">
 								     <c:forEach items="${communityBoardList.likeList}" var="like">
 								          <c:if test="${like.member.memberNo==sessionScope.memberNo}">
-									           <span class="redheart" style="cursor: pointer;">
+									           <span class="heart" style="cursor: pointer;">
 													<img src="${pageContext.request.contextPath}/img/samjin/redheart.png" 
 												 		 width="15px" height="15px" style="padding-bottom: 3px;">
 												</span>
