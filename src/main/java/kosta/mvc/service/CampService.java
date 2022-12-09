@@ -28,7 +28,7 @@ public interface CampService {
 	/**
 	 * 글번호 검색 : 조회수 증가.... - state가 true이면 조회수 증가한다.
 	 */
-	Camp selectBy(Long bno, boolean state);
+	Camp selectBy(Long bno);
 
 	/**
 	 * 수정하기

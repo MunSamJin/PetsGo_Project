@@ -48,9 +48,10 @@ public class CampServiceImpl implements CampService {
 	}
 
 	@Override
-	public Camp selectBy(Long bno, boolean state) {
-		// TODO Auto-generated method stub
-		return null;
+	public Camp selectBy(Long bno) {
+		Camp camp = campRep.findById(bno).orElse(null);
+		if(camp==null) throw new RuntimeException("해당 캠핑장은 존재하지 않습니다");
+		return camp;
 	}
 
 	@Override
