@@ -24,7 +24,7 @@ public class LoginController {
 	/**
 	 * 회원 로그인
 	 * */
-	@RequestMapping("/member")
+	/*@RequestMapping("/member")
 	public String login(Member member, HttpSession session) {
 		System.out.println("controller login member = " + member);
 		
@@ -43,7 +43,7 @@ public class LoginController {
 		session.setMaxInactiveInterval(-1);
 		
 		return "redirect:/member/main";
-	}
+	}*/
 
 	/**
 	 * 사업자 로그인

@@ -2,11 +2,14 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>PetsGo</title>
+    <link rel="icon" href="${pageContext.request.contextPath}/img/petsgoweb.png">
 	<!-- Bootstrap CSS -->
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 	 -->
@@ -69,17 +72,23 @@
 					</ul>
 					<div class="tab-content" id="myTabContent">
 						<h1>회원 정보</h1>
-						<div class="tab-pane fade show active" id="member-tab-pane" role="tabpanel" aria-labelledby="member-tab" tabindex="0">
-							사진  <p>
-							<img alt="" src="${pageContext.request.contextPath}/img/minjeong/${member.memberProfile}">     
-							<p>
-						    이메일 ${member.memberEmail} <p>
-						    닉네임 ${member.memberNickname} <p>
-						    휴대폰번호 ${member.memberPhone} <p>
-						    생년월일 ${member.memberBirthDate} <p>
-						  	
-						  	<a href="${pageContext.request.contextPath}/member/passwordCheck">수정</a>
-					  </div>					  
+						<c:if test="${not empty pageContext.request.userPrincipal}">
+		    				<sec:authentication var="mvo" property="principal" /> 
+							<div class="tab-pane fade show active" id="member-tab-pane" role="tabpanel" aria-labelledby="member-tab" tabindex="0">
+								사진  <p>
+								<img alt="" src="${pageContext.request.contextPath}/img/minjeong/${mvo.memberProfile}">     
+								<p>
+							    이메일 ${mvo.memberEmail} <p>
+							    닉네임 ${mvo.memberNickname} <p>
+							    휴대폰번호 ${mvo.memberPhone} <p>
+							    생년월일 ${mvo.memberBirthDate} <p>
+							  	
+							  	<a href="${pageContext.request.contextPath}/member/passwordCheck">수정</a>
+						 	</div>	
+						</c:if>
+						
+						
+										  
 					  <div class="tab-pane fade" id="owner-tab-pane" role="tabpanel" aria-labelledby="owner-tab" tabindex="0">
 						<form id="ownerLoginForm" action="${pageContext.request.contextPath}/admin/login" method="post">
 							<input type="text" class="form-control" name="memberEmail" id="email" placeholder="사업자 등록 번호"> 

@@ -1,22 +1,66 @@
 package kosta.mvc.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import kosta.mvc.domain.Member;
+import kosta.mvc.service.MemberService;
 
 @Controller
 public class HomeController {
 
-
+	@Autowired
+	private MemberService memberService;
+	
 	@RequestMapping("/")
 	public String index() {
 		return "main";
 	}
-
 	
 	@RequestMapping("/{url}")
 	public void url() {}
 	
+	/**
+	 * 회원/사업자에 따라 로그인 후 이동할 기본 페이지
+	 * */
+	@RequestMapping("/default")
+	public String defaultAfterLogin(Authentication auth) throws AuthenticationException {		
+		String id = auth.getName();
+		System.out.println("default에서 id = " + id);
+		
+		if(id.contains("@")) {
+			return "redirect:/main";
+		} else {
+			return "redirect:/owner/campHome";
+		}
+	}
 	
+	/**
+	 * 회원 가입
+	 * */
+	@RequestMapping("/register")
+	public String register(Member member, HttpSession session) {
+		memberService.register(member);
+		
+		session.setAttribute("member", member);
+
+		return "redirect:/main";
+	}	
+	
+	/**
+	 * 로그아웃
+	 * */
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		
+		return "redirect:/main";
+	}	
 	
 	@RequestMapping("/test5")
 	public String test5() {
@@ -26,8 +70,4 @@ public class HomeController {
 	@RequestMapping("/samjinTest")
 	public void samjinTest() {
 	}
-	
-
-	
-	
 }

@@ -76,8 +76,8 @@ public class Residence {
 	private Camp camp;
 
 
-	
-	/*@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
+
+	/* @OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
 	private List<Reservation> reservationList;
 
 	
