@@ -71,10 +71,6 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 			String password = (String)auth.getCredentials(); //비밀번호		
 			System.out.println("provider인데 뷰에서 넘어온 password = " + password);
 			
-			/* if(!passwordEncoder.matches(password, camp.getCampPassword())){
-				throw new BadCredentialsException("패스워드 오류입니다.");
-			} */
-			
 			List<SimpleGrantedAuthority> authList = new ArrayList<SimpleGrantedAuthority>();
 			authList.add( new SimpleGrantedAuthority(camp.getCampRole()));
 		    

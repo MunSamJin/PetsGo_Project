@@ -35,6 +35,10 @@
 	<definition name="community/**" extends="layout">
 		<put-attribute name="content" value="/WEB-INF/views/community/{1}.jsp"/>
 	</definition>
+	
+	<definition name="member/**" extends="layout">
+		<put-attribute name="content" value="/WEB-INF/views/member/{1}.jsp"/>
+	</definition>
 
 
 	<!-- 뷰의 정보가 board/* 경우 -->

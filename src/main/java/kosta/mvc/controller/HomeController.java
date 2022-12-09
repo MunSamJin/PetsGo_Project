@@ -5,9 +5,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kosta.mvc.domain.Camp;
 import kosta.mvc.domain.Member;
 import kosta.mvc.service.MemberService;
 
@@ -30,12 +32,13 @@ public class HomeController {
 	 * */
 	@RequestMapping("/default")
 	public String defaultAfterLogin(Authentication auth) throws AuthenticationException {		
-		String id = auth.getName();
-		System.out.println("default에서 id = " + id);
 		
-		if(id.contains("@")) {
+		Object object = auth.getPrincipal();
+		if(object instanceof Member) {
+			Member  m = (Member)auth.getPrincipal();
 			return "redirect:/main";
-		} else {
+		}else {
+			Camp  c = (Camp)auth.getPrincipal();
 			return "redirect:/owner/campHome";
 		}
 	}

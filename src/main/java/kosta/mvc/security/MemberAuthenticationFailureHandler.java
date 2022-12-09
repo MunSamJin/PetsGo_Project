@@ -26,7 +26,6 @@ public class MemberAuthenticationFailureHandler implements AuthenticationFailure
 			throws IOException, ServletException {
 		req.setAttribute("errorMessage", auth.getMessage());
 		req.getRequestDispatcher("/WEB-INF/views/loginForm.jsp").forward(req, res);
-
 	}
 }
 
