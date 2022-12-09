@@ -33,6 +33,14 @@ public class LoginController {
 		System.out.println("service login 갔다 옴~");
 		
 		session.setAttribute("member", member);
+		session.setAttribute("memberNo", member.getMemberNo());
+		
+	    // 세션 유지시간 설정(초단위)
+	    // 60 * 30 = 30분
+	    // session.setMaxInactiveInterval(30*60);
+
+	    // 세션 시간을 무한대로 설정
+		session.setMaxInactiveInterval(-1);
 		
 		return "redirect:/member/main";
 	}

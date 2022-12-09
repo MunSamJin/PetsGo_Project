@@ -32,7 +32,7 @@
 	<!-- param.err: loginForm에서 get 방식으로 err이 넘어왔는지 아닌지 알 수 o. ${SPRING_SECURITY_LAST_EXCEPTION.message}: spring이 기본적으로 갖고 있는 에러 메시지(Bad credential)가 나옴 -->
 	
 	<!--::header part start - 비회원MODE ::-->
-   <header class="main_menu">
+   <%-- <header class="main_menu">
         <div class="main_menu_iner">
             <div class="container">
                 <div class="row align-items-center ">
@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-    </header>
+    </header> --%>
 	<!-- Header part end-->
 	
 	<!-- login part start -->

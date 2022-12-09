@@ -85,7 +85,8 @@
 		<form name="writeForm" method="post" action="${pageContext.request.contextPath}/community/insert" 
 			  onSubmit='return checkValid()' enctype="multipart/form-data">			  
 		
-			<input type=hidden name="memberNo" value="${boardNo.memberNo}">
+			<input type=hidden name="memberNo" value="<%=session.getAttribute("memberNo")%>">
+			
 			
 			<input type="hidden" name="boardTag" value="">
 					  

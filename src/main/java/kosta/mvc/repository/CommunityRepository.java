@@ -13,7 +13,7 @@ public interface CommunityRepository extends JpaRepository<CommunityBoard, Long>
 		QuerydslPredicateExecutor<CommunityBoard> {
 	
 	/**
-	 *  글번호에 해당하는 조회수 증가
+	 *  태그 이름에 해당하는 정보 조회!
 	 */
 	@Query("select c from CommunityBoard c where c.boardTag like ?1")
 	//@Modifying //dml이나ddl은 필수!
