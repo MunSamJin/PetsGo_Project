@@ -2,11 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 
 <!DOCTYPE html>
 <html lang="kr">
 
 <head>
+  
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,15 +28,17 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" />
+  <link rel="icon" href="data:,">
 </head>
 
 <body>
+  <sec:authentication var="secCamp" property="principal" />
   <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="../../index.html"><img src="../../images/logo.svg" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="../../images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/../../images/logo.svg" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/../../images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -376,7 +381,9 @@
                   </p>
                   <form class="forms-sample" name="campUpdate" method="post" action="${pageContext.request.contextPath}/owner/campUpdate" 
         				onSubmit='return checkValid()' enctype="multipart/form-data">
-        				
+        			<input type="hidden" name="campNo" value="${camp.campNo}">
+        			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+        			
                     <div class="form-group">
                       <label for="exampleInputName1">캠핑장 이름</label>
                       <input type="text" class="form-control" id="campName" name="campName" value="${camp.campName}">
@@ -424,6 +431,7 @@
                   			<img class="news-item-preview" name="campFilename" style="width:150px; height:120px;" src="/img/seryun/${filename}">
                   		</c:forEach>
                   		</p>
+                  		
                       <input type="file"  id="btnAtt" name="files" multiple="multiple" class="file-upload-default">
                       <div class="input-group col-xs-12">
                         <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
@@ -431,8 +439,9 @@
                           <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                         </span>
                       </div>
-                      
+                      <span id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></span>
                     </div>
+                    
                     <div class="form-group">
                       <label for="exampleInputCity1">우편번호</label>
                       <p><input type="text" class="form-control" id="sample6_postcode" name="campPost" value="${camp.campPost}"></p>

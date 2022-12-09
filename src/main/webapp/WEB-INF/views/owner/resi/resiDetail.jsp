@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<sec:authentication var="secCamp" property="principal" />
 
 <!DOCTYPE html>
 <html lang="kr">
@@ -33,12 +35,12 @@
 		$(function(){
 			
 			$("#resiUpdateBtn").click(function(){
-				$(location).attr('href','${pageContext.request.contextPath}/owner/resi/resiUpdateForm?resiNo=${resi.resiNo}');
+				$(location).attr('href','${pageContext.request.contextPath}/owner/resi/resiUpdateForm/${resi.resiNo}');
 			})
 			
 			
 			$("#resiSelectBtn").click(function(){
-				$(location).attr('href','${pageContext.request.contextPath}/owner/resi/resiSelect');
+				$(location).attr('href','${pageContext.request.contextPath}/owner/resi/resiSelect/${secCamp.campNo}');
 			})
 		})
    </script>

@@ -5,9 +5,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kosta.mvc.domain.Camp;
 import kosta.mvc.domain.Member;
@@ -26,6 +27,9 @@ public class HomeController {
 	
 	@RequestMapping("/{url}")
 	public void url() {}
+	
+	@RequestMapping("/campRequest/campInsertForm")
+	public void url2() {}
 	
 	/**
 	 * 회원/사업자에 따라 로그인 후 이동할 기본 페이지
@@ -73,4 +77,5 @@ public class HomeController {
 	@RequestMapping("/samjinTest")
 	public void samjinTest() {
 	}
+	
 }

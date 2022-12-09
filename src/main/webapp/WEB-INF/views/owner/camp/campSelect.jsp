@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<sec:authentication var="secCamp" property="principal" />
 
 <!DOCTYPE html>
 <html lang="kr">
@@ -26,14 +28,14 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" />
-  
+  <link rel="icon" href="data:,">
   
   <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
   <script type="text/javascript">
 		$(function(){
 			
 			$("#campUpdateBtn").click(function(){
-				$(location).attr('href','${pageContext.request.contextPath}/owner/camp/campUpdateForm');
+				$(location).attr('href','${pageContext.request.contextPath}/owner/camp/campUpdateForm/${camp.campNo}');
 			})
 			
 			
@@ -421,7 +423,7 @@
                     </div>
                     <div class="form-group">
                       <label>파일</label>
-                      <c:set value="${fn:split(camp.campFilename , ',')}" var="filenameArr"/>
+                      <c:set value="${fn:split(camp.campFilename,',')}" var="filenameArr"/>
                       	<p>
                   		<c:forEach items="${filenameArr}" var="filename">
                   			<img class="news-item-preview" name="campFilename" style="width:150px; height:120px;" src="/img/seryun/${filename}">

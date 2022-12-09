@@ -60,7 +60,7 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 		} else {
 		
 			//Camp
-			Camp camp = campRep.selectCamp(id);
+			Camp camp = campRep.findByCampRegNo(id);
 			System.out.println("rep 다녀온 provider camp = " + camp.getCampRegNo());
 			
 			if(camp == null){

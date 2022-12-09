@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<sec:authentication var="secCamp" property="principal" />
 
 <!DOCTYPE html>
 <html lang="kr">
@@ -31,9 +33,9 @@
   <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
   <script type="text/javascript">
 		$(function(){
-			$("#resiUpdateBtn").click(function(){
+			/* $("#resiUpdateBtn").click(function(){
 				$(location).attr('href','${pageContext.request.contextPath}/owner/resi/resiUpdateForm?resiNo=${resi.resiNo}');
-			})
+			}) */
 		})
    </script>
    
@@ -388,7 +390,9 @@
                   </p>
                   <form class="forms-sample" id="resiInsertForm" name="resiInsert" method="post" action="${pageContext.request.contextPath}/owner/resiInsert" 
         				onSubmit='return checkValid()' enctype="multipart/form-data">
-        				
+        			
+        			<input type="hidden" name="camp" value="${secCamp}">
+        			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">	
                     <div class="form-group">
                       <label for="exampleInputName1">숙소 이름</label>
                       <input class="form-control" id="resiName" name="resiName" >
@@ -425,6 +429,7 @@
                           <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                         </span>
                       </div>
+                      <span id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></span>
                     </div>
                     <div class="form-group">
                       <label for="exampleTextarea1">소개글</label>

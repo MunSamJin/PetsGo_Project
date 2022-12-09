@@ -72,7 +72,7 @@ public class Residence {
 
 	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
 	@JoinColumn(name = "camp_no") 
-	@JsonIgnore
+	//@JsonIgnore
 	private Camp camp;
 
 

@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	MemberAuthenticationProvider memberAuthenticationProvider;
-
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -30,6 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.hasRole("OWNER")            //      access="isAuthenticated()"
 				.antMatchers("/member/**")
 				.hasRole("MEMBER") 
+				//.antMatchers("/favicon.ico")
+				//.anonymous()
 				.and()
 				//.csrf().disable() // <security:csrf disabled="true"/>
 			.formLogin()

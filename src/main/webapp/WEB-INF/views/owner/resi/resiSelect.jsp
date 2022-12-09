@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<sec:authentication var="secCamp" property="principal" />
 
 <!DOCTYPE html>
 <html lang="kr">
@@ -389,7 +391,7 @@
                       </thead>
                       <tbody>
                       	<c:forEach items="${resiList}" var="resi">
-	                        <tr onclick="location.href='${pageContext.request.contextPath}/owner/resi/resiDetail?resiNo=${resi.resiNo}'" style="cursor:pointer;">
+	                        <tr onclick="location.href='${pageContext.request.contextPath}/owner/resi/resiDetail/${resi.resiNo}'" style="cursor:pointer;">
 	                          <td class="py-1">
 	                          	<c:set value="${fn:split(resi.resiFilename , ',')}" var="filenameArr"/>
 	                            <img style="width:80px; height:80px;" src="${pageContext.request.contextPath}/img/seryun/${fn:split(resi.resiFilename , ',')[0]}" alt="image"/>
