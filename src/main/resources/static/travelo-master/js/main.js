@@ -99,14 +99,14 @@ $( function() {
   $( "#slider-range" ).slider({
       range: true,
       min: 0,
-      max: 600,
-      values: [ 75, 300 ],
+      max: 1000000,
+      values: [ 10000, 100000 ],
       slide: function( event, ui ) {
-          $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+          $( "#amount" ).val( "￦" + ui.values[ 0 ].toLocaleString('ko-KR') + " - ￦" + ui.values[ 1 ].toLocaleString('ko-KR') );
       }
   });
-  $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+  $( "#amount" ).val( "￦" + $( "#slider-range" ).slider( "values", 0 ).toLocaleString('ko-KR') +
+      " - ￦" + $( "#slider-range" ).slider( "values", 1 ).toLocaleString('ko-KR') );
 } );
 
 

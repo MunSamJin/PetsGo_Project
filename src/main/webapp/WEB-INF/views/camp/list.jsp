@@ -4,22 +4,95 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
-
 <html class="no-js" lang="zxx">
-
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Pet's GO</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Pet's Go</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
-    <script type="text/javascript">
-    	$(function() {
-			
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#moreBtn").click(function() {
+			let len = $("div[name=hideview]").length;
+			if(len===0) {
+				alert("더 이상 게시물이 없습니다.");
+			} else {
+				let arr = new Array(len);
+				for(var i=0; i<6; i++){         
+					arr[i] = $("div[name=hideview]").eq(i);
+			    }
+				for(var j=0; j<arr.length; j++) {
+					arr[j].attr('name', 'showview');
+					arr[j].css('display', 'block');
+				}
+				$("html, body").animate({scrollTop:$(document).height()}, 500);
+			}
 		});
-    </script>
+		
+		$("#filterBtn").click(function() {
+			let price = $("#amount").val();
+			price = price.split('-');
+			
+			
+			let price1 = $.trim(price[0]).replace('￦','').replace(',','');
+			let price2 = $.trim(price[1]).replace('￦','').replace(',','');
+			
+			let aa = $("#aa").val();
+			
+			$.ajax({
+				url : '/camp/select',
+				type : 'post',
+				data : {
+					price1:price1,
+					price2:price2,
+					aa:aa},
+				dataType: 'json',
+				success : function(result) {
+					$("#listAll").empty();
+					
+					let str = "";
+					
+					$.each(result, function(index, item) {
+						let imeName = item.campFilename;
+						imeName = imeName.split(',')[0];
+						
+						let resifia = item.residenceList;
+						let minprice = price2;
+						$.each(resifia, function(i, j) {
+							if(j.resiPrice<=price2 && j.resiPrice>=price1) {
+								if(minprice>j.resiPrice) minprice = j.resiPrice;
+							}
+						});
+
+						if(index<6) {
+							str += '<div class="col-lg-6 col-md-6"  name="showview">';
+						} else {
+							str += '<div class="col-lg-6 col-md-6"  style="display: none" name="hideview">';
+						}
+						str += '<div class="single_place"><div class="thumb">';
+						str += '<img src="${pageContext.request.contextPath}/img/seryun/'+imeName+'" alt="">';
+						str += '<a href="/camp/detail?campNo='+item.campNo+'" class="prise">￦ '+minprice.toLocaleString('ko-KR')+'</a></div>';
+						str += `<div class="place_info" ><a href="destination_details.html">`;
+						str += '<h3>'+item.campName+'</h3></a>';
+						str += '<p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">'+item.campIntro+'</p>';
+						str += `<div class="rating_days d-flex justify-content-between">`;
+						str += `<span class="d-flex justify-content-center align-items-center">`;
+						str += `<a href="#">(20 Review)</a></span>`;
+						str += `<div class="days"><i class="fa fa-clock-o"></i><a href="#">스크랩</a>`;
+						str += `</div></div></div></div></div>`;
+					});
+					$("#listAll").append(str);
+				},
+				error : function(err) {
+					alert(err);
+				}
+			});
+		});
+	});
+</script>
 	
     <!-- <link rel="manifest" href="site.webmanifest"> -->
     <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/travelo-master/img/favicon.png">
@@ -48,8 +121,8 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text text-center">
-                        <h3>Destinations</h3>
-                        <p>Pixel perfect design with awesome contents</p>
+                        <h3>Pet's Go</h3>
+                        <p>반려견과 함께 떠나는 즐거운 캠핑! 이제 어디든 가능합니다!</p>
                     </div>
                 </div>
             </div>
@@ -105,10 +178,10 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="single_select">
-                                            <select>
-                                                <option data-display="Country">Country</option>
-                                                <option value="1">Africa</option>
-                                                <option value="2">canada</option>
+                                            <select id="aa">
+                                                <option data-display="기본 정렬">기본 정렬</option>
+                                                <option value="1">가격↑</option>
+                                                <option value="2">가격↓</option>
                                                 <option value="4">USA</option>
                                               </select>
                                         </div>
@@ -116,7 +189,7 @@
                                     <div class="col-lg-12">
                                         <div class="single_select">
                                             <select>
-                                                <option data-display="Travel type">Travel type</option>
+                                                <option data-display="태그 정렬">태그 정렬</option>
                                                 <option value="1">advance</option>
                                                 <option value="2">advance</option>
                                                 <option value="4">premium</option>
@@ -136,7 +209,7 @@
                             </div>
 
                             <div class="reset_btn">
-                                <button class="boxed-btn4" type="submit">Reset</button>
+                                <button id="filterBtn" class="boxed-btn4" type="submit">검색</button>
                             </div>
                         </div>
                     </div>
@@ -146,40 +219,52 @@
                     <div class="row" id="listAll">
         
                     	<!-- 캠핑장 목록 -->
-                    	<c:forEach items="${campList}" var="camp">
-                    		<div class="col-lg-6 col-md-6" >
-	                            <div class="single_place">
-	                                <div class="thumb">
-	                                    <img src="${pageContext.request.contextPath}/img/seryun/${fn:split(camp.campFilename, ',')[0]}" alt="">
-	                                    <c:forEach items="${camp.residenceList}" begin="0" end="1" var="residence">
-	                                    	<a href="/camp/detail?campNo=${camp.campNo}" class="prise"><fmt:formatNumber value="${residence.resiPrice}" pattern="###,###"/></a>
-	                                    </c:forEach>
-	                                </div>
-	                                <div class="place_info" >
-	                                    <a href="destination_details.html"><h3>${camp.campName}</h3></a>
-	                                    <p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${camp.campIntro}</p>
-	                                    <div class="rating_days d-flex justify-content-between">
-	                                        <span class="d-flex justify-content-center align-items-center">
-	                                             <a href="#">(20 Review)</a>
-	                                        </span>
-	                                        <div class="days">
-	                                            <i class="fa fa-clock-o"></i>
-	                                            <a href="#">스크랩</a>
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                            </div>
-                       		</div>
+                    	<c:forEach items="${campList}" var="camp" varStatus="status">
+                    		<c:choose>
+                    			<c:when test="${status.count<=6}">
+                    				<div class="col-lg-6 col-md-6"  name="showview">
+                    			</c:when>
+                    			<c:otherwise>
+                    				<div class="col-lg-6 col-md-6"  style="display: none" name="hideview">
+                    			</c:otherwise>
+                    		</c:choose>
+		                            <div class="single_place">
+		                                <div class="thumb">
+		                                    <img src="${pageContext.request.contextPath}/img/seryun/${fn:split(camp.campFilename, ',')[0]}" alt="">
+		                                    <c:set var="aaprice" value="100000000"/>
+		                                    <c:forEach items="${camp.residenceList}" var="residence">
+		                                    	<c:if test="${residence.resiPrice < aaprice}">
+		                                    		 <c:set var="aaprice" value="${residence.resiPrice}"/>
+		                                    	</c:if>
+		                                    </c:forEach>
+		                                    <a href="/camp/detail?campNo=${camp.campNo}" class="prise"><fmt:formatNumber value="${aaprice}" pattern="###,###"/></a>
+		                                </div>
+		                                <div class="place_info" >
+		                                    <a href="destination_details.html"><h3>${camp.campName}</h3></a>
+		                                    <p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${camp.campIntro}</p>
+		                                    <div class="rating_days d-flex justify-content-between">
+		                                        <span class="d-flex justify-content-center align-items-center">
+		                                             <a href="#">(20 Review)</a>
+		                                        </span>
+		                                        <div class="days">
+		                                            <i class="fa fa-clock-o"></i>
+		                                            <a href="#">스크랩</a>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+	                       		</div>
                     	</c:forEach>
-
                     </div>
+                    
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="more_place_btn text-center">
-                                <a class="boxed-btn4" href="#">More Places</a>
+                                <button type="button" class="boxed-btn4" id="moreBtn">More Places</button>
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -229,8 +314,6 @@
     <script src="${pageContext.request.contextPath}/travelo-master/js/jquery.form.js"></script>
     <script src="${pageContext.request.contextPath}/travelo-master/js/jquery.validate.min.js"></script>
     <script src="${pageContext.request.contextPath}/travelo-master/js/mail-script.js"></script>
-
-
     <script src="${pageContext.request.contextPath}/travelo-master/js/main.js"></script>
     <script>
         $('#datepicker').datepicker({

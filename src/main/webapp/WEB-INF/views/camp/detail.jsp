@@ -47,26 +47,69 @@
             margin-right: 10px;
         }
     </style>
-    
     <!-- 기능 -->
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
-    <script type="text/javascript">
-        $(function() {
-            $("#copyBtn").click(function() {
-            	let content = $("#campAddr").text();
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
+  integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	Kakao.init('507651c271794aae6b448c4df48e74f3');
+	let kakaoUrl = 'http://localhost:9000/camp/detail?campNo='+${camp.campNo};
+	let kakaoTitle = '${camp.campName}';
+	let kakaoDescription = '${camp.campAddr}';
 
-                alert(content);
+	$(function() {
+		$("#copyBtn").click(function() {
+			let content = $("#campAddr").text();
 
-                navigator.clipboard.writeText(content);
-                alert("복사되었습니다");
-            });
-            
-            $('.reservationBtn').click(function() {
-            	let addr = $(this).next().val();
-				location.href="/reservation/reservationForm?resiNo="+addr;
-			});
+            alert(content);
+
+            navigator.clipboard.writeText(content);
+            alert("복사되었습니다");
         });
-    </script>
+		
+		$('.reservationBtn').click(function() {
+        	let addr = $(this).next().val();
+			location.href="/reservation/reservationForm?resiNo="+addr;
+		});
+		
+		Kakao.Share.createDefaultButton({
+		    container: '#kakaotalk-sharing-btn',
+		    objectType: 'feed',
+		    content: {
+		      title: kakaoTitle,
+		      description: kakaoDescription,
+		      imageUrl:
+		        'http://localhost:9000/img/seryun/camp_21_01.jpg',
+		      link: {
+		        // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+		        mobileWebUrl: 'https://developers.kakao.com',
+		        webUrl: 'https://developers.kakao.com',
+		      },
+		    },
+		    social: {
+		      likeCount: 286,
+		      commentCount: 45,
+		      sharedCount: 845,
+		    },
+		    buttons: [
+		      {
+		        title: '웹으로 보기',
+		        link: {
+		          mobileWebUrl: kakaoUrl,
+		          webUrl: kakaoUrl,
+		        },
+		      },
+		      {
+		        title: '앱으로 보기',
+		        link: {
+		          mobileWebUrl: kakaoUrl,
+		          webUrl: kakaoUrl,
+		        },
+		      },
+		    ],
+		  });
+	});
+</script>
 </head>
 
 <body>
@@ -77,10 +120,8 @@
             <div class="col-12">
                 <div class="breadcumb-content">
                     <div class="map-ratings-review-area d-flex">
-                        <a href="#" class="d-flex align-items-center justify-content-center">
-                            <img src="${pageContext.request.contextPath}/dorne-master/img/core-img/map.png" alt="">
-                        </a>
-                        <a href="#">8.7</a>
+                        <a id="kakaotalk-sharing-btn" href="javascript:Kakao.Share.createDefaultButton;">공유하기</a>
+                        <a id="testest" href="#">8.7</a>
                         <a href="#">Write a review</a>
                     </div>
                 </div>
