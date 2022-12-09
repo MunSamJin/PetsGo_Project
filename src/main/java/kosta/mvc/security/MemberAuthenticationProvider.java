@@ -61,7 +61,6 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 		
 			//Camp
 			Camp camp = campRep.selectCamp(id);
-			System.out.println("rep 다녀온 provider camp = " + camp.getCampRegNo());
 			
 			if(camp == null){
 				throw new UsernameNotFoundException(id + "는 등록되지 않은 사업자입니다."); //spring exception
@@ -69,7 +68,10 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 			
 			//비밀번호 비교
 			String password = (String)auth.getCredentials(); //비밀번호		
-			System.out.println("provider인데 뷰에서 넘어온 password = " + password);
+			
+			/* if(!passwordEncoder.matches(password, camp.getCampPassword())){
+				throw new BadCredentialsException("패스워드 오류입니다.");
+			} */
 			
 			List<SimpleGrantedAuthority> authList = new ArrayList<SimpleGrantedAuthority>();
 			authList.add( new SimpleGrantedAuthority(camp.getCampRole()));
