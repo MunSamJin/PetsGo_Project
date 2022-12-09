@@ -2,7 +2,10 @@ package kosta.mvc.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import kosta.mvc.domain.CommunityBoard;
+import kosta.mvc.domain.LikeBoard;
 
 public interface CommunityService {
 
@@ -10,6 +13,7 @@ public interface CommunityService {
 	 *  전체검색
 	 */
 	List<CommunityBoard> selectAll(); 
+	List<CommunityBoard> selectAll(Pageable pageable); 
 	
 	/**
 	 *  등록
@@ -37,7 +41,6 @@ public interface CommunityService {
      * @return 
      */
 	List<CommunityBoard> selectByTag(String tag);
-	
 	
 	
 }

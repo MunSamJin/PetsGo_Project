@@ -5,13 +5,16 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import kosta.mvc.domain.CommunityBoard;
+import kosta.mvc.domain.LikeBoard;
 import kosta.mvc.domain.QCommunityBoard;
 import kosta.mvc.repository.CommunityRepository;
+import kosta.mvc.repository.LikeBoardRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -20,12 +23,19 @@ import lombok.RequiredArgsConstructor;
 public class CommunityServiceImpl implements CommunityService {
 	
 	private final CommunityRepository communityRepository;
+	private final LikeBoardRepository likeBoardRepository;
 	
 	@Autowired
 	private JPAQueryFactory queryFactory;
 
 	@Override
 	public List<CommunityBoard> selectAll() {
+		
+		return communityRepository.findAll();
+	}
+	
+	@Override
+	public List<CommunityBoard> selectAll(Pageable pageable) {
 		
 		return communityRepository.findAll();
 	}

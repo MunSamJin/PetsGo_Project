@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -29,7 +30,7 @@ import lombok.Setter;
 @Entity
 @Builder
 @RequiredArgsConstructor
-
+@ToString
 /**
  * 회원 도메인
  */
@@ -74,13 +75,16 @@ public class Member {
 	 * 
 	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
 	 * List<Reservation> reservationList;
-	 * 
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	 * List<CommunityBoard> communityBoardList;
-	 * 
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	 * List<LikeBoard> likeList;
-	 */ 
+	 */
+	
+	
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
+	List<CommunityBoard> communityBoardList;
+		 
+	 
+	 @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
+	 List<LikeBoard> likeList;
+	  
 	
 	
 }
