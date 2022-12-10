@@ -25,6 +25,10 @@ public class CampController {
 		List<Camp> campList = campUserViewService.selectAll(resiPeople, campAddr, checkIn, checkOut);
 		System.out.println(campList);
 		model.addAttribute("campList", campList);
+		model.addAttribute("resiPeople", resiPeople);
+		model.addAttribute("campAddr", campAddr);
+		model.addAttribute("checkIn", checkIn);
+		model.addAttribute("checkOut", checkOut);
 		return "/camp/list";
 	}
 	

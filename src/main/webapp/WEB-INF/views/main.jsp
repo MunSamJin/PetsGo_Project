@@ -42,15 +42,16 @@
     <style type="text/css">
     </style>
     <!-- 카카오톡 공유하기 -->
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
 integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" crossorigin="anonymous">
     </script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
 	<script type="text/javascript">
+		Kakao.init('d32f3063e698e99009c22188c7a65c7e');
+		
 		$(function() {
-			Kakao.init('d32f3063e698e99009c22188c7a65c7e');
-			
-			$("#selectfBtn").click(function() {
+			$(".form_btn").click(function() {
+				alert(11);
 				let campAddr = $("#addr_select").val();
 				let resiPeople = $("#people_select").val();
 				

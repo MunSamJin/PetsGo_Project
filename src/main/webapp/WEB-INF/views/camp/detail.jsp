@@ -68,6 +68,13 @@
         });
 		
 		$('.reservationBtn').click(function() {
+			/* $.ajax({
+				url : '/reservation/test',
+				dataType : 'json',
+				data : {
+					
+				}
+			}); */
         	let addr = $(this).next().val();
 			location.href="/reservation/reservationForm?resiNo="+addr;
 		});

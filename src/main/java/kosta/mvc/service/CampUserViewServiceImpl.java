@@ -42,9 +42,8 @@ public class CampUserViewServiceImpl implements CampUserViewService {
 				.where(ca.campAddr.contains(campAddr)
 						.and(qre.reservCheckin.notBetween(checkIn, checkOut)
 								.and(qre.reservCheckout.notBetween(checkIn, checkOut)
-										.and(qsi.resiPeople.goe(resiPeople)
-												.or(qre.reservCheckin.isNull()
-														.and(qre.reservCheckout.isNull())))))).fetch();
+										.and(qsi.resiPeople.goe(resiPeople)))))
+				.fetch();
 		
 		return campList;
 	}

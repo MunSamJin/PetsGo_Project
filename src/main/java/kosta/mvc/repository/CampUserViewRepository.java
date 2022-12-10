@@ -13,7 +13,4 @@ public interface CampUserViewRepository extends JpaRepository<Camp, Long>, Query
 	
 	@Query(value = "select c.camp_no from camp c join (select camp_no, min(resi_price) as price from residence group by camp_no) d on c.camp_no=d.camp_no order by d.price ?1;", nativeQuery = true)
 	List<Camp> selectByPrice(String aa);
-	
-	@Query(value = "", nativeQuery = true)
-	List<Camp> selectAll();
 }

@@ -8,9 +8,10 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Pet's Go</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Pet's Go</title>
     
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
@@ -141,24 +142,51 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="search_wrap">
-                        <form class="search_form" action="#">
+                    
+                        <form class="search_form" action="/camp/selectAll">
                             <div class="input_field">
-                                <input type="text" placeholder="Where to go?">
+                                <select class="nc_select" id="campAddr" name="campAddr">
+                            		<option selected>지역명 검색 </option>
+									<option value="포천시">포천시</option>
+                                    <option value="평택시">평택시</option>
+                                    <option value="여주시">여주시</option>
+                                    <option value="가평군">가평군</option>
+                                    <option value="동두천시">동두천시</option>
+                                    <option value="안산시">안산시</option>
+                                    <option value="김포시">김포시</option>
+                                    <option value="하남시">하남시</option>
+                                    <option value="용인시">용인시</option>
+                                    <option value="파주시">파주시</option>
+                                    <option value="연천시">연천시</option>
+                                    <option value="광주시">광주시</option>
+                                 </select>
                             </div>
+                            
                             <div class="input_field">
-                                <input id="datepicker" placeholder="Date">
+                                <input id="checkIn" placeholder="${checkIn}" name="checkIn">
                             </div>
+                            
                             <div class="input_field">
-                                <select>
-                                    <option data-display="Travel type">Travel type</option>
-                                    <option value="1">Some option</option>
-                                    <option value="2">Another option</option>
-                                </select>
+                                <input id="checkOut" placeholder="${checkOut }" name="checkOut">
                             </div>
+                            
+                            <div class="input_field">
+                            	<select class="nc_select"  id="resiPeople" name="resiPeople">
+                            		<option selected>인원 </option>
+                            		<option value="1">1</option>
+                            		<option value="2">2</option>
+                            		<option value="3">3</option>
+                            		<option value="4">4</option>
+                            		<option value="5">5</option>
+                            		<option value="6">6</option>
+                            	</select>
+                            </div>
+                            
                             <div class="search_btn">
                                 <button class="boxed-btn4 " type="submit" >Search</button>
                             </div>
                         </form>
+                        
                     </div>
                 </div>
             </div>
@@ -240,7 +268,7 @@
 		                                    <a href="/camp/detail?campNo=${camp.campNo}" class="prise"><fmt:formatNumber value="${aaprice}" pattern="￦ ###,###"/></a>
 		                                </div>
 		                                <div class="place_info" >
-		                                    <a href="destination_details.html"><h3>${camp.campName}</h3></a>
+		                                    <a href="${pageContext.request.contextPath}/camp/detail?campNo=${camp.campNo}"><h3>${camp.campName}</h3></a>
 		                                    <p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${camp.campIntro}</p>
 		                                    <div class="rating_days d-flex justify-content-between">
 		                                        <span class="d-flex justify-content-center align-items-center">
@@ -268,20 +296,6 @@
                 </div>
             </div>
         </div>
-    </div> 
-  <!-- Modal -->
-  <div class="modal fade custom_search_pop" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="serch_form">
-            <input type="text" placeholder="Search" >
-            <button type="submit">search</button>
-        </div>
-      </div>
-    </div>
-  </div>
-    <!-- link that opens popup -->
-    
 
     <!-- JS here -->
     <script src="${pageContext.request.contextPath}/travelo-master/js/vendor/modernizr-3.5.0.min.js"></script>
