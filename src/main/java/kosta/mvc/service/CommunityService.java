@@ -42,5 +42,10 @@ public interface CommunityService {
      */
 	List<CommunityBoard> selectByTag(String tag);
 	
+	/**
+	 *  좋아요 기능
+	 */
+	int selectAll(Long memberNo, Long boardNo);
+	
 	
 }

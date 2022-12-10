@@ -96,4 +96,34 @@ public class CommunityServiceImpl implements CommunityService {
 		return list;
 	}
 
+	@Override
+	public int selectAll(Long memberNo, Long boardNo) {
+		
+		int likeResult = 0;
+		
+		System.out.println("좋아요 서비스 들어왔니?");
+		
+		LikeBoard likeBoard = likeBoardRepository.selectAll(memberNo, boardNo);
+		System.out.println("좋아요 서비스 likeBoard= " + likeBoard);
+		
+		
+		if(likeBoard != null) {
+			
+			//좋아요 삭제하러 가자
+			likeBoardRepository.delete(likeBoard);
+			return likeResult;
+				
+			
+	    }else{
+	    	//좋아요 insert 
+	    	System.out.println("좋아요 안누른게 맞아?? likeBoard=null?? " + likeBoard);
+	    	
+	    	likeBoardRepository.insertLikeBoard(boardNo, memberNo);
+	    	
+	    	return likeResult=1;
+	    }
+	    	
+	}
+
+
 }

@@ -3,6 +3,7 @@ package kosta.mvc.service;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Member;
@@ -14,6 +15,12 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private MemberRepository memberRep;
+	
+	/*
+	 * 비밀번호 암호화를 위한 객체를 주입받는다 
+	 */
+	@Autowired
+	private PasswordEncoder passwordEncoder; 
 
 	@Override
 	public String emailCheck(String email) {
@@ -30,7 +37,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void register(Member member) {		
+	public void register(Member member) {
+		//비밀번호 암호화
+		String encodedPassword = passwordEncoder.encode(member.getMemberPassword());
+		System.out.println("회원가입 service encodedPassword = " + encodedPassword);
+		
+		member.setMemberPassword(encodedPassword);
+		
 		memberRep.save(member);
 	}
 

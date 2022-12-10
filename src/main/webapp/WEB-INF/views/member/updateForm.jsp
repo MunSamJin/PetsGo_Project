@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -116,27 +117,41 @@
 	<h1> member/updateForm.jsp 문서 </h1>
 	
 	<form id="updateForm" action="${pageContext.request.contextPath}/updateInfo" method="post">
-		<input type="hidden" name="memberNo" value="${member.memberNo}">
-		<input type="hidden" name="memberProfile" value="${member.memberProfile}">
-		<input type="hidden" name="memberEmail" value="${member.memberEmail}">
+		<input type="hidden" name="memberNo" value="<sec:authentication property="principal.memberNo"/>">
+		<input type="hidden" name="memberProfile" value="<sec:authentication property="principal.memberProfile"/>">
+		<input type="hidden" name="memberEmail" value="<sec:authentication property="principal.memberEmail"/>">
 		
-		아이콘 <input type="file" name="memberProfile" value="${member.memberProfile}"><br><br>
-		이메일 ${member.memberEmail} <br><br>
-		새 비밀번호 <input type="password" name="memberPassword" id="password"><br>
-		<span id="passwordValid"></span><br><br>
-		새 비밀번호 확인 <input type="password" name="passwordCheck" id="passwordCheck"><br>
-		<span id="passwordEqual"></span><br><br>
-		닉네임 <input type="text" name="memberNickname" id="nickname" value="${member.memberNickname}"><br>
-		<span id="nicknameValid"></span><br><br>
-		휴대폰번호 <input type="text" name="memberPhone" value="${member.memberPhone}" oninput="autoHyphen(this)" maxlength="15" placeholder="'-'없이 숫자만 입력해 주세요."><br><br>
-		<script>
-            const autoHyphen = (target) => {
-                target.value = target.value
-                    .replace(/[^0-9]/g, '')
-                    .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
-            }
-        </script>
-        생년월일 <input type="text" name="memberBirthDate" id="datepicker" value="${member.memberBirthDate}"><br><br>
+		
+		
+		<c:if test="${not empty pageContext.request.userPrincipal}">
+		    <sec:authentication var="mvo" property="principal" /> 
+		    	아이콘 
+				<input type="radio" name="memberProfile" id="file" value="member1.png" checked> &nbsp;&nbsp;&nbsp;
+		        <img src="${pageContext.request.contextPath}/img/minjeong/member1.png" alt="">
+		        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		        <input type="radio" name="memberProfile" id="file" value="member2.png"> &nbsp;&nbsp;&nbsp;
+		        <img src="${pageContext.request.contextPath}/img/minjeong/member2.png" alt="">
+				<br>
+				이메일 ${mvo.memberEmail} <br><br>
+				새 비밀번호 <input type="password" name="memberPassword" id="password"><br>
+				<span id="passwordValid"></span><br><br>
+				새 비밀번호 확인 <input type="password" name="passwordCheck" id="passwordCheck"><br>
+				<span id="passwordEqual"></span><br><br>
+				닉네임 <input type="text" name="memberNickname" id="nickname" value="${mvo.memberNickname}"><br>
+				<span id="nicknameValid"></span><br><br>
+				휴대폰번호 <input type="text" name="memberPhone" value="${mvo.memberPhone}" oninput="autoHyphen(this)" maxlength="15" placeholder="'-'없이 숫자만 입력해 주세요."><br><br>
+				<script>
+		            const autoHyphen = (target) => {
+		                target.value = target.value
+		                    .replace(/[^0-9]/g, '')
+		                    .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+		            }
+		        </script>
+		        생년월일 <input type="text" name="memberBirthDate" id="datepicker" value="${mvo.memberBirthDate}"><br><br>
+		</c:if>
+		
+		
+		
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<input type="submit" value="수정">
 		<button type="button">취소</button>

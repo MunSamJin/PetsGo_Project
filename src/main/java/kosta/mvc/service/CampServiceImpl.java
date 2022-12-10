@@ -7,9 +7,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Camp;
+import kosta.mvc.domain.Member;
 import kosta.mvc.repository.CampRepository;
 
 @Service
@@ -18,6 +20,12 @@ public class CampServiceImpl implements CampService {
 	
 	@Autowired
 	private CampRepository campRep;
+	
+	/*
+	 * 비밀번호 암호화를 위한 객체를 주입받는다 
+	 */
+	@Autowired
+	private PasswordEncoder passwordEncoder; 
 
 	
 	/**
@@ -39,18 +47,24 @@ public class CampServiceImpl implements CampService {
 
 	@Override
 	public void insert(Camp camp) {
+		//비밀번호 암호화
+		String encodedPassword = passwordEncoder.encode(camp.getCampPassword());
+		System.out.println("캠핑장 신청 service encodedPassword = " + encodedPassword);
+		
+		camp.setCampPassword(encodedPassword);
 		camp.setCampState(0);
 		camp.setCampLat("0");
 		camp.setCampLong("0");
 		camp.setCampManageNo("guest");
 		campRep.save(camp);
 
-	}
+	}	
 
 	@Override
-	public Camp selectBy(Long bno, boolean state) {
-		// TODO Auto-generated method stub
-		return null;
+	public Camp selectBy(Long bno) {
+		Camp camp = campRep.findById(bno).orElse(null);
+		if(camp==null) throw new RuntimeException("해당 캠핑장은 존재하지 않습니다");
+		return camp;
 	}
 
 	@Override

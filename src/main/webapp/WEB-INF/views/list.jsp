@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 
 <!DOCTYPE html>
 <html>
@@ -36,8 +37,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <!-- main CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main_petsgo.css">
-    <!-- map CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/kakao_map.css">
+   
 
 	<link rel='stylesheet' href='${pageContext.request.contextPath}/css/swiper.min.css'>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/comu_style.css">
@@ -49,11 +49,24 @@
 	
 		$(function(){
 			//alert(11);
-			/* $("#communityImg").click(function(){
-							//alert("클릭");
-							//${pageContext.request.contextPath}/community/read/item.boardNo
-							$(location).attr('href', '${pageContext.request.contextPath}/community/read/'+item.boardNo);
-						}); */
+			
+			/* 페이지 처리 */
+			/* $("#moreBtn").click(function() {
+				let len = $("div[name=hideview]").length;
+				if(len===0) {
+					alert("더 이상 게시물이 없습니다.");
+				} else {
+					let arr = new Array(len);
+					for(var i=0; i<6; i++){         
+						arr[i] = $("div[name=hideview]").eq(i);
+				    }
+					for(var j=0; j<arr.length; j++) {
+						arr[j].attr('name', 'showview');
+						arr[j].css('display', 'block');
+					}
+					$("html, body").animate({scrollTop:$(document).height()}, 3000);
+				}
+			}); */
 			
 			
 			/* 태그 검색 */			
@@ -62,66 +75,17 @@
 				var tag = $(this).text();
 				console.log(tag);
 				$(location).attr('href', "${pageContext.request.contextPath}/community/list?tag="+ tag);
-				//alert(tag);
-				
-			 /*$.ajax({
-					type:"get",
-					url:"${pageContext.request.contextPath}/community/list",				
-					data:{tag:tag},	
-					dataType:"json" ,
-					success:function(result){	 	
-						
-						alert(result);
-						$("#tagResult").empty();
-						
-						let str = "";
-						let fileName = "";
-						
-						
-						
-						$.each(result, function(index, item){
-							alert(item.boardFileName.split(","));
-							fileName = item.boardFileName.split(",");
-							alert(fileName[0]);
-							
-							$.each(filename, function(i, j){
-								alert(j);
-							})
-							
-							alert(item.boardTag)
-							alert(item.boardContent)
-							
-							
-							str += `<li>`;
-							str += `<div class="communityCard">`;
-							str += '<img id="communityImg" class="communityImg" src="${pageContext.request.contextPath}/img/samjin/' 
-									+ fileName[0] 
-									+ '" onclick="javascript:location.href=\'${pageContext.request.contextPath}/community/read/' 
-									+ item.boardNo 
-									+ '\'"><br>';
-							str += `<div style="text-align: left">`;
-							str += `<span><b>` + item.boardTag + `</b></span><br>`;
-							str += `<span class="communityBoardContent">` + item.boardContent + `</span>`;
-							str += '<a href="${pageContext.request.contextPath}/community/read/' 
-									+ item.boardNo 
-									+ '" style="color: gray">더보기</a>';						
-							str += `</div>`;
-							str += `</div>`;
-							str += `</li>`;
-							
-						});
-						
-						$("#tagResult").append(str);
-						
-						
-						
-					},//callback
-					error:function(err){
-						alert(err);
-					}
-					
-				});*/ //ajaxEnd
+				//alert(tag);			
 			});//태그검색 끝
+			
+			/* 좋아요 기능 */
+			$("span[class=heart]").on("click", function(){
+				alert("하트 클릭");
+			
+					
+				
+			});//좋아요끝
+			
 			
 		}); //readyEnd
 	</script>
@@ -147,9 +111,7 @@
 						cursor: pointer; -webkit-appearance: none;}
 		.inpSel select option {height: 32px; font-size: 13px; color: #444; line-height: 16px;
 								font-family: inherit; font-weight: inherit; font-style: inherit; display: block;
-								white-space: nowrap; min-height: 1.2em; padding: 0px 2px 1px;}
-		
-
+								white-space: nowrap; min-height: 1.2em; padding: 0px 2px 1px;}		
 		
 /* 커뮤니티 게시글 */	
 		.communityBoardList{margin-bottom: 50px}
@@ -165,6 +127,8 @@
 
 </head>
 <body>
+
+
 <div class="communityBoardList">
 							
 <!-- 전체검색 : 태그 -->	
@@ -231,28 +195,69 @@
 	</div>	
 	
 <!-- 커뮤니티 전체조회 -->	
+    
 		<div class="container" ><!-- style="width: 80%; margin-left: auto; margin-right: auto; margin-bottom: 50px" -->
+			
 			<ul id="tagResult">
 				<c:forEach items="${requestScope.communityBoardList}" var="communityBoardList" varStatus="status" >
+				  
+				    <%-- <c:choose>
+                    	<c:when test="${status.count<=6}">
+                    		<div name="showview"></div>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<div style="display: none" name="hideview"></div>
+                    	</c:otherwise>
+                    </c:choose> --%>
+				    
 				    <li>
 						<div class="communityCard">
-							<img class="communityImg" src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList.boardFileName,',')[0]}"
-								 onclick="javascript:location.href='${pageContext.request.contextPath}/community/read/${communityBoardList.boardNo}'"/><br> 
+							<img class="communityImg" src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList.boardFileName,',')[0]}" 
+								onclick="javascript:location.href='${pageContext.request.contextPath}/community/read/${communityBoardList.boardNo}'"/><br> 
+							\${communityBoardList.boardNo} = ${communityBoardList.boardNo}
+							
+							<%-- <input type="hidden" id="${communityBoardList.boardNo}"  value="${communityBoardList.boardNo}"> --%>
 							<div style="text-align: left;">
 								
 								<c:choose>
 								   <c:when test="${communityBoardList.likeList.size()>0}">
 								     <c:forEach items="${communityBoardList.likeList}" var="like">
-								          <c:if test="${like.member.memberNo==sessionScope.memberNo}">
-									           <span class="redheart" style="cursor: pointer;">
-													<img src="${pageContext.request.contextPath}/img/samjin/redheart.png" 
-												 		 width="15px" height="15px" style="padding-bottom: 3px;">
+								     	<c:choose>
+								     		<c:when test="${not empty pageContext.request.userPrincipal}">
+								     		
+								     			<sec:authentication var="mvo" property="principal" />
+												<c:choose>
+													<c:when test="${like.member.memberNo==mvo.memberNo}">
+														<span class="heart" style="cursor: pointer;"
+											          		onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
+															<img src="${pageContext.request.contextPath}/img/samjin/redheart.png" 
+														 		  width="15px" height="15px" style="padding-bottom: 3px;">
+														</span>
+													</c:when>
+													<c:otherwise>
+														<span class="heart" style="cursor: pointer;"
+												       		onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
+															<img src="${pageContext.request.contextPath}/img/samjin/heart.png" 
+															 	 width="15px" height="15px" style="padding-bottom: 3px;">
+														</span>
+													</c:otherwise>
+												</c:choose>
+								     		
+								     		</c:when>
+								     		<c:otherwise>
+								     			<span class="heart" style="cursor: pointer;"
+										       		onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
+													<img src="${pageContext.request.contextPath}/img/samjin/heart.png" 
+													 	 width="15px" height="15px" style="padding-bottom: 3px;">
 												</span>
-									       </c:if>
+								     		</c:otherwise>
+								     	</c:choose>
+								     	
 								     </c:forEach>
 								   </c:when>
 								   <c:otherwise>
-								       <span class="heart" style="cursor: pointer;">
+								       <span class="heart" style="cursor: pointer;"
+								       		onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
 											<img src="${pageContext.request.contextPath}/img/samjin/heart.png" 
 											 	 width="15px" height="15px" style="padding-bottom: 3px;">
 										</span>
@@ -269,6 +274,7 @@
 				    </li>
 				</c:forEach>
 			</ul> 
+			<!-- <button type="button" id="moreBtn">더보기</button> -->
 		</div>	
 	</div>	
 

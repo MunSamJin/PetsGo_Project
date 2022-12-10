@@ -4,12 +4,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Member;
+import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.service.MemberService;
 
 @Controller //ajax 처리할 메소드는 @Reponsebody를 붙여주면 됨
@@ -18,6 +20,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	/**
 	 * 이메일 중복 확인
@@ -40,7 +45,7 @@ public class MemberController {
 	/**
 	 * 회원 가입
 	 * */
-	@RequestMapping("/register")
+	/* @RequestMapping("/register")
 	public String register(Member member, HttpSession session) {
 		System.out.println("controller 회원가입 member = " + member);
 		
@@ -51,7 +56,7 @@ public class MemberController {
 		session.setAttribute("member", member);
 
 		return "redirect:/member/main";
-	}
+	} */
 	
 	/**
 	 * 로그인
@@ -68,12 +73,12 @@ public class MemberController {
 	/**
 	 * 로그아웃
 	 * */
-	@RequestMapping("/logout")
+	/* @RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		
 		return "redirect:/main";
-	}	
+	} */
 
 	/**
 	 * 회원 정보 수정하기

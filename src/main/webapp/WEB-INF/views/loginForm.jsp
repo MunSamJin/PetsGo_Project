@@ -31,67 +31,7 @@
 	</c:if> 
 	<!-- param.err: loginForm에서 get 방식으로 err이 넘어왔는지 아닌지 알 수 o. ${SPRING_SECURITY_LAST_EXCEPTION.message}: spring이 기본적으로 갖고 있는 에러 메시지(Bad credential)가 나옴 -->
 	
-	<!--::header part start - 비회원MODE ::-->
-   <%-- <header class="main_menu">
-        <div class="main_menu_iner">
-            <div class="container">
-                <div class="row align-items-center ">
-                    <div class="col-lg-12">
-                        <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                            <a class="navbar-brand" href="${pageContext.request.contextPath}/main"> <img src="${pageContext.request.contextPath}/img/logo.png" alt="logo"> </a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
 
-                            <div class="collapse navbar-collapse main-menu-item justify-content"
-                                id="navbarSupportedContent">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            커뮤니티
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="#">홈</a>
-                                            <a class="dropdown-item" href="#">글쓰기</a>
-                                        </div>
-                                    </li>
-                                     <li class="nav-item" style="display: none;">
-                                        <a class="nav-link" href="#">예약 확인</a>
-                                    </li>
-                                    <li class="nav-item dropdown" style="display:none;">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1"
-                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            마이페이지
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                            <a class="dropdown-item" href="#">예약내역</a>
-                                            <a class="dropdown-item" href="#">스크랩북</a>
-                                            <a class="dropdown-item" href="#">내 커뮤니티</a>
-                                             <a class="dropdown-item" href="#">회원정보</a>
-                                              <a class="dropdown-item" href="#">문의하기</a>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="${pageContext.request.contextPath}/registerForm">회원가입</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="${pageContext.request.contextPath}/loginForm">로그인</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header> --%>
-	<!-- Header part end-->
-	
 	<!-- login part start -->
 	<div class="container">
 		<div class="row justify-content-center">
@@ -107,11 +47,14 @@
 					</ul>
 					<div class="tab-content" id="myTabContent">
 					<h1>로그인</h1>
+					<c:if test="${not empty requestScope.errorMessage}">
+						<span style="color:red">${requestScope.errorMessage}</span>
+					</c:if>
 					  <div class="tab-pane fade show active" id="member-tab-pane" role="tabpanel" aria-labelledby="member-tab" tabindex="0">
-						<form id="memberLoginForm" action="${pageContext.request.contextPath}/login/member" method="post">
-							<input type="email" class="form-control" name="memberEmail" id="email" placeholder="이메일"> 
+						<form id="memberLoginForm" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
+							<input type="email" class="form-control" name="id" id="email" placeholder="이메일"> 
 							<div id="emailValid"></div>
-							<input type="password" class="form-control" name="memberPassword" id="password" placeholder="비밀번호"> 
+							<input type="password" class="form-control" name="password" id="password" placeholder="비밀번호"> 
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />		
 							<div class="buttons">
 								<input type="submit" class="btn btn-primary" value="로그인">			
@@ -120,13 +63,10 @@
 						</form>
 					  </div>					  
 					  <div class="tab-pane fade" id="owner-tab-pane" role="tabpanel" aria-labelledby="owner-tab" tabindex="0">
-						<form id="ownerLoginForm" action="${pageContext.request.contextPath}/owner/login" method="post">
-						
-						
-						
-							<input type="text" class="form-control" name="memberEmail" id="email" placeholder="사업자 등록 번호"> 
-							<span id="emailValid"></span>
-							<input type="password" class="form-control" name="memberPassword" id="password" placeholder="비밀번호"> 
+						<form id="ownerLoginForm" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
+							<input type="text" class="form-control" name="id" id="no" placeholder="사업자 등록 번호"> 
+							<span id="noValid"></span>
+							<input type="password" class="form-control" name="password" id="campPassword" placeholder="비밀번호"> 
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />		
 							<div class="buttons">
 								<input type="submit" class="btn btn-primary" value="로그인">			
@@ -140,72 +80,6 @@
 		</div>
 	</div>
 	<!-- login part end -->
-
-	<!-- footer part start-->
-    <footer class="footer-area">
-        <div class="container">
-            <div class="row justify-content-between">
-                <div class="col-sm-6 col-md-5">
-                    <div class="single-footer-widget">
-                        <h4>Categories</h4>
-                        <ul>
-                            <li><a href="#">개인정보처리방침</a></li>
-                            <li><a href="#">쿠키 정책</a></li>
-                            <li><a href="#">쿠키 설정</a></li>                         
-                            <li><a href="#">서비스 이용약관</a></li>
-                            <li><a href="#">위치정보이용약관</a></li>
-                            <li><a href="#">웹사이트 이용약관</a></li>
-                             <li><a href="#">사업자구매회원</a></li>
-                            <li><a href="#">제휴/광고문의</a></li>
-                        </ul>
-
-                    </div>
-                </div>
-                 <div class="col-sm-6 col-md-3">
-                    <div class="single-footer-widget footer_icon">
-                        <h4>Contact Us</h4>
-                        <p>34, Seongnam-daero, <br> 
-                            Bundang-gu, Seongnam<br> 
-                                +880 123 456 789</p>
-                        <span>petsgo2022@kosta.com</span>
-                        <div class="social-icons">
-                            <a href="#"><i class="ti-facebook"></i></a>
-                            <a href="#"><i class="ti-twitter-alt"></i></a>
-                            <a href="#"><i class="ti-pinterest"></i></a>
-                            <a href="#"><i class="ti-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="single-footer-widget">
-                        <h4>PARTNER</h4>
-                        <div class="form-wrap" id="mc_embed_signup">
-                            <form target="_blank"
-                                action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                method="get" class="form-inline">
-                               <a href="#" class="genric-btn primary circle arrow">캠핑장 등록 신청<span class="lnr lnr-arrow-right"></span></a>
-
-                                <div class="info"></div>
-                            </form>
-                        </div>
-                        <p>펫츠고의 파트너가 되어보세요!</p>
-                    </div>
-                </div>               
-            </div>
-        </div>
-        <div class="container-fluid">d
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="copyright_part_text text-center">
-                        <p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with by <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Pet's Go</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-	<!-- footer part end-->
 	
 	<!-- jquery plugins here-->
    <%--  <script src="${pageContext.request.contextPath}/js/jquery-1.12.1.min.js"></script> --%>

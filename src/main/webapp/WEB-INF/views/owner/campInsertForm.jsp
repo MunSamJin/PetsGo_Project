@@ -232,6 +232,8 @@
 										<div class="tab-pane active" id="formcontrols">
 											<form id="edit-profile" class="form-horizontal" method="post" enctype="multipart/form-data" name="campInsert"
 												action="${pageContext.request.contextPath}/owner/campInsert">
+												<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+												<input type="hidden" name="campRole" value="ROLE_OWNER">
 												<fieldset>
 													<!-- <div class="control-group">
 														<label class="control-label" for="campState">등록상태</label>

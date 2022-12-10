@@ -21,20 +21,38 @@
 
 	</definition> -->
 	
-	<!-- Controller에서 */* 리턴하는 뷰의 정보에 따라 화면구성을 처리한다. -->
+	<!-- Controller에서 */* 리턴하는 뷰의 정보에 따라 화면구성을 처리한다. -->	
+	
 	<definition name="*" extends="layout">
 		<put-attribute name="content" value="/WEB-INF/views/{1}.jsp"></put-attribute>
 	</definition>
 	
 	
-	<definition name="*/*" extends="layout">
+	<!-- <definition name="*/*" extends="layout">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
-	</definition>
+	</definition> -->
 	
 
 	<definition name="community/**" extends="layout">
 		<put-attribute name="content" value="/WEB-INF/views/community/{1}.jsp"/>
 	</definition>
+	
+
+	<definition name="camp/**" extends="layout">
+		<put-attribute name="content" value="/WEB-INF/views/camp/{1}.jsp"/>
+	</definition>
+	
+	<definition name="member/**" extends="layout">
+		<put-attribute name="content" value="/WEB-INF/views/member/{1}.jsp"/>
+	</definition>
+	
+	<definition name="pet/**" extends="layout">
+		<put-attribute name="content" value="/WEB-INF/views/pet/{1}.jsp"/>
+	</definition>
+	
+	<definition name="reservation/**" extends="layout">
+		<put-attribute name="content" value="/WEB-INF/views/reservation/{1}.jsp"/>
+	</definition>	
 
 
 	<!-- 뷰의 정보가 board/* 경우 -->

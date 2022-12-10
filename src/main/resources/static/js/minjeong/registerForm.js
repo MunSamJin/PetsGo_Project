@@ -1,7 +1,4 @@
 $(document).ready(function(){			
-	//let emailCheckRs = "";	
-	//let nicknameCheckRs = "";	
-
 	//회원가입 버튼 클릭 시 유효성 체크
 	$("#registerForm").submit(function() {
 
@@ -40,16 +37,10 @@ $(document).ready(function(){
 			$("#registerForm > input[type=text]:nth-child(25)").focus();
 			return false;
 		}
-
-		/* if(emailCheckRs == ""){
-			alert("이메일 중복 확인을 하세요");					
-			return false;
-		} */
 	});//submit
 
 	//이메일 유효성 체크
 	$("#email").change(function() {
-		//alert($("#email").val());
 		checkEmail($("#email").val());
 		$("#emailCheck").html("");
 	});
@@ -59,7 +50,6 @@ $(document).ready(function(){
 		if (!(expectEmail.test(email))) {
 			$("#emailValid").html("이메일 형식을 확인해 주세요.").css("color", "red");
 			$("#email").focus();
-			//emailCheckRs = "";
 			return false;
 		}
 
@@ -68,14 +58,11 @@ $(document).ready(function(){
 			url: "/member/emailCheck",
 			dataType: "text",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
 			data: "memberEmail=" + email, //서버에게 보낼 parameter 정보 
-			//data:"${_csrf.parameterName}=${_csrf.token}&email=" + email,	
 			success: function(data) {
 				if (data == "fail") {
 					$("#emailCheck").html("이미 사용하고 있는 이메일입니다.").css("color", "red");
-					//emailCheckRs = "";
 				} else {
 					$("#emailCheck").html("사용 가능한 이메일입니다.").css("color", "black");
-					//emailCheckRs = email;
 				}
 			}//callback			
 		});//ajax
@@ -140,7 +127,6 @@ $(document).ready(function(){
 
 		if (nickname.length < 2 || nickname.length > 15) {
 			$("#nicknameValid").html("닉네임은 최소 2자 이상 15자 미만이어야 합니다.").css("color", "red");
-			//nicknameCheckRs = "";
 			return;
 		}
 
@@ -151,33 +137,14 @@ $(document).ready(function(){
 			url: "/member/nicknameCheck",
 			dataType: "text",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
 			data: "memberNickname=" + nickname, //서버에게 보낼 parameter 정보 
-			//data:"${_csrf.parameterName}=${_csrf.token}&email=" + email,	
 			success: function(data) {
 				if (data == "fail") {
 					$("#nicknameCheck").html("이미 사용하고 있는 닉네임입니다.").css("color", "red");
-					//nicknameCheckRs = "";
 				} else {
 					$("#nicknameCheck").html("사용 가능한 닉네임입니다.").css("color", "black");
-					//nicknameCheckRs = nickname;
 				}
 			}//callback			
 		});//ajax
-
-		/* $.ajax({
-			type:"POST",
-			url:"${pageContext.request.contextPath}/emailCheck",				
-			data:"${_csrf.parameterName}=${_csrf.token}&email="+email,	
-			success:function(data){						
-				if(data=="fail"){
-				$("#emailCheck").html("  " + email + " 사용할 수 없습니다.").css("background","red");
-					checkResult="";
-				}else{						
-					$("#emailCheck").html("  " + email + " 사용 가능합니다.").css("background","yellow");		
-					checkResult = email;
-				}					
-			}//callback			
-		});//ajax */
-
 	});//keyup 
 
 	/////////////////////////////////////
@@ -188,5 +155,4 @@ $(document).ready(function(){
 		yearRange: "1930:2030",
 		dateFormat: "yy-mm-dd"
 	});
-
 });//ready

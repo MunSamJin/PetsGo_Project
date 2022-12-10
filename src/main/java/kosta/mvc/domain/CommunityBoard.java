@@ -33,6 +33,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity
 @Builder
+//@ToString
+
 /**
  *  커뮤니티 도메인
  */
