@@ -37,11 +37,15 @@
 			let price = $("#amount").val();
 			price = price.split('-');
 			
-			
 			let price1 = $.trim(price[0]).replace('￦','').replace(',','');
 			let price2 = $.trim(price[1]).replace('￦','').replace(',','');
 			
 			let aa = $("#aa").val();
+			
+			let addr = $("#campAddr").val();
+			let checkIn = $("#checkIn").val();
+			let checkOut = $("#checkOut").val();
+			let resiPeople = $("#resiPeople").val();
 			
 			$.ajax({
 				url : '/camp/select',
@@ -49,7 +53,11 @@
 				data : {
 					price1:price1,
 					price2:price2,
-					aa:aa},
+					aa:aa,
+					campAddr:addr,
+					checkIn:checkIn,
+					checkOut:checkOut,
+					resiPeople:resiPeople},
 				dataType: 'json',
 				success : function(result) {
 					$("#listAll").empty();
@@ -143,7 +151,7 @@
                 <div class="col-lg-9">
                     <div class="search_wrap">
                     
-                        <form class="search_form" action="/camp/selectAll">
+                        <form class="search_form" action="/camp/selectAll" name="campFrom">
                             <div class="input_field">
                                 <select class="nc_select" id="campAddr" name="campAddr">
                             		<option selected>지역명 검색 </option>
@@ -159,15 +167,16 @@
                                     <option value="파주시">파주시</option>
                                     <option value="연천시">연천시</option>
                                     <option value="광주시">광주시</option>
+                                    <option value="안성시">안성시</option>
                                  </select>
                             </div>
                             
                             <div class="input_field">
-                                <input id="checkIn" placeholder="${checkIn}" name="checkIn">
+                                <input id="checkIn" placeholder="${checkIn}" name="checkIn" value="${checkIn}">
                             </div>
                             
                             <div class="input_field">
-                                <input id="checkOut" placeholder="${checkOut }" name="checkOut">
+                                <input id="checkOut" placeholder="${checkOut }" name="checkOut" value="${checkOut}">
                             </div>
                             
                             <div class="input_field">

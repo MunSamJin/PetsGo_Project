@@ -50,25 +50,35 @@ public class CampUserViewServiceImpl implements CampUserViewService {
 	
 	@Override
 	public List<Camp> selectAll(int resiPeople, String campAddr, String checkIn, String checkOut, int resiPrice1, int resiPrice2, String aa) {
+		QCamp ca = QCamp.camp;
+		QReservation qre = QReservation.reservation;
+		QResidence qsi = QResidence.residence;
+		
 		List<Camp> campList = new ArrayList<Camp>();
-		if(aa.equals('1')) {
-			campList = campUserViewRepository.selectByPrice("desc");
-		} else if(aa.equals('2')) {
-			campList = campUserViewRepository.selectByPrice("asc");
-		} else {
-			campList = campUserViewRepository.findAll();
-		}
-		List<Camp> campserch = new ArrayList<Camp>();
-		for(Camp c : campList) {
-			List<Residence> resiList = c.getResidenceList();
-			for(Residence r : resiList) {
-				int price = r.getResiPrice();
-				if(price<=resiPrice2 && price>=resiPrice1) {
-					if(!campserch.equals(c)) campserch.add(c);
-				}
-			}
-		}
-		return campserch;
+		
+		campList = queryFactory
+				.selectFrom(ca)
+				.leftJoin(qsi).on(ca.campNo.eq(qsi.camp.campNo))
+				.leftJoin(qre).on(qsi.resiNo.eq(qre.residence.resiNo))
+				.where(ca.campAddr.contains(campAddr)
+						.and(qre.reservCheckin.notBetween(checkIn, checkOut)
+								.and(qre.reservCheckout.notBetween(checkIn, checkOut)
+										.and(qsi.resiPeople.goe(resiPeople)
+												.and(qsi.resiPrice.between(resiPrice1, resiPrice2))))))
+				.orderBy(qsi.resiPrice.desc())
+				.fetch();
+		
+		/*
+		 * if(aa.equals('1')) { campList = campUserViewRepository.selectByPrice("desc");
+		 * } else if(aa.equals('2')) { campList =
+		 * campUserViewRepository.selectByPrice("asc"); } else { campList =
+		 * campUserViewRepository.findAll(); } List<Camp> campserch = new
+		 * ArrayList<Camp>(); for(Camp c : campList) { List<Residence> resiList =
+		 * c.getResidenceList(); for(Residence r : resiList) { int price =
+		 * r.getResiPrice(); if(price<=resiPrice2 && price>=resiPrice1) {
+		 * if(!campserch.equals(c)) campserch.add(c); } } }
+		 */
+		return campList;
 	}
 
 	@Override
