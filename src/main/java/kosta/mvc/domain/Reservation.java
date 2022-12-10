@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -76,6 +77,10 @@ public class Reservation {
 	 @ManyToOne(fetch = FetchType.LAZY)//지연로딩
 	 @JoinColumn(name = "resiNo")
 	 private Residence residence;
+	 
+	 @ManyToOne(fetch = FetchType.LAZY)
+	 @Transient
+	 private List<Detail> detailList;
 	 
 	/*
 	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
