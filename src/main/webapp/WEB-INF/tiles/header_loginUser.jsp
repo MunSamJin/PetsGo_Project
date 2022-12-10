@@ -97,7 +97,7 @@
                                             커뮤니티
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/community/list">홈</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/list">홈</a>
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/community/write">글쓰기</a>
                                         </div>
                                     </li>

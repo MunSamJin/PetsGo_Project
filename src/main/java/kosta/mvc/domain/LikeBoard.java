@@ -38,10 +38,6 @@ public class LikeBoard {
 	@SequenceGenerator(name = "like_lno_seq", allocationSize = 1, sequenceName = "like_lno_seq")
 	private Long likeNo;
 	
-	@ColumnDefault("0")
-	@Column(nullable = true)
-	private int likeCheck;
-	
 	
 	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
 	@JoinColumn(name = "memberNo") 

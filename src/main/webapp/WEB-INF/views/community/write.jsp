@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 
 
 <!DOCTYPE html>
@@ -13,11 +14,13 @@
 	
 	<script type="text/javascript">		
 		$(function(){
-			//alert(11);
+			//alert("등록폼 jsp입니다.");
 			
 			//유효성 검사
+			
 			$("input[type=submit]").click(function(){
 				let f = window.document.writeForm;
+				//alert("유효성검사 하러 가자!")
 				
 				if ( f.boardTag1.value == "") {
 				    alert( "캠핑유형을 선택해주세요." );
@@ -84,9 +87,9 @@
 
 		<form name="writeForm" method="post" action="${pageContext.request.contextPath}/community/insert" 
 			  onSubmit='return checkValid()' enctype="multipart/form-data">			  
-		
-			<input type=hidden name="memberNo" value="<%=session.getAttribute("memberNo")%>">
-			
+			<sec:authentication var="mvo" property="principal" />
+			<input type=hidden name="memberNo" value="${mvo.memberNo}">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			
 			<input type="hidden" name="boardTag" value="">
 					  

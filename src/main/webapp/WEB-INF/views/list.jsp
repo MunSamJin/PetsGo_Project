@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 
 <!DOCTYPE html>
 <html>
@@ -79,6 +79,12 @@
 			});//태그검색 끝
 			
 			/* 좋아요 기능 */
+			$("span[class=heart]").on("click", function(){
+				alert("하트 클릭");
+			
+					
+				
+			});//좋아요끝
 			
 			
 		}); //readyEnd
@@ -121,6 +127,8 @@
 
 </head>
 <body>
+
+
 <div class="communityBoardList">
 							
 <!-- 전체검색 : 태그 -->	
@@ -187,6 +195,7 @@
 	</div>	
 	
 <!-- 커뮤니티 전체조회 -->	
+    
 		<div class="container" ><!-- style="width: 80%; margin-left: auto; margin-right: auto; margin-bottom: 50px" -->
 			
 			<ul id="tagResult">
@@ -203,23 +212,52 @@
 				    
 				    <li>
 						<div class="communityCard">
-							<img class="communityImg" src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList.boardFileName,',')[0]}"
-								 onclick="javascript:location.href='${pageContext.request.contextPath}/community/read/${communityBoardList.boardNo}'"/><br> 
+							<img class="communityImg" src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList.boardFileName,',')[0]}" 
+								onclick="javascript:location.href='${pageContext.request.contextPath}/community/read/${communityBoardList.boardNo}'"/><br> 
+							\${communityBoardList.boardNo} = ${communityBoardList.boardNo}
+							
+							<%-- <input type="hidden" id="${communityBoardList.boardNo}"  value="${communityBoardList.boardNo}"> --%>
 							<div style="text-align: left;">
 								
 								<c:choose>
 								   <c:when test="${communityBoardList.likeList.size()>0}">
 								     <c:forEach items="${communityBoardList.likeList}" var="like">
-								          <c:if test="${like.member.memberNo==sessionScope.memberNo}">
-									           <span class="heart" style="cursor: pointer;">
-													<img src="${pageContext.request.contextPath}/img/samjin/redheart.png" 
-												 		 width="15px" height="15px" style="padding-bottom: 3px;">
+								     	<c:choose>
+								     		<c:when test="${not empty pageContext.request.userPrincipal}">
+								     		
+								     			<sec:authentication var="mvo" property="principal" />
+												<c:choose>
+													<c:when test="${like.member.memberNo==mvo.memberNo}">
+														<span class="heart" style="cursor: pointer;"
+											          		onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
+															<img src="${pageContext.request.contextPath}/img/samjin/redheart.png" 
+														 		  width="15px" height="15px" style="padding-bottom: 3px;">
+														</span>
+													</c:when>
+													<c:otherwise>
+														<span class="heart" style="cursor: pointer;"
+												       		onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
+															<img src="${pageContext.request.contextPath}/img/samjin/heart.png" 
+															 	 width="15px" height="15px" style="padding-bottom: 3px;">
+														</span>
+													</c:otherwise>
+												</c:choose>
+								     		
+								     		</c:when>
+								     		<c:otherwise>
+								     			<span class="heart" style="cursor: pointer;"
+										       		onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
+													<img src="${pageContext.request.contextPath}/img/samjin/heart.png" 
+													 	 width="15px" height="15px" style="padding-bottom: 3px;">
 												</span>
-									       </c:if>
+								     		</c:otherwise>
+								     	</c:choose>
+								     	
 								     </c:forEach>
 								   </c:when>
 								   <c:otherwise>
-								       <span class="heart" style="cursor: pointer;">
+								       <span class="heart" style="cursor: pointer;"
+								       		onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
 											<img src="${pageContext.request.contextPath}/img/samjin/heart.png" 
 											 	 width="15px" height="15px" style="padding-bottom: 3px;">
 										</span>

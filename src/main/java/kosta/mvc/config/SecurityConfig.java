@@ -31,6 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.antMatchers("/owner/**") //     pattern="/member/main" 
 				.hasRole("OWNER")            //      access="isAuthenticated()"
 				.antMatchers("/member/**")
+				.hasRole("MEMBER")
+				.antMatchers("/community/**")
 				.hasRole("MEMBER") 
 				.and()
 				//.csrf().disable() // <security:csrf disabled="true"/>

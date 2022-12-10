@@ -30,7 +30,7 @@ import lombok.ToString;
 @Entity
 @Builder
 @RequiredArgsConstructor
-@ToString
+//@ToString
 /**
  * 회원 도메인
  */

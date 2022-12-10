@@ -3,11 +3,13 @@ package kosta.mvc.controller;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import javax.mail.Session;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +18,8 @@ import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.P
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,54 +47,36 @@ public class CommunityController {
 	
 	private final static int PAGE_COUNT=10;
 
-	/**
-	 *  커뮤니티 전체 검색
-	 */
-//	@RequestMapping("/list")
-//	public void list(Model model, @RequestParam(defaultValue = "1")int nowPage) {
-//		List<CommunityBoard> communityBoardList = communityService.selectAll();
-//		model.addAttribute("communityBoardList", communityBoardList);
-//		
-//	}
-	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public void list(String tag, Model model, @RequestParam(defaultValue = "1")int nowPage) {
-		
-		List<CommunityBoard> list = null;
-		
-		//System.out.println("tag = " + tag);
-		
-		//태그로 검색하기
-		if(tag != null) {
-			list = communityService.selectByTag(tag);
-		} else {
-			list = communityService.selectAll();
-		}
-			
-		model.addAttribute("communityBoardList", list);
-		
-	}
+	
 	
 	
 	/**
 	 *  등록폼
 	 */
 	@RequestMapping("/write")
-	public void write() {}
+	public void write() {
+		System.out.println("컨트롤러 등록폼 들어왔니??");
+	}
 	
 	
 	/**
 	 *  등록하기 : 글 + 파일 동시에 등록
 	 */
 	@RequestMapping("/insert")
-	public String insert(CommunityBoard communityBoard, @RequestParam("files") List<MultipartFile> files,
-			HttpServletRequest request) {
-		String saveDir2 = request.getSession().getServletContext().getRealPath("/img/samjin/");
-		//String saveDir2 = session.getServletContext().getRealPath("/img/samjin/");
+	public String insert(CommunityBoard communityBoard, @RequestParam("files") List<MultipartFile> files, 
+			HttpSession session, Authentication auth) {
+		System.out.println("컨트롤러 등록하러 왔니?");
+		
+		String saveDir2 = session.getServletContext().getRealPath("/img/samjin/");
 		String imgNames = "";
 		
-		Long memberNo = (Long)request.getSession().getAttribute("memberNo");
-		System.out.println("컨트롤러 memberNo = " + memberNo);
-
+		Object object = auth.getPrincipal();
+		Member member = null;
+		if(object instanceof Member) {
+			member = (Member)auth.getPrincipal();
+		}
+		
+		
 		try {
 			
 			System.out.println("개수 = " + files.size());
@@ -116,7 +102,7 @@ public class CommunityController {
 		
 		
 		communityBoard.setBoardFileName(imgNames);
-		
+		communityBoard.setMember(member);
 		communityService.insert(communityBoard);
 		
 		ModelAndView mv = new ModelAndView();
@@ -124,7 +110,7 @@ public class CommunityController {
 		mv.addObject("originalFileName", imgNames);
 		mv.addObject("fileSize", files.size());
 
-		return "redirect:/community/list";
+		return "redirect:/list";
 	}
 	
 	
@@ -201,7 +187,7 @@ public class CommunityController {
 	@RequestMapping("/delete")
 	public String delete(Long boardNo) {
 		communityService.delete(boardNo);
-		return "redirect:/community/list";
+		return "redirect:/list";
 	}
 	
 	/**
@@ -223,23 +209,30 @@ public class CommunityController {
 //	}
 	
 	/**
-	 *  좋아요
+	 *  좋아요 기능
 	 */
-	@RequestMapping("/likeHeart")
-	public LikeBoard likeHeart() {
+	@RequestMapping("/likeHeart/{boardNo}")
+	public String likeHeart(@PathVariable Long boardNo) {
+		System.out.println("컨트롤러 좋아요기능 들어오니??"); //ok
 		
-		return null;
+		// 뷰에서 넘어오는 게시글 번호 받음.
+		System.out.println("컨트롤 좋아요 boardNo = " + boardNo); //ok
+		
+		// 누가 클릭했는지?? 정보를 꺼내야함. 회원 --> security
+		//Spring Security 세션 회원정보를 반환받는다
+	      Member member =(Member)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	      Long memberNo = member.getMemberNo();
+	      //System.out.println("좋아요컨트롤러 member = " + member); //ok
+
+	      
+		//서비스 호출
+	    int likeBoard = communityService.selectAll(memberNo,boardNo);
+	    System.out.println("컨트롤러 좋아요 결과 = " + likeBoard);
+		
+		return "redirect:/list";
 		
 	}
 	
-	/**
-	 *  좋아요취소
-	 */
-	@RequestMapping("/unLikeHeart")
-	public LikeBoard unLikeHeart() {
-		
-		return null;
-	}
-	
+
 	
 }
