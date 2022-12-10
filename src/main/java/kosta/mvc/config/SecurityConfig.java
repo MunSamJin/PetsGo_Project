@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	MemberAuthenticationProvider memberAuthenticationProvider;
-
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -34,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.hasRole("MEMBER")
 				.antMatchers("/community/**")
 				.hasRole("MEMBER") 
+				//.antMatchers("/favicon.ico")
+				//.anonymous()
 				.and()
 				//.csrf().disable() // <security:csrf disabled="true"/>
 			.formLogin()

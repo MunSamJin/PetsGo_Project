@@ -27,23 +27,6 @@ public class CampServiceImpl implements CampService {
 	@Autowired
 	private PasswordEncoder passwordEncoder; 
 
-	
-	/**
-	 * 전체검색
-	 */
-	@Override
-	public Camp selectAll() {
-		String str="141-12-01303";
-		Camp camp = campRep.selectCamp(str);
-		return camp;
-		//return null;
-	}
-
-	@Override
-	public Page<Camp> selectAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void insert(Camp camp) {
@@ -52,7 +35,7 @@ public class CampServiceImpl implements CampService {
 		System.out.println("캠핑장 신청 service encodedPassword = " + encodedPassword);
 		
 		camp.setCampPassword(encodedPassword);
-		camp.setCampState(0);
+		camp.setCampState(1);
 		camp.setCampLat("0");
 		camp.setCampLong("0");
 		camp.setCampManageNo("guest");
@@ -69,8 +52,8 @@ public class CampServiceImpl implements CampService {
 
 	@Override
 	public Camp update(Camp camp) {
-		String str="141-12-01303";
-		Camp dbCamp = campRep.selectCamp(str);
+		//String str="141-12-01303";
+		Camp dbCamp = campRep.findById(camp.getCampNo()).orElse(null);
 		dbCamp.setCampAddr(camp.getCampAddr());
 		dbCamp.setCampCheckin(camp.getCampCheckin());
 		dbCamp.setCampCheckout(camp.getCampCheckout());
@@ -89,6 +72,16 @@ public class CampServiceImpl implements CampService {
 	public void delete(Long bno, String password) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Camp selectBy(String campRegNo) {
+		Camp camp = campRep.findByCampRegNo(campRegNo);
+		/*Camp camp = null;
+		for(Camp c : campList) { //어차피 1개...
+			camp = c;
+		}*/
+		return camp;
 	}
 
 }

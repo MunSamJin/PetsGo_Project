@@ -10,15 +10,6 @@ import kosta.mvc.domain.Camp;
 
 public interface CampService {
 
-	/**
-	 * 전체검색
-	 */
-	Camp selectAll();
-
-	/**
-	 * 전체검색 - Page처리
-	 */
-	Page<Camp> selectAll(Pageable pageable);
 
 	/**
 	 * 등록
@@ -29,6 +20,13 @@ public interface CampService {
 	 * 글번호 검색 : 조회수 증가.... - state가 true이면 조회수 증가한다.
 	 */
 	Camp selectBy(Long bno);
+	
+	
+	/**
+	 * 캠핑장 중복 검색 : 조회수 증가.... - state가 true이면 조회수 증가한다.
+	 */
+	Camp selectBy(String campRegNo);
+	
 
 	/**
 	 * 수정하기

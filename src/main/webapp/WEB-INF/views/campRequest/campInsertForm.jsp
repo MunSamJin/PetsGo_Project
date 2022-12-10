@@ -28,27 +28,26 @@
   
   
   <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.form.min.js"></script>
   <script type="text/javascript">
 		$(function(){
 			
 			//폼 submit
 			$("#campRequest").click(function(){
 				$("#campInsertForm").ajaxForm({
-					type:"POST",
-					url:"${pageContext.request.contextPath}/owner/campInsert",
-					//data:$("#edit-profile").serialize(),
+					type:"post",
+					url:"${pageContext.request.contextPath}/campInsert",
 					dataType:"text",
 					success:function(result){
-						 alert("캠핑장 등록 신청이 완료되었습니다. 결과는 입력하신 이메일로 발송됩니다.");
+						 alert("캠핑장 등록 신청이 완료되었습니다. 승인 결과는 입력하신 이메일로 발송됩니다.");
 						 location.href = "${pageContext.request.contextPath}/main";
-						 	
 					},
 					error:function(err){
 						alert("입력사항을 다시 확인해주세요.")
 					}
 				});//ajax
 				
-				$("#campUpdateForm").submit();
+				$("#campInsertForm").submit();
 			});//click
 			
 			
@@ -58,9 +57,10 @@
 				
 			    $.ajax({
 					type:"POST",
-					url:"${pageContext.request.contextPath}/owner/campRegNoCheck",	
-					dataType: "text",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
-					data: "campRegNo=" + campRegNo, //서버에게 보낼 parameter 정보 
+					url:"${pageContext.request.contextPath}/campRegNoCheck",	
+					dataType:"text",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
+					data:"${_csrf.parameterName}=${_csrf.token}&campRegNo=" + campRegNo, //서버에게 보낼 parameter 정보 
+					//data: "campRegNo=" + campRegNo,
 					//data:"${_csrf.parameterName}=${_csrf.token}&email=" + email,	
 					success:function(data) {						
 						if(data == "fail") {
@@ -414,7 +414,6 @@
       </nav>
       <!-- partial -->
       
-      
       <div class="main-panel">        
         <div class="content-wrapper">
           <div class="row">
@@ -425,8 +424,9 @@
                   <p class="card-description">
                     신청 정보를 입력하세요
                   </p>
-                  <form class="forms-sample" id="campInsertForm" name="campInsert" method="post" action="${pageContext.request.contextPath}/owner/campInsert" 
-        				onSubmit='return checkValid()' enctype="multipart/form-data">
+                  <form class="forms-sample" id="campInsertForm" name="campInsert" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/campInsert">
+        			<input type="hidden" name="campNo" value="${camp.campNo}">
+        			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         				
                     <div class="form-group">
                       <label for="exampleInputName1">캠핑장 이름</label>
@@ -497,7 +497,7 @@
                           <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                         </span>
                       </div>
-                      
+                      <span id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></span>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputCity1">우편번호</label>
@@ -530,8 +530,8 @@
                       <label for="exampleInputCity1">체크아웃 시간</label>
                       <input type="text" class="form-control" id="campCheckout" name="campCheckout" placeholder="24시간 단위로 작성해주세요(24:00)">
                     </div>
-                    <button type="submit" class="btn btn-primary mr-2" id="campRequest" name="campRequest">신청</button>
-                    <button class="btn btn-light">취소</button>
+                    <input type="button" class="btn btn-primary mr-2" id="campRequest" name="campRequest" value="신청">
+                    <button type="reset" class="btn btn-light">취소</button>
                   </form>
                 </div>
               </div>

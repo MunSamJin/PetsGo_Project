@@ -35,17 +35,26 @@ public class OwnerController {
 	public void ownerIndex(Model model) {
 	}
 	
-	@RequestMapping("/camp/campSelect")
-	public void campSelect(Model model) {
-		Camp camp = campService.selectAll();
+	@RequestMapping("/camp/campSelect/{campNo}")
+	public String campSelect(@PathVariable("campNo") Long campNo , Model model) {
+		Camp camp = campService.selectBy(campNo);
 		model.addAttribute("camp",camp);
+		
+		System.out.println("camp filename = " + camp.getCampFilename());
+		
+		return "owner/camp/campSelect";
 	}
 	
 	
-	@RequestMapping("/camp/campUpdateForm")
-	public ModelAndView campUpdateForm() {
+	/*@RequestMapping("/camp/campSelect")
+	public void campSelect() {
+	}*/
+	
+	
+	@RequestMapping("/camp/campUpdateForm/{campNo}")
+	public ModelAndView campUpdateForm(@PathVariable("campNo") Long campNo) {
 		//FreeBoard board = campService.selectBy(bno, false); //조회수 증가 안 함
-		Camp camp = campService.selectAll();
+		Camp camp = campService.selectBy(campNo);
 		return new ModelAndView("owner/camp/campUpdateForm","camp", camp);
 	}
 	
@@ -57,7 +66,7 @@ public class OwnerController {
 	 */
 	
 	
-	@RequestMapping("/campInsert")
+	/*@RequestMapping("/campInsert")
 	@ResponseBody
 	public String campInsert(Camp camp, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
 		
@@ -90,12 +99,12 @@ public class OwnerController {
 		campService.insert(camp);
 		
 		return "success";
-	}
+	}*/
 	
 	
 	@RequestMapping("/campUpdate")
 	//@ResponseBody
-	public ModelAndView campUpdate(Camp camp, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
+	public String campUpdate(Camp camp, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
 		
 		String saveDir = session.getServletContext().getRealPath("/img/seryun/");
 		String filenames = "";
@@ -111,7 +120,7 @@ public class OwnerController {
 				else
 					filenames += m.getOriginalFilename() + ",";
 				
-				System.out.println("filenames = " + filenames);
+				System.out.println("update filenames = " + filenames);
 				m.transferTo(new File(saveDir + "/" + m.getOriginalFilename()));
 			}
 		} catch (Exception e) {
@@ -119,7 +128,7 @@ public class OwnerController {
 		} 
 		
 		if(filenames.equals("")) {
-			Camp camp2 = campService.selectAll();
+			Camp camp2 = campService.selectBy(camp.getCampNo());
 			camp.setCampFilename(camp2.getCampFilename());
 		} else {
 			camp.setCampFilename(filenames);
@@ -130,13 +139,10 @@ public class OwnerController {
 		
 		campService.update(camp);
 		
-		/*ModelAndView mv = new ModelAndView();
-		mv.addObject("saveDir", saveDir);
-		mv.addObject("originalFileName", filenames);
-		mv.addObject("fileSize", files.size());
-		mv.setViewName("owner/campSelect");*/
+		System.out.println("업데이트 완료!!! camp="+camp);
 		
-		return new ModelAndView("owner/camp/campSelect") ;
+		return "redirect:/owner/camp/campSelect/"+camp.getCampNo() ;
+		//return "redirect:/owner/camp/campSelect";
 	}
 	
 	
@@ -149,21 +155,27 @@ public class OwnerController {
 	}
 	
 	
-	@RequestMapping("/campRegNoCheck")
+	/*@RequestMapping("/campRegNoCheck")
 	@ResponseBody
-	public String campRegNoCheck() {
-		Camp camp = campService.selectAll();
-		System.out.println("camp = " + camp);
+	public String campRegNoCheck(String campRegNo) {
+		System.out.println("campRegNo="+campRegNo);
+		Camp camp = campService.selectBy(campRegNo);
+		System.out.println("check camp="+camp);
 		if(camp==null) return "success";
 		else return "fail";
-	}
+	}*/
 	
 	
 	
-	@RequestMapping("/resi/resiSelect")
-	public void resiSelect(Model model) {
-		List<Residence> resiList = resiService.selectAll();
+	@RequestMapping("/resi/resiSelect/{campNo}")
+	public String resiSelect(@PathVariable("campNo") Long campNo , Model model) {
+		/*List<Residence> resiList = resiService. selectAll(campNo);
+		model.addAttribute("resiList", resiList);*/
+		
+		Camp camp = campService.selectBy(campNo);
+		List<Residence> resiList = camp.getResidenceList();
 		model.addAttribute("resiList", resiList);
+		return "/owner/resi/resiSelect";
 	}
 	
 	
@@ -174,8 +186,6 @@ public class OwnerController {
 		String filenames = "";
 		
 		try {
-			//upload.getFile().transferTo(new File(saveDir + "/" + originalFileName));
-			
 			for (int i = 0; i < files.size(); i++) {
 				MultipartFile m = files.get(i);
 				System.out.println("첨부파일이름 = " + m.getOriginalFilename());
@@ -195,25 +205,29 @@ public class OwnerController {
 		resi.setResiFilename(filenames);
 		resiService.insert(resi);
 		
-		return "owner/resi/resiDetail?resiNo="+resi.getResiNo();
+		System.out.println(resi.getCamp().getCampNo());
+		
+		return "redirect:/owner/resi/resiSelect/"+resi.getCamp().getCampNo();
 	}
 	
 	
-	@RequestMapping("/resi/resiDetail")
-	public void resiDetail(Long resiNo, Model model) {
+	@RequestMapping("/resi/resiDetail/{resiNo}")
+	public String resiDetail(@PathVariable("resiNo") Long resiNo, Model model) {
 		Residence resi = resiService.selectByResiNo(resiNo);
 		model.addAttribute("resi", resi);
+		return "owner/resi/resiDetail";
 	}
 	
-	@RequestMapping("/resi/resiUpdateForm")
-	public void resiUpdateForm(Long resiNo, Model model) {
+	@RequestMapping("/resi/resiUpdateForm/{resiNo}")
+	public String resiUpdateForm(@PathVariable("resiNo") Long resiNo, Model model) {
 		Residence resi = resiService.selectByResiNo(resiNo);
 		model.addAttribute("resi", resi);
+		return "owner/resi/resiUpdateForm";
 	}
 	
 	
 	@RequestMapping("/resiUpdate")
-	public ModelAndView resiUpdate(Residence resi, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
+	public String resiUpdate(Residence resi, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
 		
 		String saveDir = session.getServletContext().getRealPath("/img/seryun/");
 		String filenames = "";
@@ -245,7 +259,8 @@ public class OwnerController {
 		
 		resiService.update(resi);
 		
-		return new ModelAndView("owner/resi/resiDetail","resi",resi) ;
+		//return new ModelAndView("owner/resi/resiDetail","resi",resi) ;
+		return "redirect:/owner/resi/resiDetail/"+resi.getResiNo();
 	}
 	
 	

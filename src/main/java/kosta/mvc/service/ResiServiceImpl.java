@@ -22,9 +22,8 @@ public class ResiServiceImpl implements ResiService {
 	
 
 	@Override
-	public List<Residence> selectAll() {
+	public List<Residence> selectAll(Long campNo) {
 		List<Residence> resiList= resiRep.findAll();
-		
 		return resiList;
 	}
 
@@ -36,7 +35,6 @@ public class ResiServiceImpl implements ResiService {
 
 	@Override
 	public void insert(Residence resi) {
-		resi.setCamp(null);
 		resiRep.save(resi);
 
 	}
@@ -50,8 +48,22 @@ public class ResiServiceImpl implements ResiService {
 
 	@Override
 	public Residence update(Residence resi) {
-		// TODO Auto-generated method stub
-		return null;
+		Residence dbResi = resiRep.findById(resi.getResiNo()).orElse(null);
+		if(dbResi==null) throw new RuntimeException("해당 숙소는 존재하지 않습니다");
+		
+		//camp, residenceDetailList 뺌
+		dbResi.setResiAmeniti(resi.getResiAmeniti());
+		dbResi.setResiEnv(resi.getResiEnv());
+		dbResi.setResiFilename(resi.getResiFilename());
+		dbResi.setResiGround(resi.getResiGround());
+		dbResi.setResiIntro(resi.getResiIntro());
+		dbResi.setResiName(resi.getResiName());
+		dbResi.setResiPeople(resi.getResiPeople());
+		dbResi.setResiPet(resi.getResiPet());
+		dbResi.setResiPrice(resi.getResiPrice());
+		dbResi.setResiType(resi.getResiType());
+		
+		return dbResi;
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public interface ResiService {
 	/**
 	 * 전체검색
 	 */
-	List<Residence> selectAll();
+	List<Residence> selectAll(Long campNo);
 
 	/**
 	 * 전체검색 - Page처리

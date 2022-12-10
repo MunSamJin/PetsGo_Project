@@ -60,7 +60,8 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 		} else {
 		
 			//Camp
-			Camp camp = campRep.selectCamp(id);
+			Camp camp = campRep.findByCampRegNo(id);
+			System.out.println("rep 다녀온 provider camp = " + camp.getCampRegNo());
 			
 			if(camp == null){
 				throw new UsernameNotFoundException(id + "는 등록되지 않은 사업자입니다."); //spring exception

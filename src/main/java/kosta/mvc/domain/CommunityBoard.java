@@ -34,7 +34,6 @@ import lombok.ToString;
 @Entity
 @Builder
 //@ToString
-
 /**
  *  커뮤니티 도메인
  */

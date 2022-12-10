@@ -31,7 +31,6 @@ import lombok.ToString;
 @Builder
 @RequiredArgsConstructor
 //@ToString
-
 /**
  * 회원 도메인
  */
