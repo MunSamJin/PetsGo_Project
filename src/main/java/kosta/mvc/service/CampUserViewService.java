@@ -6,9 +6,11 @@ import kosta.mvc.domain.Camp;
 
 public interface CampUserViewService {
 
-	List<Camp> selectAll();
+	List<Camp> selectAll(int resiPeople, String campAddr, String checkIn, String checkOut);
 	
-	List<Camp> selectAll(int resiPrice1, int resiPrice2, String aa);
+	List<Camp> selectAll(int resiPeople, String campAddr, String checkIn, String checkOut, int resiPrice1, int resiPrice2, String aa);
 	
 	Camp selectByCampNo(Long campNo);
+	
+	List<Camp> findAll();
 }

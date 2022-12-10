@@ -21,18 +21,19 @@ public class CampController {
 	private CampUserViewService campUserViewService;
 	
 	@RequestMapping("/selectAll")
-	public String selectAll(Model model) {
-		 List<Camp> campList = campUserViewService.selectAll();
-		 model.addAttribute("campList", campList);
+	public String selectAll(int resiPeople, String campAddr, String checkIn, String checkOut, Model model) {
+		List<Camp> campList = campUserViewService.selectAll(resiPeople, campAddr, checkIn, checkOut);
+		System.out.println(campList);
+		model.addAttribute("campList", campList);
 		return "/camp/list";
 	}
 	
 	@RequestMapping("/select")
 	@ResponseBody
-	public List<Camp> select(String price1, String price2, String aa) {
+	public List<Camp> select(int resiPeople, String campAddr, String checkIn, String checkOut, String price1, String price2, String aa) {
 		int resiPrice1 = Integer.parseInt(price1);
 		int resiPrice2 = Integer.parseInt(price2);
-		List<Camp> campList = campUserViewService.selectAll(resiPrice1, resiPrice2, aa);
+		List<Camp> campList = campUserViewService.selectAll(resiPeople, campAddr, checkIn, checkOut, resiPrice1, resiPrice2, aa);
 		return campList;
 	}
 	
@@ -41,4 +42,13 @@ public class CampController {
 		Camp camp = campUserViewService.selectByCampNo(campNo);
 		model.addAttribute("camp", camp);
 	}
+	
+	@RequestMapping("/findAll")
+	public String detail(Model model) {
+		List<Camp> campList = campUserViewService.findAll();
+		model.addAttribute("campList", campList);
+		return "/camp/list";
+	}
+	
+	
 }

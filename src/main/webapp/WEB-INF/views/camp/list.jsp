@@ -237,7 +237,7 @@
 		                                    		 <c:set var="aaprice" value="${residence.resiPrice}"/>
 		                                    	</c:if>
 		                                    </c:forEach>
-		                                    <a href="/camp/detail?campNo=${camp.campNo}" class="prise"><fmt:formatNumber value="${aaprice}" pattern="###,###"/></a>
+		                                    <a href="/camp/detail?campNo=${camp.campNo}" class="prise"><fmt:formatNumber value="${aaprice}" pattern="￦ ###,###"/></a>
 		                                </div>
 		                                <div class="place_info" >
 		                                    <a href="destination_details.html"><h3>${camp.campName}</h3></a>

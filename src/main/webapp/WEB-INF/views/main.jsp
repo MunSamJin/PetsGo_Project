@@ -41,88 +41,34 @@
 
     <style type="text/css">
     </style>
-    
     <!-- 카카오톡 공유하기 -->
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
-  	integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" crossorigin="anonymous">
+integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" crossorigin="anonymous">
     </script>
-	<script>
- 	 Kakao.init('d32f3063e698e99009c22188c7a65c7e'); // 사용하려는 앱의 JavaScript 키 입력
+	<script type="text/javascript">
+		$(function() {
+			Kakao.init('d32f3063e698e99009c22188c7a65c7e');
+			
+			$("#selectfBtn").click(function() {
+				let campAddr = $("#addr_select").val();
+				let resiPeople = $("#people_select").val();
+				
+				let checkIn = $("#datepicker_1").val().split('/');
+				checkIn = checkIn[2].split('0')[1]+"/"+checkIn[1]+"/"+checkIn[0];
+				
+				let checkOut = $("#datepicker_2").val().split('/');
+				checkOut = checkOut[2].split('0')[1]+"/"+checkOut[1]+"/"+checkOut[0];
+				
+				location.href="/camp/selectAll?checkIn="+checkIn+"&checkOut="+checkOut+"&campAddr="+campAddr+"&resiPeople="+resiPeople;
+			});
+		});
 	</script>
-
 </head>
-
 <body>
-<!--::header part start - 비회원MODE ::-->
-<%--    <header class="main_menu">
-        <div class="main_menu_iner">
-            <div class="container">
-                <div class="row align-items-center ">
-                    <div class="col-lg-12">
-                        <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-
-                            <a class="navbar-brand" href="${pageContext.request.contextPath}/main"> <img src="${pageContext.request.contextPath}/img/logo.png" alt="logo"> </a>
-
-                            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-
-                            <div class="collapse navbar-collapse main-menu-item justify-content"
-                                id="navbarSupportedContent">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            커뮤니티
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="#">홈</a>
-                                            <a class="dropdown-item" href="#">글쓰기</a>
-                                        </div>
-                                    </li>
-                                     <li class="nav-item" style="display: none;">
-                                        <a class="nav-link" href="#">예약 확인</a>
-                                    </li>
-                                    <li class="nav-item dropdown" style="display:none;">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1"
-                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            마이페이지
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                            <a class="dropdown-item" href="#">예약내역</a>
-                                            <a class="dropdown-item" href="#">스크랩북</a>
-                                            <a class="dropdown-item" href="#">내 커뮤니티</a>
-                                             <a class="dropdown-item" href="#">회원정보</a>
-                                              <a class="dropdown-item" href="#">문의하기</a>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="${pageContext.request.contextPath}/registerForm">회원가입</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="${pageContext.request.contextPath}/loginForm">로그인</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!--  <div style="display: inline-block; margin-right:10px"><a href="#" class="btn_1 d-none d-lg-block">회원가입</a></div>
-                             <a href="#" class="btn_1 d-none d-lg-block">로그인</a> -->
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header> --%>
-<!-- Header part end-->
- 	
     <!-- banner part start-->
     <section class="banner_part" style="">
-        <div class="container" alt="main_banner">
-             
-        </div>
+        <div class="container" alt="main_banner"></div>
     </section>
     <!-- banner part start-->
 
@@ -137,39 +83,34 @@
                                 <div class="booking_form">
                                     <form action="#">
                                         <div class="form-row">
-                                            <!-- <div class="form_colum" style="width: 260px;">
-                                                <div class="mt">
-                                                    <input type="text" name="first_name" placeholder="지역명, 캠핑장명 검색" onfocus="this.placeholder = ''" 
-                                                    onblur="this.placeholder = '지역명, 캠핑장명 검색'" required="" class="single-input-primary" 
-                                                    style="padding: 4px 20px 3px 20px;">
-                                                </div>
-                                            </div> -->
                                             <div class="form_colum">
-                                                <select class="nc_select">
+                                                <select class="nc_select" id="addr_select">
                                                     <option selected>지역명 검색 </option>
-                                                    <option value="1">포천시</option>
-                                                    <option value="2">평택시</option>
-                                                    <option value="3">여주시</option>
-                                                    <option value="4">가평군</option>
-                                                    <option value="5">동두천시</option>
-                                                    <option value="6">안산시</option>
-                                                    <option value="7">김포시</option>
-                                                    <option value="8">하남시</option>
-                                                    <option value="9">용인시</option>
-                                                    <option value="10">파주시</option>
-                                                    <option value="11">연천시</option>
-                                                    <option value="12">광주시</option>
+                                                    <option value="포천시">포천시</option>
+                                                    <option value="평택시">평택시</option>
+                                                    <option value="여주시">여주시</option>
+                                                    <option value="가평군">가평군</option>
+                                                    <option value="동두천시">동두천시</option>
+                                                    <option value="안산시">안산시</option>
+                                                    <option value="김포시">김포시</option>
+                                                    <option value="하남시">하남시</option>
+                                                    <option value="용인시">용인시</option>
+                                                    <option value="파주시">파주시</option>
+                                                    <option value="연천시">연천시</option>
+                                                    <option value="광주시">광주시</option>
                                                 </select>
                                             </div>
 
                                             <div class="form_colum">
                                                 <input id="datepicker_1" placeholder="체크인 날짜">
                                             </div>
+                                            
                                             <div class="form_colum">
                                                 <input id="datepicker_2" placeholder="체크아웃 날짜">
                                             </div>
+                                            
                                             <div class="form_colum" style="width: 100px;">
-                                                <select class="nc_select" >
+                                                <select class="nc_select"  id="people_select">
                                                     <option selected>인원 </option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
@@ -179,8 +120,9 @@
                                                     <option value="6">6</option>
                                                 </select>
                                             </div>
+                                            
                                             <div class="form_btn">
-                                                <a href="#" class="btn_1">search</a>
+                                                <a href="#" class="btn_1" id="selectfBtn">search</a>
                                             </div>
                                         </div>
                                     </form>
