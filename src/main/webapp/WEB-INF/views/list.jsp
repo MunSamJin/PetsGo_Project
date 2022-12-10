@@ -74,7 +74,7 @@
 				//alert("클릭");
 				var tag = $(this).text();
 				console.log(tag);
-				$(location).attr('href', "${pageContext.request.contextPath}/community/list?tag="+ tag);
+				$(location).attr('href', "${pageContext.request.contextPath}/list?tag="+ tag);
 				//alert(tag);			
 			});//태그검색 끝
 			
