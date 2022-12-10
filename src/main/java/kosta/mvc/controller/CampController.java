@@ -29,7 +29,7 @@ public class CampController {
 		model.addAttribute("campAddr", campAddr);
 		model.addAttribute("checkIn", checkIn);
 		model.addAttribute("checkOut", checkOut);
-		return "/camp/list";
+		return "camp/list";
 	}
 	
 	@RequestMapping("/select")
@@ -51,7 +51,7 @@ public class CampController {
 	public String detail(Model model) {
 		List<Camp> campList = campUserViewService.findAll();
 		model.addAttribute("campList", campList);
-		return "/camp/list";
+		return "camp/list";
 	}
 	
 	
