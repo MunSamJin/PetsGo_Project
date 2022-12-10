@@ -51,15 +51,14 @@
 		
 		$(function() {
 			$(".form_btn").click(function() {
-				alert(11);
 				let campAddr = $("#addr_select").val();
 				let resiPeople = $("#people_select").val();
 				
 				let checkIn = $("#datepicker_1").val().split('/');
-				checkIn = checkIn[2].split('0')[1]+"/"+checkIn[1]+"/"+checkIn[0];
+				checkIn = checkIn[2].split('0')[1]+"/"+checkIn[0]+"/"+checkIn[1];
 				
 				let checkOut = $("#datepicker_2").val().split('/');
-				checkOut = checkOut[2].split('0')[1]+"/"+checkOut[1]+"/"+checkOut[0];
+				checkOut = checkOut[2].split('0')[1]+"/"+checkOut[0]+"/"+checkOut[1];
 				
 				location.href="/camp/selectAll?checkIn="+checkIn+"&checkOut="+checkOut+"&campAddr="+campAddr+"&resiPeople="+resiPeople;
 			});
@@ -114,7 +113,7 @@
                                             </div>
 
                                             <div class="form_colum">
-                                                <select class="nc_select">
+                                                <select class="nc_select" id="people_select">
                                                     <option selected>인원 </option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
