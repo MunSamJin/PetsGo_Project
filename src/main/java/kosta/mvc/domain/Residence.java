@@ -77,6 +77,7 @@ public class Residence {
 
 
 	
+
 	/*@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
 	private List<Reservation> reservationList;*/
 

@@ -14,9 +14,7 @@
     <!-- Title -->
     <title>Pet's GO</title>
     
-    <!-- Favicon -->
-    <%-- <link rel="icon" href="${pageContext.request.contextPath}/dorne-master/img/core-img/favicon.ico"> --%>
-    
+
     <!-- Core Stylesheet -->
     <link href="${pageContext.request.contextPath}/dorne-master/style.css" rel="stylesheet">
     

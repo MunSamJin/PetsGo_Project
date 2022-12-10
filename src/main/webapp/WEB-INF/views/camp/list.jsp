@@ -32,6 +32,7 @@
 				$("html, body").animate({scrollTop:$(document).height()}, 500);
 			}
 		});
+
 		
 		$("#filterBtn").click(function() {
 			let price = $("#amount").val();
@@ -105,6 +106,7 @@
 	
     <!-- <link rel="manifest" href="site.webmanifest"> -->
     <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/travelo-master/img/favicon.png">
+
 
     <!-- CSS here -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/travelo-master/css/bootstrap.min.css">

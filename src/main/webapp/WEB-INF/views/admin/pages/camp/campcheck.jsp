@@ -157,7 +157,7 @@
                           <td>이혜진</td>
                           <td>수원캠핑장</td>
                           <td class="text-success"> 신청서제출 <i class="ti-arrow-up"></i></td>
-                          <td><label class="badge badge-wait">승인접수</label><label class="badge badge-wait">승인대기</label><label class="badge badge-wait">승인완료</label><label class="badge badge-wait">승인반려</label></td>
+                          <td><label class="badge badge-wait">승인</label><label class="badge badge-wait">승인대기</label><label class="badge badge-wait">승인완료</label><label class="badge badge-wait">승인반려</label></td>
                         </tr>
                         <tr>
                           <td>박해원</td>

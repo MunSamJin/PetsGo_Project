@@ -1,18 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>   
-    
+<%@ page language="java" contentType="text/html; charset=UTF-8"pageEncoding="UTF-8"%>   
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 
 <!doctype html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>PetsGo</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/img/petsgoweb.png">
+<meta charset="UTF-8">
+<title>PetsGo</title>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
     <!-- animate CSS -->
@@ -41,13 +36,14 @@
 
 	<link rel='stylesheet' href='${pageContext.request.contextPath}/css/swiper.min.css'>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/comu_style.css">
+	
+	<link rel="icon" href="data:,">
 
 
-    <style type="text/css">
-    </style>
-    <!-- 카카오톡 공유하기 -->
+<!-- 카카오톡 공유하기 -->
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
-integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" crossorigin="anonymous">
+			integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" 
+			crossorigin="anonymous">
     </script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
 	<script type="text/javascript">
@@ -70,6 +66,7 @@ integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNW
 		});
 	</script>
 </head>
+
 <body>
 
     <!-- banner part start-->
@@ -81,6 +78,7 @@ integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNW
     <!-- 캠핑장예약검색 start-->
     <section class="booking_part">
         <div class="container">
+         <div class="search_text">Play Share Stay, 펫츠GO!</div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="booking_content">
@@ -114,9 +112,9 @@ integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNW
                                             <div class="form_colum">
                                                 <input id="datepicker_2" placeholder="체크아웃 날짜">
                                             </div>
-                                            
-                                            <div class="form_colum" style="width: 100px;">
-                                                <select class="nc_select"  id="people_select">
+
+                                            <div class="form_colum">
+                                                <select class="nc_select">
                                                     <option selected>인원 </option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
@@ -145,7 +143,7 @@ integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNW
     <!--주간 펫츠고 인기순 영역-->
     <section class="top_place section_padding" style="padding-top: 240px;">
         <div class="container">
-             <span style="color: #25483a; font-family: SCDream5; font-size: 30px;">이번주 펫츠GO PICK!</span>
+             <span style="color: #25483a; font-family: BMJUA; font-size: 28px;">이번주 펫츠GO PICK!</span>
 
             <div class="row">
                 <div class="col-lg-6 col-md-6">
@@ -259,7 +257,7 @@ integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNW
     <!--지도로 보는 캠핑장 kakao map API -->
     <section class="event_part section_padding" style="background-image: none;">
         <div class="container">
-         <span style="color: #25483a; font-family: SCDream5; font-size: 30px;">한눈에 보는 경기도 캠핑장</span>
+         <span style="color: #25483a; font-family: BMJUA; font-size: 28px;">한눈에 보는 경기도 캠핑장</span>
             <div class="row">
                <div class="map_wrap" style="justify-content: center;">
                 <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden; margin-top:10px;"></div>
@@ -509,7 +507,7 @@ integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNW
             <div class="row ">
                 <div class="col-xl-6">
                     <div class="section_tittle">
-                         <span style="color: #ffecdc; font-family: SCDream5; font-size: 30px;">커뮤니티 인기 콘텐츠</span>
+                         <span style="color: #ffecdc; font-family: BMJUA; font-size: 28px;">커뮤니티 인기 콘텐츠</span>
                     </div>
                 </div>
             </div>
@@ -674,7 +672,7 @@ integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNW
     <!--광고 배너 영역-->
     <section class="best_services section_padding">
         <div class="container">
-             <h2>꼼꼼한 여행 준비를 위한 펫츠고 추천!</h2>
+             <span style="color: #25483a; font-family: BMJUA; font-size: 28px;">꼼꼼한 여행 준비를 위한 펫츠고 추천!</span>
             <div class="row">
                 <div class="col-lg-3 col-sm-6">
                     <div class="single_ihotel_list">
@@ -784,12 +782,6 @@ integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNW
     <!-- masonry js -->
     <script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/gijgo.min.js"></script>
-    <!-- contact js
-    <script src="${pageContext.request.contextPath}/js/jquery.ajaxchimp.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
-    <script src="${pageContext.request.contextPath}/js/jquery.validate.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/mail-script.js"></script>
-    <script src="${pageContext.request.contextPath}/js/contact.js"></script> -->
     <!-- custom js -->
     <script src="${pageContext.request.contextPath}/js/custom.js"></script>
     
@@ -799,8 +791,7 @@ integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNW
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js'></script>
 <script  src="${pageContext.request.contextPath}/js/comu_script.js"></script>
 
-
-
+		
+	
 </body>
-
 </html>
