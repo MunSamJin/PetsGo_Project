@@ -32,64 +32,7 @@
 	<!-- param.err: loginForm에서 get 방식으로 err이 넘어왔는지 아닌지 알 수 o. ${SPRING_SECURITY_LAST_EXCEPTION.message}: spring이 기본적으로 갖고 있는 에러 메시지(Bad credential)가 나옴 -->
 	
 	<!--::header part start - 비회원MODE ::-->
-   <header class="main_menu">
-        <div class="main_menu_iner">
-            <div class="container">
-                <div class="row align-items-center ">
-                    <div class="col-lg-12">
-                        <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                            <a class="navbar-brand" href="${pageContext.request.contextPath}/main"> <img src="${pageContext.request.contextPath}/img/logo.png" alt="logo"> </a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-
-                            <div class="collapse navbar-collapse main-menu-item justify-content"
-                                id="navbarSupportedContent">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            커뮤니티
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="#">홈</a>
-                                            <a class="dropdown-item" href="#">글쓰기</a>
-                                        </div>
-                                    </li>
-                                     <li class="nav-item" style="display: none;">
-                                        <a class="nav-link" href="#">예약 확인</a>
-                                    </li>
-                                    <li class="nav-item dropdown" style="display:none;">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1"
-                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            마이페이지
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                            <a class="dropdown-item" href="#">예약내역</a>
-                                            <a class="dropdown-item" href="#">스크랩북</a>
-                                            <a class="dropdown-item" href="#">내 커뮤니티</a>
-                                             <a class="dropdown-item" href="#">회원정보</a>
-                                              <a class="dropdown-item" href="#">문의하기</a>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="${pageContext.request.contextPath}/registerForm">회원가입</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="${pageContext.request.contextPath}/loginForm">로그인</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+   
 	<!-- Header part end-->
 	
 	<!-- login part start -->

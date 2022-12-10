@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>   
-
-<!doctype html>
-<html lang="en">
+    pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>PetsGo</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/img/petsgoweb.png">
+<meta charset="UTF-8">
+<title>PetsGo</title>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
     <!-- animate CSS -->
@@ -37,12 +36,10 @@
 
 	<link rel='stylesheet' href='${pageContext.request.contextPath}/css/swiper.min.css'>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/comu_style.css">
+	
+	<link rel="icon" href="data:,">
 
-
-    <style type="text/css">
-    </style>
-    
-    <!-- 카카오톡 공유하기 -->
+<!-- 카카오톡 공유하기 -->
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
   	integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" crossorigin="anonymous">
     </script>
@@ -51,74 +48,8 @@
 	</script>
 
 </head>
-
-<body>
-<!--::header part start - 비회원MODE ::-->
-<%--    <header class="main_menu">
-        <div class="main_menu_iner">
-            <div class="container">
-                <div class="row align-items-center ">
-                    <div class="col-lg-12">
-                        <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-
-                            <a class="navbar-brand" href="${pageContext.request.contextPath}/main"> <img src="${pageContext.request.contextPath}/img/logo.png" alt="logo"> </a>
-
-                            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-
-                            <div class="collapse navbar-collapse main-menu-item justify-content"
-                                id="navbarSupportedContent">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            커뮤니티
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="#">홈</a>
-                                            <a class="dropdown-item" href="#">글쓰기</a>
-                                        </div>
-                                    </li>
-                                     <li class="nav-item" style="display: none;">
-                                        <a class="nav-link" href="#">예약 확인</a>
-                                    </li>
-                                    <li class="nav-item dropdown" style="display:none;">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1"
-                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            마이페이지
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                            <a class="dropdown-item" href="#">예약내역</a>
-                                            <a class="dropdown-item" href="#">스크랩북</a>
-                                            <a class="dropdown-item" href="#">내 커뮤니티</a>
-                                             <a class="dropdown-item" href="#">회원정보</a>
-                                              <a class="dropdown-item" href="#">문의하기</a>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="${pageContext.request.contextPath}/registerForm">회원가입</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="${pageContext.request.contextPath}/loginForm">로그인</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!--  <div style="display: inline-block; margin-right:10px"><a href="#" class="btn_1 d-none d-lg-block">회원가입</a></div>
-                             <a href="#" class="btn_1 d-none d-lg-block">로그인</a> -->
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header> --%>
-<!-- Header part end-->
- 	
-    <!-- banner part start-->
+<body>	
+	<!-- banner part start-->
     <section class="banner_part" style="">
         <div class="container" alt="main_banner">
              
@@ -129,6 +60,7 @@
     <!-- 캠핑장예약검색 start-->
     <section class="booking_part">
         <div class="container">
+         <div class="search_text">Play Share Stay, 펫츠GO!</div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="booking_content">
@@ -137,13 +69,6 @@
                                 <div class="booking_form">
                                     <form action="#">
                                         <div class="form-row">
-                                            <!-- <div class="form_colum" style="width: 260px;">
-                                                <div class="mt">
-                                                    <input type="text" name="first_name" placeholder="지역명, 캠핑장명 검색" onfocus="this.placeholder = ''" 
-                                                    onblur="this.placeholder = '지역명, 캠핑장명 검색'" required="" class="single-input-primary" 
-                                                    style="padding: 4px 20px 3px 20px;">
-                                                </div>
-                                            </div> -->
                                             <div class="form_colum">
                                                 <select class="nc_select">
                                                     <option selected>지역명 검색 </option>
@@ -168,8 +93,8 @@
                                             <div class="form_colum">
                                                 <input id="datepicker_2" placeholder="체크아웃 날짜">
                                             </div>
-                                            <div class="form_colum" style="width: 100px;">
-                                                <select class="nc_select" >
+                                            <div class="form_colum">
+                                                <select class="nc_select">
                                                     <option selected>인원 </option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
@@ -197,7 +122,7 @@
     <!--주간 펫츠고 인기순 영역-->
     <section class="top_place section_padding" style="padding-top: 240px;">
         <div class="container">
-             <span style="color: #25483a; font-family: SCDream5; font-size: 30px;">이번주 펫츠GO PICK!</span>
+             <span style="color: #25483a; font-family: BMJUA; font-size: 28px;">이번주 펫츠GO PICK!</span>
 
             <div class="row">
                 <div class="col-lg-6 col-md-6">
@@ -311,7 +236,7 @@
     <!--지도로 보는 캠핑장 kakao map API -->
     <section class="event_part section_padding" style="background-image: none;">
         <div class="container">
-         <span style="color: #25483a; font-family: SCDream5; font-size: 30px;">한눈에 보는 경기도 캠핑장</span>
+         <span style="color: #25483a; font-family: BMJUA; font-size: 28px;">한눈에 보는 경기도 캠핑장</span>
             <div class="row">
                <div class="map_wrap" style="justify-content: center;">
                 <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden; margin-top:10px;"></div>
@@ -561,7 +486,7 @@
             <div class="row ">
                 <div class="col-xl-6">
                     <div class="section_tittle">
-                         <span style="color: #ffecdc; font-family: SCDream5; font-size: 30px;">커뮤니티 인기 콘텐츠</span>
+                         <span style="color: #ffecdc; font-family: BMJUA; font-size: 28px;">커뮤니티 인기 콘텐츠</span>
                     </div>
                 </div>
             </div>
@@ -726,7 +651,7 @@
     <!--광고 배너 영역-->
     <section class="best_services section_padding">
         <div class="container">
-             <h2>꼼꼼한 여행 준비를 위한 펫츠고 추천!</h2>
+             <span style="color: #25483a; font-family: BMJUA; font-size: 28px;">꼼꼼한 여행 준비를 위한 펫츠고 추천!</span>
             <div class="row">
                 <div class="col-lg-3 col-sm-6">
                     <div class="single_ihotel_list">
@@ -756,75 +681,7 @@
         </div>
     </section>
     <!--광고영역배너 End -->
-
-
-<!-- footer part start-->
-    <footer class="footer-area">
-        <div class="container">
-            <div class="row justify-content-between">
-                <div class="col-sm-6 col-md-5">
-                    <div class="single-footer-widget">
-                        <h4>Categories</h4>
-                        <ul>
-                            <li><a href="#">개인정보처리방침</a></li>
-                            <li><a href="#">쿠키 정책</a></li>
-                            <li><a href="#">쿠키 설정</a></li>                         
-                            <li><a href="#">서비스 이용약관</a></li>
-                            <li><a href="#">위치정보이용약관</a></li>
-                            <li><a href="#">웹사이트 이용약관</a></li>
-                             <li><a href="#">사업자구매회원</a></li>
-                            <li><a href="#">제휴/광고문의</a></li>
-                        </ul>
-
-                    </div>
-                </div>
-                 <div class="col-sm-6 col-md-3">
-                    <div class="single-footer-widget footer_icon">
-                        <h4>Contact Us</h4>
-                        <p>34, Seongnam-daero, <br> 
-                            Bundang-gu, Seongnam<br> 
-                                +880 123 456 789</p>
-                        <span>petsgo2022@kosta.com</span>
-                        <div class="social-icons">
-                            <a href="#"><i class="ti-facebook"></i></a>
-                            <a href="#"><i class="ti-twitter-alt"></i></a>
-                            <a href="#"><i class="ti-pinterest"></i></a>
-                            <a href="#"><i class="ti-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="single-footer-widget">
-                        <h4>PARTNER</h4>
-                        <div class="form-wrap" id="mc_embed_signup">
-                            <form target="_blank"
-                                action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                method="get" class="form-inline">
-                               <a href="#" class="genric-btn primary circle arrow">캠핑장 등록 신청<span class="lnr lnr-arrow-right"></span></a>
-
-                                <div class="info"></div>
-                            </form>
-                        </div>
-                        <p>펫츠고의 파트너가 되어보세요!</p>
-                    </div>
-                </div>               
-            </div>
-        </div>
-        <div class="container-fluid">d
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="copyright_part_text text-center">
-                        <p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with<i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Pet's Go</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-<!-- footer part end-->
-
-
+	
 <!-- 카카오톡 공유하기 -->
 <script>
   Kakao.Share.createDefaultButton({
@@ -904,12 +761,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- masonry js -->
     <script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/gijgo.min.js"></script>
-    <!-- contact js
-    <script src="${pageContext.request.contextPath}/js/jquery.ajaxchimp.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
-    <script src="${pageContext.request.contextPath}/js/jquery.validate.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/mail-script.js"></script>
-    <script src="${pageContext.request.contextPath}/js/contact.js"></script> -->
     <!-- custom js -->
     <script src="${pageContext.request.contextPath}/js/custom.js"></script>
     
@@ -919,8 +770,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js'></script>
 <script  src="${pageContext.request.contextPath}/js/comu_script.js"></script>
 
-
-
+		
+	
 </body>
-
 </html>
