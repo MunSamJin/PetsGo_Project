@@ -98,7 +98,7 @@
                 </div>               
             </div>
         </div>
-        <div class="container-fluid">d
+        <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
                     <div class="copyright_part_text text-center">
