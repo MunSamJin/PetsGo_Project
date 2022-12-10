@@ -66,7 +66,7 @@ public class OwnerController {
 	 */
 	
 	
-	@RequestMapping("/campInsert")
+	/*@RequestMapping("/campInsert")
 	@ResponseBody
 	public String campInsert(Camp camp, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
 		
@@ -99,7 +99,7 @@ public class OwnerController {
 		campService.insert(camp);
 		
 		return "success";
-	}
+	}*/
 	
 	
 	@RequestMapping("/campUpdate")
@@ -155,7 +155,7 @@ public class OwnerController {
 	}
 	
 	
-	@RequestMapping("/campRegNoCheck")
+	/*@RequestMapping("/campRegNoCheck")
 	@ResponseBody
 	public String campRegNoCheck(String campRegNo) {
 		System.out.println("campRegNo="+campRegNo);
@@ -163,7 +163,7 @@ public class OwnerController {
 		System.out.println("check camp="+camp);
 		if(camp==null) return "success";
 		else return "fail";
-	}
+	}*/
 	
 	
 	
