@@ -55,7 +55,8 @@ public class CampUserViewServiceImpl implements CampUserViewService {
 	
 
 	@Override
-	public List<Camp> select(int resiPeople, String campAddr, String checkIn, String checkOut, int resiPrice1, int resiPrice2, String aa) {
+	public List<Camp> select(int resiPeople, String campAddr, String checkIn, String checkOut, 
+			int resiPrice1, int resiPrice2, String aa, String tag) {
 		List<Camp> campList = queryFactory
 				.selectFrom(qCamp)
 				.where(qCamp.in(JPAExpressions
@@ -69,6 +70,7 @@ public class CampUserViewServiceImpl implements CampUserViewService {
 								.where(qReservation.reservCheckin.between(checkIn, checkOut))
 								.where(qReservation.reservCheckout.between(checkIn, checkOut))))))
 				.where(qCamp.campAddr.contains(campAddr))
+				.where(qCamp.campFacility.contains(tag))
 				.fetch();
 		return campList;
 	}
@@ -79,9 +81,4 @@ public class CampUserViewServiceImpl implements CampUserViewService {
 		if(camp==null) throw new RuntimeException("해당 캠핑장은 없는 정보 입니다");
 		return camp;
 	}
-	
-	@Override
-	public List<Camp> findAll() {
-		return campUserViewRepository.findAll();
-	};
 }

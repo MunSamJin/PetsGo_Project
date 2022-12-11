@@ -74,11 +74,11 @@ public class Residence {
 	@JoinColumn(name = "camp_no")
 	private Camp camp;
 
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
 	private List<Reservation> reservationList;
 
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
 	private List<ResidenceDetail> residenceDetailList;
 }

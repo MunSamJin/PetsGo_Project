@@ -124,7 +124,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="${pageContext.request.contextPath}/js/gijgo.min.js"></script>
 
 
-
 </body>
 
 </html>

@@ -24,9 +24,12 @@ public class ReservationController {
 	private ResiService resiService;
 
 	@RequestMapping("/reservationForm")
-	public void reservationForm(Long resiNo, Model model) {
+	public void reservationForm(Long resiNo, int resiPeople, String checkIn, String checkOut, Model model) {
 		Residence residence = resiService.selectByResiNo(resiNo);
 		model.addAttribute("resi", residence);
+		model.addAttribute("resiPeople", resiPeople);
+		model.addAttribute("checkIn", checkIn);
+		model.addAttribute("checkOut", checkOut);
 	}
 	
 	@RequestMapping("/insert")

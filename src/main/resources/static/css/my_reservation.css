@@ -1,10 +1,11 @@
-
+		section {
+		background-color : #f4f4f4;
+		}
+        
         .blog_right_sidebar .single_sidebar_widget {
-            background: #fff !important;
+            background-color: #fff !important;
             padding: 80px !important;
-        }
-
-
+        }		
 
         .widget_title {
             text-align: center;
@@ -26,7 +27,7 @@
             width: 600px;
             height: 300px;
           }
-
+           
           .blog_item_img .blog_item_date {
             position: initial !important;
             background-color: #25483a !important;
@@ -46,8 +47,8 @@
           }
 
           .single-post-area .blog_details { 
+            background-color: #fff !important;
             padding: 20px !important;
-            border: 1px solid #ededed;
            }
 
            .d-inline-block h2 {
