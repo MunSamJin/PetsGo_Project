@@ -35,9 +35,9 @@ public interface CampService {
 	Camp update(Camp camp);
 
 	/**
-	 * 삭제하기
+	 * 삭제요청 (캠핑장 상태 변경)
 	 */
-	void delete(Long bno, String password);
+	void campDeleteRequest(Long campNo);
 	
 	/**
 	 * 로그인

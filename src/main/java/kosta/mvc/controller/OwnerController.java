@@ -54,9 +54,7 @@ public class OwnerController {
 	@RequestMapping("/campInsert/campRegNoCheck")
 	@ResponseBody
 	public String campRegNoCheck(String campRegNo) {
-		System.out.println("campRegNo="+campRegNo);
 		Camp camp = campService.selectBy(campRegNo);
-		System.out.println("check camp="+camp);
 		if(camp==null) return "success";
 		else return "fail";
 	}
@@ -164,14 +162,29 @@ public class OwnerController {
 	}
 	
 	
-	@RequestMapping("/camp/campDeleteForm/{campNo}")  //wner/camp/campDeleteForm?campNo=1
-	public String campDelete(@PathVariable Long campNo, Model model) {
-		System.out.println("campNo= " + campNo);
-		Camp camp = campService.selectBy(campNo);
-		model.addAttribute("camp",camp);
+	@RequestMapping("/camp/campDeleteForm/{campNo}") 
+	public String campDeleteForm(@PathVariable Long campNo) {
 		return "/owner/camp/campDeleteForm";
 	}
-
+	
+	
+	@RequestMapping("/campDeleteRequest/{campNo}")
+	public String campDeleteRequest(@PathVariable Long campNo) {
+		System.out.println("campNo= " + campNo);
+		campService.campDeleteRequest(campNo);
+		return "redirect:/owner/campHome";
+	}
+	
+	
+	@RequestMapping("/passwordCheck")
+	@ResponseBody
+	public String passwordCheck(String password, Long campNo) {
+		Camp camp = campService.selectBy(campNo);
+		String pwd = camp.getCampPassword();
+		
+		if(pwd.equals(password)) return "success";
+		else return "fail";
+	}
 	
 	
 	
@@ -271,16 +284,7 @@ public class OwnerController {
 		return "redirect:/owner/resi/resiDetail/"+resi.getResiNo();
 	}
 	
-	
-	@RequestMapping("/passwordCheck")
-	@ResponseBody
-	public String passwordCheck(String password, Long campNo) {
-		Camp camp = campService.selectBy(campNo);
-		String pwd = camp.getCampPassword();
-		
-		if(pwd.equals(password)) return "success";
-		else return "fail";
-	}
+
 	
 	
 	@RequestMapping("/{url}")

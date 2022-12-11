@@ -459,30 +459,22 @@
 			$("#requestBtn").click(function(){
 				let password = $("#campPassword").val();
 				
-				//비밀번호 일치 체크
-				if(passwordCheck != password) {
-					alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.")
-					$("#campPassword").val("");
-					$("#campPassword").focus();
-		        	return false;
-				} else {
-					if(confirm("정말 이용 종료 신청을 진행하시겠습니까?")){
-						
-					}
-				    return true;
-				}
-				
 				$.ajax({
-					type="post",
-					url="${pageContext.request.contextPath}/owner/passwordCheck",
+					type:"post",
+					url:"${pageContext.request.contextPath}/owner/passwordCheck",
 					data:"${_csrf.parameterName}=${_csrf.token}&password="+password+"&campNo=${secCamp.campNo}",
 					success:function(result){						
 						if(result=="fail"){
-						$("#idCheckView").html("  "+id+" ID Can't Use!! ").css("background","red");
-							checkResultId="";
+							alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.")
+							$("#campPassword").val("");
+							$("#campPassword").focus();
+							return false;
 						}else{						
-							$("#idCheckView").html("  "+id+" ID Can Use!! ").css("background","yellow");		
-							checkResultId=id;
+							if(confirm("정말 이용 종료 신청을 진행하시겠습니까?")){
+								alert("펫츠고 이용 종료 신청이 접수되었습니다. 지금까지 이용해주셔서 감사합니다.")
+								location.href = "${pageContext.request.contextPath}/owner/campDeleteRequest/${secCamp.campNo}";
+							}
+						    return true;
 						}					
 					},
 					error:function(err){
