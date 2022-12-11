@@ -1,5 +1,7 @@
 package kosta.mvc.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Member;
+import kosta.mvc.domain.Reservation;
 import kosta.mvc.repository.MemberRepository;
+import kosta.mvc.repository.ReservationRepository;
 
 @Service
 @Transactional
@@ -15,6 +19,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private MemberRepository memberRep;
+	
+	@Autowired
+	private ReservationRepository reservationRep;
 	
 	/*
 	 * 비밀번호 암호화를 위한 객체를 주입받는다 
@@ -88,5 +95,28 @@ public class MemberServiceImpl implements MemberService {
 	public String searchPwd(Member member) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Reservation> selectAll(Long memberNo) {
+		
+		//System.out.println("member 서비스 들어왔니?? memberNo = " + memberNo);
+		
+		
+		return reservationRep.selectAll(memberNo);
+	}
+
+	@Override
+	public int updateReservState(Long memberNo, Long reservationNo) {
+		System.out.println("member서비스 결제취소요청하러 왔니?");
+		System.out.println("memberNo = " + memberNo);
+		
+		//결제취소요청
+		reservationRep.updateReservState(memberNo, reservationNo);
+		
+		//예약상태조회
+		int dbReservState = reservationRep.selectReservState(memberNo, reservationNo);
+		
+		return dbReservState;
 	}
 }

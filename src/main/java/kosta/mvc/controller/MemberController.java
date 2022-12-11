@@ -1,16 +1,22 @@
 package kosta.mvc.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Member;
 import kosta.mvc.domain.QnaBoard;
+import kosta.mvc.domain.Reservation;
 import kosta.mvc.service.MemberService;
 
 @Controller //ajax 처리할 메소드는 @Reponsebody를 붙여주면 됨
@@ -79,7 +85,45 @@ public class MemberController {
 	 *  예약내역 조회
 	 */
 	@RequestMapping("/myReservation")
-	public void myReservation() {}
+	public void myReservation(Model model, Authentication auth) {
+		
+		Object object = auth.getPrincipal();
+		Member member = null;
+		
+		if(object instanceof Member) {
+			member = (Member)auth.getPrincipal();
+		}
+		Long memberNo = member.getMemberNo();
+		//System.out.println("member컨트롤러 memberNo = " + memberNo);
+		
+		List<Reservation> list = memberService.selectAll(memberNo);
+		//System.out.println("member컨트롤러 list = " + list);
+		
+		model.addAttribute("reservation", list);
+	}
+	
+	/**
+	 *  결제취소요청하기
+	 */
+	@RequestMapping("/cancelPay")
+	@ResponseBody
+	public int cancelPay(Long reservationNo, Authentication auth) {
+		System.out.println("member컨트롤러 결제취소요청하러 왔니?");
+		System.out.println("member컨트롤러 예약번호 reservationNo = " + reservationNo);
+		
+		Object object = auth.getPrincipal();
+		Member member = null;
+		
+		if(object instanceof Member) {
+			member = (Member)auth.getPrincipal();
+		}
+		Long memberNo = member.getMemberNo();
+		System.out.println("member컨트롤러 memberNo = " + memberNo);
+		
+		int dbReservState = memberService.updateReservState(memberNo, reservationNo);
+		
+		return dbReservState;
+	}
 }
 
 
