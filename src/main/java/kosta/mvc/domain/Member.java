@@ -67,10 +67,10 @@ public class Member {
 	/*@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
 	private List<Pet> petList;*/
 	  
+	//@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
+	//List<QnaBoard> qnaBoardList;
+	  
 	 /* @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	 * List<QnaBoard> qnaBoardList;
-	 * 
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
 	 * List<Scrap> scrapList;
 	 * 
 	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private

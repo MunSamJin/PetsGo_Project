@@ -117,9 +117,9 @@
 	<h1> member/updateForm.jsp 문서 </h1>
 	
 	<form id="updateForm" action="${pageContext.request.contextPath}/updateInfo" method="post">
-		<input type="hidden" name="memberNo" value="<sec:authentication property="principal.memberNo"/>">
+	<%-- 	<input type="hidden" name="memberNo" value="<sec:authentication property="principal.memberNo"/>">
 		<input type="hidden" name="memberProfile" value="<sec:authentication property="principal.memberProfile"/>">
-		<input type="hidden" name="memberEmail" value="<sec:authentication property="principal.memberEmail"/>">
+		<input type="hidden" name="memberEmail" value="<sec:authentication property="principal.memberEmail"/>"> --%>
 		
 		
 		

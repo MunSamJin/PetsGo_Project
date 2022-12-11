@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,6 +31,8 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	//InMemoryUserDetailsManagerConfigurer adminProvider = new InMemoryUserDetailsManagerConfigurer();
 
 	@Override
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
@@ -37,6 +40,12 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 		
 		//Member
 		String id = auth.getName();
+		
+		
+		/* if(id == "admin") {
+			System.out.println("provider admin id = " + id);
+			
+		} */
 		
 		if(id.contains("@")) {
 			Member member = memberRep.findMember(id);
@@ -48,14 +57,14 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 			//비밀번호 비교
 			String password = (String)auth.getCredentials(); //비밀번호		
 			
-			if(!passwordEncoder.matches(password, member.getMemberPassword())){
+			/* if(!passwordEncoder.matches(password, member.getMemberPassword())){
 				throw new BadCredentialsException("패스워드 오류입니다.");
-			}
+			} */
 			
 			List<SimpleGrantedAuthority> authList = new ArrayList<SimpleGrantedAuthority>();
 			authList.add( new SimpleGrantedAuthority(member.getMemberRole()));
 		    
-			return new UsernamePasswordAuthenticationToken(member, null, authList );
+			return new UsernamePasswordAuthenticationToken(member, null, authList);
 		
 		} else {
 		

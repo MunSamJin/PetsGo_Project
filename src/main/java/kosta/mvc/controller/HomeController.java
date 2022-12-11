@@ -55,13 +55,27 @@ public class HomeController {
 	public String defaultAfterLogin(Authentication auth) throws AuthenticationException {		
 		
 		Object object = auth.getPrincipal();
+		
+		System.out.println("/default에 들어온 auth = " + object);
+		
 		if(object instanceof Member) {
 			Member  m = (Member)auth.getPrincipal();
 			return "redirect:/main";
-		}else {
+		} else {
 			Camp  c = (Camp)auth.getPrincipal();
 			return "redirect:/owner/campHome";
+		
 		}
+		
+		/* else if(object instanceof Camp) {
+			Camp  c = (Camp)auth.getPrincipal();
+			return "redirect:/owner/campHome";
+		
+		} else {
+			object = auth.getPrincipal();
+			System.out.println("admin????????");
+			return "redirect:/admin/main";
+		} */
 	}
 	
 	/**
@@ -84,7 +98,7 @@ public class HomeController {
 		session.invalidate();
 		
 		return "redirect:/main";
-	}	
+	}
 	
 	
 	/**

@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,9 +19,6 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 	
 	/**
 	 * 이메일 중복 확인
@@ -56,28 +52,6 @@ public class MemberController {
 		session.setAttribute("member", member);
 
 		return "redirect:/member/main";
-	} */
-	
-	/**
-	 * 로그인
-	 * */
-	/* @RequestMapping("/login")
-	public String login(Member member, HttpSession session) {
-		member = memberService.login(member);
-		
-		session.setAttribute("member", member);
-		
-		return "redirect:/member/main";
-	} */
-		
-	/**
-	 * 로그아웃
-	 * */
-	/* @RequestMapping("/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		
-		return "redirect:/main";
 	} */
 
 	/**
