@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kosta.mvc.domain.Camp;
 import kosta.mvc.domain.Residence;
 import kosta.mvc.service.CampService;
+import kosta.mvc.service.ReservationService;
 import kosta.mvc.service.ResiService;
 
 @Controller
@@ -29,6 +30,9 @@ public class OwnerController {
 	
 	@Autowired
 	private ResiService resiService;
+	
+	@Autowired
+	private ReservationService reservService;
 	
 	
 	@RequestMapping("/campHome")
@@ -168,10 +172,10 @@ public class OwnerController {
 	}
 	
 	
-	@RequestMapping("/campDeleteRequest/{campNo}")
-	public String campDeleteRequest(@PathVariable Long campNo) {
-		System.out.println("campNo= " + campNo);
-		campService.campDeleteRequest(campNo);
+	@RequestMapping("/campStateUpdate/{campNo}/{campState}")
+	public String campDeleteRequest(@PathVariable("campNo") Long campNo, @PathVariable("campState") int campState) {
+		System.out.println("캠핑장 상태 변경!!!!!!!!!!!!");
+		campService.campStateUpdate(campNo, campState);
 		return "redirect:/owner/campHome";
 	}
 	
@@ -287,6 +291,11 @@ public class OwnerController {
 	}
 	
 
+	@RequestMapping("/reserv/reservManagement/{campNo}")
+	public String reservManagement(@PathVariable("campNo") Long campNo, Model model) {
+		//reservService.
+		return "/owner/reserv/reservManagement";
+	}
 	
 	
 	@RequestMapping("/{url}")

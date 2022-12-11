@@ -20,4 +20,8 @@ public interface CampRepository extends JpaRepository<Camp, Long>, QuerydslPredi
 	 
 	
 	Camp findByCampRegNo(String campRegNo);
+	
+	Camp findByCampManageNo(String campManageNo);
+	
+	List<Camp> findByCampState(int campState);
 }

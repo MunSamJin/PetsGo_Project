@@ -15,17 +15,30 @@ public interface CampService {
 	 * 등록
 	 */
 	void insert(Camp camp);
+	
+	
+	/**
+	 * 전체 캠핑장 검색
+	 */
+	List<Camp> selectAll();
+	
 
 	/**
-	 * 글번호 검색 : 조회수 증가.... - state가 true이면 조회수 증가한다.
+	 * 캠핑장 번호로 검색
 	 */
 	Camp selectBy(Long bno);
 	
 	
 	/**
-	 * 캠핑장 중복 검색 : 조회수 증가.... - state가 true이면 조회수 증가한다.
+	 * 캠핑장 사업자 번호로 검색
 	 */
 	Camp selectBy(String campRegNo);
+	
+	
+	/**
+	 * 요청 캠핑장 검색
+	 */
+	List<Camp> select(int campState);
 	
 
 	/**
@@ -35,13 +48,13 @@ public interface CampService {
 	Camp update(Camp camp);
 
 	/**
-	 * 삭제요청 (캠핑장 상태 변경)
+	 * 캠핑장 상태 변경
 	 */
-	void campDeleteRequest(Long campNo);
+	Camp campStateUpdate(Long campNo, int campState);
 	
 	/**
-	 * 로그인
+	 * 삭제하기(승인 거절)
 	 * */
-	//Camp login(Camp camp);
+	void delete(Long campNo);
 
 }

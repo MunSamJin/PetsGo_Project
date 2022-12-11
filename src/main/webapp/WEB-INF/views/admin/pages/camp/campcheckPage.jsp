@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -133,67 +136,139 @@
         </ul>
       </nav>
       <!-- partial -->
-      <div class="main-panel">
+      <div class="main-panel">        
         <div class="content-wrapper">
-            <div class="col-lg-6 grid-margin stretch-card">
+          <div class="row">
+            <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">캠핑장 등록 승인</h4>
+                  <h4 class="card-title">캠핑장 정보</h4>
                   <p class="card-description">
-                    <div class="dropdown">
-                      <button class="btn btn-danger btn-sm dropdown-toggle" type="button" id="campStateArr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        전체
+                    
+                  </p>
+                  <%-- <form class="forms-sample" id="campInsertForm" name="campInsert" method="post" action="${pageContext.request.contextPath}/owner/campInsert" 
+        				onSubmit='return checkValid()' enctype="multipart/form-data"> --%>
+        				
+                    <div class="form-group">
+                      <label for="exampleInputName1">캠핑장 이름</label>
+                      <p class="form-control" id="exampleInputName1" name="campName">${camp.campName}</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail3">Email(이메일)</label>
+                      <p class="form-control" id="campEmail" name="campEmail">${camp.campEmail}</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword4">비밀번호</label>
+                      <input type="password" class="form-control" id="campPassword" name="campPassword" disabled="disabled" value="${camp.campPassword}">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputCity1">캠핑장 관리 번호</label>
+                      <p class="form-control" id="campManageNo" name="campManageNo" oninput="autoHyphen(this)" maxlength="12" >${camp.campManageNo}</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputCity1">사업자 등록 번호</label>
+                      <p class="form-control" id="campRegNo" name="campRegNo" oninput="autoHyphen(this)" maxlength="12" >${camp.campRegNo}</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputCity1">연락처</label>
+                      <p class="form-control" id="campPhone" name="campPhone" oninput="autoHyphen2(this)" maxlength="13">${camp.campPhone}</p>
+                    </div>
+                    <div class="form-group">
+                      <label>파일</label>
+                      <c:set value="${fn:split(camp.campFilename,',')}" var="filenameArr"/>
+                      	<p>
+                  		<c:forEach items="${filenameArr}" var="filename">
+                  			<img class="news-item-preview" name="campFilename" style="width:150px; height:120px;" src="/img/seryun/${filename}">
+                  		</c:forEach>
+                  		</p>
+                      <!-- <input type="file"  id="btnAtt" name="files" multiple="multiple" class="file-upload-default">
+                      <div class="input-group col-xs-12">
+                        <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                        <span class="input-group-append">
+                          <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                        </span>
+                      </div> -->
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputCity1">우편번호</label>
+                      <p class="form-control" id="sample6_postcode" name="campPost">${camp.campPost}</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputCity1">주소</label>
+                      <p class="form-control" id="sample6_address" name="campAddr">${camp.campAddr}</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleTextarea1">공지사항</label>
+                      <p class="form-control" id="campNotify" rows="6" name="campNotify" style="white-space: pre-line; overflow: auto">${camp.campNotify}</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleTextarea1">소개글</label>
+                      <p class="form-control" id="campIntro" rows="6" name="campIntro" style="white-space: pre-line; overflow: auto">${camp.campIntro}</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputCity1">부대시설</label>
+                      <p class="form-control" id="campFacility" name="campFacility">${camp.campFacility}</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputCity1">체크인 시간</label>
+                      <p class="form-control" id="campCheckin" name="campCheckin">${camp.campCheckin}</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputCity1">체크아웃 시간</label>
+                      <p class="form-control" id="campCheckout" name="campCheckout">${camp.campCheckout}</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputCity1">캠핑장 등록 상태</label>
+                      <c:choose>
+                      	<c:when test="${camp.campState == 0}">
+                      		<p class="form-control" id="campState" name="campState">등록 승인 대기</p>
+                      	</c:when>
+                      	<c:when test="${camp.campState == 1}">
+                      		<p class="form-control" id="campState" name="campState">승인</p>
+                      	</c:when>
+                      	<c:when test="${camp.campState == 2}">
+                      		<p class="form-control" id="campState" name="campState">종료 승인 대기</p>
+                      	</c:when>
+                      	<c:when test="${camp.campState == 3}">
+                      		<p class="form-control" id="campState" name="campState">종료</p>
+                      	</c:when>
+                      </c:choose>
+                    </div>
+                    <div class="btn-group">
+                       <c:choose>
+                          	<c:when test="${camp.campState == 0}">
+                      			<button type="button" class="btn btn-primary" name="stateBtn">등록승인대기</button>
+	                      	</c:when>
+	                      	<c:when test="${camp.campState == 1}">
+	                      		<button type="button" class="btn btn-primary" name="stateBtn">승인</button>
+	                      	</c:when>
+	                      	<c:when test="${camp.campState == 2}">
+	                      		<button type="button" class="btn btn-primary" name="stateBtn">종료승인대기</button>
+	                      	</c:when>
+	                      	<c:when test="${camp.campState == 3}">
+	                      		<button type="button" class="btn btn-primary" name="stateBtn">종료</button>
+	                      	</c:when>
+                      </c:choose>
+                      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuSplitButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only"></span>
                       </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
-                        <h6 class="dropdown-header" style="font-weight: bold">정렬</h6>
-                        <a class="dropdown-item" href="#">전체</a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuSplitButton1">
+                        <h6 class="dropdown-header" style="font-weight: bold">상태 변경</h6>
                         <a class="dropdown-item" href="#">등록승인대기</a>
                         <a class="dropdown-item" href="#">승인</a>
+                        <a class="dropdown-item" href="#">승인거절</a>
                         <a class="dropdown-item" href="#">종료승인대기</a>
                         <a class="dropdown-item" href="#">종료</a>
                       </div>
                     </div>
-                  </p>
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>사업자 번호</th>
-                          <th>캠핑장</th>
-                          <th>정보</th>
-                          <th>승인상태</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      	<c:forEach items="${campList}" var="camp">
-                        <tr>
-                          <td>${camp.campRegNo}</td>
-                          <td>${camp.campName}</td>
-                          <td class="text-success"><a href="${pageContext.request.contextPath}/admin/camp/campcheckPage/${camp.campNo}">캠핑장 정보</a><i class="ti-arrow-up"></i></td>
-                          <c:choose>
-                          	<c:when test="${camp.campState == 0}">
-                      			<td><label class="badge badge-info" >등록승인대기</label></td>
-	                      	</c:when>
-	                      	<c:when test="${camp.campState == 1}">
-	                      		<td><label class="badge badge-success">승인</label></td>
-	                      	</c:when>
-	                      	<c:when test="${camp.campState == 2}">
-	                      		<td><label class="badge badge-danger">종료승인대기</label></td>
-	                      	</c:when>
-	                      	<c:when test="${camp.campState == 3}">
-	                      		<td><label class="badge badge-wait">종료</label></td>
-	                      	</c:when>
-                          </c:choose>
-                        </c:forEach>
-                      </tbody>
-                    </table>
-                  </div>
+                    <button type="button" class="btn btn-light" id="campSelect">목록 보기</button>
+                  <!-- </form> -->
                 </div>
               </div>
             </div>
+            
           </div>
         </div>
-      </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
@@ -239,28 +314,39 @@
   				campState = 2;
   			}else if(campStateStr == "종료"){
   				campState = 3;
-  			}else if(campStateStr == "전체"){
-  				campState = 4;
+  			}else if(campStateStr == "승인거절"){
+  				campState = 5;
   			}
   			
+  			if(confirm("캠핑장 상태를 "+ campStateStr + "(으)로 변경하시겠습니까?")){
+  				$.ajax({
+  					type:"post",
+  					url:"${pageContext.request.contextPath}/admin/camp/campStateUpdate",
+  					dataType: "json",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
+					data:"${_csrf.parameterName}=${_csrf.token}&campState=" + campState + "&campNo="+${camp.campNo}, //서버에게 보낼 parameter 정보 
+					//data:"${_csrf.parameterName}=${_csrf.token}&email=" + email,	
+					success:function(data) {	
+						/*$.each(data, function(index, item){
+							$("#campManageNo").text(item.campManageNo);
+						});
+						$("button[name=stateBtn]").html(campStateStr);	
+						$("#campState").html(campStateStr);	*/
+						//$("#campRegNo").text("141-12-01303");
+					}
+  				});
+  				
+  			}else{
+  				return false;
+  			}
+  		})
   		
-  			$.ajax({
-  				type:"post",
-  				url:"${pageContext.request.contextPath}/admin/camp/campcheck",
-  				dataType: "text",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
-				data:"${_csrf.parameterName}=${_csrf.token}&campState="+campState, //서버에게 보낼 parameter 정보 
-				//data:"${_csrf.parameterName}=${_csrf.token}&email=" + email,	
-				success:function(data) {	
-					$("#campStateArr").html(campStateStr);	
-					
-					$.each(data, function(index, item){
-						alert(item.campNo);
-					});
-				}
-  			});
-  		});
+  		
+  		$("#campSelect").click(function(){
+  			history.back();
+  		})
   	})
   </script>
+  
 </body>
 
 </html>
