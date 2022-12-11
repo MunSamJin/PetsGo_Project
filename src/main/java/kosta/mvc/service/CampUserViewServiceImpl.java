@@ -7,8 +7,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -16,9 +14,7 @@ import kosta.mvc.domain.Camp;
 import kosta.mvc.domain.QCamp;
 import kosta.mvc.domain.QReservation;
 import kosta.mvc.domain.QResidence;
-import kosta.mvc.domain.Residence;
 import kosta.mvc.repository.CampUserViewRepository;
-import kosta.mvc.repository.ResidenceRepository;
 
 @Service
 @Transactional
