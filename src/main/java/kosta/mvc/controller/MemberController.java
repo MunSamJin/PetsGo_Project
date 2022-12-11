@@ -74,6 +74,12 @@ public class MemberController {
 	
 	@RequestMapping("{url}")
 	public void url() {}
+	
+	/**
+	 *  예약내역 조회
+	 */
+	@RequestMapping("/myReservation")
+	public void myReservation() {}
 }
 
 

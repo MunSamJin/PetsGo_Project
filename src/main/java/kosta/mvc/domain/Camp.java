@@ -102,5 +102,6 @@ public class Camp {
 	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 
 	private List<Reservation> reservationList;
 	
+	
 
 }

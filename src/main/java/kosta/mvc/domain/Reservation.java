@@ -82,5 +82,5 @@ public class Reservation {
 	 @Transient
 	 private List<Detail> detailList;
 
-
+	
 }

@@ -208,24 +208,7 @@ public class CommunityController {
 		communityService.delete(boardNo);
 		return "redirect:/community/list";
 	}
-	
-	/**
-	 * 태그 검색하기
-	 */
-//	@RequestMapping(value="/tagSelect", method=RequestMethod.GET)
-//	//@ResponseBody
-//	public String tagSelect(String tag, Model model){
-//	//public void tagSelect(String tag){
-//		
-//		System.out.println("태그 왔니?" +tag);
-//		
-//		 List<CommunityBoard> list = communityService.selectByTag(tag);
-//		// System.out.println("컨트롤러 list = " + list);
-//		 model.addAttribute("communityBoardList", list);
-//		
-//		 return "/community/list";
-//		 
-//	}
+
 	
 	/**
 	 *  좋아요 기능
