@@ -36,8 +36,6 @@
 
    <link rel='stylesheet' href='${pageContext.request.contextPath}/css/swiper.min.css'>
    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/comu_style.css">
-   
-   <link rel="icon" href="data:,">
 
 
 <!-- 카카오톡 공유하기 -->
@@ -797,7 +795,5 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js'></script>
 <script  src="${pageContext.request.contextPath}/js/comu_script.js"></script>
 
-      
-   
 </body>
 </html>

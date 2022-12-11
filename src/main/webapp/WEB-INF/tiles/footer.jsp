@@ -31,11 +31,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <!-- main CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main_petsgo.css">
-    <!-- map CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/kakao_map.css">
-
-<link rel='stylesheet' href='${pageContext.request.contextPath}/css/swiper.min.css'>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/comu_style.css">
 
 
 
@@ -128,12 +123,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/gijgo.min.js"></script>
     <!-- custom js -->
-    <%-- <script src="${pageContext.request.contextPath}/js/custom.js"></script> --%>
+    <script src="${pageContext.request.contextPath}/js/custom.js"></script>
 
-<!-- partial -->
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js'></script>
-<script  src="${pageContext.request.contextPath}/js/comu_script.js"></script>
 
 </body>
 
