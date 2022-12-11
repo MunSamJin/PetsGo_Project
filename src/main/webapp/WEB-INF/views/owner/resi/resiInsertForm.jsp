@@ -447,6 +447,10 @@
                       <label for="exampleInputCity1">입장 가능 반려견 정보</label>
                       <input class="form-control" id="resiPet" name="resiPet" >
                     </div>
+                    <div class="form-group">
+                      <label for="exampleInputCity1">숙소 개수</label>
+                      <input class="form-control" id="resiCount" name="resiCount" >
+                    </div>
                     <button type="submit" class="btn btn-primary mr-2" id="resiInsertBtn">등록</button>
                     <!-- <button class="btn btn-light">취소</button> -->
                   </form>
