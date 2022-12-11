@@ -41,8 +41,9 @@ public class HomeController {
 		return "main";
 	}
 	
-	@RequestMapping("/{}")
-	public void url() {}
+	 @RequestMapping("/{}") 
+	 public void url() {}
+	 
 	
 	@RequestMapping("/campRequest/campInsertForm")
 	public void url2() {}

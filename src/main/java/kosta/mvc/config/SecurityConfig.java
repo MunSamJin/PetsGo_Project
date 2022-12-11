@@ -30,6 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.authorizeRequests()  //  security-context  <security:intercept-url
 				.antMatchers("/owner/**") //     pattern="/member/main" 
 				.hasRole("OWNER")            //      access="isAuthenticated()"
+				.antMatchers("/member/myReservation")
+				.permitAll()
 				.antMatchers("/member/**")
 				.hasRole("MEMBER")
 				.antMatchers("/community/**")
