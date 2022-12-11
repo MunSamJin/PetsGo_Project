@@ -34,8 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()  //  security-context  <security:intercept-url
-				.antMatchers("/admin/**") //     pattern="/member/main" 
-				.hasRole("ADMIN") 
+				//.antMatchers("/admin/**") //     pattern="/member/main" 
+				//.hasRole("ADMIN") 
 				.antMatchers("/owner/campInsert/**")
 				.permitAll()
 				.antMatchers("/owner/**") //     pattern="/member/main" 

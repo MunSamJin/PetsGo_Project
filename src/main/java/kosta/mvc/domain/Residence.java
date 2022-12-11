@@ -72,7 +72,6 @@ public class Residence {
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
 	@JoinColumn(name = "camp_no")
-	//@JsonIgnore
 	private Camp camp;
 
 

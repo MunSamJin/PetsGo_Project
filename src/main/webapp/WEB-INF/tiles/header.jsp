@@ -144,8 +144,7 @@
     <script src="${pageContext.request.contextPath}/js/mail-script.js"></script>
 <%--     <script src="${pageContext.request.contextPath}/js/contact.js"></script> --%>
 
-    <!-- custom js -->
-    <script src="${pageContext.request.contextPath}/js/custom.js"></script>
+
 
 
 </body>

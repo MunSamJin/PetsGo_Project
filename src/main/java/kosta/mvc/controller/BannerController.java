@@ -84,7 +84,7 @@ public class BannerController {
 			e.printStackTrace();
 		}
 		
-		BannerBoard.setBoardFileName(imgNames);
+		//BannerBoard.setBannerFileName(imgNames);
 		
 		bannerService.insert(bannerBoard);
 		
@@ -123,8 +123,8 @@ public class BannerController {
 	public ModelAndView update(BannerBoard board, @RequestParam("files") List<MultipartFile> files,
 			HttpSession session) {
 		
-		Long boardNo = board.getBoardNo();
-		System.out.println("board.getboardNo" + board.getBoardNo());
+		Long boardNo = board.getBannerNo();
+		System.out.println("board.getboardNo" + board.getBannerNo());
 		
 		String saveDir3 = session.getServletContext().getRealPath("/img/banner/");
 		String imgNames = "";
@@ -151,10 +151,10 @@ public class BannerController {
 		
 		if(imgNames == null || imgNames.equals("") ) {
 			BannerBoard board2 = bannerService.selectBy(boardNo);
-			String dbFileName = board2.getBoardFileName();
-			board.setBoardFileName(dbFileName);
+			String dbFileName = board2.getBannerFileName();
+			board.setBannerFileName(dbFileName);
 		}else {
-			board.setBoardFileName(imgNames);
+			board.setBannerFileName(imgNames);
 		}
 		
 		

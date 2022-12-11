@@ -31,13 +31,13 @@ public class Scrap {
 	@SequenceGenerator(name = "scrap_sno_seq", allocationSize = 1, sequenceName = "scrap_sno_seq")
 	private Long scrapNo;
 	
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "memberNo") private Member member;
-	 * 
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "campNo") private Camp camp;
-	 */
+	
+	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	@JoinColumn(name = "memberNo") 
+	private Member member;
+	 
+	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	@JoinColumn(name = "campNo") 
+	private Camp camp;
+	 
 }

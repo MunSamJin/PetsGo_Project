@@ -50,13 +50,11 @@ public class QnaBoard {
 	@UpdateTimestamp
 	@Column(name = "qna_re_date")
 	private LocalDateTime qnaReDate;
-	
-	
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "memberNo") private Member member;
-	 */
+		
+	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	@JoinColumn(name = "memberNo") 
+	private Member member;
+	 
 
 	
 	

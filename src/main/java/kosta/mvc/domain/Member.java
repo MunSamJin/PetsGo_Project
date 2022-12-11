@@ -42,7 +42,7 @@ public class Member {
 	@NonNull
 	private Long memberNo; //회원번호
 	
-	private String memberProfile;
+	private String memberProfile; //프로필 사진
 	
 	@Column(nullable = false)
 	private String memberEmail; //이메일
@@ -64,26 +64,23 @@ public class Member {
 	private String memberRole;//권한
 	
 
-	/*@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
-	private List<Pet> petList;*/
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	private List<Pet> petList;
 	  
-	//@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	//List<QnaBoard> qnaBoardList;
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	private List<QnaBoard> qnaBoardList;
 	  
-	 /* @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	 * List<Scrap> scrapList;
-	 * 
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	 * List<Reservation> reservationList;
-	 */
-	
-	
-	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	List<CommunityBoard> communityBoardList;
-		 
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	private	List<Scrap> scrapList;
 	 
-	 @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	 List<LikeBoard> likeList;
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	private List<Reservation> reservationList;
+
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	private List<CommunityBoard> communityBoardList;
+ 
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	private List<LikeBoard> likeList;
 	  
 	
 	

@@ -47,11 +47,10 @@ public class CommunityBoard {
 	@CreationTimestamp
 	private LocalDateTime boardDate;
 	
-	//@Column(nullable = false, length = 1000)
+	@Column(nullable = false, length = 1000)
 	private String boardTag;
 	
-	//@Column(nullable = false, length = 1000)
-	//@Lob
+	@Column(nullable = false, length = 1000)
 	private String boardContent;
 	
 	@Transient
