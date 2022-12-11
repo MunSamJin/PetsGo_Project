@@ -36,11 +36,12 @@ public interface CommunityService {
     void delete(Long boardNo);
 
     /**
-     * 태그 검색하기
+     * 태그 검색하기 + 정렬기능
      * @param tag
      * @return 
      */
 	List<CommunityBoard> selectByTag(String tag);
+	
 	
 	/**
 	 *  좋아요 기능

@@ -47,7 +47,26 @@ public class CommunityController {
 	
 	private final static int PAGE_COUNT=10;
 
-	
+	/**
+	 *  커뮤니티 전체 검색
+	 */
+	@RequestMapping(value="/list", method=RequestMethod.GET)
+	public void list(String tag, Model model, @RequestParam(defaultValue = "1")int nowPage) {
+		
+		List<CommunityBoard> list = null;
+		
+		System.out.println("tag = " + tag);
+		
+		//태그로 검색하기 + 정렬기능
+		if(tag != null) {
+			list = communityService.selectByTag(tag);
+		} else {
+			list = communityService.selectAll();
+		}
+		System.out.println("list = " + list);
+		model.addAttribute("communityBoardList", list);
+		
+	}
 	
 	
 	/**
@@ -110,7 +129,7 @@ public class CommunityController {
 		mv.addObject("originalFileName", imgNames);
 		mv.addObject("fileSize", files.size());
 
-		return "redirect:/list";
+		return "redirect:/community/list";
 	}
 	
 	
@@ -187,7 +206,7 @@ public class CommunityController {
 	@RequestMapping("/delete")
 	public String delete(Long boardNo) {
 		communityService.delete(boardNo);
-		return "redirect:/list";
+		return "redirect:/community/list";
 	}
 	
 	/**
@@ -229,7 +248,7 @@ public class CommunityController {
 	    int likeBoard = communityService.selectAll(memberNo,boardNo);
 	    System.out.println("컨트롤러 좋아요 결과 = " + likeBoard);
 		
-		return "redirect:/list";
+		return "redirect:/community/list";
 		
 	}
 	

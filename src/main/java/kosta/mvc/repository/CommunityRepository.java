@@ -15,8 +15,20 @@ public interface CommunityRepository extends JpaRepository<CommunityBoard, Long>
 	/**
 	 *  태그 이름에 해당하는 정보 조회!
 	 */
-	@Query("select c from CommunityBoard c where c.boardTag like ?1")
+	@Query("select c from CommunityBoard c where c.boardTag like ?1 order by c.boardDate desc")
 	//@Modifying //dml이나ddl은 필수!
 	List<CommunityBoard> tagSelect(String tag);
+	
+	/**
+	 *  정렬기능(최신순)
+	 */
+	@Query("select c from CommunityBoard c order by c.boardDate desc")
+	List<CommunityBoard> latestSelect();
+	
+	/**
+	 * 정렬기능(좋아요 많은 순)
+	 */
+	//@Query("")
+	//List<CommunityBoard> likeSelect();
 
 }

@@ -81,4 +81,5 @@ public class Reservation {
 	 @ManyToOne(fetch = FetchType.LAZY)
 	 @Transient
 	 private List<Detail> detailList;
+
 }

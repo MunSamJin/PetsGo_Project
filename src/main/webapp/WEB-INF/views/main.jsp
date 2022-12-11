@@ -34,18 +34,19 @@
     <!-- map CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/kakao_map.css">
 
-	<link rel='stylesheet' href='${pageContext.request.contextPath}/css/swiper.min.css'>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/comu_style.css">
-	
-	<link rel="icon" href="data:,">
+   <link rel='stylesheet' href='${pageContext.request.contextPath}/css/swiper.min.css'>
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/comu_style.css">
+   
+   <link rel="icon" href="data:,">
 
 
 <!-- 카카오톡 공유하기 -->
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
-			integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" 
-			crossorigin="anonymous">
+         integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" 
+         crossorigin="anonymous">
     </script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
+
 	<script type="text/javascript">
 		Kakao.init('d32f3063e698e99009c22188c7a65c7e');
 		
@@ -69,6 +70,7 @@
 			});
 		});
 	</script>
+
 </head>
 
 <body>
@@ -528,10 +530,10 @@
                                         <div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
                                         <div class="share-block__facebook-icon">
                                         <a id="kakaotalk-sharing-btn01">
-										  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-										    alt="카카오톡 공유 보내기 버튼" />
-										</a>
-										</div>                    
+                                <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                                  alt="카카오톡 공유 보내기 버튼" />
+                              </a>
+                              </div>                    
                                         <div class="share-block__twitter-icon"></div>
                                       </div>
                                       <div class="like-block">
@@ -558,9 +560,9 @@
                                         <div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
                                         <div class="share-block__facebook-icon">
                                          <a id="kakaotalk-sharing-btn02">
-										  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-										    alt="카카오톡 공유 보내기 버튼" />
-										 </a>
+                                <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                                  alt="카카오톡 공유 보내기 버튼" />
+                               </a>
                                         </div>
                                         <div class="share-block__twitter-icon"></div>
                                       </div>
@@ -587,9 +589,9 @@
                                         <div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
                                         <div class="share-block__facebook-icon">
                                          <a id="kakaotalk-sharing-btn03">
-										  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-										    alt="카카오톡 공유 보내기 버튼" />
-										 </a>
+                                <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                                  alt="카카오톡 공유 보내기 버튼" />
+                               </a>
                                         </div>
                                         <div class="share-block__twitter-icon"></div>
                                       </div>
@@ -616,9 +618,9 @@
                                         <div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
                                         <div class="share-block__facebook-icon">
                                          <a id="kakaotalk-sharing-btn04">
-										  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-										    alt="카카오톡 공유 보내기 버튼" />
-										 </a>
+                                <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                                  alt="카카오톡 공유 보내기 버튼" />
+                               </a>
                                         </div>
                                         <div class="share-block__twitter-icon"></div>
                                       </div>
@@ -645,9 +647,9 @@
                                         <div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
                                         <div class="share-block__facebook-icon">
                                          <a id="kakaotalk-sharing-btn05">
-										  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-										    alt="카카오톡 공유 보내기 버튼" />
-										 </a>
+                                <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                                  alt="카카오톡 공유 보내기 버튼" />
+                               </a>
                                         </div>
                                         <div class="share-block__twitter-icon"></div>
                                       </div>
@@ -722,52 +724,52 @@
   });
   
   Kakao.Share.createDefaultButton({
-	    container: '#kakaotalk-sharing-btn02',
-	    objectType: 'text',
-	    text:
-	      '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
-	    link: {
-	      // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-	      mobileWebUrl: 'https://localhost:9000',
-	      webUrl: 'https://localhost:9000',
-	    },
-	  });
+       container: '#kakaotalk-sharing-btn02',
+       objectType: 'text',
+       text:
+         '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+       link: {
+         // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+         mobileWebUrl: 'https://localhost:9000',
+         webUrl: 'https://localhost:9000',
+       },
+     });
   
   Kakao.Share.createDefaultButton({
-	    container: '#kakaotalk-sharing-btn03',
-	    objectType: 'text',
-	    text:
-	      '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
-	    link: {
-	      // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-	      mobileWebUrl: 'https://localhost:9000',
-	      webUrl: 'https://localhost:9000',
-	    },
-	  });
+       container: '#kakaotalk-sharing-btn03',
+       objectType: 'text',
+       text:
+         '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+       link: {
+         // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+         mobileWebUrl: 'https://localhost:9000',
+         webUrl: 'https://localhost:9000',
+       },
+     });
   
   Kakao.Share.createDefaultButton({
-	    container: '#kakaotalk-sharing-btn04',
-	    objectType: 'text',
-	    text:
-	      '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
-	    link: {
-	      // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-	      mobileWebUrl: 'https://localhost:9000',
-	      webUrl: 'https://localhost:9000',
-	    },
-	  });
+       container: '#kakaotalk-sharing-btn04',
+       objectType: 'text',
+       text:
+         '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+       link: {
+         // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+         mobileWebUrl: 'https://localhost:9000',
+         webUrl: 'https://localhost:9000',
+       },
+     });
   
   Kakao.Share.createDefaultButton({
-	    container: '#kakaotalk-sharing-btn05',
-	    objectType: 'text',
-	    text:
-	      '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
-	    link: {
-	      // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-	      mobileWebUrl: 'https://localhost:9000',
-	      webUrl: 'https://localhost:9000',
-	    },
-	  });
+       container: '#kakaotalk-sharing-btn05',
+       objectType: 'text',
+       text:
+         '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+       link: {
+         // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+         mobileWebUrl: 'https://localhost:9000',
+         webUrl: 'https://localhost:9000',
+       },
+     });
   
 </script>
 
@@ -795,7 +797,7 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js'></script>
 <script  src="${pageContext.request.contextPath}/js/comu_script.js"></script>
 
-		
-	
+      
+   
 </body>
 </html>

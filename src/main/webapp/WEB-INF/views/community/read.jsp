@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,20 +42,26 @@
 				width: 80%; margin-top: 16px; margin-left: auto; margin-right: auto; margin-bottom: 50px">
 		
 		<form name="requestForm" method="post" id="requestForm">		
-			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			<input type=hidden name="boardNo" value="${communityBoard.boardNo}">		
 			
 			<div style="text-align: right;">		
+				<sec:authentication var="mvo" property="principal" />
+				<c:if test="${not empty pageContext.request.userPrincipal}">
+					<c:if test="${communityBoard.member.memberNo == mvo.memberNo}">
+						<input type="button" value="수정"
+						   style="display: inline-block; margin-left: 6px; border-color: #4876ef; color: #4876ef; background-color: #fff;
+								  border: 1px solid #4876ef; box-sizing: border-box; text-align: center;padding: 0 8px 1px; height: 24px;
+								  border-radius: 4px; font-size: 12px; letter-spacing: -0.5px; line-height: 20px; cursor: pointer;">
+						<input type="button" value="삭제"
+						   style="display: inline-block; margin-left: 6px;border-color: #d7dce5; color: #5c667b; background-color: #fff;
+						   		  padding: 0 8px 1px; height: 24px; border-radius: 4px; font-size: 12px; letter-spacing: -0.5px;
+						   		  line-height: 20px; border: 1px solid #edeef0; box-sizing: border-box; text-align: center;cursor: pointer;">
+					
+					</c:if>
+				</c:if>
 				
-				<input type="button" value="수정"
-				   style="display: inline-block; margin-left: 6px; border-color: #4876ef; color: #4876ef; background-color: #fff;
-						  border: 1px solid #4876ef; box-sizing: border-box; text-align: center;padding: 0 8px 1px; height: 24px;
-						  border-radius: 4px; font-size: 12px; letter-spacing: -0.5px; line-height: 20px; cursor: pointer;">
-				<input type="button" value="삭제"
-				   style="display: inline-block; margin-left: 6px;border-color: #d7dce5; color: #5c667b; background-color: #fff;
-				   		  padding: 0 8px 1px; height: 24px; border-radius: 4px; font-size: 12px; letter-spacing: -0.5px;
-				   		  line-height: 20px; border: 1px solid #edeef0; box-sizing: border-box; text-align: center;cursor: pointer;">
-			</div>
+				</div>
 		</form>
 		
 		<table style="margin-left: auto; margin-right: auto; margin-top: 50px; margin-bottom: 50px; text-align: center; width: 600px;" >

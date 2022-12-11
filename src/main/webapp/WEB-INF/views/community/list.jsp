@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
@@ -50,23 +49,6 @@
 		$(function(){
 			//alert(11);
 			
-			/* 페이지 처리 */
-			/* $("#moreBtn").click(function() {
-				let len = $("div[name=hideview]").length;
-				if(len===0) {
-					alert("더 이상 게시물이 없습니다.");
-				} else {
-					let arr = new Array(len);
-					for(var i=0; i<6; i++){         
-						arr[i] = $("div[name=hideview]").eq(i);
-				    }
-					for(var j=0; j<arr.length; j++) {
-						arr[j].attr('name', 'showview');
-						arr[j].css('display', 'block');
-					}
-					$("html, body").animate({scrollTop:$(document).height()}, 3000);
-				}
-			}); */
 			
 			
 			/* 태그 검색 */			
@@ -74,17 +56,19 @@
 				//alert("클릭");
 				var tag = $(this).text();
 				console.log(tag);
-				$(location).attr('href', "${pageContext.request.contextPath}/list?tag="+ tag);
+				$(location).attr('href', "${pageContext.request.contextPath}/community/list?tag="+ tag);
 				//alert(tag);			
 			});//태그검색 끝
 			
-			/* 좋아요 기능 */
-			$("span[class=heart]").on("click", function(){
-				alert("하트 클릭");
+			/* 정렬 기능 */
+			$("select[name=option_select_category]").on("change", function(){
+				//alert("클릭");
+				var tag = $(this).val();
+				console.log(tag);
+				$(location).attr('href', "${pageContext.request.contextPath}/community/list?tag="+ tag);
+						
+			});//정렬 끝
 			
-					
-				
-			});//좋아요끝
 			
 			
 		}); //readyEnd
@@ -214,9 +198,7 @@
 						<div class="communityCard">
 							<img class="communityImg" src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList.boardFileName,',')[0]}" 
 								onclick="javascript:location.href='${pageContext.request.contextPath}/community/read/${communityBoardList.boardNo}'"/><br> 
-							\${communityBoardList.boardNo} = ${communityBoardList.boardNo}
-							
-							<%-- <input type="hidden" id="${communityBoardList.boardNo}"  value="${communityBoardList.boardNo}"> --%>
+						
 							<div style="text-align: left;">
 								
 								<c:choose>

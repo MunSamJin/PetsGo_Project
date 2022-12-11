@@ -51,6 +51,7 @@ public class ReservationController {
 		int totalPet = Integer.parseInt(reservTotalPet);
 		int insuranceTotal = Integer.parseInt(reservInsuranceTotal);
 		
+
 		Reservation reser = new Reservation(null, reservName, reservPhone, null, reservType, price, state, people, reservCheckin, reservCheckout, totalPet, insuranceTotal, member, camp, residence, null);
 		Long memberNo = (long) 1;
 		reser.setMember(new Member(memberNo));
