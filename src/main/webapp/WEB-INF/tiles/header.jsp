@@ -136,8 +136,6 @@
     <!-- masonry js -->
     <script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/gijgo.min.js"></script>
-    <!-- custom js -->
-    <script src="${pageContext.request.contextPath}/js/custom.js"></script>
 
 
 </body>
