@@ -43,6 +43,9 @@
 					  <li class="nav-item" role="presentation">
 					    <button class="nav-link" id="owner-tab" data-bs-toggle="tab" data-bs-target="#owner-tab-pane" type="button" role="tab" aria-controls="owner-tab-pane" aria-selected="false">사업자</button>
 					  </li>
+					  <li class="nav-item" role="presentation">
+					    <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin-tab-pane" type="button" role="tab" aria-controls="admin-tab-pane" aria-selected="false">관리자</button>
+					  </li>
 					</ul>
 					<div class="tab-content" id="myTabContent">
 					<h1>로그인</h1>
@@ -73,6 +76,20 @@
 							</div>			
 						</form>
 					  </div>	
+					  
+					  <div class="tab-pane fade" id="admin-tab-pane" role="tabpanel" aria-labelledby="admin-tab" tabindex="0">
+						<form id="adminLoginForm" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
+							<input type="text" class="form-control" name="id" id="adminId" placeholder="ID"> 
+							<!-- <span id="adminValid"></span> -->
+							<input type="password" class="form-control" name="password" id="adminPwd" placeholder="Password"> 
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />	
+							<div class="buttons">
+								<input type="submit" class="btn btn-primary" value="로그인">			
+								<a href="${pageContext.request.contextPath}/main"><button type="button" class="btn btn-light">취소</button></a>	
+							</div>			
+						</form>
+					  </div>	
+					  
 					</div>
 				</div>				
     		</div>

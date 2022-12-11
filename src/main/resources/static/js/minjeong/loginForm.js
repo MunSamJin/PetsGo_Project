@@ -1,9 +1,9 @@
 $(document).ready(function(){
 	/////////////////////////////////////
 	//회원 로그인 버튼 클릭 시 유효성 체크
-	$("#memberLoginForm").submit(function() {
-		alert("email = " + $("#email").val() + ", password = " + $("#password").val());
-		
+	$("#memberLoginForm").submit(function() {	
+		alert("id = " + $("#adminId").val() + ", password = " + $("#adminPwd").val());
+			
 		if ($("#email").val().trim() == "") {
 			alert("이메일을 입력해 주세요");
 			$("#email").focus();
@@ -40,4 +40,24 @@ $(document).ready(function(){
 	$("#memberLoginForm > input[type=button]:nth-child(6)").click(function() {
 		location.href = "${pageContext.request.contextPath}/main";
 	})
+	
+	
+	
+	/////////////////////////////////////
+	//관리자 로그인 버튼 클릭 시 유효성 체크
+	$("#adminLoginForm").submit(function() {	
+		alert("id = " + $("#adminId").val() + ", password = " + $("#adminPwd").val());
+			
+		/* if ($("#email").val().trim() == "") {
+			alert("이메일을 입력해 주세요");
+			$("#email").focus();
+			return false;
+		}
+
+		if ($("#password").val().trim() == "") {
+			alert("비밀번호를 입력해 주세요");
+			$("#password").focus();
+			return false;
+		} */
+	}) 
 })

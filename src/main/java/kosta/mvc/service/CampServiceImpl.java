@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Camp;
-import kosta.mvc.domain.Member;
 import kosta.mvc.repository.CampRepository;
 
 @Service
@@ -34,7 +33,7 @@ public class CampServiceImpl implements CampService {
 		String encodedPassword = passwordEncoder.encode(camp.getCampPassword());
 		System.out.println("캠핑장 신청 service encodedPassword = " + encodedPassword);
 		
-		camp.setCampPassword(encodedPassword);
+		camp.setCampPassword(encodedPassword); 
 		camp.setCampState(1);
 		camp.setCampLat("0");
 		camp.setCampLong("0");
