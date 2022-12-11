@@ -82,4 +82,25 @@ public class Reservation {
 	 @Transient
 	 private List<Detail> detailList;
 
+	/*
+	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	 * 
+	 * @JoinColumn(name = "memberNo") private Member member;
+	 * 
+	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	 * 
+	 * @JoinColumn(name = "campNo") private Camp camp;
+	 * 
+	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	 * 
+	 * @JoinColumn(name = "resiNo") private Residence residence;
+	 * 
+	 * @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL) private
+	 * List<Detail> detailList;
+	 * 
+	 * @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL) private
+	 * List<CommunityBoard> communityBoardList;
+	 */ 
+	
+
 }

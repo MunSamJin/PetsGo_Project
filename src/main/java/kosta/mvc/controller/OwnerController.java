@@ -51,22 +51,22 @@ public class OwnerController {
 	}*/
 	
 	
-	@RequestMapping("/camp/campUpdateForm/{campNo}")
-	public ModelAndView campUpdateForm(@PathVariable("campNo") Long campNo) {
-		//FreeBoard board = campService.selectBy(bno, false); //조회수 증가 안 함
-		Camp camp = campService.selectBy(campNo);
-		return new ModelAndView("owner/camp/campUpdateForm","camp", camp);
+	@RequestMapping("/campInsert/campRegNoCheck")
+	@ResponseBody
+	public String campRegNoCheck(String campRegNo) {
+		Camp camp = campService.selectBy(campRegNo);
+		if(camp==null) return "success";
+		else return "fail";
 	}
 	
 	
-	/*
-	 * @RequestMapping("/campUpdate") public String campUpdate(Camp camp) { 
-	 * 	Camp dbCamp = campService.update(camp); 
-	 * 	return "redirect:/owner/campSelect"; }
-	 */
+	@RequestMapping("/campInsert/campInsertForm")
+	public String campInsertForm() {
+		return "owner/camp/campInsertForm";
+	}
 	
 	
-	/*@RequestMapping("/campInsert")
+	@RequestMapping("/campInsert")
 	@ResponseBody
 	public String campInsert(Camp camp, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
 		
@@ -99,7 +99,23 @@ public class OwnerController {
 		campService.insert(camp);
 		
 		return "success";
-	}*/
+	}
+	
+	
+	
+	@RequestMapping("/camp/campUpdateForm/{campNo}")
+	public ModelAndView campUpdateForm(@PathVariable("campNo") Long campNo) {
+		//FreeBoard board = campService.selectBy(bno, false); //조회수 증가 안 함
+		Camp camp = campService.selectBy(campNo);
+		return new ModelAndView("owner/camp/campUpdateForm","camp", camp);
+	}
+	
+	
+	/*
+	 * @RequestMapping("/campUpdate") public String campUpdate(Camp camp) { 
+	 * 	Camp dbCamp = campService.update(camp); 
+	 * 	return "redirect:/owner/campSelect"; }
+	 */
 	
 	
 	@RequestMapping("/campUpdate")
@@ -146,24 +162,29 @@ public class OwnerController {
 	}
 	
 	
-	@RequestMapping("/camp/campDeleteForm/{campNo}")  //wner/camp/campDeleteForm?campNo=1
-	public String campDelete(@PathVariable Long campNo, Model model) {
-		System.out.println("campNo= " + campNo);
-		Camp camp = campService.selectBy(campNo);
-		model.addAttribute("camp",camp);
+	@RequestMapping("/camp/campDeleteForm/{campNo}") 
+	public String campDeleteForm(@PathVariable Long campNo) {
 		return "/owner/camp/campDeleteForm";
 	}
 	
 	
-	/*@RequestMapping("/campRegNoCheck")
+	@RequestMapping("/campDeleteRequest/{campNo}")
+	public String campDeleteRequest(@PathVariable Long campNo) {
+		System.out.println("campNo= " + campNo);
+		campService.campDeleteRequest(campNo);
+		return "redirect:/owner/campHome";
+	}
+	
+	
+	@RequestMapping("/passwordCheck")
 	@ResponseBody
-	public String campRegNoCheck(String campRegNo) {
-		System.out.println("campRegNo="+campRegNo);
-		Camp camp = campService.selectBy(campRegNo);
-		System.out.println("check camp="+camp);
-		if(camp==null) return "success";
+	public String passwordCheck(String password, Long campNo) {
+		Camp camp = campService.selectBy(campNo);
+		String pwd = camp.getCampPassword();
+		
+		if(pwd.equals(password)) return "success";
 		else return "fail";
-	}*/
+	}
 	
 	
 	
@@ -262,6 +283,8 @@ public class OwnerController {
 		//return new ModelAndView("owner/resi/resiDetail","resi",resi) ;
 		return "redirect:/owner/resi/resiDetail/"+resi.getResiNo();
 	}
+	
+
 	
 	
 	@RequestMapping("/{url}")

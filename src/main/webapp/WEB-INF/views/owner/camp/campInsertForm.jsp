@@ -36,7 +36,7 @@
 			$("#campRequest").click(function(){
 				$("#campInsertForm").ajaxForm({
 					type:"post",
-					url:"${pageContext.request.contextPath}/campInsert",
+					url:"${pageContext.request.contextPath}/owner/campInsert",
 					dataType:"text",
 					success:function(result){
 						 alert("캠핑장 등록 신청이 완료되었습니다. 승인 결과는 입력하신 이메일로 발송됩니다.");
@@ -57,7 +57,7 @@
 				
 			    $.ajax({
 					type:"POST",
-					url:"${pageContext.request.contextPath}/campRegNoCheck",	
+					url:"${pageContext.request.contextPath}/owner/campInsert/campRegNoCheck",	
 					dataType:"text",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
 					data:"${_csrf.parameterName}=${_csrf.token}&campRegNo=" + campRegNo, //서버에게 보낼 parameter 정보 
 					//data: "campRegNo=" + campRegNo,
@@ -424,7 +424,7 @@
                   <p class="card-description">
                     신청 정보를 입력하세요
                   </p>
-                  <form class="forms-sample" id="campInsertForm" name="campInsert" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/campInsert">
+                  <form class="forms-sample" id="campInsertForm" name="campInsert" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/owner/campInsert">
         			<input type="hidden" name="campNo" value="${camp.campNo}">
         			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         				

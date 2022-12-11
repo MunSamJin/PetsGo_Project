@@ -35,13 +35,13 @@
 		$(function(){
 			
 			$("#campUpdateBtn").click(function(){
-				$(location).attr('href','${pageContext.request.contextPath}/owner/camp/campUpdateForm/${camp.campNo}');
+				$(location).attr('href','${pageContext.request.contextPath}/owner/camp/campUpdateForm/${secCamp.campNo}');
 			})
 			
 			
 			$("#campDeleteBtn").click(function(){
 				if(confirm("펫츠고 플랫폼 이용 종료 신청 하시겠습니까?")){
-					$(location).attr('href','${pageContext.request.contextPath}/owner/camp/campDeleteForm/${camp.campNo}');
+					$(location).attr('href','${pageContext.request.contextPath}/owner/camp/campDeleteForm/${secCamp.campNo}');
 				}
 				
 			})
@@ -484,7 +484,7 @@
                       
                     </div>
                     <button type="button" class="btn btn-primary mr-2" id="campUpdateBtn">수정</button>
-                    <button type="button" class="btn btn-light" id="campDeleteBtn">등록 취소</button>
+                    <button type="button" class="btn btn-light" id="campDeleteBtn">캠핑장 삭제</button>
                   <!-- </form> -->
                 </div>
               </div>

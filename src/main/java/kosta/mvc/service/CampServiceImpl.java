@@ -68,9 +68,9 @@ public class CampServiceImpl implements CampService {
 	}
 
 	@Override
-	public void delete(Long bno, String password) {
-		// TODO Auto-generated method stub
-
+	public void campDeleteRequest(Long campNo) {
+		Camp camp = campRep.findById(campNo).orElse(null);
+		camp.setCampState(2);
 	}
 
 	@Override

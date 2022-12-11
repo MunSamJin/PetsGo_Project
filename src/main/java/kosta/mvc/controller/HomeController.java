@@ -32,23 +32,16 @@ public class HomeController {
 	@Autowired
 	private CommunityService communityService;
 	
-	@Autowired
-	private CampService campService;
 
-	
 	@RequestMapping("/")
 	public String index() {
 		return "main";
 	}
 	
-	 @RequestMapping("/{}") 
-	 public void url() {}
+	@RequestMapping("/{}") 
+	public void url() {}
 	 
-	
-	@RequestMapping("/campRequest/campInsertForm")
-	public void url2() {}
-	
-	
+
 	/**
 	 * 회원/사업자에 따라 로그인 후 이동할 기본 페이지
 	 * */
@@ -100,58 +93,6 @@ public class HomeController {
 		
 		return "redirect:/main";
 	}
-	
-	
-	/**
-	 * 캠핑장 등록 요청
-	 */
-	@RequestMapping("/campInsert")
-	@ResponseBody
-	public String campInsert(Camp camp, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
-		
-		String saveDir = session.getServletContext().getRealPath("/img/seryun/");
-		String filenames = "";
-		
-		try {
-			//upload.getFile().transferTo(new File(saveDir + "/" + originalFileName));
-			
-			for (int i = 0; i < files.size(); i++) {
-				MultipartFile m = files.get(i);
-				System.out.println("첨부파일이름 = " + m.getOriginalFilename());
-				
-				if (i == (files.size() - 1))
-					filenames += m.getOriginalFilename();
-				else
-					filenames += m.getOriginalFilename() + ",";
-				
-				System.out.println("filenames = " + filenames);
-				m.transferTo(new File(saveDir + "/" + m.getOriginalFilename()));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-		
-		camp.setCampFilename(filenames);
-		//String text = camp.getCampIntro().replace("\r\n","<br>");
-		//camp.setCampIntro(text);
-		
-		campService.insert(camp);
-		
-		return "success";
-	}
-	
-	
-	/**
-	 * 사업자 등록 번호 중복 체크
-	 */
-	@RequestMapping("/campRegNoCheck")
-	@ResponseBody
-	public String campRegNoCheck(String campRegNo) {
-		Camp camp = campService.selectBy(campRegNo);
-		if(camp==null) return "success";
-		else return "fail";
-	}
-	
-	
+
 	
 }

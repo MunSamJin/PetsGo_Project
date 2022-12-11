@@ -394,15 +394,16 @@
               <div class="brand-logo">
                 <p><img src="${pageContext.request.contextPath}/../../images/logo.svg" alt="logo"></p>
               </div>
-              </span><h4>펫츠고 플랫폼 이용 종료</h4>
-              <h6 class="font-weight-light">${camp.campName}</h6>
-              <h6 class="font-weight-light">비밀번호를 입력해주세요</h6>
-              <form class="pt-3">
+              <br>
+              <h4>펫츠고 플랫폼 이용 종료</h4>
+              <h6 class="font-weight-light">이용 종료 신청 이후에 ${camp.campName}의 펫츠고(Pet's Go) 플랫폼 이용은 불가합니다</h6>
+              <h6 class="font-weight-light">종료 신청을 위해서 사업자 비밀번호를 입력해주세요</h6>
+              <form class="pt-3" method="post" id="campDeleteRequest" name="campDeleteRequest">
                 <div class="form-group">
                   <input type="password" class="form-control form-control-lg" id="campPassword" name="campPassword" placeholder="Password">
                 </div>
                 <div class="mt-3">
-                  <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="${pageContext.request.contextPath}/owner/campHome">신청</a>
+                  <input type="button" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" id="requestBtn" value="신청">
                 </div>
                 <div class="my-2 d-flex justify-content-between align-items-center">
                   <a href="#" class="auth-link text-black">Forgot password?</a>
@@ -454,231 +455,36 @@
  
   <script>     
       $(function(){
-    	  
-    		//이메일 유효성 체크
-			$("#campEmail").change(function(){
-  			checkEmail($("#campEmail").val());
-			});	
 			
-			function checkEmail(email){
-				let expectEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-				/* if($("#campEmail").val().equals("")){
-					$("#emailValid").html("");
-				}
-				else  */if(!(expectEmail.test(email))){            
-			        $("#emailValid").html("이메일 형식을 확인해 주세요").css("color","red");
-			        $("#campEmail").focus();
-			        //emailCheckRs = "";
-			        return false;
-			    }
-			    
-			    $("#emailValid").html("");
-			    return true;
-			}
-			
-			
-			//비밀번호 유효성 체크
-			$("#campPassword").change(function(){
-  			checkPassword($("#campPassword").val());
-			});			
-			
-			function checkPassword(password){			    
-				if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)){            
-			        $("#passwordValid").html("숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.").css("color","red");
-			        $("#campPassword").focus();
-			        return false;
-			    }    
-			    
-			    let checkNumber = password.search(/[0-9]/g);
-			    let checkEnglish = password.search(/[a-z]/ig);
-			    
-			    if(checkNumber < 0 || checkEnglish < 0){
-			        $("#passwordValid").html("숫자와 영문자를 혼용하여야 합니다.").css("color","red");
-			        $("#campPassword").focus();
-			        return false;
-			    }
-			    
-			    if(/(\w)\1\1\1/.test(password)){
-			        $("#passwordValid").html("같은 문자를 4번 이상 사용하실 수 없습니다.").css("color","red");
-			        $("#campPassword").focus();
-			        return false;
-			    }
-			    
-			    $("#passwordValid").html("");
-			    return true;
-			}
-			
-			//////////////////////////////////////////
-			//비밀번호와 비밀번호 확인 일치 체크
-			$("#campPasswordCheck").change(function(){
+			$("#requestBtn").click(function(){
 				let password = $("#campPassword").val();
-				let passwordCheck = $("#campPasswordCheck").val();
 				
-				if(passwordCheck != password) {
-					$("#passwordEqual").html("비밀번호가 일치하지 않습니다.").css("color","red");
-					$("#passwordCheck").focus();
-		        	return false;
-				} else {
-					$("#passwordEqual").html("");
-				    return true;
-				}
+				$.ajax({
+					type:"post",
+					url:"${pageContext.request.contextPath}/owner/passwordCheck",
+					data:"${_csrf.parameterName}=${_csrf.token}&password="+password+"&campNo=${secCamp.campNo}",
+					success:function(result){						
+						if(result=="fail"){
+							alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.")
+							$("#campPassword").val("");
+							$("#campPassword").focus();
+							return false;
+						}else{						
+							if(confirm("정말 이용 종료 신청을 진행하시겠습니까?")){
+								alert("펫츠고 이용 종료 신청이 접수되었습니다. 지금까지 이용해주셔서 감사합니다.")
+								location.href = "${pageContext.request.contextPath}/owner/campDeleteRequest/${secCamp.campNo}";
+							}
+						    return true;
+						}					
+					},
+					error:function(err){
+						alert(err+" 에러가 발생했습니다");
+					}
+				})
 			});
 			
       })
   </script>
-  <script>
-  			/* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
-			(imageView = function imageView(att_zone, btn){
-
-			    var attZone = document.getElementById(att_zone);
-			    var btnAtt = document.getElementById(btn)
-			    var sel_files = [];
-    
-			    // 이미지와 체크 박스를 감싸고 있는 div 속성
-			    var div_style = 'display:inline-block;position:relative;'
-			                  + 'width:150px;height:120px;margin:5px;border:1px solid #00f;z-index:1';
-			    // 미리보기 이미지 속성
-			    var img_style = 'width:100%;height:100%;z-index:none';
-			    // 이미지안에 표시되는 체크박스의 속성
-			    var chk_style = 'width:30px;height:30px;position:absolute;font-size:24px;'
-			                  + 'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:white';
-  
-			    btnAtt.onchange = function(e){
-			      var files = e.target.files;
-			      var fileArr = Array.prototype.slice.call(files)
-			      for(f of fileArr){
-			        imageLoader(f);
-			      }
-			    }  
-			    
-  
-			    // 탐색기에서 드래그앤 드롭 사용
-			    /*attZone.addEventListener('dragenter', function(e){
-			      e.preventDefault();
-			      e.stopPropagation();
-			    }, false)
-    
-			    attZone.addEventListener('dragover', function(e){
-			      e.preventDefault();
-			      e.stopPropagation();
-			      
-			    }, false)
-  
-			    attZone.addEventListener('drop', function(e){
-			      var files = {};
-			      e.preventDefault();
-			      e.stopPropagation();
-			      var dt = e.dataTransfer;
-			      files = dt.files;
-			      for(f of files){
-			        imageLoader(f);
-			      }
-			      
-			    }, false)*/
-    
-
-    
-			    /*첨부된 이미지를 배열에 넣고 미리보기 */
-			    imageLoader = function(file){
-			      sel_files.push(file);
-			      var reader = new FileReader();
-			      reader.onload = function(ee){
-			        let img = document.createElement('img')
-			        img.setAttribute('style', img_style)
-			        img.src = ee.target.result;
-			        attZone.appendChild(makeDiv(img, file));
-			      }
-			      
-			      reader.readAsDataURL(file);
-			    }
-    
-			    /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
-			    makeDiv = function(img, file){
-			      var div = document.createElement('div')
-			      div.setAttribute('style', div_style)
-			      
-			      var btn = document.createElement('input')
-			      btn.setAttribute('type', 'button')
-			      btn.setAttribute('value', 'x')
-			      btn.setAttribute('delFile', file.name);
-			      btn.setAttribute('style', chk_style);
-			      btn.onclick = function(ev){
-			        var ele = ev.srcElement;
-			        var delFile = ele.getAttribute('delFile');
-			        for(var i=0 ;i<sel_files.length; i++){
-			          if(delFile== sel_files[i].name){
-			            sel_files.splice(i, 1);      
-			          }
-			        }
-        
-			        dt = new DataTransfer();
-			        for(f in sel_files) {
-			          var file = sel_files[f];
-			          dt.items.add(file);
-			        }
-			        btnAtt.files = dt.files;
-			        var p = ele.parentNode;
-			        attZone.removeChild(p)
-			      }
-			      div.appendChild(img);
-			      div.appendChild(btn)
-			      return div;
-			    }
-			  }
-			)('att_zone', 'btnAtt')
-
-		</script>
-		
-		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-		<script>
-		    function sample6_execDaumPostcode() {
-		        new daum.Postcode({
-		            oncomplete: function(data) {
-		                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-		
-		                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-		                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-		                var addr = ''; // 주소 변수
-		                var extraAddr = ''; // 참고항목 변수
-		
-		                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-		                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-		                    addr = data.roadAddress;
-		                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-		                    addr = data.jibunAddress;
-		                }
-		
-		                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-		                if(data.userSelectedType === 'R'){
-		                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-		                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-		                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-		                        extraAddr += data.bname;
-		                    }
-		                    // 건물명이 있고, 공동주택일 경우 추가한다.
-		                    if(data.buildingName !== '' && data.apartment === 'Y'){
-		                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-		                    }
-		                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-		                    if(extraAddr !== ''){
-		                        extraAddr = ' (' + extraAddr + ')';
-		                    }
-		                    // 조합된 참고항목을 해당 필드에 넣는다.
-		                    document.getElementById("sample6_extraAddress").value = extraAddr;
-		                
-		                } else {
-		                    document.getElementById("sample6_extraAddress").value = '';
-		                }
-		
-		                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-		                document.getElementById('sample6_postcode').value = data.zonecode;
-		                document.getElementById("sample6_address").value = addr;
-		                // 커서를 상세주소 필드로 이동한다.
-		                document.getElementById("sample6_detailAddress").focus();
-		            }
-		        }).open();
-		    }
-		</script>
 </body>
 
 </html>
