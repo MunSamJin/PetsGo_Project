@@ -387,6 +387,9 @@
                           <th>
                             가격
                           </th>
+                          <th>
+                            개수
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -407,6 +410,9 @@
 	                          </td>
 	                          <td>
 	                            <fmt:formatNumber value="${resi.resiPrice}" pattern="###,### 원"/>
+	                          </td>
+	                          <td>
+	                            ${fn:length(resi.residenceDetailList)} 개
 	                          </td>
 	                        </tr>
 	                  	</c:forEach>

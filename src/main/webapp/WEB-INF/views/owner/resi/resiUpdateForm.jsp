@@ -32,11 +32,11 @@
   
   <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
   <script type="text/javascript">
-		/* $(function(){
-			$("#resiUpdateBtn").click(function(){
-				$(location).attr('href','${pageContext.request.contextPath}/owner/resi/resiUpdateForm?resiNo=${resi.resiNo}');
+		$(function(){
+			$("#resiUpdateCancelBtn").click(function(){
+				$(location).attr('href','${pageContext.request.contextPath}/owner/resi/resiDetail/${resi.resiNo}');
 			})
-		}) */
+		})
    </script>
    
 </head>
@@ -448,7 +448,7 @@
                       <input class="form-control" id="resiPet" name="resiPet" value="${resi.resiPet}">
                     </div>
                     <button type="submit" class="btn btn-primary mr-2" id="resiUpdateBtn">수정</button>
-                    <!-- <button class="btn btn-light">취소</button> -->
+                    <button class="btn btn-light" id="resiUpdateCancelBtn">취소</button>
                   </form>
                 </div>
               </div>

@@ -449,6 +449,10 @@
                       <label for="exampleInputCity1">입장 가능 반려견 정보</label>
                       <p class="form-control" id="resiPet" name="resiPet">${resi.resiPet}</p>
                     </div>
+                    <div class="form-group">
+                      <label for="exampleInputCity1">숙소 개수</label>
+                      <p class="form-control" id="resiCount" name="resiCount">${fn:length(resi.residenceDetailList)}</p>
+                    </div>
                     <button type="button" class="btn btn-primary mr-2" id="resiUpdateBtn">수정</button>
                     <button type="button" class="btn btn-light" id="resiSelectBtn">목록보기</button>
                   <!-- </form> -->

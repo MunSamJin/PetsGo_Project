@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Camp;
 import kosta.mvc.domain.Residence;
+import kosta.mvc.domain.ResidenceDetail;
+import kosta.mvc.repository.ResidenceDetailRepository;
 import kosta.mvc.repository.ResidenceRepository;
 
 @Service
@@ -19,7 +21,8 @@ public class ResiServiceImpl implements ResiService {
 	
 	@Autowired
 	private ResidenceRepository resiRep;
-	
+	@Autowired
+	private ResidenceDetailRepository resiDetailRep;
 
 	@Override
 	public List<Residence> selectAll(Long campNo) {
@@ -34,9 +37,14 @@ public class ResiServiceImpl implements ResiService {
 	}
 
 	@Override
-	public void insert(Residence resi) {
+	public void insert(Residence resi, String resiCount) {
 		resiRep.save(resi);
-
+		
+		int count = Integer.parseInt(resiCount);
+		for(int i=1; i<=count; i++) {
+			String resiDetailName = "숙소";
+			resiDetailRep.save(new ResidenceDetail(null,resiDetailName+i,resi));
+		}
 	}
 
 	@Override

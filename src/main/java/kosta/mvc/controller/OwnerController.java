@@ -201,7 +201,7 @@ public class OwnerController {
 	
 	
 	@RequestMapping("/resiInsert")
-	public String risiInsert(Residence resi, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
+	public String risiInsert(Residence resi, String resiCount, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
 		
 		String saveDir = session.getServletContext().getRealPath("/img/seryun/");
 		String filenames = "";
@@ -224,7 +224,9 @@ public class OwnerController {
 		} 
 		
 		resi.setResiFilename(filenames);
-		resiService.insert(resi);
+		
+		System.out.println("resiCount = "+resiCount);
+		resiService.insert(resi, resiCount);
 		
 		System.out.println(resi.getCamp().getCampNo());
 		
