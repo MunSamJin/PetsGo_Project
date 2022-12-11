@@ -1033,7 +1033,7 @@ li {
 
 .contact-form {
     padding: 70px 30px;
-    background-color: #f3edff;
+    border: 1px solid #DEE2E7;
 }
 
 .contact-form-title h6 {
@@ -1178,7 +1178,7 @@ li {
 }
 
 .map-ratings-review-area > a:nth-child(2) {
-    background-color: #7643ea;
+    background-color: #FF4A52;
 }
 
 .map-ratings-review-area > a:last-child {
@@ -1188,7 +1188,7 @@ li {
 
 .book-a-table-widget {
     padding: 50px 30px;
-    background-color: #7643ea;
+    background-color: #FF4A52;
 }
 
 .book-a-table-widget h6 {
@@ -1210,7 +1210,7 @@ li {
 
 .opening-hours-widget {
     padding: 50px 30px;
-    background-color: #f3edff;
+    border: 1px solid #DEE2E7;
     position: relative;
     z-index: 1;
 }
@@ -1258,7 +1258,7 @@ li {
 
 .author-widget {
     padding: 25px 20px;
-    background-color: #f3edff;
+    border: 1px solid #DEE2E7;
 }
 
 .contact-form-widget {
@@ -1340,7 +1340,7 @@ li {
 }
 
 .single-listing-menu {
-    background-color: #f3edff;
+    border: 1px solid #DEE2E7;
     padding: 20px 40px;
     margin-bottom: 5px;
 }

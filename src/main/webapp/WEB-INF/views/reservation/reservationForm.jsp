@@ -2,6 +2,7 @@
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -212,6 +213,7 @@
                                                                            tabindex="-1"
                                                                            role="checkbox">
                                                                 </span>
+                                                                	<c:if test=""></c:if>
                                                                     <a class="sc-kBPahn jzkOjd">회원 정보 불러오기</a>
                                                                 </label>
                                                             </div>
@@ -555,90 +557,65 @@
                                                 </p>
                                             </section>
                                         </li>
+                                        
+                                        <c:set var="now" value="<%=new java.util.Date()%>"/>
+                                        
                                         <li role="listitem">
                                             <section class="sc-eFuaqX bLcvwy sc-dwyexY MVOcR">
                                                 <div class="sc-lkCfru jRYMQr">
-                                                    <button class="sc-jlIlqL gfPcYi sc-hKEiJx egMFgE sc-dNDXdn fFgrpb"
-                                                            type="button">
+                                                    <button class="sc-jlIlqL gfPcYi sc-hKEiJx egMFgE sc-dNDXdn fFgrpb" type="button">
                                                         <div>
                                                             <div class="sc-ieGRMn kJcKWB">
-                                                                <p class="sc-eCstlR cPIeWE" type="NORMAL_MEDIUM">무료
-                                                                    취소</p>
+                                                                <p class="sc-eCstlR cPIeWE" type="NORMAL_MEDIUM">무료 취소</p>
                                                                 <i class="sc-crrszt bMPAFE sc-eeKVJR gWSXvs sc-bMYRWI eojHFt"></i>
                                                             </div>
-                                                            <div class="sc-chbAZy fYNrHG">12월 6일 (화) 전까지</div>
+                                                            <div class="sc-chbAZy fYNrHG"><fmt:formatDate value="${now}" pattern="MM월 dd일 (E)"/> 전까지</div>
                                                         </div>
                                                     </button>
                                                     <div class="sc-cAwhgt gdXdaB">
-                                                        <input type="hidden" id="campPhone" name="campPhone"
-                                                               value="${resi.camp.campPhone}">
-                                                        <span class="sc-eCstlR bcvgNe sc-jXupuA dMIIFw"
-                                                              type="NORMAL_LARGE">1박</span>
-                                                        <span class="sc-eCstlR WoNTC sc-bqqVGf bNtUdC"
-                                                              type="NORMAL_LARGEST" name="totalprice"><fmt:formatNumber
-                                                                value="${resi.resiPrice}" pattern="###,###원"/></span>
-                                                        <button type="button" class="sc-jlIlqL fJYNoF sc-iNpdUm jiDwyR"
-                                                                id="reserve_depth_1" tabindex="0">결제하기
+                                                        <input type="hidden" id="campPhone" name="campPhone" value="${resi.camp.campPhone}">
+                                                        <span class="sc-eCstlR bcvgNe sc-jXupuA dMIIFw" type="NORMAL_LARGE">${fn:split(checkOut,'/')[2]-fn:split(checkIn,'/')[2]}박</span>
+                                                        <span class="sc-eCstlR WoNTC sc-bqqVGf bNtUdC" type="NORMAL_LARGEST" name="totalprice"><fmt:formatNumber value="${resi.resiPrice}" pattern="###,###원"/></span>
+                                                        <button type="button" class="sc-jlIlqL fJYNoF sc-iNpdUm jiDwyR" id="reserve_depth_1" tabindex="0">결제하기
                                                         </button>
                                                     </div>
                                                 </div>
                                             </section>
                                         </li>
                                     </ul>
+                                    
+                                    <c:set var="checkInDate" value="20${fn:split(checkIn,'/')[0]}-${fn:split(checkIn,'/')[1]}-${fn:split(checkIn,'/')[2]}"/>
+                                    <fmt:parseDate var="parsedDate" value="${checkInDate}" pattern="yyyy-MM-dd"/>
+                                    <c:set var="checkOutDate" value="20${fn:split(checkOut,'/')[0]}-${fn:split(checkOut,'/')[1]}-${fn:split(checkOut,'/')[2]}"/>
+                                    <fmt:parseDate var="parsedOutDate" value="${checkOutDate}" pattern="yyyy-MM-dd"/>
+
                                     <ul class="sc-dVBxmz fWIHRN">
                                         <li role="listitem">
                                             <section class="sc-eFuaqX innHcv sc-fQnBjv cPDpkJ">
                                                 <section class="sc-Sdmup dzbhjS">
-                                                    <h3 id="campName" class="sc-eCstlR fvjAAR"
-                                                        type="BOLD_LARGEST">${resi.camp.campName}</h3>
-                                                    <p id="resiName" class="sc-eCstlR kCSdWV sc-hWiVVa ktKpVm"
-                                                       type="LARGE_NORMAL">${resi.resiName}</p>
+                                                    <h3 id="campName" class="sc-eCstlR fvjAAR" type="BOLD_LARGEST">${resi.camp.campName}</h3>
+                                                    <p id="resiName" class="sc-eCstlR kCSdWV sc-hWiVVa ktKpVm" type="LARGE_NORMAL">${resi.resiName}</p>
                                                 </section>
                                                 <div class="sc-fAPzgY fKgEtY">
                                                     <div class="sc-iciGqv duLNAF">
-                                                        <h5 class="sc-eCstlR kZysRf sc-hnSKda cWgHbh"
-                                                            type="NORMAL_SMALL">체크인</h5>
-                                                        <p class="sc-eCstlR cPIeWE" type="NORMAL_MEDIUM">12월 8일 (목)
-                                                        3:00 PM</p>
+                                                        <h5 class="sc-eCstlR kZysRf sc-hnSKda cWgHbh" type="NORMAL_SMALL">체크인</h5>
+                                                        <p class="sc-eCstlR cPIeWE" type="NORMAL_MEDIUM"><fmt:formatDate value="${parsedDate}" pattern="MM월 dd일 (E)"/>
+                                                        ${resi.camp.campCheckin}</p>
                                                     </div>
-                                                    <span class="sc-lrvPq cDWtwr">1박</span>
+                                                    <span class="sc-lrvPq cDWtwr">${fn:split(checkOut,'/')[2]-fn:split(checkIn,'/')[2]}박</span>
                                                     <div class="sc-iciGqv duLNAF">
-                                                        <h5 class="sc-eCstlR kZysRf sc-hnSKda cWgHbh"
-                                                            type="NORMAL_SMALL">체크아웃</h5>
-                                                        <p class="sc-eCstlR cPIeWE" type="NORMAL_MEDIUM">12월 9일 (금)
-                                                            11:00 AM</p>
+                                                        <h5 class="sc-eCstlR kZysRf sc-hnSKda cWgHbh" type="NORMAL_SMALL">체크아웃</h5>
+                                                        <p class="sc-eCstlR cPIeWE" type="NORMAL_MEDIUM"><fmt:formatDate value="${parsedOutDate}" pattern="MM월 dd일 (E)"/>
+                                                            ${resi.camp.campCheckout }</p>
                                                     </div>
                                                 </div>
                                                 <ul class="sc-bWcrqT bPuRoh sc-dJbuOE kyacOP">
                                                     <li class="sc-hymteE cwmltB">
-                                                        <p class="sc-eCstlR kZysRf sc-cgwasx eqTIAy"
-                                                           type="NORMAL_SMALL">성인</p>
-                                                        <p class="sc-eCstlR kZysRf sc-kTLXcG dpOkRE"
-                                                           type="NORMAL_SMALL" id="reservPeople">2명</p>
-                                                    </li>
-                                                    <li class="sc-hymteE cwmltB">
-                                                        <p class="sc-eCstlR kZysRf sc-cgwasx eqTIAy"
-                                                           type="NORMAL_SMALL">침대 타입</p>
-                                                        <p class="sc-eCstlR kZysRf sc-kTLXcG dpOkRE"
-                                                           type="NORMAL_SMALL">더블침대 1개</p>
+                                                        <p class="sc-eCstlR kZysRf sc-cgwasx eqTIAy" type="NORMAL_SMALL">성인</p>
+                                                        <p class="sc-eCstlR kZysRf sc-kTLXcG dpOkRE" type="NORMAL_SMALL" id="reservPeople">${resiPeople}명</p>
                                                     </li>
                                                 </ul>
-                                                <div class="sc-fGPjCt eTAvwj">
-                                                    <div class="sc-ffkNAL gfExxe">
-                                                        <button class="sc-jlIlqL gfPcYi sc-hKEiJx egMFgE" type="button">
-                                                            <div>
-                                                                <div class="sc-ieGRMn kJcKWB">
-                                                                    <p class="sc-eCstlR cPIeWE" type="NORMAL_MEDIUM">무료
-                                                                        취소</p>
-                                                                    <i class="sc-crrszt bMPAFE sc-eeKVJR gWSXvs sc-bMYRWI eojHFt"></i>
-                                                                </div>
-                                                                <div class="sc-chbAZy fYNrHG">12월 6일 (화) 전까지</div>
-                                                            </div>
-                                                        </button>
-                                                    </div>
-                                                    <p class="sc-eCstlR fvjAAR sc-ixNrWI NySAs" type="BOLD_LARGEST"
-                                                       name="totalprice">90,659원</p>
-                                                </div>
+                                                
                                             </section>
                                         </li>
                                         <li role="listitem">
@@ -649,8 +626,7 @@
                                                 <div class="sc-dBoRSD dOWlJn sc-Cnssr fJrrvp">
                                                     <div class="sc-ecTnUl byTpPR">
                                                         <span>숙소 요금</span>
-                                                        <div id="resiPrice"><fmt:formatNumber value="${resi.resiPrice}"
-                                                                                              pattern="###,###원"/></div>
+                                                        <div id="resiPrice"><fmt:formatNumber value="${resi.resiPrice}" pattern="###,###원"/></div>
                                                     </div>
                                                     <div class="sc-ecTnUl erqPQp">
                                                         <span id="">손해배상 보험 요금</span>
@@ -660,15 +636,14 @@
                                                     <div class="sc-ecTnUl cXCLax">
                                                         <span>총 요금</span>
                                                         <em style="text-align: right;">
-                                                            <p id="totol_price" class="sc-eCstlR fvjAAR"
-                                                               type="BOLD_LARGEST" name="totalprice">90,659원</p>
-                                                            <p class="sc-eCstlR kZysRf sc-kvMJw iHITov"
-                                                               type="NORMAL_SMALL">손해배상 보험 요금 포함</p>
+                                                            <p id="totol_price" class="sc-eCstlR fvjAAR" type="BOLD_LARGEST" name="totalprice">90,659원</p>
+                                                            <p class="sc-eCstlR kZysRf sc-kvMJw iHITov" type="NORMAL_SMALL">손해배상 보험 요금 포함</p>
                                                         </em>
                                                     </div>
                                                 </div>
                                             </section>
                                         </li>
+                                        
                                         <li role="listitem">
                                             <section class="sc-eFuaqX gclven">
                                                 <div class="sc-hlsGSa dgoLqm">
@@ -682,29 +657,27 @@
                                                               form="hotel-order" maxlength="200" minlength="0"
                                                               class="sc-dsxaqW fiVXtw"></textarea>
                                                     <em class="sc-kkBfgx cEXIEJ">
-                                                        <p class="sc-eCstlR kZysRf sc-jVKBdY UUozp"
-                                                           type="NORMAL_SMALL"></p>0 / 200
+                                                        <p class="sc-eCstlR kZysRf sc-jVKBdY UUozp" type="NORMAL_SMALL"></p>0 / 200
                                                     </em>
                                                 </div>
                                             </section>
                                         </li>
+                                        
                                         <li role="listitem">
                                             <ul class="sc-euuyxL uqwcO">
                                                 <li>
                                                     <section class="sc-eFuaqX gclven sc-ljRaeN kKsuvV">
                                                         <div class="sc-jmhFuu bSihpL title-container">
-                                                            <h3 class="sc-eCstlR bcvgNe sc-dUrmIn YyGzd"
-                                                                type="NORMAL_LARGE">중요사항</h3>
-                                                            <em type="DOWN_MORE_ARROW" class="sc-httYss hyapgQ">※꼭
-                                                                유념해주세요!</em>
+                                                            <h3 class="sc-eCstlR bcvgNe sc-dUrmIn YyGzd" type="NORMAL_LARGE">중요사항</h3>
+                                                            <em type="DOWN_MORE_ARROW" class="sc-httYss hyapgQ">※꼭 유념해주세요!</em>
                                                         </div>
                                                         <div class="sc-cbDFGl hkjwZr">
                                                             <div>Front desk staff will greet guests on arrival.</div>
                                                             <div class="sc-hjWSTT eYQtSd"></div>
                                                         </div>
                                                         <button class="sc-fmlJrY jtLrHF sc-gyUflj gBMlfb" type="button">
-                                                            <span>자세히 보기</span><i
-                                                                class="sc-crrszt bMPAFE sc-tYqdw eFgseW"></i>
+                                                            <span>자세히 보기</span>
+                                                            <i class="sc-crrszt bMPAFE sc-tYqdw eFgseW"></i>
                                                         </button>
                                                     </section>
                                                 </li>
