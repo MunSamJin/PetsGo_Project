@@ -90,8 +90,18 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public List<CommunityBoard> selectByTag(String tag) {
-		List<CommunityBoard> list = communityRepository.tagSelect("%"+tag+"%");
-		//System.out.println("서비스 list = " + list);
+		List<CommunityBoard> list = null;
+		if(tag.equals("최신")) {
+			System.out.println("최신 정렬기능, 서비스 tag = " + tag);
+			list = communityRepository.latestSelect();
+			
+		}else if(tag.equals("좋아요")) {
+			System.out.println("좋아요 정렬기능, 서비스 tag = " + tag);
+			//list = communityRepository.likeSelect();
+			
+		}else {
+			list = communityRepository.tagSelect("%"+tag+"%");
+		}
 		
 		return list;
 	}

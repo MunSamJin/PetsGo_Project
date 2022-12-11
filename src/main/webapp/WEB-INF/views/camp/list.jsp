@@ -155,6 +155,7 @@
                     <div class="search_wrap">
                     
                         <form class="search_form" action="/camp/selectAll" name="campFrom">
+                        
                             <div class="input_field">
                                 <select class="nc_select" id="campAddr" name="campAddr">
                             		<option selected>지역명 검색 </option>

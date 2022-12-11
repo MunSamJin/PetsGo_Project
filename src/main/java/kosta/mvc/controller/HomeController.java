@@ -47,32 +47,6 @@ public class HomeController {
 	@RequestMapping("/campRequest/campInsertForm")
 	public void url2() {}
 	
-	/**
-	 *  커뮤니티 전체 검색
-	 */
-//	@RequestMapping("/list")
-//	public void list(Model model, @RequestParam(defaultValue = "1")int nowPage) {
-//		List<CommunityBoard> communityBoardList = communityService.selectAll();
-//		model.addAttribute("communityBoardList", communityBoardList);
-//		
-//	}
-	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public void list(String tag, Model model, @RequestParam(defaultValue = "1")int nowPage) {
-		
-		List<CommunityBoard> list = null;
-		
-		System.out.println("tag = " + tag);
-		
-		//태그로 검색하기
-		if(tag != null) {
-			list = communityService.selectByTag(tag);
-		} else {
-			list = communityService.selectAll();
-		}
-			System.out.println("list = " + list);
-		model.addAttribute("communityBoardList", list);
-		
-	}
 	
 	/**
 	 * 회원/사업자에 따라 로그인 후 이동할 기본 페이지
@@ -162,5 +136,7 @@ public class HomeController {
 		if(camp==null) return "success";
 		else return "fail";
 	}
+	
+	
 	
 }

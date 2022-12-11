@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -77,24 +78,10 @@ public class Reservation {
 	 @JoinColumn(name = "resiNo")
 	 private Residence residence;
 	 
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "memberNo") private Member member;
-	 * 
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "campNo") private Camp camp;
-	 * 
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "resiNo") private Residence residence;
-	 * 
-	 * @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL) private
-	 * List<Detail> detailList;
-	 * 
-	 * @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL) private
-	 * List<CommunityBoard> communityBoardList;
-	 */ 
+	 @ManyToOne(fetch = FetchType.LAZY)
+	 @Transient
+	 private List<Detail> detailList;
+
+	 
 	
 }
