@@ -145,8 +145,6 @@
 <%--     <script src="${pageContext.request.contextPath}/js/contact.js"></script> --%>
 
 
-
-
 </body>
 
 </html>
