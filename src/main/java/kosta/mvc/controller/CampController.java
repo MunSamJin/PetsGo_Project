@@ -35,9 +35,11 @@ public class CampController {
 	@RequestMapping("/select")
 	@ResponseBody
 	public List<Camp> select(int resiPeople, String campAddr, String checkIn, String checkOut, String price1, String price2, String aa) {
+		System.out.println("왔뉘?");
 		int resiPrice1 = Integer.parseInt(price1);
 		int resiPrice2 = Integer.parseInt(price2);
-		List<Camp> campList = campUserViewService.selectAll(resiPeople, campAddr, checkIn, checkOut, resiPrice1, resiPrice2, aa);
+		List<Camp> campList = campUserViewService.select(resiPeople, campAddr, checkIn, checkOut, resiPrice1, resiPrice2, aa);
+		System.out.println(campList);
 		return campList;
 	}
 	
@@ -47,11 +49,14 @@ public class CampController {
 		model.addAttribute("camp", camp);
 	}
 	
-	@RequestMapping("/findAll")
-	public String detail(Model model) {
+	@RequestMapping("/list")
+	public void detail(Model model) {
 		List<Camp> campList = campUserViewService.findAll();
 		model.addAttribute("campList", campList);
-		return "camp/list";
+		model.addAttribute("resiPeople", 0);
+		model.addAttribute("campAddr", 0);
+		model.addAttribute("checkIn", 0);
+		model.addAttribute("checkOut", 0);
 	}
 	
 	

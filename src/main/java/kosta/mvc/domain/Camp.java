@@ -1,11 +1,11 @@
 package kosta.mvc.domain;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -93,8 +93,7 @@ public class Camp {
 	
 	private String campRole;
 	
-	
-	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 
+	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
 	private List<Residence> residenceList;
 	
 	/*@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) private List<Scrap>

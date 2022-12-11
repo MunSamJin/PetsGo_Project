@@ -45,9 +45,13 @@
 			let aa = $("#aa").val();
 			
 			let addr = $("#campAddr").val();
+			if(addr=='지역명 검색') addr = '';
+			
 			let checkIn = $("#checkIn").val();
 			let checkOut = $("#checkOut").val();
+			
 			let resiPeople = $("#resiPeople").val();
+			if(resiPeople=='인원') resiPeople = 0;
 			
 			$.ajax({
 				url : '/camp/select',
@@ -65,7 +69,6 @@
 					$("#listAll").empty();
 					
 					let str = "";
-					
 					$.each(result, function(index, item) {
 						let imeName = item.campFilename;
 						imeName = imeName.split(',')[0];
@@ -73,10 +76,14 @@
 						let resifia = item.residenceList;
 						let minprice = price2;
 						$.each(resifia, function(i, j) {
-							if(j.resiPrice<=price2 && j.resiPrice>=price1) {
-								if(minprice>j.resiPrice) minprice = j.resiPrice;
+							if(j.resiPrice>price1 && j.resiPrice<price2) {
+								if(j.resiPrice<minprice) {
+									minprice=j.resiPrice;
+								}
 							}
 						});
+						
+						/* if(minprice == price2) */
 
 						if(index<6) {
 							str += '<div class="col-lg-6 col-md-6"  name="showview">';
@@ -98,7 +105,7 @@
 					$("#listAll").append(str);
 				},
 				error : function(err) {
-					alert(err);
+					console.log(err);
 				}
 			});
 		});
@@ -106,7 +113,7 @@
 </script>
 	
     <!-- <link rel="manifest" href="site.webmanifest"> -->
-    <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/travelo-master/img/favicon.png">
+    <%-- <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/travelo-master/img/favicon.png"> --%>
 
 
     <!-- CSS here -->
@@ -157,7 +164,7 @@
                         <form class="search_form" action="/camp/selectAll" name="campFrom">
                             <div class="input_field">
                                 <select class="nc_select" id="campAddr" name="campAddr">
-                            		<option selected>지역명 검색 </option>
+                            		<option selected value="">지역명 검색 </option>
 									<option value="포천시">포천시</option>
                                     <option value="평택시">평택시</option>
                                     <option value="여주시">여주시</option>
@@ -184,7 +191,7 @@
                             
                             <div class="input_field">
                             	<select class="nc_select"  id="resiPeople" name="resiPeople">
-                            		<option selected>인원 </option>
+                            		<option selected value="0">인원 </option>
                             		<option value="1">1</option>
                             		<option value="2">2</option>
                             		<option value="3">3</option>
@@ -211,7 +218,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="filter_result_wrap">
+                    <div class="filter_all_wrap">
                         <h3>Filter Result</h3>
                         <div class="filter_bordered" style="background-color: white;">
                             <div class="filter_inner">
@@ -220,8 +227,8 @@
                                         <div class="single_select">
                                             <select id="aa">
                                                 <option data-display="기본 정렬">기본 정렬</option>
-                                                <option value="1">가격↑</option>
-                                                <option value="2">가격↓</option>
+                                                <option value="desc">가격↑</option>
+                                                <option value="asc">가격↓</option>
                                                 <option value="4">USA</option>
                                               </select>
                                         </div>
@@ -230,9 +237,21 @@
                                         <div class="single_select">
                                             <select>
                                                 <option data-display="태그 정렬">태그 정렬</option>
-                                                <option value="1">advance</option>
-                                                <option value="2">advance</option>
-                                                <option value="4">premium</option>
+                                                <option value="화장실">화장실</option>
+                                                <option value="샤워실">샤워실</option>
+                                                <option value="개수대">개수대</option>
+                                                <option value="매점">매점</option>
+                                                <option value="와이파이">와이파이</option>
+                                                <option value="체험활동">체험활동</option>
+                                                <option value="산책로">산책로</option>
+                                                <option value="반려동물">반려동물</option>
+                                                <option value="물놀이">물놀이</option>
+                                                <option value="낚시">낚시</option>
+                                                <option value="골프">골프</option>
+                                                <option value="스키">스키</option>
+                                                <option value="등산">등산</option>
+                                                <option value="MTB">MTB</option>
+                                                <option value="기타">기타</option>
                                               </select>
                                         </div>
                                     </div>
@@ -308,8 +327,8 @@
                 </div>
             </div>
         </div>
-
-    <!-- JS here -->
+        
+        <!-- JS here -->
     <script src="${pageContext.request.contextPath}/travelo-master/js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="${pageContext.request.contextPath}/travelo-master/js/vendor/jquery-1.12.4.min.js"></script>
     <script src="${pageContext.request.contextPath}/travelo-master/js/popper.min.js"></script>
@@ -335,19 +354,10 @@
 
     
     <!--contact js-->
-    <script src="${pageContext.request.contextPath}/travelo-master/js/contact.js"></script>
     <script src="${pageContext.request.contextPath}/travelo-master/js/jquery.ajaxchimp.min.js"></script>
     <script src="${pageContext.request.contextPath}/travelo-master/js/jquery.form.js"></script>
     <script src="${pageContext.request.contextPath}/travelo-master/js/jquery.validate.min.js"></script>
     <script src="${pageContext.request.contextPath}/travelo-master/js/mail-script.js"></script>
     <script src="${pageContext.request.contextPath}/travelo-master/js/main.js"></script>
-    <script>
-        $('#datepicker').datepicker({
-            iconsLibrary: 'fontawesome',
-            icons: {
-             rightIcon: '<span class="fa fa-caret-down"></span>'
-         }
-        });
-    </script>
 </body>
 </html>

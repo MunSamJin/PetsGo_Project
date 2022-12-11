@@ -1,6 +1,5 @@
 package kosta.mvc.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -8,6 +7,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import kosta.mvc.domain.Camp;
@@ -16,7 +18,6 @@ import kosta.mvc.domain.QReservation;
 import kosta.mvc.domain.QResidence;
 import kosta.mvc.domain.Residence;
 import kosta.mvc.repository.CampUserViewRepository;
-import kosta.mvc.repository.ReservationRepository;
 import kosta.mvc.repository.ResidenceRepository;
 
 @Service
@@ -28,56 +29,47 @@ public class CampUserViewServiceImpl implements CampUserViewService {
 	
 	@Autowired
 	private JPAQueryFactory queryFactory;
+	
+	private QCamp qCamp = QCamp.camp;
+	private QResidence qResidence = QResidence.residence;
+	private QReservation qReservation = QReservation.reservation;
 
 	@Override
 	public List<Camp> selectAll(int resiPeople, String campAddr, String checkIn, String checkOut) {
-		QCamp ca = QCamp.camp;
-		QReservation qre = QReservation.reservation;
-		QResidence qsi = QResidence.residence;
-		
 		List<Camp> campList = queryFactory
-				.selectFrom(ca)
-				.leftJoin(qsi).on(ca.campNo.eq(qsi.camp.campNo))
-				.leftJoin(qre).on(qsi.resiNo.eq(qre.residence.resiNo))
-				.where(ca.campAddr.contains(campAddr)
-						.and(qre.reservCheckin.notBetween(checkIn, checkOut)
-								.and(qre.reservCheckout.notBetween(checkIn, checkOut)
-										.and(qsi.resiPeople.goe(resiPeople)))))
+				.selectFrom(qCamp)
+				.where(qCamp.in(JPAExpressions
+						.select(qResidence.camp)
+						.from(qResidence)
+						.where(qResidence.resiPeople.goe(resiPeople))
+						.where(qResidence.notIn(JPAExpressions
+								.select(qReservation.residence)
+								.from(qReservation)
+								.where(qReservation.reservCheckin.between(checkIn, checkOut))
+								.where(qReservation.reservCheckout.between(checkIn, checkOut))))))
+				.where(qCamp.campAddr.contains(campAddr))
 				.fetch();
-		
+				
 		return campList;
 	}
 	
+
 	@Override
-	public List<Camp> selectAll(int resiPeople, String campAddr, String checkIn, String checkOut, int resiPrice1, int resiPrice2, String aa) {
-		QCamp ca = QCamp.camp;
-		QReservation qre = QReservation.reservation;
-		QResidence qsi = QResidence.residence;
-		
-		List<Camp> campList = new ArrayList<Camp>();
-		
-		campList = queryFactory
-				.selectFrom(ca)
-				.leftJoin(qsi).on(ca.campNo.eq(qsi.camp.campNo))
-				.leftJoin(qre).on(qsi.resiNo.eq(qre.residence.resiNo))
-				.where(ca.campAddr.contains(campAddr)
-						.and(qre.reservCheckin.notBetween(checkIn, checkOut)
-								.and(qre.reservCheckout.notBetween(checkIn, checkOut)
-										.and(qsi.resiPeople.goe(resiPeople)
-												.and(qsi.resiPrice.between(resiPrice1, resiPrice2))))))
-				.orderBy(qsi.resiPrice.desc())
+	public List<Camp> select(int resiPeople, String campAddr, String checkIn, String checkOut, int resiPrice1, int resiPrice2, String aa) {
+		List<Camp> campList = queryFactory
+				.selectFrom(qCamp)
+				.where(qCamp.in(JPAExpressions
+						.select(qResidence.camp)
+						.from(qResidence)
+						.where(qResidence.resiPeople.goe(resiPeople))
+						.where(qResidence.resiPrice.between(resiPrice1, resiPrice2))
+						.where(qResidence.notIn(JPAExpressions
+								.select(qReservation.residence)
+								.from(qReservation)
+								.where(qReservation.reservCheckin.between(checkIn, checkOut))
+								.where(qReservation.reservCheckout.between(checkIn, checkOut))))))
+				.where(qCamp.campAddr.contains(campAddr))
 				.fetch();
-		
-		/*
-		 * if(aa.equals('1')) { campList = campUserViewRepository.selectByPrice("desc");
-		 * } else if(aa.equals('2')) { campList =
-		 * campUserViewRepository.selectByPrice("asc"); } else { campList =
-		 * campUserViewRepository.findAll(); } List<Camp> campserch = new
-		 * ArrayList<Camp>(); for(Camp c : campList) { List<Residence> resiList =
-		 * c.getResidenceList(); for(Residence r : resiList) { int price =
-		 * r.getResiPrice(); if(price<=resiPrice2 && price>=resiPrice1) {
-		 * if(!campserch.equals(c)) campserch.add(c); } } }
-		 */
 		return campList;
 	}
 

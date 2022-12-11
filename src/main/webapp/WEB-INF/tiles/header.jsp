@@ -172,7 +172,7 @@
     <script src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
     <script src="${pageContext.request.contextPath}/js/jquery.validate.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/mail-script.js"></script>
-    <script src="${pageContext.request.contextPath}/js/contact.js"></script>
+<%--     <script src="${pageContext.request.contextPath}/js/contact.js"></script> --%>
     <!-- custom js -->
     <script src="${pageContext.request.contextPath}/js/custom.js"></script>
 

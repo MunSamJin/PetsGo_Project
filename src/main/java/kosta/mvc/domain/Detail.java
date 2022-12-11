@@ -52,9 +52,7 @@ public class Detail {
 	@Column(name = "Stringdetail_pet_other")
 	private String detailPetOther;
 
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "reservNo") private Reservation reservation;
-	 */
+	 @ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	 @JoinColumn(name = "reservNo")
+	 private Reservation reservation;
 }

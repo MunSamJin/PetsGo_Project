@@ -69,9 +69,9 @@ public class Residence {
 	private String resiPet;
 	
 	
-
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	@JoinColumn(name = "camp_no") 
+	@JoinColumn(name = "camp_no")
 	//@JsonIgnore
 	private Camp camp;
 
@@ -80,8 +80,6 @@ public class Residence {
 
 	/*@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
 	private List<Reservation> reservationList;*/
-
-	
-	@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
+	@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
 	private List<ResidenceDetail> residenceDetailList;
 }
