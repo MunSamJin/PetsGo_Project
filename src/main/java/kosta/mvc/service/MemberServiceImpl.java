@@ -100,7 +100,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<Reservation> selectAll(Long memberNo) {
 		
-		//System.out.println("member 서비스 들어왔니?? memberNo = " + memberNo);
+		System.out.println("member 서비스 들어왔니?? memberNo = " + memberNo);
 		
 		
 		return reservationRep.selectAll(memberNo);
