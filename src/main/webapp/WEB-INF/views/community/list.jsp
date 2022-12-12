@@ -183,17 +183,7 @@
 		<div class="container" ><!-- style="width: 80%; margin-left: auto; margin-right: auto; margin-bottom: 50px" -->
 			
 			<ul id="tagResult">
-				<c:forEach items="${requestScope.communityBoardList}" var="communityBoardList" varStatus="status" >
-				  
-				    <%-- <c:choose>
-                    	<c:when test="${status.count<=6}">
-                    		<div name="showview"></div>
-                    	</c:when>
-                    	<c:otherwise>
-                    		<div style="display: none" name="hideview"></div>
-                    	</c:otherwise>
-                    </c:choose> --%>
-				    
+				<c:forEach items="${requestScope.communityBoardList}" var="communityBoardList" varStatus="status" >				  				  				  				    
 				    <li>
 						<div class="communityCard">
 							<img class="communityImg" src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList.boardFileName,',')[0]}" 
@@ -201,7 +191,46 @@
 						
 							<div style="text-align: left;">
 								
+							<c:if test="${not empty pageContext.request.userPrincipal}">
+								<sec:authentication var="mvo" property="principal" />
 								<c:choose>
+									<c:when test="${communityBoardList.likeList.size()>0}">
+										<c:forEach items="${communityBoardList.likeList}" var="like">
+										
+											<c:choose>
+												<c:when test="${like.member.memberNo==mvo.memberNo}">
+													<span class="heart" style="cursor: pointer;"
+											          	  onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
+														<img src="${pageContext.request.contextPath}/img/samjin/redheart.png" 
+														 	 width="15px" height="15px" style="padding-bottom: 3px;">
+													</span>
+												</c:when>
+												<c:otherwise>
+													<span class="heart" style="cursor: pointer;"
+														  onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
+														<img src="${pageContext.request.contextPath}/img/samjin/heart.png" 
+															 width="15px" height="15px" style="padding-bottom: 3px;">
+													</span>
+												</c:otherwise>											
+											</c:choose>
+										
+										</c:forEach>
+									
+									</c:when>
+									<c:otherwise>
+										<span class="heart" style="cursor: pointer;"
+											  onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
+											<img src="${pageContext.request.contextPath}/img/samjin/heart.png" 
+												 width="15px" height="15px" style="padding-bottom: 3px;">
+										</span>
+									</c:otherwise>
+								</c:choose>
+							</c:if>	
+								
+								
+								
+								
+								<%-- <c:choose>
 								   <c:when test="${communityBoardList.likeList.size()>0}">
 								     <c:forEach items="${communityBoardList.likeList}" var="like">
 								     	<c:choose>
@@ -222,7 +251,7 @@
 															<img src="${pageContext.request.contextPath}/img/samjin/heart.png" 
 															 	 width="15px" height="15px" style="padding-bottom: 3px;">
 														</span>
-													</c:otherwise>
+													</c:otherwise> 
 												</c:choose>
 								     		
 								     		</c:when>
@@ -244,7 +273,7 @@
 											 	 width="15px" height="15px" style="padding-bottom: 3px;">
 										</span>
 								   </c:otherwise>
-								</c:choose>
+								</c:choose> --%>
 								
 								<span><b>좋아요&nbsp${communityBoardList.likeList.size() }개</b></span>
 								<span><b>${communityBoardList.boardTag}</b></span><br>
