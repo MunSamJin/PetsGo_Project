@@ -2,6 +2,8 @@
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +17,7 @@
         $(function () {
         	
             $("#reserve_depth_1").click(function () {
-                /* 캠핑장 상품명 */
+            	/* 캠핑장 상품명 */
                 let campName = $("#campName").text();
                 let resiName = $("#resiName").text();
                 let camp_resi = campName + "-" + resiName;
@@ -35,20 +37,21 @@
                 let phone = campPhone[0] + campPhone[1] + campPhone[2];
 
                 /* 투숙객 정보 */
-                let reservName = $("#koreanFamilyName").val() + $("#koreanGivenName").val();
-                let reservPhone = $("#cellPhone").val();
+                let reservName = $("#reservName").val();
+                let reservPhone = $("#reservPhone").val();
                 let reservPeople = $("#reservPeople").text().replace('명', '');
                 
                 /* 예약날짜 정보 */
-                let reservCheckin = "22/12/09 11:57:00";
-                let reservCheckout = "22/12/10 12:00:00";
+                let reservCheckin = '${checkIn} ${resi.camp.campCheckin }:00';
+                let reservCheckout = '${checkOut} ${resi.camp.campCheckout }:00';
                 
                 /* 펫 정보 */
-                let reservTotalPet = '2';
-                let reservInsuranceTotal = '20000';
+                let reservInsuranceTotal = price-${resi.resiPrice};
+                let reservTotalPet = reservInsuranceTotal/10000;
                 
                 let camp = '${resi.camp.campNo}';
                 let residence = '${resi.resiNo}';
+                let teNo = '${teNo}';
 
                 var IMP = window.IMP;
                 IMP.init('imp27370044');
@@ -64,7 +67,7 @@
                         $.ajax({
                             url: '/reservation/insert',
                             type: 'post',
-                            dataType: 'json',
+                            dataType: 'text',
                             data: {
                                 reservName: reservName,
                                 reservPhone: reservPhone,
@@ -77,11 +80,15 @@
                                 reservTotalPet: reservTotalPet,
                                 reservInsuranceTotal: reservInsuranceTotal,
                                 camp:camp,
-                                residence:residence
+                                residence:residence,
+                                teNo:teNo
                             },
                             success: function (result) {
-                                alert(result);
-                            }
+                                location.href="${pageContext.request.contextPath}/main";
+                            },
+                            error : function(err) {
+                            	alert(11);
+							}
                         });
                     } else {
                         var msg = rsp.error_msg;
@@ -131,20 +138,33 @@
             });
 
             $('.status').click(function () {
+            	let aat = (${resi.resiPrice}+10000);
+            	let aas = ${resi.resiPrice};
                 let box = $(this).children().children().eq(1);
                 if (box.is(":checked")) {
                     box.prev().attr('class', 'sc-dYzmtA dwohaZ');
                     box.prop("checked", false);
+                    if(box.attr('name')=='vaccin') {
+                    	$("div[name=showview]").css('display', 'none');
+                    	$("div[name=showview]").attr('name', 'hideview');
+                    	$("#totol_price").text(aas.toLocaleString('ko-KR')+'원');
+                    	$("span[name=totalprice]").text(aas.toLocaleString('ko-KR')+'원');
+                    }
                 } else {
                     box.prev().attr('class', 'sc-dYzmtA dcApxe');
                     box.prop("checked", true);
+                    if(box.attr('name')=='vaccin') {
+                    	$("div[name=hideview]").css('display', '');
+                    	$("div[name=hideview]").attr('name', 'showview');
+                    	$("#totol_price").text(aat.toLocaleString('ko-KR')+'원');
+                    	$("span[name=totalprice]").text(aat.toLocaleString('ko-KR')+'원');
+                    }
                 }
             });
 
             $("#selectUesr").click(function () {
-                $("#koreanFamilyName").val('박');
-                $("#koreanGivenName").val('해원');
-                $("#cellPhone").val('010-3694-3233');
+            	let gg = $("#memberPhone").val();
+                $("#reservPhone").val(gg);
             });
 
 
@@ -153,22 +173,21 @@
             1. window.onload : html의 로딩이 끝난 후에 시작합니다 (이미지, 영상 등 모두 로드 완료 후 실행됨)    	
             2. window.onbeforeunload : 브라우저 새로 고침 및 종료 이벤트를 감지합니다
             */
-            /* window.onbeforeunload = function() {
-                console.log("[window onbeforeunload] : [start]");
-                console.log("");
+            window.onbeforeunload = function() {
+                let teNo = '${teNo}';
                 $.ajax({
-                    url : '/reservation/test',
+                    url : '/reservation/deleteTe',
                     type : 'post',
+                    data : {teNo:teNo},
                     dataType : 'text',
-                    success : function (data) {
-                        alert(11);
+                    success : function (aa) {
                     },
                     error : function (err) {
                         alert(err);
                     }
                 });
                 return "브라우저를 종료하시겠습니까?";
-            }; */
+            };
         });
     </script>
 </head>
@@ -178,6 +197,7 @@
         <main id="main" class="sc-eARyco KFAvO">
             <main class="sc-hrKtKx bCasfL">
                 <div id="topScroll">
+                
                     <form id="hotel-order" class="sc-gYfxtZ homUxT">
                         <fieldset form="hotel-order">
                             <legend>현재 폼에선 고객님이 선택하신 호텔을 결제할 수 있습니다</legend>
@@ -198,48 +218,46 @@
                                         <li role="listitem">
                                             <section class="sc-kEBlUt dkxNuU">
                                                 <section class="sc-eFuaqX gclven sc-eFWBRL hxbKAF">
+                                                
                                                     <div class="sc-jTyylJ iytynw">
                                                         <h3 class="sc-eCstlR bcvgNe" type="NORMAL_LARGE">예약자 정보</h3>
                                                         <div class="sc-eCjjWe bGoMZg sc-kEbmIj qmrJc">
-                                                            <div style="color: inherit; font-weight: inherit; font-size: inherit;"
-                                                                 id="selectUesr">
-                                                                <label for="isSameGuest" tabindex="0"
-                                                                       class="sc-irOPex kbQGyP">
+                                                            <div style="color: inherit; font-weight: inherit; font-size: inherit;"id="selectUesr">
+                                                                <label for="isSameGuest" tabindex="0" class="sc-irOPex kbQGyP">
                                                                 <span class="sc-ezrnTI VKDJw">
-                                                                    <input type="checkbox"
-                                                                           name="user.isSameGuest"
-                                                                           id="isSameGuest"
-                                                                           tabindex="-1"
-                                                                           role="checkbox">
+                                                                    <input type="checkbox" name="user.isSameGuest" id="isSameGuest" tabindex="-1" role="checkbox">
+                                                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                                                                    <sec:authentication var="mvo" property="principal" />
+                                                                    <input type=hidden  id="memberPhone" value="${mvo.memberPhone}">
                                                                 </span>
+                                                                	<c:if test=""></c:if>
                                                                     <a class="sc-kBPahn jzkOjd">회원 정보 불러오기</a>
                                                                 </label>
                                                             </div>
                                                             <p class="sc-eJCack dJMrgY"></p>
                                                         </div>
                                                     </div>
-                                                    <div data-focus-guard="true" tabindex="-1"
-                                                         style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"></div>
-                                                    <div data-focus-guard="true" tabindex="-1"
-                                                         style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"></div>
+                                                    
+                                                    <div data-focus-guard="true" tabindex="-1" style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"></div>
+                                                    <div data-focus-guard="true" tabindex="-1" style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"></div>
+                                                    
                                                     <div data-focus-lock-disabled="disabled">
                                                         <div class="sc-dJzHlK hmHTCZ">
                                                             <!-- 투숙객 이름 -->
                                                             <div class="sc-bAffKu gaChro sc-kkjtCC dBlGXQ">
-                                                                <label for="koreanFamilyName" title="이름"
-                                                                       class="sc-bxnjHY gnmuIc">
+                                                                <label for="reservName" title="이름" class="sc-bxnjHY gnmuIc">
                                                                     <i class="sc-crrszt jLdeKt sc-fkubCs gbBWBW"></i>이름
                                                                 </label>
                                                                 <div class="sc-jVKKMF keJGhf">
                                                                     <div class="sc-jYCGPb eLPgDl input">
                                                                         <div class="sc-Qpmqz kFeFTm">
                                                                             <input
-                                                                                    placeholder="한글 성"
+                                                                                    placeholder="이름"
                                                                                     class="sc-dHnuKO ikCiJV input_error"
                                                                                     type="text" maxlength="50"
                                                                                     minlength="0"
-                                                                                    tabindex="0" id="koreanFamilyName"
-                                                                                    name="user.krFamilyName"
+                                                                                    tabindex="0" id="reservName"
+                                                                                    name="reservName"
                                                                                     autocorrect="off"
                                                                                     autocapitalize="off"
                                                                                     autocomplete="off"
@@ -249,24 +267,6 @@
                                                                             <i class="sc-crrszt etqBmk sc-jcRCNh gnFHpz"></i>
                                                                         </div>
                                                                         <div class="sc-fnlXEO cCLzKl"></div>
-                                                                    </div>
-                                                                    <div class="sc-jYCGPb eLPgDl input">
-                                                                        <div class="sc-Qpmqz kFeFTm">
-                                                                            <input
-                                                                                    placeholder="한글 이름"
-                                                                                    class="sc-dHnuKO ikCiJV input_error"
-                                                                                    type="text" tabindex="0"
-                                                                                    id="koreanGivenName"
-                                                                                    name="user.krGivenName"
-                                                                                    autocorrect="off"
-                                                                                    autocapitalize="off"
-                                                                                    autocomplete="off"
-                                                                                    spellcheck="false"
-                                                                                    aria-autocomplete="none"
-                                                                                    inputmode="text" value="">
-                                                                            <i class="sc-crrszt etqBmk sc-jcRCNh gnFHpz"></i>
-                                                                        </div>
-                                                                        <div class="sc-fnlXEO ePMXNo"></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -285,8 +285,8 @@
                                                                                     class="sc-dHnuKO ikCiJV input_error"
                                                                                     type="tel" maxlength="50"
                                                                                     minlength="0"
-                                                                                    tabindex="0" id="cellPhone"
-                                                                                    name="user.phone" autocorrect="off"
+                                                                                    tabindex="0" id="reservPhone"
+                                                                                    name="reservPhone" autocorrect="off"
                                                                                     autocapitalize="off"
                                                                                     autocomplete="off"
                                                                                     spellcheck="false"
@@ -333,12 +333,11 @@
                                                 </div>
 
                                                 <div class="sc-gLDLxu vUHhk">
+                                                	<!-- 반복문 -->
                                                     <div class="sc-buMMbg fNnHOO">
-
                                                         <!-- 이름 -->
                                                         <div class="sc-bAffKu gaChro sc-fPppAf fRQMrR">
-                                                            <label for="rooms[0].lastName" title="이름"
-                                                                   class="sc-bxnjHY gnmuIc">
+                                                            <label for="pet[0].name" title="이름" class="sc-bxnjHY gnmuIc">
                                                                 <i class="sc-crrszt jLdeKt sc-fkubCs gbBWBW"></i>이름
                                                             </label>
                                                             <div class="sc-jVKKMF keJGhf">
@@ -348,8 +347,8 @@
                                                                                 placeholder="이름"
                                                                                 class="sc-dHnuKO ikCiJV input_error"
                                                                                 type="text" maxlength="50" minlength="0"
-                                                                                tabindex="0" id="rooms[0].lastName"
-                                                                                name="rooms[0].lastName"
+                                                                                tabindex="0" id="pet[0].name"
+                                                                                name="pet[0].name"
                                                                                 autocorrect="off"
                                                                                 autocapitalize="off" autocomplete="off"
                                                                                 spellcheck="false"
@@ -364,8 +363,7 @@
 
                                                         <!-- 몸무게 -->
                                                         <div class="sc-bAffKu gaChro sc-fPppAf fRQMrR">
-                                                            <label for="rooms[0].lastName" title="몸무게"
-                                                                   class="sc-bxnjHY gnmuIc">
+                                                            <label for="pet0].weight" title="몸무게" class="sc-bxnjHY gnmuIc">
                                                                 <i class="sc-crrszt jLdeKt sc-fkubCs gbBWBW"></i>몸무게
                                                             </label>
                                                             <div class="sc-jVKKMF keJGhf">
@@ -375,8 +373,8 @@
                                                                                 placeholder="몸무게"
                                                                                 class="sc-dHnuKO ikCiJV input_error"
                                                                                 type="text" maxlength="50" minlength="0"
-                                                                                tabindex="0" id="rooms[0].lastKg"
-                                                                                name="rooms[0].lastName"
+                                                                                tabindex="0" id="pet0].weight"
+                                                                                name="pet[0].weight"
                                                                                 autocorrect="off"
                                                                                 autocapitalize="off" autocomplete="off"
                                                                                 spellcheck="false"
@@ -391,18 +389,14 @@
 
                                                         <!-- 중성화수술여부 / 손해배상보험여부 -->
                                                         <div class="sc-bAffKu gaChro sc-fPppAf fRQMrR">
-                                                            <label for="rooms[0].statsus" title="중성화수술여부 / 손해배상보험여부"
-                                                                   class="sc-bxnjHY gnmuIc">
-                                                                <i class="sc-crrszt jLdeKt sc-fkubCs gbBWBW"></i>중성화수술여부
-                                                                / 손해배상보험여부
+                                                            <label for="status" title="중성화수술여부 / 손해배상보험여부" class="sc-bxnjHY gnmuIc">
+                                                                <i class="sc-crrszt jLdeKt sc-fkubCs gbBWBW"></i>중성화수술여부 / 손해배상보험여부
                                                             </label>
                                                             <div class="sc-hlWxgi frhqBu sc-fLkZIC fpAZGY">
-                                                                <div style="display: inline-block; margin-right: 10px;"
-                                                                     class="status">
+                                                                <div style="display: inline-block; margin-right: 10px;" class="status">
                                                                     <label tabindex="0" class="sc-iitrMj hEDZFv">
                                                                         <span class="sc-dYzmtA dwohaZ"></span>
-                                                                        <input tabindex="-1" type="checkbox"
-                                                                               role="checkbox" name="termsAccepted.all">
+                                                                        <input tabindex="-1" type="checkbox" role="checkbox" name="neuter">
                                                                         <div class="sc-gfHBtU jbvope">
                                                                             <span class="sc-eUWgZB eNBUVZ">중성화수술여부</span>
                                                                             <p class="sc-hxqEdz gAfJaM"></p>
@@ -412,8 +406,7 @@
                                                                 <div style="display: inline-block;" class="status">
                                                                     <label tabindex="0" class="sc-iitrMj hEDZFv">
                                                                         <span class="sc-dYzmtA dwohaZ"></span>
-                                                                        <input tabindex="-1" type="checkbox"
-                                                                               role="checkbox" name="termsAccepted.all">
+                                                                        <input tabindex="-1" type="checkbox" role="checkbox" name="vaccin">
                                                                         <div class="sc-gfHBtU jbvope">
                                                                             <span class="sc-eUWgZB eNBUVZ">손해배상보험여부</span>
                                                                             <p class="sc-hxqEdz gAfJaM"></p>
@@ -422,8 +415,9 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                     </div>
+                                                    
+                                                    
                                                 </div>
                                             </section>
                                         </li>
@@ -440,15 +434,13 @@
                                                     <li class="sc-cmhfgo hPqFOY">
                                                         <div class="sc-geEGrd giwHNF">
                                                             <div class="sc-dERszR YwQuk sc-iWBHJS eVhvzd" tabindex="0">
-                                                                <input type="radio" name="payment.type" tabindex="-1"
-                                                                       id="14" value="kakao">
+                                                                <input type="radio" name="reservType" tabindex="-1"id="14" value="kakaopay">
                                                                 <div id="iconradio" class="sc-gvPAUg fbvmiQ">
                                                                     <div></div>
                                                                 </div>
                                                                 <label for="14">
                                                                     <i class="sc-crrszt etqBmk sc-bzDzvL cEDcLE sc-bHBQji kKODeE"></i>
-                                                                    <span class="sc-eCstlR duuteF sc-cDYKPj hSifoy"
-                                                                          type="LIGHT_MEDIUM">카카오페이</span>
+                                                                    <span class="sc-eCstlR duuteF sc-cDYKPj hSifoy" type="LIGHT_MEDIUM">카카오페이</span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -467,8 +459,7 @@
                                                         <div>
                                                             <label tabindex="0" class="sc-iitrMj hEDZFv">
                                                                 <span class="sc-dYzmtA dwohaZ"></span>
-                                                                <input tabindex="-1" type="checkbox" role="checkbox"
-                                                                       name="termsAccepted.all" id="termsAccepted">
+                                                                <input tabindex="-1" type="checkbox" role="checkbox"name="termsAccepted.all" id="termsAccepted">
                                                                 <div class="sc-gfHBtU jbvope">
                                                                     <span class="sc-eUWgZB eNBUVZ">전체 약관을 확인하고 결제에 동의합니다</span>
                                                                     <p class="sc-hxqEdz gAfJaM"></p>
@@ -481,10 +472,7 @@
                                                             <div style="color: inherit; font-weight: inherit; font-size: inherit;">
                                                                 <label tabindex="0" class="sc-irOPex kbQGyP">
                                                                     <span class="sc-ezrnTI VKDJw">
-                                                                        <input type="checkbox"
-                                                                               name="termsAccepted.service"
-                                                                               tabindex="-1" role="checkbox"
-                                                                               class="sisisisi">
+                                                                        <input type="checkbox"name="termsAccepted.service" tabindex="-1" role="checkbox"class="sisisisi">
                                                                     </span>
                                                                     <a class="sc-kBPahn jzkOjd">서비스이용약관(필수)</a>
                                                                 </label>
@@ -499,10 +487,7 @@
                                                                 <label tabindex="0"
                                                                        class="sc-irOPex kbQGyP input_error">
                                                                     <span class="sc-ezrnTI VKDJw">
-                                                                        <input type="checkbox"
-                                                                               name="termsAccepted.thirdAgree"
-                                                                               tabindex="-1" role="checkbox"
-                                                                               class="sisisisi">
+                                                                        <input type="checkbox"name="termsAccepted.thirdAgree"tabindex="-1" role="checkbox"class="sisisisi">
                                                                     </span>
                                                                     <a class="sc-kBPahn jzkOjd">개인정보제3자제공동의(필수)</a>
                                                                 </label>
@@ -516,10 +501,7 @@
                                                             <div style="color: inherit; font-weight: inherit; font-size: inherit;">
                                                                 <label tabindex="0" class="sc-irOPex kbQGyP">
                                                                     <span class="sc-ezrnTI VKDJw">
-                                                                        <input type="checkbox"
-                                                                               name="termsAccepted.privacy"
-                                                                               tabindex="-1" role="checkbox"
-                                                                               class="sisisisi">
+                                                                        <input type="checkbox"name="termsAccepted.privacy"tabindex="-1" role="checkbox"class="sisisisi">
                                                                     </span>
                                                                     <a class="sc-kBPahn jzkOjd">개인정보처리방침(필수)</a>
                                                                 </label>
@@ -532,11 +514,9 @@
                                                         <div class="sc-eCjjWe kbGsZc sc-gHHUoD hjEcpi">
                                                             <div style="color: inherit; font-weight: inherit; font-size: inherit;">
                                                                 <label tabindex="0" class="sc-irOPex kbQGyP">
-                                                                    <span class="sc-ezrnTI VKDJw"><input type="checkbox"
-                                                                                                         name="termsAccepted.promotion"
-                                                                                                         tabindex="-1"
-                                                                                                         role="checkbox"
-                                                                                                         class="sisisisi"></span>
+                                                                    <span class="sc-ezrnTI VKDJw">
+                                                                    	<input type="checkbox" name="termsAccepted.promotion" tabindex="-1" role="checkbox" class="sisisisi">
+                                                                    </span>
                                                                     <a class="sc-kBPahn jzkOjd">광고성정보수신동의(선택)</a>
                                                                 </label>
                                                             </div>
@@ -550,95 +530,67 @@
                                         <li role="listitem">
                                             <section class="sc-cYlfLE gOnOsS">
                                                 <i class="sc-crrszt etqBmk sc-eeKVJR bOWsao"></i>
-                                                <p class="sc-eCstlR duuteF" type="LIGHT_MEDIUM">
-                                                <div>예약자 정보를 올바르게 입력했는지 확인해주세요.</div>
-                                                </p>
+                                                <p class="sc-eCstlR duuteF" type="LIGHT_MEDIUM"><div>예약자 정보를 올바르게 입력했는지 확인해주세요.</div></p>
                                             </section>
                                         </li>
+                                        
+                                        <c:set var="sevenDayAfter" value="<%=new java.util.Date(new java.util.Date().getTime() + 60*60*24*1000*7)%>"/>
+                                        
                                         <li role="listitem">
                                             <section class="sc-eFuaqX bLcvwy sc-dwyexY MVOcR">
                                                 <div class="sc-lkCfru jRYMQr">
-                                                    <button class="sc-jlIlqL gfPcYi sc-hKEiJx egMFgE sc-dNDXdn fFgrpb"
-                                                            type="button">
+                                                    <button class="sc-jlIlqL gfPcYi sc-hKEiJx egMFgE sc-dNDXdn fFgrpb" type="button">
                                                         <div>
                                                             <div class="sc-ieGRMn kJcKWB">
-                                                                <p class="sc-eCstlR cPIeWE" type="NORMAL_MEDIUM">무료
-                                                                    취소</p>
+                                                                <p class="sc-eCstlR cPIeWE" type="NORMAL_MEDIUM">무료 취소</p>
                                                                 <i class="sc-crrszt bMPAFE sc-eeKVJR gWSXvs sc-bMYRWI eojHFt"></i>
                                                             </div>
-                                                            <div class="sc-chbAZy fYNrHG">12월 6일 (화) 전까지</div>
+                                                            <div class="sc-chbAZy fYNrHG"><fmt:formatDate value="${sevenDayAfter}" pattern="MM월 dd일 (E)"/> 전까지</div>
                                                         </div>
                                                     </button>
                                                     <div class="sc-cAwhgt gdXdaB">
-                                                        <input type="hidden" id="campPhone" name="campPhone"
-                                                               value="${resi.camp.campPhone}">
-                                                        <span class="sc-eCstlR bcvgNe sc-jXupuA dMIIFw"
-                                                              type="NORMAL_LARGE">1박</span>
-                                                        <span class="sc-eCstlR WoNTC sc-bqqVGf bNtUdC"
-                                                              type="NORMAL_LARGEST" name="totalprice"><fmt:formatNumber
-                                                                value="${resi.resiPrice}" pattern="###,###원"/></span>
-                                                        <button type="button" class="sc-jlIlqL fJYNoF sc-iNpdUm jiDwyR"
-                                                                id="reserve_depth_1" tabindex="0">결제하기
-                                                        </button>
+                                                        <input type="hidden" id="campPhone" name="campPhone" value="${resi.camp.campPhone}">
+                                                        <span class="sc-eCstlR bcvgNe sc-jXupuA dMIIFw" type="NORMAL_LARGE">${fn:split(checkOut,'/')[2]-fn:split(checkIn,'/')[2]}박</span>
+                                                        <span class="sc-eCstlR WoNTC sc-bqqVGf bNtUdC" type="NORMAL_LARGEST" name="totalprice"><fmt:formatNumber value="${resi.resiPrice}" pattern="###,###원"/></span>
+                                                        <button type="button" class="sc-jlIlqL fJYNoF sc-iNpdUm jiDwyR" id="reserve_depth_1" tabindex="0">결제하기</button>
                                                     </div>
                                                 </div>
                                             </section>
                                         </li>
                                     </ul>
+                                    
+                                    <c:set var="checkInDate" value="20${fn:split(checkIn,'/')[0]}-${fn:split(checkIn,'/')[1]}-${fn:split(checkIn,'/')[2]}"/>
+                                    <fmt:parseDate var="parsedDate" value="${checkInDate}" pattern="yyyy-MM-dd"/>
+                                    <c:set var="checkOutDate" value="20${fn:split(checkOut,'/')[0]}-${fn:split(checkOut,'/')[1]}-${fn:split(checkOut,'/')[2]}"/>
+                                    <fmt:parseDate var="parsedOutDate" value="${checkOutDate}" pattern="yyyy-MM-dd"/>
+
                                     <ul class="sc-dVBxmz fWIHRN">
                                         <li role="listitem">
                                             <section class="sc-eFuaqX innHcv sc-fQnBjv cPDpkJ">
                                                 <section class="sc-Sdmup dzbhjS">
-                                                    <h3 id="campName" class="sc-eCstlR fvjAAR"
-                                                        type="BOLD_LARGEST">${resi.camp.campName}</h3>
-                                                    <p id="resiName" class="sc-eCstlR kCSdWV sc-hWiVVa ktKpVm"
-                                                       type="LARGE_NORMAL">${resi.resiName}</p>
+                                                    <h3 id="campName" class="sc-eCstlR fvjAAR" type="BOLD_LARGEST">${resi.camp.campName}</h3>
+                                                    <p id="resiName" class="sc-eCstlR kCSdWV sc-hWiVVa ktKpVm" type="LARGE_NORMAL">${resi.resiName}</p>
                                                 </section>
                                                 <div class="sc-fAPzgY fKgEtY">
                                                     <div class="sc-iciGqv duLNAF">
-                                                        <h5 class="sc-eCstlR kZysRf sc-hnSKda cWgHbh"
-                                                            type="NORMAL_SMALL">체크인</h5>
-                                                        <p class="sc-eCstlR cPIeWE" type="NORMAL_MEDIUM">12월 8일 (목)
-                                                        3:00 PM</p>
+                                                        <h5 class="sc-eCstlR kZysRf sc-hnSKda cWgHbh" type="NORMAL_SMALL">체크인</h5>
+                                                        <p class="sc-eCstlR cPIeWE" type="NORMAL_MEDIUM" id="reservCheckin"><fmt:formatDate value="${parsedDate}" pattern="MM월 dd일 (E)"/>
+                                                        ${resi.camp.campCheckin}</p>
                                                     </div>
-                                                    <span class="sc-lrvPq cDWtwr">1박</span>
+                                                    <span class="sc-lrvPq cDWtwr">${fn:split(checkOut,'/')[2]-fn:split(checkIn,'/')[2]}박</span>
                                                     <div class="sc-iciGqv duLNAF">
-                                                        <h5 class="sc-eCstlR kZysRf sc-hnSKda cWgHbh"
-                                                            type="NORMAL_SMALL">체크아웃</h5>
-                                                        <p class="sc-eCstlR cPIeWE" type="NORMAL_MEDIUM">12월 9일 (금)
-                                                            11:00 AM</p>
+                                                        <h5 class="sc-eCstlR kZysRf sc-hnSKda cWgHbh" type="NORMAL_SMALL">체크아웃</h5>
+                                                        <p class="sc-eCstlR cPIeWE" type="NORMAL_MEDIUM" id="reservCheckout"><fmt:formatDate value="${parsedOutDate}" pattern="MM월 dd일 (E)"/>
+                                                            ${resi.camp.campCheckout }</p>
                                                     </div>
                                                 </div>
                                                 <ul class="sc-bWcrqT bPuRoh sc-dJbuOE kyacOP">
                                                     <li class="sc-hymteE cwmltB">
-                                                        <p class="sc-eCstlR kZysRf sc-cgwasx eqTIAy"
-                                                           type="NORMAL_SMALL">성인</p>
-                                                        <p class="sc-eCstlR kZysRf sc-kTLXcG dpOkRE"
-                                                           type="NORMAL_SMALL" id="reservPeople">2명</p>
-                                                    </li>
-                                                    <li class="sc-hymteE cwmltB">
-                                                        <p class="sc-eCstlR kZysRf sc-cgwasx eqTIAy"
-                                                           type="NORMAL_SMALL">침대 타입</p>
-                                                        <p class="sc-eCstlR kZysRf sc-kTLXcG dpOkRE"
-                                                           type="NORMAL_SMALL">더블침대 1개</p>
+                                                        <p class="sc-eCstlR kZysRf sc-cgwasx eqTIAy" type="NORMAL_SMALL">성인</p>
+                                                        <p class="sc-eCstlR kZysRf sc-kTLXcG dpOkRE" type="NORMAL_SMALL" id="reservPeople">${resiPeople}명</p>
                                                     </li>
                                                 </ul>
-                                                <div class="sc-fGPjCt eTAvwj">
-                                                    <div class="sc-ffkNAL gfExxe">
-                                                        <button class="sc-jlIlqL gfPcYi sc-hKEiJx egMFgE" type="button">
-                                                            <div>
-                                                                <div class="sc-ieGRMn kJcKWB">
-                                                                    <p class="sc-eCstlR cPIeWE" type="NORMAL_MEDIUM">무료
-                                                                        취소</p>
-                                                                    <i class="sc-crrszt bMPAFE sc-eeKVJR gWSXvs sc-bMYRWI eojHFt"></i>
-                                                                </div>
-                                                                <div class="sc-chbAZy fYNrHG">12월 6일 (화) 전까지</div>
-                                                            </div>
-                                                        </button>
-                                                    </div>
-                                                    <p class="sc-eCstlR fvjAAR sc-ixNrWI NySAs" type="BOLD_LARGEST"
-                                                       name="totalprice">90,659원</p>
-                                                </div>
+                                                
                                             </section>
                                         </li>
                                         <li role="listitem">
@@ -649,26 +601,24 @@
                                                 <div class="sc-dBoRSD dOWlJn sc-Cnssr fJrrvp">
                                                     <div class="sc-ecTnUl byTpPR">
                                                         <span>숙소 요금</span>
-                                                        <div id="resiPrice"><fmt:formatNumber value="${resi.resiPrice}"
-                                                                                              pattern="###,###원"/></div>
+                                                        <div id="resiPrice"><fmt:formatNumber value="${resi.resiPrice}" pattern="###,###원"/></div>
                                                     </div>
-                                                    <div class="sc-ecTnUl erqPQp">
-                                                        <span id="">손해배상 보험 요금</span>
+                                                    <div class="sc-ecTnUl erqPQp" style="display: none" name="hideview">
+                                                        <span>손해배상 보험 요금</span>
                                                         <div>10,000원</div>
                                                     </div>
                                                     <div class="sc-kYnagK iMuGWb"></div>
                                                     <div class="sc-ecTnUl cXCLax">
                                                         <span>총 요금</span>
                                                         <em style="text-align: right;">
-                                                            <p id="totol_price" class="sc-eCstlR fvjAAR"
-                                                               type="BOLD_LARGEST" name="totalprice">90,659원</p>
-                                                            <p class="sc-eCstlR kZysRf sc-kvMJw iHITov"
-                                                               type="NORMAL_SMALL">손해배상 보험 요금 포함</p>
+                                                            <p id="totol_price" class="sc-eCstlR fvjAAR" type="BOLD_LARGEST" name="totalprice"><fmt:formatNumber value="${resi.resiPrice}" pattern="###,###원"/></p>
+                                                            <p class="sc-eCstlR kZysRf sc-kvMJw iHITov" type="NORMAL_SMALL" >손해배상 보험 요금 포함</p>
                                                         </em>
                                                     </div>
                                                 </div>
                                             </section>
                                         </li>
+                                        
                                         <li role="listitem">
                                             <section class="sc-eFuaqX gclven">
                                                 <div class="sc-hlsGSa dgoLqm">
@@ -682,29 +632,27 @@
                                                               form="hotel-order" maxlength="200" minlength="0"
                                                               class="sc-dsxaqW fiVXtw"></textarea>
                                                     <em class="sc-kkBfgx cEXIEJ">
-                                                        <p class="sc-eCstlR kZysRf sc-jVKBdY UUozp"
-                                                           type="NORMAL_SMALL"></p>0 / 200
+                                                        <p class="sc-eCstlR kZysRf sc-jVKBdY UUozp" type="NORMAL_SMALL"></p>0 / 200
                                                     </em>
                                                 </div>
                                             </section>
                                         </li>
+                                        
                                         <li role="listitem">
                                             <ul class="sc-euuyxL uqwcO">
                                                 <li>
                                                     <section class="sc-eFuaqX gclven sc-ljRaeN kKsuvV">
                                                         <div class="sc-jmhFuu bSihpL title-container">
-                                                            <h3 class="sc-eCstlR bcvgNe sc-dUrmIn YyGzd"
-                                                                type="NORMAL_LARGE">중요사항</h3>
-                                                            <em type="DOWN_MORE_ARROW" class="sc-httYss hyapgQ">※꼭
-                                                                유념해주세요!</em>
+                                                            <h3 class="sc-eCstlR bcvgNe sc-dUrmIn YyGzd" type="NORMAL_LARGE">중요사항</h3>
+                                                            <em type="DOWN_MORE_ARROW" class="sc-httYss hyapgQ">※꼭 유념해주세요!</em>
                                                         </div>
                                                         <div class="sc-cbDFGl hkjwZr">
                                                             <div>Front desk staff will greet guests on arrival.</div>
                                                             <div class="sc-hjWSTT eYQtSd"></div>
                                                         </div>
                                                         <button class="sc-fmlJrY jtLrHF sc-gyUflj gBMlfb" type="button">
-                                                            <span>자세히 보기</span><i
-                                                                class="sc-crrszt bMPAFE sc-tYqdw eFgseW"></i>
+                                                            <span>자세히 보기</span>
+                                                            <i class="sc-crrszt bMPAFE sc-tYqdw eFgseW"></i>
                                                         </button>
                                                     </section>
                                                 </li>

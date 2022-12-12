@@ -32,11 +32,11 @@
   
   <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
   <script type="text/javascript">
-		/* $(function(){
-			$("#resiUpdateBtn").click(function(){
-				$(location).attr('href','${pageContext.request.contextPath}/owner/resi/resiUpdateForm?resiNo=${resi.resiNo}');
+		$(function(){
+			$("#resiUpdateCancelBtn").click(function(){
+				$(location).attr('href','${pageContext.request.contextPath}/owner/resi/resiDetail/${resi.resiNo}');
 			})
-		}) */
+		})
    </script>
    
 </head>
@@ -46,7 +46,7 @@
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/../../images/logo.svg" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/../../images/logo_owner.svg" class="mr-2" alt="logo"/></a>
         <a class="navbar-brand brand-logo-mini" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/../../images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -369,7 +369,7 @@
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/info/infoSelect/${secCamp.campNo}">정보 조회</a></li>
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/logOut">로그아웃</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
               </ul>
             </div>
           </li>
@@ -448,7 +448,7 @@
                       <input class="form-control" id="resiPet" name="resiPet" value="${resi.resiPet}">
                     </div>
                     <button type="submit" class="btn btn-primary mr-2" id="resiUpdateBtn">수정</button>
-                    <!-- <button class="btn btn-light">취소</button> -->
+                    <button class="btn btn-light" id="resiUpdateCancelBtn">취소</button>
                   </form>
                 </div>
               </div>

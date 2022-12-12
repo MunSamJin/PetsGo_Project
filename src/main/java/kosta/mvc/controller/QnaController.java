@@ -30,9 +30,9 @@ public class QnaController {
 	/**
 	 * 문의 등록
 	 * */
-	@RequestMapping("/qnaInsert")
+	/* @RequestMapping("/qnaInsert")
 	public String qnaInsert(QnaBoard qnaBoard) {
 		
 		return null;
-	}
+	} */
 }

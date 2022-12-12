@@ -34,8 +34,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.LikeBoard;
+import kosta.mvc.domain.LikeBoardArrange;
 import kosta.mvc.domain.Member;
+import kosta.mvc.domain.Reservation;
 import kosta.mvc.service.CommunityService;
+import kosta.mvc.service.MemberService;
 import lombok.NonNull;
 
 @Controller
@@ -44,6 +47,9 @@ public class CommunityController {
 	
 	@Autowired
 	private CommunityService communityService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	private final static int PAGE_COUNT=10;
 
@@ -57,24 +63,49 @@ public class CommunityController {
 		
 		System.out.println("tag = " + tag);
 		
-		//태그로 검색하기 + 정렬기능
+		//태그로 검색하기 + 최신순정렬기능
 		if(tag != null) {
-			list = communityService.selectByTag(tag);
+			if(tag.equals("좋아요")) {
+				//List<LikeBoardArrange> likeList = communityService.selectLikeBoardArrange();
+				//model.addAttribute("communityBoardList", likeList);
+				//System.out.println("likeList = " + likeList);
+			}else {
+				list = communityService.selectByTag(tag);
+				System.out.println("list = " + list);
+				model.addAttribute("communityBoardList", list);
+			}
+			
 		} else {
 			list = communityService.selectAll();
+			System.out.println("list = " + list);
+			model.addAttribute("communityBoardList", list);
 		}
-		System.out.println("list = " + list);
-		model.addAttribute("communityBoardList", list);
+		
 		
 	}
+	
 	
 	
 	/**
 	 *  등록폼
 	 */
 	@RequestMapping("/write")
-	public void write() {
+	public void write(Model model, Authentication auth) {
 		System.out.println("컨트롤러 등록폼 들어왔니??");
+		
+		Object object = auth.getPrincipal();
+		Member member = null;
+		
+		if(object instanceof Member) {
+			member = (Member)auth.getPrincipal();
+		}
+		Long memberNo = member.getMemberNo();
+		//System.out.println("member컨트롤러 memberNo = " + memberNo);
+		
+		List<Reservation> list = memberService.selectAll(memberNo);
+		//System.out.println("member컨트롤러 list = " + list);
+		
+		model.addAttribute("reservation", list);
 	}
 	
 	
@@ -208,24 +239,7 @@ public class CommunityController {
 		communityService.delete(boardNo);
 		return "redirect:/community/list";
 	}
-	
-	/**
-	 * 태그 검색하기
-	 */
-//	@RequestMapping(value="/tagSelect", method=RequestMethod.GET)
-//	//@ResponseBody
-//	public String tagSelect(String tag, Model model){
-//	//public void tagSelect(String tag){
-//		
-//		System.out.println("태그 왔니?" +tag);
-//		
-//		 List<CommunityBoard> list = communityService.selectByTag(tag);
-//		// System.out.println("컨트롤러 list = " + list);
-//		 model.addAttribute("communityBoardList", list);
-//		
-//		 return "/community/list";
-//		 
-//	}
+
 	
 	/**
 	 *  좋아요 기능

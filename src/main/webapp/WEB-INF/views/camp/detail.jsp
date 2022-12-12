@@ -13,16 +13,14 @@
     
     <!-- Title -->
     <title>Pet's GO</title>
-    
 
     <!-- Core Stylesheet -->
     <link href="${pageContext.request.contextPath}/dorne-master/style.css" rel="stylesheet">
-    
     <!-- Responsive CSS -->
     <link href="${pageContext.request.contextPath}/dorne-master/css/responsive/responsive.css" rel="stylesheet">
-    
     <!-- 캠핏 -->
     <link href="${pageContext.request.contextPath}/css/haewon/detail.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/haewon/reservationForm.css">
     
     <!-- 내부 CSS -->
     <style type="text/css">
@@ -66,15 +64,31 @@
         });
 		
 		$('.reservationBtn').click(function() {
-			/* $.ajax({
+			let addr = $(this).next().val();
+			let checkIn = '${checkIn}';
+			let checkOut = '${checkOut}';
+			
+			$.ajax({
 				url : '/reservation/test',
-				dataType : 'json',
+				type: 'post',
+				dataType : 'text',
 				data : {
-					
+					resiNo:addr,
+					checkIn:checkIn,
+					checkOut:checkOut
+				},
+				success: function (result) {
+					if(result=='입장') {
+						location.href="${pageContext.request.contextPath}/reservation/reservationForm?resiNo="+addr+"&resiPeople=${resiPeople}&checkIn=${checkIn}&checkOut=${checkOut}";
+					} else {
+						alert("예약할 수 없습니다.");
+					}
+                },
+                error : function(err) {
+                	alert("실패");
+                	console.log(err)
 				}
-			}); */
-        	let addr = $(this).next().val();
-			location.href="/reservation/reservationForm?resiNo="+addr;
+			});
 		});
 		
 		Kakao.Share.createDefaultButton({
@@ -136,8 +150,8 @@
 </div>
 <!-- ***** Breadcumb Area End ***** -->
 
-    <!-- ***** Single Listing Area Start ***** -->
-    <section class="dorne-single-listing-area section-padding-100">
+<!-- ***** Single Listing Area Start ***** -->
+<section class="dorne-single-listing-area section-padding-100">
         <div class="container">
             <div class="row justify-content-center">
                 <!-- Single Listing Content -->
@@ -159,14 +173,19 @@
                         	<div class="row mt-5">
                         		<!-- 편의시설 목록 -->
                         		<!-- 반복문 -->
-                                <div class="col-6">
+                        		<c:set var="facility" value="${camp.campFacility}"/>
+                                <c:set var="facilityList" value="${fn:split(facility,',')}"/>
+                                <c:forEach items="${facilityList}" var="facilityaoao">
+                                       	  <div class="col-6">
                                     <label class="custom-control custom-checkbox mb-3">
                                         <input type="checkbox" class="custom-control-input">
                                         <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">Accepts Credit Cards</span>
+
+                                       	<span class="custom-control-description">${facilityaoao}</span>
                                     </label>
                                 </div>
-                                
+                                 </c:forEach>
+
                             </div>
                         </div>
 
@@ -198,13 +217,14 @@
                         </div>
 
                         <div class="listing-reviews-area mt-100" id="review">
-                            <h4>reviews</h4>
+                            <h4>후기</h4>
+                            
                             <div class="single-review-area">
                                 <div class="reviewer-meta d-flex align-items-center">
                                     <img src="img/clients-img/1.jpg" alt="">
                                     <div class="reviewer-content">
                                         <div class="review-title-ratings d-flex justify-content-between">
-                                            <h5>“The best Burger in town”</h5>
+                                            <h5>“카라반 야영지로 추천!”</h5>
                                             <div class="ratings">
                                                 <img src="img/clients-img/star-fill.png" alt="">
                                                 <img src="img/clients-img/star-fill.png" alt="">
@@ -213,36 +233,16 @@
                                                 <img src="img/clients-img/star-fill.png" alt="">
                                             </div>
                                         </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ac nibh sed mi ullamcorper rhoncus. Curabitur pulvinar vel augue sit amet vestibulum. Proin tempus lacus porta lorem blandit aliquam eget quis ipsum. Vivamus accumsan consequat ligula non volutpat.</p>
+                                        <p>깨끗하고 좋아요</p>
                                     </div>
                                 </div>
                                 <div class="reviewer-name">
-                                    <h6>Christinne Smith</h6>
-                                    <p>12 November 2017</p>
+                                    <h6>고구마가 맛있어</h6>
+                                    <p>2022/12/05</p>
                                 </div>
                             </div>
-                            <div class="single-review-area">
-                                <div class="reviewer-meta d-flex align-items-center">
-                                    <img src="img/clients-img/1.jpg" alt="">
-                                    <div class="reviewer-content">
-                                        <div class="review-title-ratings d-flex justify-content-between">
-                                            <h5>“Quality ingredients”</h5>
-                                            <div class="ratings">
-                                                <img src="img/clients-img/star-fill.png" alt="">
-                                                <img src="img/clients-img/star-fill.png" alt="">
-                                                <img src="img/clients-img/star-fill.png" alt="">
-                                                <img src="img/clients-img/star-fill.png" alt="">
-                                                <img src="img/clients-img/star-unfill.png" alt="">
-                                            </div>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ac nibh sed mi ullamcorper rhoncus. Curabitur pulvinar vel augue sit amet vestibulum. Proin tempus lacus porta lorem blandit aliquam eget quis ipsum. Vivamus accumsan consequat ligula non volutpat.</p>
-                                    </div>
-                                </div>
-                                <div class="reviewer-name">
-                                    <h6>Michael Brown</h6>
-                                    <p>12 November 2017</p>
-                                </div>
-                            </div>
+                            
+                            
                         </div>
 
                         <!-- 지도 -->
@@ -261,7 +261,7 @@
                     <div class="listing-sidebar">
 
                         <!-- Listing Verify -->
-                        <div class="listing-verify">
+                        <div class="listing-verify" style="border: 1px solid #DEE2E7;">
                             <div class="listing-title">
                             
                             	<!-- 캠핏 -->
@@ -301,6 +301,36 @@
                             				</svg>${camp.campPhone}
                             			</span>
                             		</div>
+                            		
+                            		<c:set var="checkInDate" value="20${fn:split(checkIn,'/')[0]}-${fn:split(checkIn,'/')[1]}-${fn:split(checkIn,'/')[2]}"/>
+                                    <fmt:parseDate var="parsedDate" value="${checkInDate}" pattern="yyyy-MM-dd"/>
+                                    <c:set var="checkOutDate" value="20${fn:split(checkOut,'/')[0]}-${fn:split(checkOut,'/')[1]}-${fn:split(checkOut,'/')[2]}"/>
+                                    <fmt:parseDate var="parsedOutDate" value="${checkOutDate}" pattern="yyyy-MM-dd"/>
+                                    
+                            		<div>
+                            		<section class="sc-eFuaqX innHcv sc-fQnBjv cPDpkJ">
+                                                <div class="sc-fAPzgY fKgEtY">
+                                                    <div class="sc-iciGqv duLNAF">
+                                                        <h5 class="sc-eCstlR kZysRf sc-hnSKda cWgHbh" type="NORMAL_SMALL">체크인</h5>
+                                                        <p class="sc-eCstlR cPIeWE" type="NORMAL_MEDIUM"><fmt:formatDate value="${parsedDate}" pattern="MM월 dd일 (E)"/>
+                                                        ${camp.campCheckin}</p>
+                                                    </div>
+                                                    <span class="sc-lrvPq cDWtwr">${fn:split(checkOut,'/')[2]-fn:split(checkIn,'/')[2]}박</span>
+                                                    <div class="sc-iciGqv duLNAF">
+                                                        <h5 class="sc-eCstlR kZysRf sc-hnSKda cWgHbh" type="NORMAL_SMALL">체크아웃</h5>
+                                                        <p class="sc-eCstlR cPIeWE" type="NORMAL_MEDIUM"><fmt:formatDate value="${parsedOutDate}" pattern="MM월 dd일 (E)"/>
+                                                            ${camp.campCheckout }</p>
+                                                    </div>
+                                                </div>
+                                                <ul class="sc-bWcrqT bPuRoh sc-dJbuOE kyacOP">
+                                                    <li class="sc-hymteE cwmltB">
+                                                        <p class="sc-eCstlR kZysRf sc-cgwasx eqTIAy" type="NORMAL_SMALL">성인</p>
+                                                        <p class="sc-eCstlR kZysRf sc-kTLXcG dpOkRE" type="NORMAL_SMALL" id="reservPeople">${resiPeople}명</p>
+                                                    </li>
+                                                </ul>
+                                            </section>
+                            		</div>
+                            		
                             	</div>
                             </div>
                         </div>
@@ -315,65 +345,18 @@
                         	</div>
                         </div>
 
-                        <!-- Book A Table Widget -->
-                        <div class="book-a-table-widget mt-50">
-                            <h6>Book A Table</h6>
-                            <form action="#" method="get">
-                                <select class="custom-select" id="destinations">
-                                <option selected>Who will be arriving</option>
-                                <option value="1">New York</option>
-                                <option value="2">Latvia</option>
-                                <option value="3">Dhaka</option>
-                                <option value="4">Melbourne</option>
-                                <option value="5">London</option>
-                            </select>
-                                <select class="custom-select" id="catagories">
-                                <option selected>Guest 1</option>
-                                <option value="1">Guest 2</option>
-                                <option value="3">Guest 3</option>
-                                <option value="3">Guest 4</option>
-                            </select>
-                                <button type="submit" class="btn dorne-btn bg-white text-dark"><i class="fa fa-search pr-2" aria-hidden="true"></i> Search</button>
-                            </form>
-                        </div>
-
                         <!-- Opening Hours Widget -->
                         <div class="opening-hours-widget mt-50">
                             <h6>Opening Hours</h6>
                             <ul class="opening-hours">
                                 <li>
-                                    <p>Monday</p>
-                                    <p>Closed</p>
-                                </li>
-                                <li>
-                                    <p>Tuesday</p>
-                                    <p>9 AM - 1 PM</p>
-                                </li>
-                                <li>
-                                    <p>Wednesday</p>
-                                    <p>9 AM - 1 PM</p>
-                                </li>
-                                <li>
-                                    <p>Thursday</p>
-                                    <p>9 AM - 1 PM</p>
-                                </li>
-                                <li>
-                                    <p>Friday</p>
-                                    <p>9 AM - 1 PM</p>
-                                </li>
-                                <li>
-                                    <p>Saturday</p>
-                                    <p>9 AM - 1 PM</p>
-                                </li>
-                                <li>
-                                    <p>Sunday</p>
-                                    <p>9 AM - 1 PM</p>
+                                    <p>${camp.campCheckin} - ${camp.campCheckout }</p>
                                 </li>
                             </ul>
                         </div>
 
                         <!-- Author Widget -->
-                        <div class="author-widget mt-50 d-flex align-items-center">
+                       <!--  <div class="author-widget mt-50 d-flex align-items-center">
                             <img src="img/clients-img/1.jpg" alt="">
                             <div class="authors-name">
                                 <a href="#">James Smith</a>
@@ -381,7 +364,7 @@
                             </div>
                         </div>
 
-                        <!-- Contact Form -->
+                        Contact Form
                         <div class="contact-form contact-form-widget mt-50">
                             <h6>Contact Business</h6>
                             <form action="#">
@@ -400,7 +383,7 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>

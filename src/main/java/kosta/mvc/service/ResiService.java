@@ -23,7 +23,7 @@ public interface ResiService {
 	/**
 	 * 등록
 	 */
-	void insert(Residence resi);
+	void insert(Residence resi, String resiCount);
 
 	/**
 	 * 글번호 검색

@@ -53,6 +53,8 @@
 			let resiPeople = $("#resiPeople").val();
 			if(resiPeople=='인원') resiPeople = 0;
 			
+			let tag = $("#tag_select").val();
+			
 			$.ajax({
 				url : '/camp/select',
 				type : 'post',
@@ -63,7 +65,8 @@
 					campAddr:addr,
 					checkIn:checkIn,
 					checkOut:checkOut,
-					resiPeople:resiPeople},
+					resiPeople:resiPeople,
+					tag:tag},
 				dataType: 'json',
 				success : function(result) {
 					$("#listAll").empty();
@@ -92,8 +95,9 @@
 						}
 						str += '<div class="single_place"><div class="thumb">';
 						str += '<img src="${pageContext.request.contextPath}/img/seryun/'+imeName+'" alt="">';
-						str += '<a href="/camp/detail?campNo='+item.campNo+'" class="prise">￦ '+minprice.toLocaleString('ko-KR')+'</a></div>';
-						str += `<div class="place_info" ><a href="destination_details.html">`;
+						str += '<a href="${pageContext.request.contextPath}/camp/detail?campNo='+item.campNo+'&checkIn='+checkIn+'&checkOut='+checkOut+'&resiPeople='+resiPeople+'" class="prise">￦ '+minprice.toLocaleString('ko-KR')+'</a></div>';
+						str += '<div class="place_info" >';
+						str += '<a href="${pageContext.request.contextPath}/camp/detail?campNo='+item.campNo+'&checkIn='+checkIn+'&checkOut='+checkOut+'&resiPeople='+resiPeople+'">';
 						str += '<h3>'+item.campName+'</h3></a>';
 						str += '<p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">'+item.campIntro+'</p>';
 						str += `<div class="rating_days d-flex justify-content-between">`;
@@ -219,7 +223,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="filter_all_wrap">
+                    <div class="filter_result_wrap">
                         <h3>Filter Result</h3>
                         <div class="filter_bordered" style="background-color: white;">
                             <div class="filter_inner">
@@ -227,17 +231,17 @@
                                     <div class="col-lg-12">
                                         <div class="single_select">
                                             <select id="aa">
-                                                <option data-display="기본 정렬">기본 정렬</option>
-                                                <option value="desc">가격↑</option>
-                                                <option value="asc">가격↓</option>
+                                                <option selected value="">기본 정렬</option>
+                                                <option value="pricedesc">가격↑</option>
+                                                <option value="priceasc">가격↓</option>
                                                 <option value="4">USA</option>
                                               </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="single_select">
-                                            <select>
-                                                <option data-display="태그 정렬">태그 정렬</option>
+                                            <select id="tag_select">
+                                                <option selected value="">태그 정렬</option>
                                                 <option value="화장실">화장실</option>
                                                 <option value="샤워실">샤워실</option>
                                                 <option value="개수대">개수대</option>
@@ -297,10 +301,10 @@
 		                                    		 <c:set var="aaprice" value="${residence.resiPrice}"/>
 		                                    	</c:if>
 		                                    </c:forEach>
-		                                    <a href="/camp/detail?campNo=${camp.campNo}" class="prise"><fmt:formatNumber value="${aaprice}" pattern="￦ ###,###"/></a>
+		                                    <a href="${pageCotext.request.contextPath}/camp/detail?campNo=${camp.campNo}&resiPeople=${resiPeople}&checkIn=${checkIn}&checkOut=${checkOut}" class="prise"><fmt:formatNumber value="${aaprice}" pattern="￦ ###,###"/></a>
 		                                </div>
 		                                <div class="place_info" >
-		                                    <a href="${pageContext.request.contextPath}/camp/detail?campNo=${camp.campNo}"><h3>${camp.campName}</h3></a>
+		                                    <a href="${pageCotext.request.contextPath}/camp/detail?campNo=${camp.campNo}&resiPeople=${resiPeople}&checkIn=${checkIn}&checkOut=${checkOut}"><h3>${camp.campName}</h3></a>
 		                                    <p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${camp.campIntro}</p>
 		                                    <div class="rating_days d-flex justify-content-between">
 		                                        <span class="d-flex justify-content-center align-items-center">

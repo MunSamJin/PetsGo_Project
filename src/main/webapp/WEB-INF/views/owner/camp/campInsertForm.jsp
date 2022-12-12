@@ -83,7 +83,7 @@
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="../../index.html"><img src="${pageContext.request.contextPath}/../../images/logo.svg" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="../../index.html"><img src="${pageContext.request.contextPath}/../../images/logo_owner.svg" class="mr-2" alt="logo"/></a>
         <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="${pageContext.request.contextPath}/../../images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -406,7 +406,7 @@
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/info/infoSelect">정보 조회</a></li>
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/">로그아웃</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
               </ul>
             </div>
           </li>
@@ -557,7 +557,7 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
-  <script src="${pageContext.request.contextPath}/../../vendors/js/vendor.bundle.base.js"></script>
+  <%-- <script src="${pageContext.request.contextPath}/../../vendors/js/vendor.bundle.base.js"></script> --%>
   <!-- endinject -->
   <!-- Plugin js for this page -->
   <script src="${pageContext.request.contextPath}/../../vendors/typeahead.js/typeahead.bundle.min.js"></script>

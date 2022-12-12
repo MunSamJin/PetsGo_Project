@@ -1,9 +1,8 @@
 $(document).ready(function(){
 	/////////////////////////////////////
 	//회원 로그인 버튼 클릭 시 유효성 체크
-	$("#memberLoginForm").submit(function() {	
-		alert("id = " + $("#adminId").val() + ", password = " + $("#adminPwd").val());
-			
+
+	$("#memberLoginForm").submit(function() {		
 		if ($("#email").val().trim() == "") {
 			alert("이메일을 입력해 주세요");
 			$("#email").focus();

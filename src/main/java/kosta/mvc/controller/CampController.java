@@ -34,30 +34,23 @@ public class CampController {
 	
 	@RequestMapping("/select")
 	@ResponseBody
-	public List<Camp> select(int resiPeople, String campAddr, String checkIn, String checkOut, String price1, String price2, String aa) {
+	public List<Camp> select(int resiPeople, String campAddr, String checkIn, String checkOut, 
+			String price1, String price2, String aa, String tag) {
 		System.out.println("왔뉘?");
 		int resiPrice1 = Integer.parseInt(price1);
 		int resiPrice2 = Integer.parseInt(price2);
-		List<Camp> campList = campUserViewService.select(resiPeople, campAddr, checkIn, checkOut, resiPrice1, resiPrice2, aa);
+		List<Camp> campList = campUserViewService.select(resiPeople, campAddr, checkIn, checkOut, 
+				resiPrice1, resiPrice2, aa, tag);
 		System.out.println(campList);
 		return campList;
 	}
 	
 	@RequestMapping("/detail")
-	public void detail(Long campNo, Model model) {
+	public void detail(Long campNo, int resiPeople, String checkIn, String checkOut, Model model) {
 		Camp camp = campUserViewService.selectByCampNo(campNo);
 		model.addAttribute("camp", camp);
+		model.addAttribute("resiPeople", resiPeople);
+		model.addAttribute("checkIn", checkIn);
+		model.addAttribute("checkOut", checkOut);
 	}
-	
-	@RequestMapping("/list")
-	public void detail(Model model) {
-		List<Camp> campList = campUserViewService.findAll();
-		model.addAttribute("campList", campList);
-		model.addAttribute("resiPeople", 0);
-		model.addAttribute("campAddr", 0);
-		model.addAttribute("checkIn", 0);
-		model.addAttribute("checkOut", 0);
-	}
-	
-	
 }

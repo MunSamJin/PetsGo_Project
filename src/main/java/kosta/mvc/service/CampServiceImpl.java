@@ -1,6 +1,7 @@
 package kosta.mvc.service;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.transaction.Transactional;
 
@@ -37,7 +38,7 @@ public class CampServiceImpl implements CampService {
 		camp.setCampState(1);
 		camp.setCampLat("0");
 		camp.setCampLong("0");
-		camp.setCampManageNo("guest");
+		camp.setCampManageNo("temporaryNo");
 		campRep.save(camp);
 
 	}	
@@ -63,14 +64,36 @@ public class CampServiceImpl implements CampService {
 		dbCamp.setCampPhone(camp.getCampPhone());
 		dbCamp.setCampPost(camp.getCampPost());
 		
+		//비밀번호 암호화
+		String encodedPassword = passwordEncoder.encode(camp.getCampPassword());
+		dbCamp.setCampPassword(encodedPassword);
 		
 		return dbCamp;
 	}
 
 	@Override
-	public void campDeleteRequest(Long campNo) {
+	public Camp campStateUpdate(Long campNo, int campState) {
 		Camp camp = campRep.findById(campNo).orElse(null);
-		camp.setCampState(2);
+		
+		if(campState==0) camp.setCampState(0);
+		else if(campState==1) {//등록
+			camp.setCampState(1);
+			camp.setCampRole("ROLE_OWNER");
+			while(true) {
+				String campManageNo = createManageNo();
+				if(campRep.findByCampManageNo(campManageNo)==null) {
+					camp.setCampManageNo(campManageNo);
+					break;
+				}
+			}
+			
+		}
+		else if(campState==2) camp.setCampState(2);
+		else if(campState==3) camp.setCampState(3);
+		else if(campState==5) delete(campNo);
+		
+		System.out.println("캠핑장 상태 변경! campNo="+campNo+" campState="+campState);
+		return camp;
 	}
 
 	@Override
@@ -81,6 +104,36 @@ public class CampServiceImpl implements CampService {
 			camp = c;
 		}*/
 		return camp;
+	}
+
+	@Override
+	public List<Camp> select(int campState) {
+		List<Camp> campList = campRep.findByCampState(campState);
+		return campList;
+	}
+
+	@Override
+	public List<Camp> selectAll() {
+		List<Camp> campList = campRep.findAll();
+		return campList;
+	}
+	
+	
+	//관리자번호 랜덤 생성
+	public String createManageNo() {
+		Random ran = new Random();
+		StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < 16; i++) {
+        	sb.append((ran.nextInt(10)));
+    	}
+    	return "CDFI"+sb.toString();
+	}
+
+	@Override
+	public void delete(Long campNo) {
+		campRep.deleteById(campNo);
+		
 	}
 
 }

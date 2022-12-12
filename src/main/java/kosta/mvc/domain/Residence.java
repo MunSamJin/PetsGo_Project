@@ -24,6 +24,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -31,6 +32,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Builder
+@ToString
 /**
  *  숙소 도메인
  */
@@ -74,11 +76,11 @@ public class Residence {
 	@JoinColumn(name = "camp_no")
 	private Camp camp;
 
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
 	private List<Reservation> reservationList;
 
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
 	private List<ResidenceDetail> residenceDetailList;
 }

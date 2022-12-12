@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import kosta.mvc.domain.CommunityBoard;
+import kosta.mvc.domain.LikeBoardArrange;
 
 public interface CommunityRepository extends JpaRepository<CommunityBoard, Long>, 
 		QuerydslPredicateExecutor<CommunityBoard> {
@@ -28,7 +29,17 @@ public interface CommunityRepository extends JpaRepository<CommunityBoard, Long>
 	/**
 	 * 정렬기능(좋아요 많은 순)
 	 */
-	//@Query("")
-	//List<CommunityBoard> likeSelect();
+	@Query(value = "select count(l.board_no) as likecount,  c.board_no as boardno, c.board_content as boardcontent, \r\n"
+			+ "                c.board_file_name as boardfilename, c.board_tag as boardtag, c. member_no as memberno\r\n"
+			+ "        from community_board c left join like_board l\r\n"
+			+ "        on c.board_no=l.board_no\r\n"
+			+ "        group by c.board_no, c.board_content, c.board_file_name, c.board_tag,c. member_no\r\n"
+			+ "        order by count(l.board_no) desc", nativeQuery = true)
+	List<LikeBoardArrange> likeSelect();
 
+	/**
+	 * 마이페이지 내커뮤니티 조회
+	 */
+	@Query(value = "select * from community_board where member_no = ?1 order by board_date", nativeQuery = true)
+	List<CommunityBoard> selectCommunityAll(Long memberNo);
 }

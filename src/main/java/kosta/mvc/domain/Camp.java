@@ -15,6 +15,8 @@ import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -96,11 +98,16 @@ public class Camp {
 	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
 	private List<Residence> residenceList;
 	
-	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) private List<Scrap>
-	scrapList;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 
+	private List<Scrap> scrapList;
 	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 
 	private List<Reservation> reservationList;
+
 	
 
 }

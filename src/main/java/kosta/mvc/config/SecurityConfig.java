@@ -24,11 +24,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	//@Autowired
 	//DataSource dataSource;	
 	
-	@Autowired
+	 @Autowired
 	MemberAuthenticationFailureHandler memberAuthenticationFailurHandler;
 	
 	@Autowired
-	MemberAuthenticationProvider memberAuthenticationProvider;
+	MemberAuthenticationProvider memberAuthenticationProvider; 
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -65,44 +65,53 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.passwordParameter("password")
 				.defaultSuccessUrl("/default")
 				.failureHandler(memberAuthenticationFailurHandler)
-				//.failureForwardUrl("/loginForm?err")
+				.failureForwardUrl("/loginForm?err")
 				.and()
 			.logout()
 				.logoutUrl("/logout")
 				.logoutSuccessUrl("/main")
 				.invalidateHttpSession(true)
 				.deleteCookies("JSESSIONID")
-				.and();
+				.and()
+				.csrf().disable();
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(memberAuthenticationProvider);
 		//auth.inMemoryAuthentication().withUser("admin").password("{noop}1234").authorities("ROLE_ADMIN");
+		
 		//adminProvider.withUser("admin").password("{noop}1234").authorities("ROLE_ADMIN");
 		//auth.apply(adminProvider);
+		
+		System.out.println("111111111111111");
+		auth.authenticationProvider(memberAuthenticationProvider);
 	}
+
 	
-	/* @Override
+	/*@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication()
 			.withUser("admin").password(new BCryptPasswordEncoder().encode("1234")).roles("ADMIN");
+		
 		
 		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
 			.usersByUsernameQuery("SELECT MEMBER_EMAIL, MEMBER_PASSWORD FROM MEMBER WHERE MEMBER_EMAIL=?")
 			.authoritiesByUsernameQuery("select member_role from member where member_email = ?");
 	} */
 	
+
 	@Bean
 	public static BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
-	/* @Bean
-	public PasswordEncoder passwordEncoder() {
+
+	/*@Bean
+	 public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	} */
 	
+
 	@Bean
 	public HttpFirewall defaultHttpFirewall() {
 		return new DefaultHttpFirewall();

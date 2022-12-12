@@ -46,7 +46,7 @@
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/../../images/logo.svg" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/../../images/logo_owner.svg" class="mr-2" alt="logo"/></a>
         <a class="navbar-brand brand-logo-mini" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/../../images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -369,7 +369,7 @@
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/info/infoSelect/${secCamp.campNo}">정보 조회</a></li>
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/logOut">로그아웃</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
               </ul>
             </div>
           </li>
@@ -446,6 +446,10 @@
                     <div class="form-group">
                       <label for="exampleInputCity1">입장 가능 반려견 정보</label>
                       <input class="form-control" id="resiPet" name="resiPet" >
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputCity1">숙소 개수</label>
+                      <input class="form-control" id="resiCount" name="resiCount" >
                     </div>
                     <button type="submit" class="btn btn-primary mr-2" id="resiInsertBtn">등록</button>
                     <!-- <button class="btn btn-light">취소</button> -->

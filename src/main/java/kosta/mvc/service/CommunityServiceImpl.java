@@ -12,6 +12,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.LikeBoard;
+import kosta.mvc.domain.LikeBoardArrange;
 import kosta.mvc.domain.QCommunityBoard;
 import kosta.mvc.repository.CommunityRepository;
 import kosta.mvc.repository.LikeBoardRepository;
@@ -95,16 +96,14 @@ public class CommunityServiceImpl implements CommunityService {
 			System.out.println("최신 정렬기능, 서비스 tag = " + tag);
 			list = communityRepository.latestSelect();
 			
-		}else if(tag.equals("좋아요")) {
-			System.out.println("좋아요 정렬기능, 서비스 tag = " + tag);
-			//list = communityRepository.likeSelect();
-			
 		}else {
 			list = communityRepository.tagSelect("%"+tag+"%");
 		}
 		
 		return list;
 	}
+	
+	
 
 	@Override
 	public int selectAll(Long memberNo, Long boardNo) {
@@ -133,6 +132,12 @@ public class CommunityServiceImpl implements CommunityService {
 	    	return likeResult=1;
 	    }
 	    	
+	}
+
+	@Override
+	public List<LikeBoardArrange> selectLikeBoardArrange() {
+		
+		return communityRepository.likeSelect();
 	}
 
 

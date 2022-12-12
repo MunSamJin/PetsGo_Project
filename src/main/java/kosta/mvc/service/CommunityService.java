@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.LikeBoard;
+import kosta.mvc.domain.LikeBoardArrange;
 
 public interface CommunityService {
 
@@ -36,12 +37,16 @@ public interface CommunityService {
     void delete(Long boardNo);
 
     /**
-     * 태그 검색하기 + 정렬기능
+     * 태그 검색하기 + 최신순정렬기능
      * @param tag
      * @return 
      */
 	List<CommunityBoard> selectByTag(String tag);
 	
+	/**
+	 * 좋아요많은순 정렬
+	 */
+	List<LikeBoardArrange> selectLikeBoardArrange();
 	
 	/**
 	 *  좋아요 기능
