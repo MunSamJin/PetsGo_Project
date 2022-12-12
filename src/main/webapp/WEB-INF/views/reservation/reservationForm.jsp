@@ -51,6 +51,7 @@
                 
                 let camp = '${resi.camp.campNo}';
                 let residence = '${resi.resiNo}';
+                let teNo = '${teNo}';
 
                 var IMP = window.IMP;
                 IMP.init('imp27370044');
@@ -78,11 +79,15 @@
                                 reservCheckout: reservCheckout,
                                 reservTotalPet: reservTotalPet,
                                 reservInsuranceTotal: reservInsuranceTotal,
-                                residence:residence
+                                residence:residence,
+                                teNo:teNo
                             },
                             success: function (result) {
-                                alert(result);
-                            }
+                                location.href="${pageContext.request.contextPath}/main";
+                            },
+                            error : function(err) {
+                            	alert(err);
+							}
                         });
                     } else {
                         var msg = rsp.error_msg;
@@ -167,22 +172,21 @@
             1. window.onload : html의 로딩이 끝난 후에 시작합니다 (이미지, 영상 등 모두 로드 완료 후 실행됨)    	
             2. window.onbeforeunload : 브라우저 새로 고침 및 종료 이벤트를 감지합니다
             */
-            /* window.onbeforeunload = function() {
-                console.log("[window onbeforeunload] : [start]");
-                console.log("");
+            window.onbeforeunload = function() {
+                let teNo = '${teNo}';
                 $.ajax({
-                    url : '/reservation/test',
+                    url : '/reservation/deleteTe',
                     type : 'post',
+                    data : {teNo:teNo},
                     dataType : 'text',
-                    success : function (data) {
-                        alert(11);
+                    success : function (aa) {
                     },
                     error : function (err) {
                         alert(err);
                     }
                 });
                 return "브라우저를 종료하시겠습니까?";
-            }; */
+            };
         });
     </script>
 </head>

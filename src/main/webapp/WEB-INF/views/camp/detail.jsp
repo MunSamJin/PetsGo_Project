@@ -64,15 +64,31 @@
         });
 		
 		$('.reservationBtn').click(function() {
-			/* $.ajax({
+			let addr = $(this).next().val();
+			let checkIn = '${checkIn}';
+			let checkOut = '${checkOut}';
+			
+			$.ajax({
 				url : '/reservation/test',
-				dataType : 'json',
+				type: 'post',
+				dataType : 'text',
 				data : {
-					
+					resiNo:addr,
+					checkIn:checkIn,
+					checkOut:checkOut
+				},
+				success: function (result) {
+					if(result=='입장') {
+						location.href="${pageContext.request.contextPath}/reservation/reservationForm?resiNo="+addr+"&resiPeople=${resiPeople}&checkIn=${checkIn}&checkOut=${checkOut}";
+					} else {
+						alert("예약할 수 없습니다.");
+					}
+                },
+                error : function(err) {
+                	alert("실패");
+                	console.log(err)
 				}
-			}); */
-        	let addr = $(this).next().val();
-			location.href="/reservation/reservationForm?resiNo="+addr+"&resiPeople=${resiPeople}&checkIn=${checkIn}&checkOut=${checkOut}";
+			});
 		});
 		
 		Kakao.Share.createDefaultButton({
