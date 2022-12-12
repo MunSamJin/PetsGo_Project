@@ -89,9 +89,9 @@
 		                                    
 		                                    <li class="nav-item dropdown" style="display:block;">
 												<!-- 회원 프로필 아이콘 -->
-												<%-- <c:if test="${not empty member}">
+												<c:if test="${not empty member}">
 			    									${member.memberProfile}
-												</c:if> --%>
+												</c:if>
 												
 		                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1"
 		                                            role="button" data-toggle="dropdown" aria-haspopup="true"
