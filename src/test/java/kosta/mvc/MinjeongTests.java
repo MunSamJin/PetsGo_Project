@@ -34,6 +34,11 @@ class MinjeongTests {
 		memberService.register(member);
 	}
 	
+	@Test
+	void syso() {
+		System.out.println("테스트~~~");
+	}
+	
 	/* @Test
 	void 로그인() {		
 		Member member = new Member();

@@ -2,7 +2,6 @@ package kosta.mvc.service;
 
 import java.util.List;
 
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,7 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
 	private ReservationRepository reservationRepository;
+	
 	
 	@Autowired
 	private JPAQueryFactory queryFactory;

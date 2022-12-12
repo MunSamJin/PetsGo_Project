@@ -13,7 +13,7 @@
 	<h3>member/qnaForm.jsp</h3>
 	
 	<form id="qnaForm" action="${pageContext.request.contextPath}/member/qnaInsert" method="post">
-		<input type="hidden" name="memberNo" value="<sec:authentication property="principal.memberNo"/>">
+		<input type="hidden" name="member" value="<sec:authentication property="principal.memberNo"/>">
 
 		문의 내용 <br>
 		<textarea name="qnaContent" cols="50" rows="5"></textarea><br><br> 

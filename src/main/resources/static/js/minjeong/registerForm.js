@@ -55,7 +55,7 @@ $(document).ready(function(){
 
 		$.ajax({
 			type: "POST",
-			url: "/member/emailCheck",
+			url: "/emailCheck",
 			dataType: "text",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
 			data: "memberEmail=" + email, //서버에게 보낼 parameter 정보 
 			success: function(data) {
@@ -134,7 +134,7 @@ $(document).ready(function(){
 
 		$.ajax({
 			type: "POST",
-			url: "/member/nicknameCheck",
+			url: "/nicknameCheck",
 			dataType: "text",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
 			data: "memberNickname=" + nickname, //서버에게 보낼 parameter 정보 
 			success: function(data) {
