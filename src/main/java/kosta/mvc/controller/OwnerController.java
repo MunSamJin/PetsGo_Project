@@ -336,13 +336,45 @@ public class OwnerController {
 		return "redirect:/owner/resi/resiDetail/"+resi.getResiNo();
 	}
 	
-
+	
 	@RequestMapping("/reserv/reservCheck/{campNo}")
-	public String reservManagement(@PathVariable("campNo") Long campNo, Model model) {
-		System.out.println("컨트롤러진입");
-		List<Reservation> reservList = reservService.selectByCampNo(campNo);
+	public String reservCheck(@PathVariable("campNo") Long campNo, Model model) {
+		List<Reservation> reservList =  reservService.selectByCampNo(campNo);
 		model.addAttribute("reservList",reservList);
 		return "owner/reserv/reservCheck";
+	}
+	
+
+	@RequestMapping("/reserv/reservCheckAjax/{campNo}")
+	@ResponseBody
+	public List<Reservation> reservCheckAjax(@PathVariable("campNo") Long campNo, int reservState) {
+		System.out.println("아작스");
+		
+		List<Reservation> reservList = null;
+		if(reservState==5) {
+			reservList = reservService.selectByCampNo(campNo);
+		} else {
+			reservList = reservService.selectByReservState(campNo, reservState);
+		}
+		
+		//model.addAttribute("reservList",reservList);
+		return reservList;
+	}
+	
+	
+	@RequestMapping("/reserv/reservDetail/{reservNo}")
+	public String reservDetail(@PathVariable("reservNo") Long reservNo, Model model) {
+		Reservation reserv = reservService.selectByReservNo(reservNo);
+		model.addAttribute("reserv",reserv);
+		return "owner/reserv/reservDetail";
+	}
+	
+	
+	@RequestMapping("/reserv/reservStateUpdate")
+	@ResponseBody
+	public String reservStateUpdate(Long reservNo, int reservState) {
+		reservService.updateState(reservNo, reservState);
+		return "success";
 	}
 	
 }
