@@ -35,7 +35,9 @@ import org.springframework.web.servlet.ModelAndView;
 import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.LikeBoard;
 import kosta.mvc.domain.Member;
+import kosta.mvc.domain.Reservation;
 import kosta.mvc.service.CommunityService;
+import kosta.mvc.service.MemberService;
 import lombok.NonNull;
 
 @Controller
@@ -44,6 +46,9 @@ public class CommunityController {
 	
 	@Autowired
 	private CommunityService communityService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	private final static int PAGE_COUNT=10;
 
@@ -73,8 +78,22 @@ public class CommunityController {
 	 *  등록폼
 	 */
 	@RequestMapping("/write")
-	public void write() {
+	public void write(Model model, Authentication auth) {
 		System.out.println("컨트롤러 등록폼 들어왔니??");
+		
+		Object object = auth.getPrincipal();
+		Member member = null;
+		
+		if(object instanceof Member) {
+			member = (Member)auth.getPrincipal();
+		}
+		Long memberNo = member.getMemberNo();
+		//System.out.println("member컨트롤러 memberNo = " + memberNo);
+		
+		List<Reservation> list = memberService.selectAll(memberNo);
+		//System.out.println("member컨트롤러 list = " + list);
+		
+		model.addAttribute("reservation", list);
 	}
 	
 	

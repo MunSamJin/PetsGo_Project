@@ -46,7 +46,7 @@
 				
 				 var boardTag ="";
 				 
-				 boardTag = "#"+boardTag1+"#"+boardTag2;
+				 boardTag = "#"+boardTag1+"#"+boardTag2+"#"+boardTag3;
 				 
 				$("[name=boardTag]").attr("value", boardTag);
 			});
@@ -107,6 +107,7 @@
 							<option value="글램핑">글램핑</option>
 							<option value="펜션">펜션</option>
 							<option value="차박">차박</option>
+							<option value="기타">기타</option>
 						</select>
 			
 						<select name="boardTag2"
@@ -121,6 +122,19 @@
 						    <option value="계곡">계곡</option>
 						    <option value="기타">기타</option>
 						</select>
+						
+						 <select name="boardTag3"
+								 style="display: inline-block; margin-left: 6px; border-color: #4876ef; color: gray; background-color: #fff;
+					  	  			   border: 1px solid #edeef0; box-sizing: border-box; text-align: center;padding: 0 8px 1px; height: 24px;
+					 				   border-radius: 4px; font-size: 12px; letter-spacing: -0.5px; line-height: 20px; cursor: pointer;">
+  							<option value="">선택해주세요.</option>
+     						<c:forEach var="reservation" items="${requestScope.reservation}">
+     							<c:if test="${reservation.size()>0}">
+     								<option value="${reservation.camp.campName}">${reservation.camp.campName}</option>
+     							</c:if>
+   							</c:forEach>
+ 						 </select>
+ 						
 					</td>
 				</tr>
 				
