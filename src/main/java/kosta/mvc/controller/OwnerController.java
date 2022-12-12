@@ -210,6 +210,13 @@ public class OwnerController {
 	}
 	
 	
+	@RequestMapping("/resi/resiInsertForm")
+	public String resiInsertForm() {
+		
+		return "owner/resi/resiInsertForm";
+	}
+	
+	
 	@RequestMapping("/resiInsert")
 	public String risiInsert(Residence resi, String resiCount, HttpSession session, @RequestParam("files") List<MultipartFile> files) {
 		
