@@ -82,25 +82,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		//auth.apply(adminProvider);
 	}
 	
-	/* @Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication()
-			.withUser("admin").password(new BCryptPasswordEncoder().encode("1234")).roles("ADMIN");
-		
-		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
-			.usersByUsernameQuery("SELECT MEMBER_EMAIL, MEMBER_PASSWORD FROM MEMBER WHERE MEMBER_EMAIL=?")
-			.authoritiesByUsernameQuery("select member_role from member where member_email = ?");
-	} */
-	
 	@Bean
 	public static BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-	/* @Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	} */
 	
 	@Bean
 	public HttpFirewall defaultHttpFirewall() {

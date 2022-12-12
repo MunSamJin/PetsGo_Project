@@ -99,8 +99,10 @@ public class Camp {
 	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) private List<Scrap>
 	scrapList;
 	
-	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 
-	private List<Reservation> reservationList;
+	/*
+	 * @OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) private
+	 * List<Reservation> reservationList;
+	 */
 	
 	
 
