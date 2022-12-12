@@ -378,7 +378,7 @@
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/info/infoSelect/${secCamp.campNo}">정보 조회</a></li>
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/logOut">로그아웃</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
               </ul>
             </div>
           </li>
@@ -408,10 +408,10 @@
                       <label for="exampleInputEmail3">Email(이메일)</label>
                       <p class="form-control" id="campEmail" name="campEmail">${camp.campEmail}</p>
                     </div>
-                    <div class="form-group">
+                    <%-- <div class="form-group">
                       <label for="exampleInputPassword4">비밀번호</label>
                       <input type="password" class="form-control" id="campPassword" name="campPassword" disabled="disabled" value="${camp.campPassword}">
-                    </div>
+                    </div> --%>
                     <div class="form-group">
                       <label for="exampleInputCity1">캠핑장 관리 번호</label>
                       <p class="form-control" id="campManageNo" name="campManageNo" oninput="autoHyphen(this)" maxlength="12" >${camp.campManageNo}</p>

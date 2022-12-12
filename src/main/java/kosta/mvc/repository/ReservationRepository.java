@@ -21,4 +21,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long>,
 	@Query(value = "select reserv_state from Reservation where member_no=?1 and reserv_no=?2", nativeQuery = true)
 	int selectReservState(Long memberNo, Long reservationNo);
 
+	
+	//List<Reservation> findByCampOrderByReservDate(Long campNo);
+	
+	@Query(value="select * from Reservation where camp_no=?1 order by reserv_date", nativeQuery = true)
+	List<Reservation> selectByCamp(Long campNo);
 }

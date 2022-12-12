@@ -64,6 +64,9 @@ public class CampServiceImpl implements CampService {
 		dbCamp.setCampPhone(camp.getCampPhone());
 		dbCamp.setCampPost(camp.getCampPost());
 		
+		//비밀번호 암호화
+		String encodedPassword = passwordEncoder.encode(camp.getCampPassword());
+		dbCamp.setCampPassword(encodedPassword);
 		
 		return dbCamp;
 	}

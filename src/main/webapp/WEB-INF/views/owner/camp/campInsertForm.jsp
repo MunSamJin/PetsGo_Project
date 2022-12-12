@@ -406,7 +406,7 @@
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/info/infoSelect">정보 조회</a></li>
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/">로그아웃</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
               </ul>
             </div>
           </li>
@@ -557,7 +557,7 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
-  <script src="${pageContext.request.contextPath}/../../vendors/js/vendor.bundle.base.js"></script>
+  <%-- <script src="${pageContext.request.contextPath}/../../vendors/js/vendor.bundle.base.js"></script> --%>
   <!-- endinject -->
   <!-- Plugin js for this page -->
   <script src="${pageContext.request.contextPath}/../../vendors/typeahead.js/typeahead.bundle.min.js"></script>

@@ -247,14 +247,21 @@
   			$.ajax({
   				type:"post",
   				url:"${pageContext.request.contextPath}/admin/camp/campcheck",
-  				dataType: "text",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
+  				dataType: "json",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
 				data:"${_csrf.parameterName}=${_csrf.token}&campState="+campState, //서버에게 보낼 parameter 정보 
 				//data:"${_csrf.parameterName}=${_csrf.token}&email=" + email,	
 				success:function(data) {	
-					$("#campStateArr").html(campStateStr);	
+					alert(data.campList)
+					//$("#campStateArr").html(campStateStr);	
 					
-					$.each(data, function(index, item){
-						alert(item.campNo);
+					$.each(data.campList , function(index, item){ //item은 camp
+						alert(item.campNo  + " , campEmail = " + item.campEmail);
+					      $.each(data.residenceList , function(i, residence ){
+					    	   //alert(i+" = resiName = " + residence.resiName)
+					    	   $.each(residence , function(a , re){
+					    		   alert("되니 ? "+re.resiName)
+					    	   })
+					      } )
 					});
 				}
   			});
@@ -264,3 +271,9 @@
 </body>
 
 </html>
+
+
+
+
+
+

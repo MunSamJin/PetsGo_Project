@@ -1,7 +1,11 @@
 package kosta.mvc.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Camp;
+import kosta.mvc.domain.Residence;
 import kosta.mvc.service.CampService;
 
 @Controller
@@ -47,7 +52,7 @@ public class AdminController {
 	/**
 	 * 캠핑장 상태 확인
 	 */
-	@RequestMapping("/camp/campcheck")
+	/*@RequestMapping("/camp/campcheck")
 	@ResponseBody
 	public List<Camp> campCheck(int campState) {
 		System.out.println("캠핑장 상태 확인 campState = "+campState);
@@ -58,7 +63,39 @@ public class AdminController {
 		} else {
 			campList = campService.select(campState);
 		}
+		
+		//camp안에있는 다른객체 속성을 뷰로 전달해야 한다면...
+		
 		return campList;
+	}*/
+	
+	@RequestMapping("/camp/campcheck")
+	@ResponseBody
+	public Map<String, Object> campCheck(int campState) {
+		System.out.println("캠핑장 상태 확인 campState = "+campState);
+		
+		List<Camp> campList;
+		if(campState==4) {
+			campList = campService.selectAll();
+		} else {
+			campList = campService.select(campState);
+		}
+		
+		
+		System.out.println("campList = " + campList);
+		Map<String, Object> map = new HashMap<>();
+		map.put("campList", campList);
+		
+		
+		List<List<Residence>> residenceList = new ArrayList<List<Residence>>();
+		for(Camp camp : campList) {
+			System.out.println("camp.getResidenceList() = " + camp.getResidenceList());
+			residenceList.add( camp.getResidenceList()) ;
+		}
+		//camp안에있는 다른객체 속성을 뷰로 전달해야 한다면...
+		map.put("residenceList", residenceList);
+		
+		return map;
 	}
 	
 	

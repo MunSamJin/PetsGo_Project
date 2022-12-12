@@ -38,8 +38,17 @@ public class HomeController {
 		return "main";
 	}
 	
-	@RequestMapping("/{}") 
-	public void url() {}
+	/*@RequestMapping("/{}") 
+	public void url() {}*/
+	
+	/*@RequestMapping("/error")
+	public void error() {};*/
+	
+	@RequestMapping("/loginForm")
+	public void loginForm() {};
+	
+	@RequestMapping("/main")
+	public void main() {};
 	 
 
 	/**

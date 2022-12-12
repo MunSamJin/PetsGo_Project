@@ -354,7 +354,7 @@
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/info/infoSelect/${secCamp.campNo}">정보 조회</a></li>
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/logOut">로그아웃</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
               </ul>
             </div>
           </li>
@@ -363,69 +363,67 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">
-            <div class="col-lg-12 grid-margin stretch-card">
+            <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">숙소 목록</h4>
+                  <h4 class="card-title">예약 신청 관리</h4>
                   <p class="card-description">
-                    숙소를 클릭하면 상세 페이지로 이동합니다
+                    <div class="dropdown">
+                      <button class="btn btn-danger btn-sm dropdown-toggle" type="button" id="campStateArr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        전체
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
+                        <h6 class="dropdown-header" style="font-weight: bold">예약상태</h6>
+                        <a class="dropdown-item" href="#">전체</a>
+                        <a class="dropdown-item" href="#">예약대기</a>
+                        <a class="dropdown-item" href="#">예약확정</a>
+                        <a class="dropdown-item" href="#">예약취소</a>
+                        <a class="dropdown-item" href="#">결제취소요청</a>
+                      </div>
+                    </div>
                   </p>
                   <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-hover">
                       <thead>
                         <tr>
-                          <th>
-                            썸네일
-                          </th>
-                          <th>
-                            이름
-                          </th>
-                          <th>
-                            숙소유형
-                          </th>
-                          <th>
-                            가격
-                          </th>
-                          <th>
-                            개수
-                          </th>
+                          <th>예약번호</th>
+                          <th>회원번호</th>
+                          <th>예약일</th>
+                          <th>결제금액</th>
+                          <th>예약상태</th>
+                          <th>입퇴실현황</th>
                         </tr>
                       </thead>
                       <tbody>
-                      	<c:forEach items="${resiList}" var="resi">
-	                        <tr onclick="location.href='${pageContext.request.contextPath}/owner/resi/resiDetail/${resi.resiNo}'" style="cursor:pointer;">
-	                          <td class="py-1">
-	                          	<c:set value="${fn:split(resi.resiFilename , ',')}" var="filenameArr"/>
-	                            <img style="width:80px; height:80px;" src="${pageContext.request.contextPath}/img/seryun/${fn:split(resi.resiFilename , ',')[0]}" alt="image"/>
-	                          </td>
-	                          <td>
-	                            ${resi.resiName}
-	                          </td>
-	                          <td>
-	                            <!-- <div class="progress">
-	                              <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-	                            </div> -->
-	                            ${resi.resiType}
-	                          </td>
-	                          <td>
-	                            <fmt:formatNumber value="${resi.resiPrice}" pattern="###,### 원"/>
-	                          </td>
-	                          <td>
-	                            ${fn:length(resi.residenceDetailList)} 개
-	                          </td>
-	                        </tr>
-	                  	</c:forEach>
+                      	<c:forEach items="${reservList}" var="reserv">
+                        <tr>
+                          <td>${reserv.No}</td>
+                          <td>${reserv.memberNo}</td>
+                          <td>${reserv.reservDate}</td>
+                          <td>${reserv.Price}</td>
+                          
+                          <c:choose>
+                          	<c:when test="${reserv.reservState == 0}">
+                      			<td><label class="badge badge-info" >예약대기</label></td>
+	                      	</c:when>
+	                      	<c:when test="${reserv.reservState == 1}">
+	                      		<td><label class="badge badge-success">예약확정</label></td>
+	                      	</c:when>
+	                      	<c:when test="${reserv.reservState == 2}">
+	                      		<td><label class="badge badge-danger">예약취소</label></td>
+	                      	</c:when>
+	                      	<c:when test="${reserv.reservState == 3}">
+	                      		<td><label class="badge badge-wait">결제취소요청</label></td>
+	                      	</c:when>
+                          </c:choose>
+                        </c:forEach>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
             </div>
-            
-            
           </div>
-        </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
