@@ -119,6 +119,12 @@ public class CampServiceImpl implements CampService {
 	}
 	
 	
+	@Override
+	public void delete(Long campNo) {
+		campRep.deleteById(campNo);
+		
+	}
+	
 	//관리자번호 랜덤 생성
 	public String createManageNo() {
 		Random ran = new Random();
@@ -130,10 +136,5 @@ public class CampServiceImpl implements CampService {
     	return "CDFI"+sb.toString();
 	}
 
-	@Override
-	public void delete(Long campNo) {
-		campRep.deleteById(campNo);
-		
-	}
 
 }

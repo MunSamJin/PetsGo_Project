@@ -314,7 +314,7 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/camp/campSelect/${secCamp.campNo}">캠핑장 조회</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/camp/campSelect">캠핑장 조회</a></li>
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/resi/resiSelect/${secCamp.campNo}">숙소 목록 조회</a></li>
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/resi/resiInsertForm">숙소 등록</a></li>
               </ul>
@@ -363,12 +363,13 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-            <div class="col-lg-6 grid-margin stretch-card">
+          <!-- <div class="row"> -->
+            <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">예약 신청 관리</h4>
                   <p class="card-description">
-                    <div class="dropdown">
+                     <div class="dropdown">
                       <button class="btn btn-danger btn-sm dropdown-toggle" type="button" id="campStateArr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         전체
                       </button>
@@ -377,8 +378,8 @@
                         <a class="dropdown-item" href="#">전체</a>
                         <a class="dropdown-item" href="#">예약대기</a>
                         <a class="dropdown-item" href="#">예약확정</a>
-                        <a class="dropdown-item" href="#">예약취소</a>
                         <a class="dropdown-item" href="#">결제취소요청</a>
+                        <a class="dropdown-item" href="#">예약취소</a>
                       </div>
                     </div>
                   </p>
@@ -391,39 +392,43 @@
                           <th>예약일</th>
                           <th>결제금액</th>
                           <th>예약상태</th>
-                          <th>입퇴실현황</th>
                         </tr>
                       </thead>
                       <tbody>
                       	<c:forEach items="${reservList}" var="reserv">
-                        <tr>
-                          <td>${reserv.No}</td>
-                          <td>${reserv.memberNo}</td>
-                          <td>${reserv.reservDate}</td>
-                          <td>${reserv.Price}</td>
-                          
-                          <c:choose>
-                          	<c:when test="${reserv.reservState == 0}">
-                      			<td><label class="badge badge-info" >예약대기</label></td>
-	                      	</c:when>
-	                      	<c:when test="${reserv.reservState == 1}">
-	                      		<td><label class="badge badge-success">예약확정</label></td>
-	                      	</c:when>
-	                      	<c:when test="${reserv.reservState == 2}">
-	                      		<td><label class="badge badge-danger">예약취소</label></td>
-	                      	</c:when>
-	                      	<c:when test="${reserv.reservState == 3}">
-	                      		<td><label class="badge badge-wait">결제취소요청</label></td>
-	                      	</c:when>
-                          </c:choose>
-                        </c:forEach>
+	                        <tr onclick="location.href='${pageContext.request.contextPath}/owner/resi/resiDetail/${resi.resiNo}'" style="cursor:pointer;">
+	                          <td>${reserv.reservNo}</td>
+	                          <td>${reserv.reservNo}</td>
+	                          <td>${reserv.reservDate}</td>
+	                          <td>
+	                            <fmt:formatNumber value="${reserv.reservPrice}" pattern="###,### 원"/>
+	                          </td>
+	                          <c:choose>
+	                          	<c:when test="${reserv.reservState == 0}">
+	                      			<td><label class="badge badge-info" >예약대기</label></td>
+		                      	</c:when>
+		                      	<c:when test="${reserv.reservState == 1}">
+		                      		<td><label class="badge badge-success">예약확정</label></td>
+		                      	</c:when>
+		                      	<c:when test="${reserv.reservState == 3}">
+		                      		<td><label class="badge badge-wait">예약취소</label></td>
+		                      	</c:when>
+		                      	<c:when test="${reserv.reservState == 4}">
+		                      		<td><label class="badge badge-danger">결제취소요청</label></td>
+		                      	</c:when>
+                          	  </c:choose>
+	                        </tr>
+	                  	</c:forEach>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+            
+            
+          <!-- </div> -->
+        </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">

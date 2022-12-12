@@ -35,13 +35,13 @@
 		$(function(){
 			
 			$("#campUpdateBtn").click(function(){
-				$(location).attr('href','${pageContext.request.contextPath}/owner/camp/campUpdateForm/${secCamp.campNo}');
+				$(location).attr('href','${pageContext.request.contextPath}/owner/camp/campUpdateForm');
 			})
 			
 			
 			$("#campDeleteBtn").click(function(){
 				if(confirm("펫츠고 플랫폼 이용 종료 신청 하시겠습니까?")){
-					$(location).attr('href','${pageContext.request.contextPath}/owner/camp/campDeleteForm/${secCamp.campNo}');
+					$(location).attr('href','${pageContext.request.contextPath}/owner/camp/campDeleteForm');
 				}
 				
 			})
@@ -338,7 +338,7 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/camp/campSelect/${secCamp.campNo}">캠핑장 조회</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/camp/campSelect">캠핑장 조회</a></li>
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/resi/resiSelect/${secCamp.campNo}">숙소 목록 조회</a></li>
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/resi/resiInsertForm">숙소 등록</a></li>
               </ul>
@@ -402,11 +402,11 @@
         				
                     <div class="form-group">
                       <label for="exampleInputName1">캠핑장 이름</label>
-                      <p class="form-control" id="exampleInputName1" name="campName">${camp.campName}</p>
+                      <p class="form-control" id="exampleInputName1" name="campName">${secCamp.campName}</p>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail3">Email(이메일)</label>
-                      <p class="form-control" id="campEmail" name="campEmail">${camp.campEmail}</p>
+                      <p class="form-control" id="campEmail" name="campEmail">${secCamp.campEmail}</p>
                     </div>
                     <%-- <div class="form-group">
                       <label for="exampleInputPassword4">비밀번호</label>
@@ -414,19 +414,19 @@
                     </div> --%>
                     <div class="form-group">
                       <label for="exampleInputCity1">캠핑장 관리 번호</label>
-                      <p class="form-control" id="campManageNo" name="campManageNo" oninput="autoHyphen(this)" maxlength="12" >${camp.campManageNo}</p>
+                      <p class="form-control" id="campManageNo" name="campManageNo" oninput="autoHyphen(this)" maxlength="12" >${secCamp.campManageNo}</p>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputCity1">사업자 등록 번호</label>
-                      <p class="form-control" id="campRegNo" name="campRegNo" oninput="autoHyphen(this)" maxlength="12" >${camp.campRegNo}</p>
+                      <p class="form-control" id="campRegNo" name="campRegNo" oninput="autoHyphen(this)" maxlength="12" >${secCamp.campRegNo}</p>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputCity1">연락처</label>
-                      <p class="form-control" id="campPhone" name="campPhone" oninput="autoHyphen2(this)" maxlength="13">${camp.campPhone}</p>
+                      <p class="form-control" id="campPhone" name="campPhone" oninput="autoHyphen2(this)" maxlength="13">${secCamp.campPhone}</p>
                     </div>
                     <div class="form-group">
                       <label>파일</label>
-                      <c:set value="${fn:split(camp.campFilename,',')}" var="filenameArr"/>
+                      <c:set value="${fn:split(secCamp.campFilename,',')}" var="filenameArr"/>
                       	<p>
                   		<c:forEach items="${filenameArr}" var="filename">
                   			<img class="news-item-preview" name="campFilename" style="width:150px; height:120px;" src="/img/seryun/${filename}">
@@ -442,45 +442,45 @@
                     </div>
                     <div class="form-group">
                       <label for="exampleInputCity1">우편번호</label>
-                      <p class="form-control" id="sample6_postcode" name="campPost">${camp.campPost}</p>
+                      <p class="form-control" id="sample6_postcode" name="campPost">${secCamp.campPost}</p>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputCity1">주소</label>
-                      <p class="form-control" id="sample6_address" name="campAddr">${camp.campAddr}</p>
+                      <p class="form-control" id="sample6_address" name="campAddr">${secCamp.campAddr}</p>
                     </div>
                     <div class="form-group">
                       <label for="exampleTextarea1">공지사항</label>
-                      <p class="form-control" id="campNotify" rows="6" name="campNotify" style="white-space: pre-line; overflow: auto">${camp.campNotify}</p>
+                      <p class="form-control" id="campNotify" rows="6" name="campNotify" style="white-space: pre-line; overflow: auto">${secCamp.campNotify}</p>
                     </div>
                     <div class="form-group">
                       <label for="exampleTextarea1">소개글</label>
-                      <p class="form-control" id="campIntro" rows="6" name="campIntro" style="white-space: pre-line; overflow: auto">${camp.campIntro}</p>
+                      <p class="form-control" id="campIntro" rows="6" name="campIntro" style="white-space: pre-line; overflow: auto">${secCamp.campIntro}</p>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputCity1">부대시설</label>
-                      <p class="form-control" id="campFacility" name="campFacility">${camp.campFacility}</p>
+                      <p class="form-control" id="campFacility" name="campFacility">${secCamp.campFacility}</p>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputCity1">체크인 시간</label>
-                      <p class="form-control" id="campCheckin" name="campCheckin">${camp.campCheckin}</p>
+                      <p class="form-control" id="campCheckin" name="campCheckin">${secCamp.campCheckin}</p>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputCity1">체크아웃 시간</label>
-                      <p class="form-control" id="campCheckout" name="campCheckout">${camp.campCheckout}</p>
+                      <p class="form-control" id="campCheckout" name="campCheckout">${secCamp.campCheckout}</p>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputCity1">캠핑장 등록 상태</label>
                       <c:choose>
-                      	<c:when test="${camp.campState == 0}">
+                      	<c:when test="${secCamp.campState == 0}">
                       		<p class="form-control" id="campState" name="campState">등록 승인 대기</p>
                       	</c:when>
-                      	<c:when test="${camp.campState == 1}">
+                      	<c:when test="${secCamp.campState == 1}">
                       		<p class="form-control" id="campState" name="campState">승인</p>
                       	</c:when>
-                      	<c:when test="${camp.campState == 2}">
+                      	<c:when test="${secCamp.campState == 2}">
                       		<p class="form-control" id="campState" name="campState">종료 승인 대기</p>
                       	</c:when>
-                      	<c:when test="${camp.campState == 3}">
+                      	<c:when test="${secCamp.campState == 3}">
                       		<p class="form-control" id="campState" name="campState">종료</p>
                       	</c:when>
                       </c:choose>

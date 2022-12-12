@@ -32,7 +32,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity
 @Builder
-@ToString
+//@ToString
 /**
  *  숙소 도메인
  */
