@@ -9,6 +9,11 @@
     font-size: 12px;
 }
 
+.b_inner .contents_box{
+    float: none;
+    display: flex;
+    justify-content: center;
+}
 
 
 #header{
