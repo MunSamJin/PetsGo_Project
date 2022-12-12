@@ -79,7 +79,7 @@ public class MemberController {
 		//System.out.println("member컨트롤러 memberNo = " + memberNo);
 		
 		List<Reservation> list = memberService.selectAll(memberNo);
-		//System.out.println("member컨트롤러 list = " + list);
+		System.out.println("member컨트롤러 list = " + list);
 		
 		model.addAttribute("reservation", list);
 	}

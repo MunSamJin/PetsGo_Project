@@ -72,8 +72,6 @@ public class ReservationController {
 		
 
 		Reservation reser = new Reservation(null, reservName, reservPhone, null, reservType, price, state, people, reservCheckin, reservCheckout, totalPet, insuranceTotal, member, camp, residence, null);
-		Long memberNo = (long) 1;
-		reser.setMember(new Member(memberNo));
 		reservationService.insert(reser);
 		temporaryService.delete(teNo);
 		return "결제완료";

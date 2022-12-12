@@ -95,8 +95,6 @@ public class Camp {
 	
 	private String campRole;
 	
-	
-	@JsonIgnore
 	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
 	private List<Residence> residenceList;
 	
