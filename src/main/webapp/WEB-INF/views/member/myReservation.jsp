@@ -56,11 +56,12 @@
     				url : "${pageContext.request.contextPath}/member/cancelPay", //서버요청주소
     				type : "post", //요청방식(get, post, put, delete, patch)
     				dataType : "json", //서버가 응답(보내온) 한 데이터타입(text | hrml | xml | json)
-    				data : { reservationNo : $("input[name=reservationNo]").val(),
-    						 "${_csrf.parameterName}=${_csrf.token}"
+    				data : { reservationNo : $("input[name=reservationNo]").val() ,
+    						 "${_csrf.parameterName}" : "${_csrf.token}"
     				}, //서버에게 보낼 parameter 정보
     				success : function(result){ //받을값이 있다면 result
-    					alert("예약상태는 ?" + result); 
+    					//alert("예약상태는 ?" + result); 
+    					location.href="${pageContext.request.contextPath}/member/myReservation"
     				}, 
     				error : function(){
     					alert(err+"에러발생!")
@@ -154,9 +155,13 @@
 			                                    				예약확정
 			                                    				<li style="color: #f7612f;"><i class="far fa-star"></i> 예약확정</li>
 			                                    			</c:when>
-			                                    			<c:otherwise>
-			                                    				예약 취소
-			                                    			</c:otherwise>
+			                                    			<c:when test="${reservation.reservState eq 3}">
+			                                    				예약취소			                                   
+			                                    			</c:when>
+			                                    			<c:when test="${reservation.reservState eq 4}">
+			                                    				결제취소대기			                                   
+			                                    			</c:when>
+			                                    			
 			                                    		</c:choose>
 			                                    	</span>
 			                                    </li>

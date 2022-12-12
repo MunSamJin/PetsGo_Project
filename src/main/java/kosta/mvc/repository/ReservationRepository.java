@@ -11,7 +11,7 @@ import kosta.mvc.domain.Reservation;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long>, QuerydslPredicateExecutor<Reservation>{
 
-	@Query(value = "select * from Reservation where member_no=?1", nativeQuery = true)
+	@Query(value = "select * from Reservation where member_no=?1 order by reserv_date desc", nativeQuery = true)
 	List<Reservation> selectAll(Long memberNo);
 	
 	@Query(value = "update reservation set reserv_state=4 where member_no=?1 and reserv_no=?2", nativeQuery = true)
