@@ -1,6 +1,7 @@
 package kosta.mvc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,9 @@ public class ReservationController {
 	
 	@RequestMapping("/insert")
 	@ResponseBody
-	public String insert(String reservName,
+	public String insert(
+			Authentication auth,
+			String reservName,
 			String reservPhone,
 			String reservType,
 			String reservPrice,
@@ -44,9 +47,13 @@ public class ReservationController {
 			String reservCheckout,
 			String reservTotalPet,
 			String reservInsuranceTotal,
-			Member member,
-			Camp camp,
 			Residence residence) {
+		
+		Object object = auth.getPrincipal();
+		Member member = null;
+		if(object instanceof Member) {
+			member = (Member)auth.getPrincipal();
+		}
 		
 		int price = Integer.parseInt(reservPrice);
 		int state = Integer.parseInt(reservState);
@@ -55,7 +62,7 @@ public class ReservationController {
 		int insuranceTotal = Integer.parseInt(reservInsuranceTotal);
 		
 
-		Reservation reser = new Reservation(null, reservName, reservPhone, null, reservType, price, state, people, reservCheckin, reservCheckout, totalPet, insuranceTotal, member, camp, residence, null);
+		Reservation reser = new Reservation(null, reservName, reservPhone, null, reservType, price, state, people, reservCheckin, reservCheckout, totalPet, insuranceTotal, member, residence, null);
 		Long memberNo = (long) 1;
 		reser.setMember(new Member(memberNo));
 		reservationService.insert(reser);
