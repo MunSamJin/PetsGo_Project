@@ -31,10 +31,10 @@ public class SamjinTests {
 	/**
 	 * 예약테이블 등록
 	 */
-	void insert() {
-		reservationRep.save(new Reservation(null, null, null, null, null, 
-				0, 0, 0, null, null, 0, 0, null, null, null, null));
-	}
+	/*
+	 * void insert() { reservationRep.save(new Reservation(null, null, null, null,
+	 * null, 0, 0, 0, null, null, 0, 0, null, null, null, null)); }
+	 */
 	
 	//null, "문삼진", "010-6613-0091", null, "kakaopay", 120000, 0, 2, "22/12/23", "22/12/25", 1, 10000, new Member((long) 1), null, null
 	
