@@ -79,10 +79,10 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 			//비밀번호 비교
 			String password = (String)auth.getCredentials(); //비밀번호		
 			
-			/* if(!passwordEncoder.matches(password, camp.getCampPassword())){
+			if(!passwordEncoder.matches(password, camp.getCampPassword())){
 				throw new BadCredentialsException("패스워드 오류입니다.");
-			} */
-			
+			}
+		
 			List<SimpleGrantedAuthority> authList = new ArrayList<SimpleGrantedAuthority>();
 			authList.add( new SimpleGrantedAuthority(camp.getCampRole()));
 		    

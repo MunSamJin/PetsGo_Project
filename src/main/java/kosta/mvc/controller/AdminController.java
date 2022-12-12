@@ -1,11 +1,30 @@
 package kosta.mvc.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.collections.map.HashedMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import kosta.mvc.domain.Camp;
+import kosta.mvc.domain.Residence;
+import kosta.mvc.service.CampService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	
+	@Autowired
+	private CampService campService;
+	
 
 	@RequestMapping("{url}")
 	public void url() {
@@ -18,8 +37,88 @@ public class AdminController {
 	}
 	
 	
-	/*@RequestMapping("/reply") public void reply() {
-	 
+	/**
+	 * 캠핑장 전체 검색
+	 */
+	@RequestMapping("/pages/camp/campcheck")
+	public String campCheckAll(Model model) {
+		List<Camp> campList = campService.selectAll();
+		System.out.println("campList="+campList);
+		model.addAttribute("campList",campList);
+		return "/admin/pages/camp/campcheck";
+	}
+	
+	
+	/**
+	 * 캠핑장 상태 확인
+	 */
+	/*@RequestMapping("/camp/campcheck")
+	@ResponseBody
+	public List<Camp> campCheck(int campState) {
+		System.out.println("캠핑장 상태 확인 campState = "+campState);
+		
+		List<Camp> campList;
+		if(campState==4) {
+			campList = campService.selectAll();
+		} else {
+			campList = campService.select(campState);
+		}
+		
+		//camp안에있는 다른객체 속성을 뷰로 전달해야 한다면...
+		
+		return campList;
 	}*/
-	 
+	
+	@RequestMapping("/camp/campcheck")
+	@ResponseBody
+	public Map<String, Object> campCheck(int campState) {
+		System.out.println("캠핑장 상태 확인 campState = "+campState);
+		
+		List<Camp> campList;
+		if(campState==4) {
+			campList = campService.selectAll();
+		} else {
+			campList = campService.select(campState);
+		}
+		
+		
+		System.out.println("campList = " + campList);
+		Map<String, Object> map = new HashMap<>();
+		map.put("campList", campList);
+		
+		
+		List<List<Residence>> residenceList = new ArrayList<List<Residence>>();
+		for(Camp camp : campList) {
+			System.out.println("camp.getResidenceList() = " + camp.getResidenceList());
+			residenceList.add( camp.getResidenceList()) ;
+		}
+		//camp안에있는 다른객체 속성을 뷰로 전달해야 한다면...
+		map.put("residenceList", residenceList);
+		
+		return map;
+	}
+	
+	
+	/**
+	 * 캠핑장 정보 조회
+	 */
+	@RequestMapping("/camp/campcheckPage/{campNo}")
+	public String campCheckPage(@PathVariable("campNo") Long campNo, Model model) {
+		Camp camp = campService.selectBy(campNo);
+		model.addAttribute("camp", camp);
+		return "/admin/pages/camp/campcheckPage";
+	}
+	
+	
+	/**
+	 * 캠핑장 상태 변경
+	 */
+	@RequestMapping("/camp/campStateUpdate")
+	@ResponseBody
+	public Camp campStateUpdate(Long campNo, int campState) {
+		Camp camp = campService.campStateUpdate(campNo, campState);
+		
+		return camp;
+	}
+	
 }

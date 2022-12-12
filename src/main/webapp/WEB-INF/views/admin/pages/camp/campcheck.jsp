@@ -140,49 +140,51 @@
                 <div class="card-body">
                   <h4 class="card-title">캠핑장 등록 승인</h4>
                   <p class="card-description">
-                    캠핑장 사업자 <code>등록 승인 대기 중</code>
+                    <div class="dropdown">
+                      <button class="btn btn-danger btn-sm dropdown-toggle" type="button" id="campStateArr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        전체
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
+                        <h6 class="dropdown-header" style="font-weight: bold">정렬</h6>
+                        <a class="dropdown-item" href="#">전체</a>
+                        <a class="dropdown-item" href="#">등록승인대기</a>
+                        <a class="dropdown-item" href="#">승인</a>
+                        <a class="dropdown-item" href="#">종료승인대기</a>
+                        <a class="dropdown-item" href="#">종료</a>
+                      </div>
+                    </div>
                   </p>
                   <div class="table-responsive">
                     <table class="table table-hover">
                       <thead>
                         <tr>
-                          <th>사업자</th>
+                          <th>사업자 번호</th>
                           <th>캠핑장</th>
-                          <th>신청서</th>
+                          <th>정보</th>
                           <th>승인상태</th>
                         </tr>
                       </thead>
                       <tbody>
+                      	<c:forEach items="${campList}" var="camp">
                         <tr>
-                          <td>이혜진</td>
-                          <td>수원캠핑장</td>
-                          <td class="text-success"> 신청서제출 <i class="ti-arrow-up"></i></td>
-                          <td><label class="badge badge-wait">승인</label><label class="badge badge-wait">승인대기</label><label class="badge badge-wait">승인완료</label><label class="badge badge-wait">승인반려</label></td>
-                        </tr>
-                        <tr>
-                          <td>박해원</td>
-                          <td>모란캠핑장</td>
-                          <td class="text-success"> 신청서제출 <i class="ti-arrow-up"></i></td>
-                          <td><label class="badge badge-danger">승인반려</label></td>
-                        </tr>
-                        <tr>
-                          <td>문삼진</td>
-                          <td>영통캠핑장</td>
-                          <td class="text-success"> 신청서제출 <i class="ti-arrow-up"></i></td>
-                          <td><label class="badge badge-info">승인완료</label></td>
-                        </tr>
-                        <tr>
-                          <td>장민정</td>
-                          <td>성남캠핑장</td>
-                          <td class="text-success"> 신청서제출 <i class="ti-arrow-up"></i></td>
-                          <td><label class="badge badge-success">승인대기</label></td>
-                        </tr>
-                        <tr>
-                          <td>천세륜</td>
-                          <td>오리캠핑장</td>
-                          <td class="text-success"> 신청서제출 <i class="ti-arrow-up"></i></td>
-                          <td><label class="badge badge-info">승인완료</label></td>
-                        </tr>
+                          <td>${camp.campRegNo}</td>
+                          <td>${camp.campName}</td>
+                          <td class="text-success"><a href="${pageContext.request.contextPath}/admin/camp/campcheckPage/${camp.campNo}">캠핑장 정보</a><i class="ti-arrow-up"></i></td>
+                          <c:choose>
+                          	<c:when test="${camp.campState == 0}">
+                      			<td><label class="badge badge-info" >등록승인대기</label></td>
+	                      	</c:when>
+	                      	<c:when test="${camp.campState == 1}">
+	                      		<td><label class="badge badge-success">승인</label></td>
+	                      	</c:when>
+	                      	<c:when test="${camp.campState == 2}">
+	                      		<td><label class="badge badge-danger">종료승인대기</label></td>
+	                      	</c:when>
+	                      	<c:when test="${camp.campState == 3}">
+	                      		<td><label class="badge badge-wait">종료</label></td>
+	                      	</c:when>
+                          </c:choose>
+                        </c:forEach>
                       </tbody>
                     </table>
                   </div>
@@ -221,6 +223,57 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->
+  
+  <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
+  <script type="text/javascript">
+  	$(function(){
+  		$(".dropdown-item").click(function(){
+  			let campStateStr = $(this).text();
+  			let campState = 0;
+  			
+  			if(campStateStr == "등록승인대기"){
+  				campState = 0;
+  			}else if(campStateStr == "승인"){
+  				campState = 1;
+  			}else if(campStateStr == "종료승인대기"){
+  				campState = 2;
+  			}else if(campStateStr == "종료"){
+  				campState = 3;
+  			}else if(campStateStr == "전체"){
+  				campState = 4;
+  			}
+  			
+  		
+  			$.ajax({
+  				type:"post",
+  				url:"${pageContext.request.contextPath}/admin/camp/campcheck",
+  				dataType: "json",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
+				data:"${_csrf.parameterName}=${_csrf.token}&campState="+campState, //서버에게 보낼 parameter 정보 
+				//data:"${_csrf.parameterName}=${_csrf.token}&email=" + email,	
+				success:function(data) {	
+					alert(data.campList)
+					//$("#campStateArr").html(campStateStr);	
+					
+					$.each(data.campList , function(index, item){ //item은 camp
+						alert(item.campNo  + " , campEmail = " + item.campEmail);
+					      $.each(data.residenceList , function(i, residence ){
+					    	   //alert(i+" = resiName = " + residence.resiName)
+					    	   $.each(residence , function(a , re){
+					    		   alert("되니 ? "+re.resiName)
+					    	   })
+					      } )
+					});
+				}
+  			});
+  		});
+  	})
+  </script>
 </body>
 
 </html>
+
+
+
+
+
+

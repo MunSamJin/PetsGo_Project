@@ -53,7 +53,7 @@
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/../../images/logo.svg" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/../../images/logo_owner.svg" class="mr-2" alt="logo"/></a>
         <a class="navbar-brand brand-logo-mini" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/../../images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -376,7 +376,7 @@
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/info/infoSelect/${secCamp.campNo}">정보 조회</a></li>
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/logOut">로그아웃</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
               </ul>
             </div>
           </li>
@@ -394,10 +394,12 @@
               <div class="brand-logo">
                 <p><img src="${pageContext.request.contextPath}/../../images/logo.svg" alt="logo"></p>
               </div>
-              <br>
+              <br><br>
               <h4>펫츠고 플랫폼 이용 종료</h4>
-              <h6 class="font-weight-light">이용 종료 신청 이후에 ${camp.campName}의 펫츠고(Pet's Go) 플랫폼 이용은 불가합니다</h6>
-              <h6 class="font-weight-light">종료 신청을 위해서 사업자 비밀번호를 입력해주세요</h6>
+              <br><br>
+              <h6 class="font-weight-light">이용 종료 신청 이후에 ${secCamp.campName}의 펫츠고(Pet's Go) 플랫폼 이용은 불가해집니다.</h6>
+              <br>
+              <h6 class="font-weight-light">종료 신청을 위해서 사업자 비밀번호를 입력해주세요.</h6>
               <form class="pt-3" method="post" id="campDeleteRequest" name="campDeleteRequest">
                 <div class="form-group">
                   <input type="password" class="form-control form-control-lg" id="campPassword" name="campPassword" placeholder="Password">
@@ -407,9 +409,6 @@
                 </div>
                 <div class="my-2 d-flex justify-content-between align-items-center">
                   <a href="#" class="auth-link text-black">Forgot password?</a>
-                </div>
-                <div class="text-center mt-4 font-weight-light">
-                  Don't have an account? <a href="register.html" class="text-primary">Create</a>
                 </div>
               </form>
             </div>
@@ -472,7 +471,7 @@
 						}else{						
 							if(confirm("정말 이용 종료 신청을 진행하시겠습니까?")){
 								alert("펫츠고 이용 종료 신청이 접수되었습니다. 지금까지 이용해주셔서 감사합니다.")
-								location.href = "${pageContext.request.contextPath}/owner/campDeleteRequest/${secCamp.campNo}";
+								location.href = "${pageContext.request.contextPath}/owner/campStateUpdate/${secCamp.campNo}/2";
 							}
 						    return true;
 						}					

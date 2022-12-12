@@ -55,7 +55,7 @@
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/../../images/logo.svg" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/../../images/logo_owner.svg" class="mr-2" alt="logo"/></a>
         <a class="navbar-brand brand-logo-mini" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/../../images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -378,7 +378,7 @@
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/info/infoSelect/${secCamp.campNo}">정보 조회</a></li>
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/logOut">로그아웃</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
               </ul>
             </div>
           </li>
@@ -408,11 +408,14 @@
                       <label for="exampleInputEmail3">Email(이메일)</label>
                       <p class="form-control" id="campEmail" name="campEmail">${camp.campEmail}</p>
                     </div>
-                    <div class="form-group">
+                    <%-- <div class="form-group">
                       <label for="exampleInputPassword4">비밀번호</label>
                       <input type="password" class="form-control" id="campPassword" name="campPassword" disabled="disabled" value="${camp.campPassword}">
+                    </div> --%>
+                    <div class="form-group">
+                      <label for="exampleInputCity1">캠핑장 관리 번호</label>
+                      <p class="form-control" id="campManageNo" name="campManageNo" oninput="autoHyphen(this)" maxlength="12" >${camp.campManageNo}</p>
                     </div>
-                    
                     <div class="form-group">
                       <label for="exampleInputCity1">사업자 등록 번호</label>
                       <p class="form-control" id="campRegNo" name="campRegNo" oninput="autoHyphen(this)" maxlength="12" >${camp.campRegNo}</p>
@@ -469,16 +472,16 @@
                       <label for="exampleInputCity1">캠핑장 등록 상태</label>
                       <c:choose>
                       	<c:when test="${camp.campState == 0}">
-                      		<p class="form-control" id="campState" name="campState">승인 대기</p>
+                      		<p class="form-control" id="campState" name="campState">등록 승인 대기</p>
                       	</c:when>
                       	<c:when test="${camp.campState == 1}">
                       		<p class="form-control" id="campState" name="campState">승인</p>
                       	</c:when>
                       	<c:when test="${camp.campState == 2}">
-                      		<p class="form-control" id="campState" name="campState">등록 취소 대기</p>
+                      		<p class="form-control" id="campState" name="campState">종료 승인 대기</p>
                       	</c:when>
                       	<c:when test="${camp.campState == 3}">
-                      		<p class="form-control" id="campState" name="campState">등록 취소</p>
+                      		<p class="form-control" id="campState" name="campState">종료</p>
                       	</c:when>
                       </c:choose>
                       

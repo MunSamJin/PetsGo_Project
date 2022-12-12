@@ -16,8 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Camp;
+import kosta.mvc.domain.Reservation;
 import kosta.mvc.domain.Residence;
 import kosta.mvc.service.CampService;
+import kosta.mvc.service.ReservationService;
 import kosta.mvc.service.ResiService;
 
 @Controller
@@ -29,6 +31,9 @@ public class OwnerController {
 	
 	@Autowired
 	private ResiService resiService;
+	
+	@Autowired
+	private ReservationService reservService;
 	
 	
 	@RequestMapping("/campHome")
@@ -157,6 +162,11 @@ public class OwnerController {
 		
 		System.out.println("업데이트 완료!!! camp="+camp);
 		
+		//Authentication정보 수정
+		/*Camp c=(Camp)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		c.setCampAddr(filenames)*/
+		
+		
 		return "redirect:/owner/camp/campSelect/"+camp.getCampNo() ;
 		//return "redirect:/owner/camp/campSelect";
 	}
@@ -168,10 +178,10 @@ public class OwnerController {
 	}
 	
 	
-	@RequestMapping("/campDeleteRequest/{campNo}")
-	public String campDeleteRequest(@PathVariable Long campNo) {
-		System.out.println("campNo= " + campNo);
-		campService.campDeleteRequest(campNo);
+	@RequestMapping("/campStateUpdate/{campNo}/{campState}")
+	public String campDeleteRequest(@PathVariable("campNo") Long campNo, @PathVariable("campState") int campState) {
+		System.out.println("캠핑장 상태 변경!!!!!!!!!!!!");
+		campService.campStateUpdate(campNo, campState);
 		return "redirect:/owner/campHome";
 	}
 	
@@ -287,11 +297,22 @@ public class OwnerController {
 	}
 	
 
+	@RequestMapping("/reserv/reservManagement/{campNo}")
+	public String reservManagement(@PathVariable("campNo") Long campNo, Model model) {
+		System.out.println("컨트롤러진입");
+		List<Reservation> reservList = reservService.selectByCampNo(campNo);
+		model.addAttribute("reservList",reservList);
+		return "owner/reserv/reservManagement";
+	}
 	
 	
-	@RequestMapping("/{url}")
+	/*@RequestMapping("/{url}")
 	public void url1() {}
 	
 	@RequestMapping("/{url}/{url2}")
-	public void url2() {}
+	public void url2(Model model) {
+		Long campNo = (long) 2;
+		List<Reservation> reservList = reservService.selectByCampNo(campNo);
+		model.addAttribute("reservList",reservList);
+	}*/
 }
