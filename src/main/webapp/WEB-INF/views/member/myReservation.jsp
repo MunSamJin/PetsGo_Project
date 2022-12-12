@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <!-- my_reservation style CSS --> 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/my_reservation.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage_style.css">
     
 
 </head>
@@ -43,6 +44,7 @@
     <!--================ Area =================-->
     <section class="blog_area single-post-area section_padding">
         <div class="container">
+        <div class="my_topmenu">나의 예약내역</div>
             <div class="row">
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
