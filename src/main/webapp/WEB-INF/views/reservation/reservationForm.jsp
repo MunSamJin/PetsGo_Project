@@ -189,6 +189,24 @@
                 return "브라우저를 종료하시겠습니까?";
             };
         });
+        
+        var time = 3600;//시
+        var min = "";//분
+        var sec = "";//초
+        
+        var x = setInterval(function() {
+			min = parseInt(time/60);
+			sec = time%60;
+			
+			document.getElementById("timer").innerHTML = "00:"+min+":"+sec+" 제한 시간 이내에 결제 가능";
+			time--;
+			
+			if(time<0) {
+				clearInterval(x);
+				document.getElementById("timer").innerHTML = "시간초과";
+				location.href="${pageContext.request.contextPath}/main";
+			}
+		}, 1000);
     </script>
 </head>
 <body style="overflow: auto; background-color: rgb(238, 238, 238);">
@@ -209,9 +227,7 @@
                                         <li role="listitem">
                                             <div class="sc-iKFwRF dVSHzy sc-cclajh gGZSfC">
                                                 <i class="sc-crrszt etqBmk sc-cNageQ iFaNVZ sc-jOFsKT iFSEcX"></i>
-                                                <p class="sc-eCstlR cPIeWE sc-bXOijO kVwekS" type="NORMAL_MEDIUM">
-                                                    00:59:32 제한 시간 이내에 결제 가능
-                                                </p>
+                                                <p class="sc-eCstlR cPIeWE sc-bXOijO kVwekS" type="NORMAL_MEDIUM" id="timer"></p>
                                             </div>
                                         </li>
 
