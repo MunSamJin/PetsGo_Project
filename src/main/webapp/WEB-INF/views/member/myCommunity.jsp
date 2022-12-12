@@ -42,11 +42,6 @@
 
     <style>
 
-        .b_inner .contents_box{
-            float: none;
-            display: flex;
-            justify-content: center;
-        }
     </style>
 
 </head>

@@ -48,6 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.permitAll()
 				.antMatchers("/member/myCommunity")
 				.permitAll()
+				.antMatchers("/member/myQna")
+				.permitAll()
 				.antMatchers("/member/**")
 				.hasRole("MEMBER")
 				.antMatchers("/community/**")
