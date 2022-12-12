@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <!-- my_reservation style CSS --> 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/my_reservation.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage_style.css">
     
     <script type="text/javascript">
     	$(function(){
@@ -191,6 +192,7 @@
 		            </div>
 		        </div>
 		    </section>
+    
     
     <!--================ Area end =================-->
 

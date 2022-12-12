@@ -46,6 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.permitAll()
 				.antMatchers("/member/myReservation")
 				.permitAll()
+				.antMatchers("/member/myCommunity")
+				.permitAll()
 				.antMatchers("/member/**")
 				.hasRole("MEMBER")
 				.antMatchers("/community/**")
