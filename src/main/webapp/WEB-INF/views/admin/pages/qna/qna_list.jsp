@@ -161,6 +161,8 @@
                       </thead>
                       <tbody>
                       
+                      
+                      
                         <tr>
                           <td class="py-1">
                             <div>1203450</div>
@@ -177,57 +179,28 @@
                             답변상태
                           </td>
                         </tr>
+                        
+                        <c:choose>
+							<c:when test="${empty requestScope.pageList}">
+								<b>작성된 문의가 없습니다.</b>
+							</c:when>
+							<c:otherwise>	
+								<b>작성된 문의가 있습니다.</b>		
+								<%-- <c:forEach items="${requestScope.pageList}" var="qna">
+									${qna.qnaNo} <p>
+									${qna.qnaContent} <p>
+									${qna.qnaDate} <p>
+									${qna.qnaReContent} <p>
+									${qna.qnaReDate} <p>
+					
+									<a href="${pageContext.request.contextPath}/member/qnaDelete/${qna.qnaNo}"><button type="button">삭제</button></a>					
+									<br><br><br>
+								</c:forEach>  --%>
+							</c:otherwise>
+						</c:choose>
 
-                        <tr>
-                          <td class="py-1">
-                            <div>1203450</div>
-                          </td>
-                          <td>
-                            <div>문의등록된 내용입니다. 확인하고 답변 해주세요.</div>
-                          </td>
-                          <td>
-                            <div class="">
-                              <div>20222/12/22</div>
-                            </div>
-                          </td>
-                          <td>
-                            답변상태
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td class="py-1">
-                            <div>1203450</div>
-                          </td>
-                          <td>
-                            <div>문의등록된 내용입니다. 확인하고 답변 해주세요.</div>
-                          </td>
-                          <td>
-                            <div class="">
-                              <div>20222/12/22</div>
-                            </div>
-                          </td>
-                          <td>
-                            답변상태
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td class="py-1">
-                            <div>1203450</div>
-                          </td>
-                          <td>
-                            <div>문의등록된 내용입니다. 확인하고 답변 해주세요.</div>
-                          </td>
-                          <td>
-                            <div class="">
-                              <div>20222/12/22</div>
-                            </div>
-                          </td>
-                          <td>
-                            답변상태
-                          </td>
-                        </tr>
+                        
+                        
                       </tbody>
                     </table>
                   </div>

@@ -38,7 +38,7 @@
 	<br><br><br>
 	<c:choose>
 		<c:when test="${empty requestScope.qnaBoardList}">
-			<b>작성한신 문의가 없습니다.</b>
+			<b>작성하신 문의가 없습니다.</b>
 		</c:when>
 		<c:otherwise>			
 			<c:forEach items="${requestScope.qnaBoardList}" var="qna">
