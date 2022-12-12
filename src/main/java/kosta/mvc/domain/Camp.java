@@ -98,11 +98,9 @@ public class Camp {
 	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
 	private List<Residence> residenceList;
 	
-
 	@JsonIgnore
 	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 
 	private List<Scrap> scrapList;
-	
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 

@@ -219,30 +219,30 @@
                         <div class="listing-reviews-area mt-100" id="review">
                             <h4>후기</h4>
                             
-                            <div class="single-review-area">
-                                <div class="reviewer-meta d-flex align-items-center">
-                                    <img src="img/clients-img/1.jpg" alt="">
-                                    <div class="reviewer-content">
-                                        <div class="review-title-ratings d-flex justify-content-between">
-                                            <h5>“카라반 야영지로 추천!”</h5>
-                                            <div class="ratings">
-                                                <img src="img/clients-img/star-fill.png" alt="">
-                                                <img src="img/clients-img/star-fill.png" alt="">
-                                                <img src="img/clients-img/star-fill.png" alt="">
-                                                <img src="img/clients-img/star-fill.png" alt="">
-                                                <img src="img/clients-img/star-fill.png" alt="">
-                                            </div>
-                                        </div>
-                                        <p>깨끗하고 좋아요</p>
-                                    </div>
-                                </div>
-                                <div class="reviewer-name">
-                                    <h6>고구마가 맛있어</h6>
-                                    <p>2022/12/05</p>
-                                </div>
-                            </div>
-                            
-                            
+                            <c:forEach items="${boardList}" var="board">
+                            	<c:set value="${fn:split(board.boardFileName,',')}" var="fileNames"/>
+                            	<div class="single-review-area">
+	                                <div class="reviewer-meta d-flex align-items-center">
+	                                    <img src="${pageContext.request.contextPath}/img/${fileNames[0]}"  alt="">
+	                                    <div class="reviewer-content">
+	                                        <div class="review-title-ratings d-flex justify-content-between">
+	                                            <h5>“${board.boardTag}”</h5>
+	                                            <div class="ratings">
+	                                            	<c:forEach items="${fileNames}" var="fileName">
+	                                            		<img src="${pageContext.request.contextPath}/img/${fileName}" alt="">
+	                                            	</c:forEach>
+	                                            </div>
+	                                        </div>
+	                                        <p>${board.boardContent}</p>
+	                                    </div>
+	                                </div>
+	                                <div class="reviewer-name">
+	                                    <h6>${board.member.memberNickname}</h6>
+	                                    <p>${board.boardDate}</p>
+	                                </div>
+	                            </div>                            
+                            </c:forEach>
+
                         </div>
 
                         <!-- 지도 -->
