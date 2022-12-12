@@ -67,7 +67,7 @@
                         $.ajax({
                             url: '/reservation/insert',
                             type: 'post',
-                            dataType: 'json',
+                            dataType: 'text',
                             data: {
                                 reservName: reservName,
                                 reservPhone: reservPhone,
@@ -79,6 +79,7 @@
                                 reservCheckout: reservCheckout,
                                 reservTotalPet: reservTotalPet,
                                 reservInsuranceTotal: reservInsuranceTotal,
+                                camp:camp,
                                 residence:residence,
                                 teNo:teNo
                             },
@@ -86,7 +87,7 @@
                                 location.href="${pageContext.request.contextPath}/main";
                             },
                             error : function(err) {
-                            	alert(err);
+                            	alert(11);
 							}
                         });
                     } else {

@@ -54,6 +54,7 @@ public class ReservationController {
 			String reservCheckout,
 			String reservTotalPet,
 			String reservInsuranceTotal,
+			Camp camp,
 			Residence residence,
 			Long teNo) {
 		
@@ -70,7 +71,7 @@ public class ReservationController {
 		int insuranceTotal = Integer.parseInt(reservInsuranceTotal);
 		
 
-		Reservation reser = new Reservation(null, reservName, reservPhone, null, reservType, price, state, people, reservCheckin, reservCheckout, totalPet, insuranceTotal, member, residence, null);
+		Reservation reser = new Reservation(null, reservName, reservPhone, null, reservType, price, state, people, reservCheckin, reservCheckout, totalPet, insuranceTotal, member, camp, residence, null);
 		Long memberNo = (long) 1;
 		reser.setMember(new Member(memberNo));
 		reservationService.insert(reser);
@@ -82,8 +83,8 @@ public class ReservationController {
 	@RequestMapping("/test")
 	public String test(Long resiNo, String checkIn, String checkOut) {
 		String message = "입장";
-		Reservation re = reservationService.selectBy(resiNo, checkIn, checkOut);
-		Temporary te = temporaryService.selectBy(resiNo, checkIn, checkOut);
+		Reservation re = reservationService.selectBy(resiNo, checkIn, checkOut+" 24:00:00");
+		Temporary te = temporaryService.selectBy(resiNo, checkIn, checkOut+" 24:00:00");
 		if(re != null || te != null) message = "불입장";
 		return message;
 	}
@@ -91,6 +92,7 @@ public class ReservationController {
 	@ResponseBody
 	@RequestMapping("/deleteTe")
 	public void deleteTem(Long teNo) {
-		temporaryService.delete(teNo);
+		Temporary te = temporaryService.findBy(teNo);
+		if(te!=null) temporaryService.delete(teNo);
 	}
 }

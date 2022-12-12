@@ -9,4 +9,6 @@ public interface TemporaryService {
 	void delete(Long teNo);
 
 	Temporary selectBy(Long resiNo, String checkIn, String checkOut);
+	
+	Temporary findBy(Long teNo);
 }

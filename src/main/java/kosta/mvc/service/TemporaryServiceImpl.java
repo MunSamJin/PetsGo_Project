@@ -45,4 +45,9 @@ public class TemporaryServiceImpl implements TemporaryService {
 		temporaryRepository.deleteById(teNo);
 	}
 
+	@Override
+	public Temporary findBy(Long teNo) {
+		return temporaryRepository.findById(teNo).orElse(null);
+	}
+
 }
