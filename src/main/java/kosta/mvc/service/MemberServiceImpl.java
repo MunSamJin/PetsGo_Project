@@ -1,5 +1,7 @@
 package kosta.mvc.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Member;
+import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.repository.MemberRepository;
+import kosta.mvc.repository.QnaRepository;
 
 @Service
 @Transactional
@@ -15,6 +19,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private MemberRepository memberRep;
+	
+	@Autowired
+	private QnaRepository qnaRep;
 	
 	/*
 	 * 비밀번호 암호화를 위한 객체를 주입받는다 
@@ -48,19 +55,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member login(Member member) {
-		System.out.println("service login member = " + member);
-		
-		member = memberRep.login(member.getMemberEmail(), member.getMemberPassword());
-		
-		System.out.println("rep login 갔다 옴~");
-		
-		if(member == null) throw new RuntimeException("일치하는 정보가 없습니다.");
-		
-		return member;
-	}
-
-	@Override
 	public Member updateInfo(Member member) {
 		//해당하는 회원 찾기
 		Member dbMember = memberRep.findById(member.getMemberNo()).orElse(null);
@@ -75,9 +69,46 @@ public class MemberServiceImpl implements MemberService {
 		
 		return dbMember;
 	}
+	
+	@Override
+	public List<QnaBoard> qnaList() {
+		return qnaRep.findAll();
+	}
 
+	@Override
+	public void qnaInsert(QnaBoard qna) {
+		qnaRep.save(qna);
+	}
+	
+	@Override
+	public QnaBoard selectByQnaNo(Long qnaNo) {
+		QnaBoard qna = qnaRep.findById(qnaNo).orElse(null);
+		
+		if(qna == null) throw new RuntimeException("해당 문의가 없습니다.");
+		
+		return qna;
+	}
+	
+	/* @Override
+	public QnaBoard qnaUpdate(QnaBoard qna) {
+		QnaBoard dbQna = qnaRep.findById(qna.getQnaNo()).orElse(null);
+		
+		if(dbQna == null) throw new RuntimeException("수정할 수 없습니다.");
+		
+		dbQna.setQnaContent(qna.getQnaContent());
+		
+		return dbQna;
+	} */
+	
+	@Override
+	public void qnaDelete(Long qnaNo) {
+		QnaBoard qna = qnaRep.findById(qnaNo).orElse(null);
+		if(qna == null) throw new RuntimeException("해당 문의를 삭제할 수 없습니다.");
+		
+		qnaRep.deleteById(qnaNo);
+	}
 
-	/////////////////////////
+	////////////////////////////////////////
 	@Override
 	public String searchEmail(Member member) {
 		memberRep.findById(member.getMemberNo());

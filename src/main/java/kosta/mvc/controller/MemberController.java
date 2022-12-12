@@ -1,12 +1,12 @@
 package kosta.mvc.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Member;
@@ -23,35 +23,19 @@ public class MemberController {
 	/**
 	 * 이메일 중복 확인
 	 * */
-	@RequestMapping("/emailCheck")
+	/* @RequestMapping("/emailCheck")
 	@ResponseBody
 	public String emailCheck(HttpServletRequest request) {
 		return memberService.emailCheck(request.getParameter("memberEmail"));
-	}
+	} */
 	
 	/**
 	 * 닉네임 중복 확인
 	 * */
-	@RequestMapping("/nicknameCheck")
+	/* @RequestMapping("/nicknameCheck")
 	@ResponseBody
 	public String nicknameCheck(HttpServletRequest request) {
 		return memberService.nicknameCheck(request.getParameter("memberNickname"));
-	}
-	
-	/**
-	 * 회원 가입
-	 * */
-	/* @RequestMapping("/register")
-	public String register(Member member, HttpSession session) {
-		System.out.println("controller 회원가입 member = " + member);
-		
-		memberService.register(member);
-		
-		System.out.println("service 갔다 온 회원가입~");
-		
-		session.setAttribute("member", member);
-
-		return "redirect:/member/main";
 	} */
 
 	/**
@@ -72,8 +56,63 @@ public class MemberController {
 		return "member/myPet";
 	} */
 	
-	@RequestMapping("{url}")
-	public void url() {}
+	/**
+	 * 마이페이지 내 문의 이동
+	 * */
+	@RequestMapping("/myQna")
+	public void qnaList(Model model) {
+		List<QnaBoard> qnaBoardList = memberService.qnaList();
+		
+		model.addAttribute("qnaBoardList", qnaBoardList);
+	}
+	
+	/**
+	 * 마이페이지 내 문의 등록하기
+	 * */
+	@RequestMapping("/qnaInsert")
+	public String qnaInsert(QnaBoard qna) {		
+		memberService.qnaInsert(qna);
+		
+		return "redirect:/member/myQna";
+	}
+	
+	/**
+	 * 마이페이지 내 문의 수정 폼
+	 * */
+	/* @RequestMapping("/qnaUpdateForm/{qnaNo}")
+	public ModelAndView qnaUpdateForm(@PathVariable Long qnaNo) {
+		System.out.println("controller qnaUpdateForm 호출~");
+		
+		QnaBoard qna = memberService.selectByQnaNo(qnaNo);
+		
+		System.out.println("selectByQnaNo까지 다녀옴!");
+		
+		return new ModelAndView("member/qnaUpdateForm", "qna", qna);
+	} */
+	
+	/**
+	 * 마이페이지 내 문의 수정하기
+	 * */
+	/* @RequestMapping("/qnaUpdate")
+	public ModelAndView qnaUpdate(QnaBoard qna) {
+		qna = memberService.qnaUpdate(qna);
+		
+		return new ModelAndView("member/myQna", "qna", qna);
+	} */
+	
+	/**
+	 * 마이페이지 내 문의 삭제하기
+	 * */
+	@RequestMapping("/qnaDelete/{qnaNo}")
+	public String qnaDelete(@PathVariable Long qnaNo) {
+		memberService.qnaDelete(qnaNo);
+		
+		return "redirect:/member/myQna";
+	}
+	
+	
+	//@RequestMapping("{url}")
+	//public void url() {}
 }
 
 

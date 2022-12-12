@@ -1,7 +1,14 @@
 package kosta.mvc.service;
 
+import java.util.List;
+
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import kosta.mvc.domain.Member;
 import kosta.mvc.domain.Pet;
+import kosta.mvc.domain.QnaBoard;
 
 public interface MemberService {
 	
@@ -23,14 +30,39 @@ public interface MemberService {
 	/**
 	 * 로그인
 	 * */
-	Member login(Member member);
+	//Member login(Member member);
 	
 	/**
 	 * 회원 정보 수정하기
 	 * */
 	Member updateInfo(Member member);
 	
-	/////////////////////////
+	/**
+	 * 마이페이지 내 문의 이동
+	 * */
+	 List<QnaBoard> qnaList();
+	
+	/**
+	 * 마이페이지 내 문의 등록하기
+	 * */
+	void qnaInsert(QnaBoard qna);
+	
+	/**
+	 * 문의 번호 검색
+	 * */
+	QnaBoard selectByQnaNo(Long qnaNo);
+	
+	/**
+	 * 마이페이지 내 문의 수정하기
+	 * */
+	//QnaBoard qnaUpdate(QnaBoard qna);
+	
+	/**
+	 * 마이페이지 내 문의 삭제하기
+	 * */
+	void qnaDelete(Long qnaNo);
+	
+	///////////////////////////////////
 	
 	/**
 	 * 이메일 찾기
