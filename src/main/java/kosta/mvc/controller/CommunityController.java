@@ -34,6 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.LikeBoard;
+import kosta.mvc.domain.LikeBoardArrange;
 import kosta.mvc.domain.Member;
 import kosta.mvc.domain.Reservation;
 import kosta.mvc.service.CommunityService;
@@ -62,16 +63,27 @@ public class CommunityController {
 		
 		System.out.println("tag = " + tag);
 		
-		//태그로 검색하기 + 정렬기능
+		//태그로 검색하기 + 최신순정렬기능
 		if(tag != null) {
-			list = communityService.selectByTag(tag);
+			if(tag.equals("좋아요")) {
+				//List<LikeBoardArrange> likeList = communityService.selectLikeBoardArrange();
+				//model.addAttribute("communityBoardList", likeList);
+				//System.out.println("likeList = " + likeList);
+			}else {
+				list = communityService.selectByTag(tag);
+				System.out.println("list = " + list);
+				model.addAttribute("communityBoardList", list);
+			}
+			
 		} else {
 			list = communityService.selectAll();
+			System.out.println("list = " + list);
+			model.addAttribute("communityBoardList", list);
 		}
-		System.out.println("list = " + list);
-		model.addAttribute("communityBoardList", list);
+		
 		
 	}
+	
 	
 	
 	/**

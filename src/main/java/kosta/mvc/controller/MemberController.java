@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.Member;
 import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.domain.Reservation;
@@ -159,6 +160,28 @@ public class MemberController {
 		memberService.qnaDelete(qnaNo);
 		
 		return "redirect:/member/myQna";
+	}
+	
+	/**
+	 * 마이페이지 내커뮤니티 조회
+	 */
+	@RequestMapping("/myCommunity")
+	public void myCommunity(Model model, Authentication auth) {
+		
+		Object object = auth.getPrincipal();
+		Member member = null;
+		
+		if(object instanceof Member) {
+			member = (Member)auth.getPrincipal();
+		}
+		Long memberNo = member.getMemberNo();
+		//System.out.println("member컨트롤러 memberNo = " + memberNo);
+		
+		List<CommunityBoard> list = memberService.selectCommunityAll(memberNo);
+		System.out.println("member컨트롤러 list = " + list);
+		
+		model.addAttribute("myCommunity", list);
+		
 	}
 	
 	
