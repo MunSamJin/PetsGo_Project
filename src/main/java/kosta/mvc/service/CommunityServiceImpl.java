@@ -12,6 +12,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.LikeBoard;
+import kosta.mvc.domain.LikeBoardArrange;
 import kosta.mvc.domain.QCommunityBoard;
 import kosta.mvc.repository.CommunityRepository;
 import kosta.mvc.repository.LikeBoardRepository;
@@ -74,18 +75,9 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public void delete(Long boardNo) {
 		System.out.println("queryFactory = " + queryFactory);
-		
-		QCommunityBoard board = QCommunityBoard.communityBoard;
-		
-		long re = queryFactory
-				.delete(board)
-				.where(board.boardNo.eq(boardNo))
-				.execute();
-		
-		System.out.println("re = " + re);
-		
-		if(re==0)throw new RuntimeException("삭제할 수 없습니다.");
-		
+
+		communityRepository.deleteById(boardNo);
+
 	}
 
 	@Override
@@ -95,16 +87,14 @@ public class CommunityServiceImpl implements CommunityService {
 			System.out.println("최신 정렬기능, 서비스 tag = " + tag);
 			list = communityRepository.latestSelect();
 			
-		}else if(tag.equals("좋아요")) {
-			System.out.println("좋아요 정렬기능, 서비스 tag = " + tag);
-			//list = communityRepository.likeSelect();
-			
 		}else {
 			list = communityRepository.tagSelect("%"+tag+"%");
 		}
 		
 		return list;
 	}
+	
+	
 
 	@Override
 	public int selectAll(Long memberNo, Long boardNo) {
@@ -133,6 +123,18 @@ public class CommunityServiceImpl implements CommunityService {
 	    	return likeResult=1;
 	    }
 	    	
+	}
+
+	@Override
+	public List<LikeBoardArrange> selectLikeBoardArrange() {
+		
+		return communityRepository.likeSelect();
+	}
+
+	@Override
+	public LikeBoard selectLikeNo(Long memberNo, Long boardNo) {
+		
+		return likeBoardRepository.selectAll(memberNo, boardNo);
 	}
 
 
