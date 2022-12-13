@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,15 +23,19 @@ import kosta.mvc.service.MemberService;
 @Controller //ajax 처리할 메소드는 @Reponsebody를 붙여주면 됨
 @RequestMapping("/member")
 public class MemberController {
-
-   
+  
    @Autowired
    private MemberService memberService;
    
    @Autowired
    private CommunityService communityService;
-   
  
+   /*
+	* 비밀번호 암호화를 위한 객체를 주입받는다 
+	*/
+	@Autowired
+	private PasswordEncoder passwordEncoder; 
+    
 
    /**
     * 마이페이지 내 스크랩북 이동
@@ -44,18 +50,7 @@ public class MemberController {
    @RequestMapping("/myInfo")
    public void myInfo() {}
    
-   /**
-    * 회원 정보 수정하기
-    * */
-   @RequestMapping("/updateInfo")
-   public ModelAndView updateInfo(Member member) {
-      member = memberService.updateInfo(member);
-      
-      return new ModelAndView("member/myInfo", "member", member);
-   }
-   
 
-	
 	/**
 	 *  예약내역 조회
 	 */
@@ -120,8 +115,54 @@ public class MemberController {
 		System.out.println("member컨트롤러 list = " + list);
 		
 		model.addAttribute("myCommunity", list);
-		
 	}
+	
+	/**
+	 * 회원 정보 수정 전 비밀번호 확인
+	 * */
+	@RequestMapping("/passwordCheck")
+	public void passwordCheck() {}
+	
+	/**
+	 * 회원 정보 수정 폼
+	 * */
+	@RequestMapping("/updateForm")
+	public void updateForm() {}
+	
+	/**
+	 * 회원 정보 수정하기
+	 * */
+	@RequestMapping("/updateInfo")
+	public ModelAndView updateInfo(Member member) {		
+		//비밀번호 암호화
+		String encodedPassword = passwordEncoder.encode(member.getMemberPassword());
+		member.setMemberPassword(encodedPassword);
+		
+		memberService.updateInfo(member);
+		
+		//Authentication 정보 수정		
+		Member dbMember = (Member)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		dbMember.setMemberPassword(encodedPassword);
+		dbMember.setMemberNickname(member.getMemberNickname());
+		dbMember.setMemberPhone(member.getMemberPhone());
+		dbMember.setMemberBirthDate(member.getMemberBirthDate());
+		
+		return new ModelAndView("redirect:/member/myInfo");
+	}
+	
+	/**
+	 * 마이페이지 내 반려견 정보(회원정보-반려견 정보) 이동
+	 * */
+	/* @RequestMapping("myPet")
+	public String myPet() {
+		return "member/myPet";
+	} */
+	
+
+	/*@RequestMapping("{url}")
+	public void url() {}*/
+	
 	
 	/**
 	 * 마이페이지 내커뮤니티 게시글 삭제
@@ -132,6 +173,7 @@ public class MemberController {
 		communityService.delete(boardNo);
 		return "redirect:/member/myCommunity";
 	}
+
 
 
    /**
@@ -164,8 +206,6 @@ public class MemberController {
       
       return "redirect:/member/myQna";
    }
-
- 
   
 }
 

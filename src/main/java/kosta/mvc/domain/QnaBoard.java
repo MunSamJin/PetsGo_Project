@@ -20,6 +20,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -28,6 +30,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Builder
+//@RequiredArgsConstructor
 /**
  *  QnA 도메인
  */
@@ -36,6 +39,7 @@ public class QnaBoard {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "qna_qnano_seq")
 	@SequenceGenerator(name = "qna_qnano_seq", allocationSize = 1, sequenceName = "qna_qnano_seq")
+	//@NonNull
 	private Long qnaNo;
 	
 	@Column(length = 1000, nullable = false)
