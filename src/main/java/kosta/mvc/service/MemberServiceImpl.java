@@ -25,10 +25,10 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private ReservationRepository reservationRep;
+	
 	@Autowired
 	private QnaRepository qnaRep;
 
-	
 	/*
 	 * 비밀번호 암호화를 위한 객체를 주입받는다 
 	 */
@@ -63,6 +63,9 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member updateInfo(Member member) {
 		//해당하는 회원 찾기
+		System.out.println("member 서비스 updateInfo 호출~");
+		System.out.println("member 서비스 member = " + member.getMemberNo());
+		
 		Member dbMember = memberRep.findById(member.getMemberNo()).orElse(null);
 		if(dbMember == null) throw new RuntimeException("회원 정보를 수정할 수 없습니다.");
 
@@ -72,6 +75,9 @@ public class MemberServiceImpl implements MemberService {
 		dbMember.setMemberNickname(member.getMemberNickname());
 		dbMember.setMemberPhone(member.getMemberPhone());
 		dbMember.setMemberBirthDate(member.getMemberBirthDate());
+		
+		System.out.println("member컨트롤러 updateInfo rep까지 다녀옴!");
+		System.out.println("member컨트롤러 updateInfo rep dbMember = " + dbMember.getMemberNo());
 		
 		return dbMember;
 	}
