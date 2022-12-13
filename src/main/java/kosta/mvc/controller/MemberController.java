@@ -161,6 +161,9 @@ public class MemberController {
 		return "redirect:/member/myQna";
 	}
 	
+	@RequestMapping("/myScrap")
+	public void myScrap() {}
+	
 	
 }
 
