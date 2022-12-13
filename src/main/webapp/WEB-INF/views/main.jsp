@@ -93,7 +93,7 @@
                                         <div class="form-row">
                                             <div class="form_colum">
                                                 <select class="nc_select" id="addr_select">
-                                                    <option selected>지역명 검색 </option>
+                                                    <option selected>경기도 지역명 검색 </option>
                                                     <option value="포천시">포천시</option>
                                                     <option value="평택시">평택시</option>
                                                     <option value="여주시">여주시</option>
@@ -119,7 +119,7 @@
 
                                             <div class="form_colum">
                                                 <select class="nc_select" id="people_select">
-                                                    <option selected>인원 </option>
+                                                    <option selected> 캠핑 인원 </option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -147,7 +147,7 @@
     <!--주간 펫츠고 인기순 영역-->
     <section class="top_place section_padding" style="padding-top: 240px;">
         <div class="container">
-             <span style="color: #25483a; font-family: BMJUA; font-size: 28px;">이번주 펫츠GO PICK!</span>
+             <span style="color: #25483a; font-family: BMJUA; font-size: 28px;">이번주 펫츠GO! PICK!</span>
 
             <div class="row">
                 <div class="col-lg-6 col-md-6">
