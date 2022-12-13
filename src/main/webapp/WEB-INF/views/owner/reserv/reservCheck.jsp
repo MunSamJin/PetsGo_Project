@@ -314,7 +314,7 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/camp/campSelect/${secCamp.campNo}">캠핑장 조회</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/camp/campSelect">캠핑장 조회</a></li>
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/resi/resiSelect/${secCamp.campNo}">숙소 목록 조회</a></li>
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/resi/resiInsertForm">숙소 등록</a></li>
               </ul>
@@ -328,7 +328,7 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reserv/reservManagement/${secCamp.campNo}">예약 신청 관리</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reserv/reservCheck/${secCamp.campNo}">예약 신청 관리</a></li>
                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reservChart/${secCamp.campNo}">예약 통계</a></li>
               </ul>
             </div>
@@ -363,13 +363,14 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-            <div class="col-lg-6 grid-margin stretch-card">
+          <!-- <div class="row"> -->
+            <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">예약 신청 관리</h4>
                   <p class="card-description">
-                    <div class="dropdown">
-                      <button class="btn btn-danger btn-sm dropdown-toggle" type="button" id="campStateArr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <div class="dropdown">
+                      <button class="btn btn-danger btn-sm dropdown-toggle" type="button" id="reservStateArr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         전체
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
@@ -377,8 +378,8 @@
                         <a class="dropdown-item" href="#">전체</a>
                         <a class="dropdown-item" href="#">예약대기</a>
                         <a class="dropdown-item" href="#">예약확정</a>
-                        <a class="dropdown-item" href="#">예약취소</a>
                         <a class="dropdown-item" href="#">결제취소요청</a>
+                        <a class="dropdown-item" href="#">예약취소</a>
                       </div>
                     </div>
                   </p>
@@ -391,39 +392,43 @@
                           <th>예약일</th>
                           <th>결제금액</th>
                           <th>예약상태</th>
-                          <th>입퇴실현황</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody id="ajaxPart">
                       	<c:forEach items="${reservList}" var="reserv">
-                        <tr>
-                          <td>${reserv.No}</td>
-                          <td>${reserv.memberNo}</td>
-                          <td>${reserv.reservDate}</td>
-                          <td>${reserv.Price}</td>
-                          
-                          <c:choose>
-                          	<c:when test="${reserv.reservState == 0}">
-                      			<td><label class="badge badge-info" >예약대기</label></td>
-	                      	</c:when>
-	                      	<c:when test="${reserv.reservState == 1}">
-	                      		<td><label class="badge badge-success">예약확정</label></td>
-	                      	</c:when>
-	                      	<c:when test="${reserv.reservState == 2}">
-	                      		<td><label class="badge badge-danger">예약취소</label></td>
-	                      	</c:when>
-	                      	<c:when test="${reserv.reservState == 3}">
-	                      		<td><label class="badge badge-wait">결제취소요청</label></td>
-	                      	</c:when>
-                          </c:choose>
-                        </c:forEach>
+	                        <tr onclick="location.href='${pageContext.request.contextPath}/owner/reserv/reservDetail/${reserv.reservNo}'" style="cursor:pointer;">
+	                          <td><p id="reservNo">${reserv.reservNo}</p></td>
+	                          <td><p id="memberNo">${reserv.member.memberNickname}</p></td>
+	                          <td><p id="reservDate">${reserv.reservDate}</p></td>
+	                          <td>
+	                            <p><fmt:formatNumber value="${reserv.reservPrice}" pattern="###,### 원"/></p>
+	                          </td>
+	                          <c:choose>
+	                          	<c:when test="${reserv.reservState == 0}">
+	                      			<td><label class="badge badge-info" >예약대기</label></td>
+		                      	</c:when>
+		                      	<c:when test="${reserv.reservState == 1}">
+		                      		<td><label class="badge badge-success">예약확정</label></td>
+		                      	</c:when>
+		                      	<c:when test="${reserv.reservState == 3}">
+		                      		<td><label class="badge badge-wait">예약취소</label></td>
+		                      	</c:when>
+		                      	<c:when test="${reserv.reservState == 4}">
+		                      		<td><label class="badge badge-danger">결제취소요청</label></td>
+		                      	</c:when>
+                          	  </c:choose>
+	                        </tr>
+	                  	</c:forEach>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+            
+            
+          <!-- </div> -->
+        </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
@@ -453,6 +458,99 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->
+  
+  <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
+  <script type="text/javascript">
+  $(function(){
+		$(".dropdown-item").click(function(){
+			let reservStateStr = $(this).text();
+			let reservState = 0;
+			
+			if(reservStateStr == "예약대기"){
+				reservState = 0;
+			}else if(reservStateStr == "예약확정"){
+				reservState = 1;
+			}else if(reservStateStr == "예약취소"){
+				reservState = 3;
+			}else if(reservStateStr == "결제취소요청"){
+				reservState = 4;
+			}else if(reservStateStr == "전체"){
+				reservState = 5;
+			}
+			
+			//alert("reservStateStr = " + reservStateStr +"reservState = "+ reservState)
+			
+		
+			$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/owner/reserv/reservCheckAjax/${secCamp.campNo}",
+				dataType: "json",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
+				data:"${_csrf.parameterName}=${_csrf.token}&reservState="+reservState, //서버에게 보낼 parameter 정보 
+				success:function(data) {	
+					//alert(data); //map
+					$("#reservStateArr").html(reservStateStr);	
+					$("#ajaxPart").empty();
+					let str = "";
+					
+					$.each(data.reservList, function(index, item){ //item은 reserv
+						
+						//$.each(data.memberList, function(i, member){
+						//예약 하나에 멤버 이름 하나
+						
+						let state = "";
+						let style = ""
+						let memberId = 1;
+						
+						if(item.reservState == 0) {
+							state = "예약대기";
+							style = "badge badge-info";
+						}
+						else if(item.reservState == 1) {
+							state = "예약확정";
+							style = "badge badge-success";
+						}
+						else if(item.reservState == 3) {
+							state = "예약취소";
+							style = "badge badge-wait";
+						}
+						else if(item.reservState == 4) {
+							state = "결제취소요청";
+							style = "badge badge-danger";
+						}
+						else if(item.reservState == 5) {
+							state = "전체";
+						}
+						
+						
+						str += '<tr onclick=location.href="${pageContext.request.contextPath}/owner/reserv/reservDetail/' + item.reservNo + '" style="cursor:pointer;">';
+						str += '<td><p>' + item.reservNo + '</p></td><td><p>' + data.memberList[index] + '</p></td><td><p>' + item.reservDate + '</p></td>';
+						str += '<td><p>'+ item.reservPrice + '</p></td><td><label class="' + style + '">' + state + '</label></td></tr>';
+            			
+						
+						//});//memberList
+						
+					}); //reservList$each
+					
+					$("#ajaxPart").append(str);
+					
+					
+					
+				
+					/* $.each(data.campList , function(index, item){ //item은 camp
+						alert(item.campNo  + " , campEmail = " + item.campEmail);
+					      $.each(data.residenceList , function(i, residence ){
+					    	   //alert(i+" = resiName = " + residence.resiName)
+					    	   $.each(residence , function(a , re){
+					    		   alert("되니 ? "+re.resiName)
+					    	   })
+					      } )
+					}); */ 
+				}//success
+			});//ajax
+		});//click
+	})
+  </script>
+  
 </body>
 
 </html>

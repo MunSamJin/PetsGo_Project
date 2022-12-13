@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +15,8 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/../../vendors/feather/feather.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/../../vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/../../vendors/css/vendor.bundle.base.css">
+  <!-- qna_list CSS -->
+  <link href="${pageContext.request.contextPath}/css/minjeong/qna_list.css" rel="stylesheet">
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -133,7 +136,6 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-            
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -160,54 +162,151 @@
                         </tr>
                       </thead>
                       <tbody>
-                      
-                      
-                      
-                        <tr>
-                          <td class="py-1">
-                            <div>1203450</div>
-                          </td>
-                          <td>
-                            <div>문의등록된 내용입니다. 확인하고 답변 해주세요.</div>
-                          </td>
-                          <td>
-                            <div class="">
-                              <div>20222/12/22</div>
-                            </div>
-                          </td>
-                          <td>
-                            답변상태
-                          </td>
-                        </tr>
-                        
                         <c:choose>
 							<c:when test="${empty requestScope.pageList}">
 								<b>작성된 문의가 없습니다.</b>
 							</c:when>
 							<c:otherwise>	
-								<b>작성된 문의가 있습니다.</b>		
-								<%-- <c:forEach items="${requestScope.pageList}" var="qna">
-									${qna.qnaNo} <p>
-									${qna.qnaContent} <p>
-									${qna.qnaDate} <p>
-									${qna.qnaReContent} <p>
-									${qna.qnaReDate} <p>
-					
-									<a href="${pageContext.request.contextPath}/member/qnaDelete/${qna.qnaNo}"><button type="button">삭제</button></a>					
-									<br><br><br>
-								</c:forEach>  --%>
+								<c:forEach items="${requestScope.pageList.content}" var="qna">
+									<tr>
+			                          <td class="py-1">
+			                            <div>${qna.member.memberNo}</div>
+			                          </td>
+			                          <td>
+			                            <div>
+			                            	${qna.qnaContent}
+			                            	<%-- <a href="${pageContext.request.contextPath}/admin/pages/qna/replyWriteForm">${qna.qnaContent}
+			                            		<input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
+			                            	</a> --%>
+			                            </div>
+			                          </td>
+			                          <td>
+			                            <div class="qnadate">
+			                              <div>
+			                              	<fmt:parseDate value="${qna.qnaDate}" pattern="yyyy-MM-dd" var="parsedDateTime" type="both" />
+			                              	<fmt:formatDate value="${parsedDateTime}" pattern="yyyy-MM-dd"/>
+			                              </div>
+			                            </div>
+			                          </td>
+			                          <td>
+			                           <!--  답변상태 -->
+			                            <c:choose>
+			                            	<c:when test="${qna.qnaReContent == null}">
+			                            		<!-- Button trigger modal -->
+												<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal${qna.qnaNo}">
+												  답변 대기
+												</button>
+												<!-- Modal -->
+												<div class="modal fade" id="exampleModal${qna.qnaNo}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+												    <div class="modal-content">
+												      <div class="modal-header">
+												        <h3 class="modal-title fs-5" id="exampleModalLabel">문의답변 등록</h3>
+												      </div>
+												      <form name="replyForm" method="post" id="replyForm" action="${pageContext.request.contextPath}/admin/pages/qna/replyInsert">
+													      <div class="modal-body">
+													      	<b>문의 내용</b> <p>
+													        ${qna.qnaContent} <br><br><br>
+																<input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
+																<textarea class="form-control w-100" id="qnaReContent" cols="30" rows="9" 
+																	placeholder="답변 내용을 작성해주세요." name="qnaReContent" value="${qna.qnaReContent}" >
+																</textarea>   
+													      </div>
+													      <div class="modal-footer">
+													      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+													        <%-- <a href="${pageContext.request.contextPath}/admin/replyInsert"> --%>
+													        	<%-- <input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
+													        	<input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
+													        	<input type="hidden" name="qnaNo" value="${qna.qnaNo}" /> --%>
+													        	<!-- <button type="button" class="btn btn-primary">답변 등록</button> -->
+													        	<button type="button" class="btn btn-primary"><input type="submit" value="답변 등록"></button>
+													      	<!-- </a> -->
+													      </div>
+												      
+												      </form>
+												    </div>
+												  </div>
+												</div>
+			                            	</c:when>
+			                            	<c:otherwise>
+			                            		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${qna.qnaNo}">
+												  답변 완료
+												</button>
+												
+												<!-- Modal -->
+												<div class="modal fade" id="exampleModal${qna.qnaNo}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+												    <div class="modal-content">
+												      <div class="modal-header">
+												        <h3 class="modal-title fs-5" id="exampleModalLabel">문의답변 삭제</h3>
+												      </div>
+												      
+												      <form name="replyForm" method="post" id="replyForm" action="${pageContext.request.contextPath}/admin/pages/qna/replyDelete">
+													      <div class="modal-body">
+													      	<b>문의 내용</b> <p>
+													        ${qna.qnaContent} <br><br><br>
+																<input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
+															<b>문의답변 내용</b> <p>
+															${qna.qnaReContent} <br><br><br>
+													      </div>
+													      <div class="modal-footer">
+													      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+													        <%-- <a href="${pageContext.request.contextPath}/admin/pages/qna/replyDelete"> --%>
+													        	<%-- <input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
+													        	<input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
+													        	<input type="hidden" name="qnaNo" value="${qna.qnaNo}" /> --%>
+													        	<!-- <button type="button" class="btn btn-primary">답변 등록</button> -->
+													        	<!-- <input type="submit" value="답변 삭제"> -->
+													        	<button type="button" class="btn btn-danger"><input type="submit" value="답변 삭제"></button>
+													      	<!-- </a> -->
+													      </div>
+												      
+												      </form>
+												    </div>
+												  </div>
+												</div>
+			                            	</c:otherwise>
+			                            </c:choose>			                            
+			                          </td>
+			                        </tr>
+								</c:forEach> 
 							</c:otherwise>
 						</c:choose>
-
-                        
-                        
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
-            </div>
+            </div>   
           </div>
+	
+          <!-- 페이징 처리 start -->
+            <div style="text-align: center">
+			<!--  블럭당  -->
+			 <nav class="pagination-container">
+				<div class="pagination">
+				<c:set var="doneLoop" value="false"/>
+					 <c:if test="${(startPage-blockCount) > 0}">
+					      <a class="pagination-newer" href="${pageContext.request.contextPath}/admin/pages/qna/qna_list?nowPage=${startPage-1}">PREV</a>
+					  </c:if>
+					<span class="pagination-inner"> 
+					  <c:forEach var='i' begin='${startPage}' end='${(startPage-1) + blockCount}'> 
+						    <c:if test="${(i-1)>=pageList.getTotalPages()}">
+						       <c:set var="doneLoop" value="true"/>
+						    </c:if> 
+					  <c:if test="${not doneLoop}" >
+					         <a class="${i==nowPage?'pagination-active':page}" href="${pageContext.request.contextPath}/admin/pages/qna/qna_list?nowPage=${i}">${i}</a> 
+					  </c:if>
+					</c:forEach>
+					</span> 
+					<c:if test="${(startPage+blockCount)<=pageList.getTotalPages()}">
+					     <a class="pagination-older" href="${pageContext.request.contextPath}/admin/pages/qna/qna_list?nowPage=${startPage+blockCount}">NEXT</a>
+					 </c:if>
+					</div>
+				</nav>  
+			</div>
+			<!-- 페이징 처리 end -->
+          
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
@@ -235,6 +334,12 @@
   <script src="${pageContext.request.contextPath}/../../js/template.js"></script>
   <script src="${pageContext.request.contextPath}/../../js/settings.js"></script>
   <script src="${pageContext.request.contextPath}/../../js/todolist.js"></script>
+  
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  <!-- qna_list js -->
+  <script src="${pageContext.request.contextPath}/js/minjeong/qna_list.js"></script>
+  
   <!-- endinject -->
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->

@@ -336,7 +336,7 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/camp/campSelect/${secCamp.campNo}">캠핑장 조회</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/camp/campSelect">캠핑장 조회</a></li>
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/resi/resiSelect/${secCamp.campNo}">숙소 목록 조회</a></li>
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/resi/resiInsertForm">숙소 등록</a></li>
               </ul>
@@ -456,30 +456,36 @@
       $(function(){
 			
 			$("#requestBtn").click(function(){
-				let password = $("#campPassword").val();
 				
-				$.ajax({
-					type:"post",
-					url:"${pageContext.request.contextPath}/owner/passwordCheck",
-					data:"${_csrf.parameterName}=${_csrf.token}&password="+password+"&campNo=${secCamp.campNo}",
-					success:function(result){						
-						if(result=="fail"){
-							alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.")
-							$("#campPassword").val("");
-							$("#campPassword").focus();
-							return false;
-						}else{						
-							if(confirm("정말 이용 종료 신청을 진행하시겠습니까?")){
-								alert("펫츠고 이용 종료 신청이 접수되었습니다. 지금까지 이용해주셔서 감사합니다.")
-								location.href = "${pageContext.request.contextPath}/owner/campStateUpdate/${secCamp.campNo}/2";
-							}
-						    return true;
-						}					
-					},
-					error:function(err){
-						alert(err+" 에러가 발생했습니다");
-					}
-				})
+				if(${secCamp.campState}==1){
+				
+					let password = $("#campPassword").val();
+				
+					$.ajax({
+						type:"post",
+						url:"${pageContext.request.contextPath}/owner/passwordCheck",
+						data:"${_csrf.parameterName}=${_csrf.token}&password="+password+"&campNo=${secCamp.campNo}",
+						success:function(result){						
+							if(result=="fail"){
+								alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.")
+								$("#campPassword").val("");
+								$("#campPassword").focus();
+								return false;
+							}else{						
+								if(confirm("정말 이용 종료 신청을 진행하시겠습니까?")){
+									alert("펫츠고 이용 종료 신청이 접수되었습니다. 지금까지 이용해주셔서 감사합니다.")
+									location.href = "${pageContext.request.contextPath}/owner/campStateUpdate/${secCamp.campNo}/2";
+								}
+							    return true;
+							}					
+						},
+						error:function(err){
+							alert(err+" 에러가 발생했습니다");
+						}
+					});
+				} else{
+					alert("이용 종료 신청이 가능한 상태가 아닙니다");
+				}
 			});
 			
       })

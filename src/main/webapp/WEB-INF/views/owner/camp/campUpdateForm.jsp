@@ -33,6 +33,7 @@
 
 <body>
   <sec:authentication var="secCamp" property="principal" />
+  
   <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -320,7 +321,7 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/camp/campSelect/${secCamp.campNo}">캠핑장 조회</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/camp/campSelect">캠핑장 조회</a></li>
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/resi/resiSelect/${secCamp.campNo}">숙소 목록 조회</a></li>
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/resi/resiInsertForm">숙소 등록</a></li>
               </ul>
@@ -381,21 +382,21 @@
                   </p>
                   <form class="forms-sample" name="campUpdate" method="post" action="${pageContext.request.contextPath}/owner/campUpdate" 
         				onSubmit='return checkValid()' enctype="multipart/form-data">
-        			<input type="hidden" name="campNo" value="${camp.campNo}">
+        			<input type="hidden" name="campNo" value="${secCamp.campNo}">
         			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         			
                     <div class="form-group">
-                      <label for="exampleInputName1">캠핑장 이름</label>
-                      <input type="text" class="form-control" id="campName" name="campName" value="${camp.campName}">
+                      <label for="exampleInputName1">* 캠핑장 이름</label>
+                      <input type="text" class="form-control" id="campName" name="campName" value="${secCamp.campName}">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputEmail3">Email(이메일)</label>
-                      <input type="email" class="form-control" id="campEmail" name="campEmail" value="${camp.campEmail}">
+                      <label for="exampleInputEmail3">* Email(이메일)</label>
+                      <input type="email" class="form-control" id="campEmail" name="campEmail" value="${secCamp.campEmail}">
                       <span id="emailValid"></span>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword4">비밀번호</label>
-                      <input type="password" class="form-control" id="campPassword" name="campPassword" value="${camp.campPassword}">
+                      <label for="exampleInputPassword4">* 비밀번호</label>
+                      <input type="password" class="form-control" id="campPassword" name="campPassword" value="${secCamp.campPassword}">
                       <span id="passwordValid"></span>
                     </div>
                     <div class="form-group">
@@ -404,8 +405,8 @@
                       <span id="passwordEqual"></span>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputCity1">연락처</label>
-                      <input type="text" class="form-control" id="campPhone" name="campPhone" oninput="autoHyphen2(this)" maxlength="13" placeholder="'-'없이 숫자만 입력해 주세요" value="${camp.campPhone}">
+                      <label for="exampleInputCity1">* 연락처</label>
+                      <input type="text" class="form-control" id="campPhone" name="campPhone" oninput="autoHyphen2(this)" maxlength="13" placeholder="'-'없이 숫자만 입력해 주세요" value="${secCamp.campPhone}">
                       <script>
 						const autoHyphen2 = (target) => {
 							target.value = target.value
@@ -423,9 +424,9 @@
                         </select>
                     </div> -->
                     <div class="form-group">
-                      <label>파일 업로드</label>
+                      <label>* 파일 업로드</label>
                       
-                      <c:set value="${fn:split(camp.campFilename , ',')}" var="filenameArr"/>
+                      <c:set value="${fn:split(secCamp.campFilename , ',')}" var="filenameArr"/>
                       	<p>
                   		<c:forEach items="${filenameArr}" var="filename">
                   			<img class="news-item-preview" name="campFilename" style="width:150px; height:120px;" src="/img/seryun/${filename}">
@@ -443,45 +444,42 @@
                     </div>
                     
                     <div class="form-group">
-                      <label for="exampleInputCity1">우편번호</label>
-                      <p><input type="text" class="form-control" id="sample6_postcode" name="campPost" value="${camp.campPost}"></p>
+                      <label for="exampleInputCity1">* 우편번호</label>
+                      <p><input type="text" class="form-control" id="sample6_postcode" name="campPost" value="${secCamp.campPost}"></p>
 					  <p><input type="button" class="btn btn-primary mr-2" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></p>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputCity1">주소</label>
-                      <p><input type="text" class="form-control" id="sample6_address" name="campAddr" value="${camp.campAddr}"></p>
+                      <label for="exampleInputCity1">* 주소</label>
+                      <p><input type="text" class="form-control" id="sample6_address" name="campAddr" value="${secCamp.campAddr}"></p>
                       <p><input type="text" class="form-control" id="sample6_detailAddress" placeholder="상세주소 : 입력하지 않아도 됩니다"></p>
 					  <p><input type="text" class="form-control" id="sample6_extraAddress" placeholder="참고항목"></p>
                     </div>
                     <div class="form-group">
-                      <label for="exampleTextarea1">공지사항</label>
-                      <textarea class="form-control" id="campNotify" rows="4" name="campNotify" style="white-space: pre-line;">${camp.campNotify}</textarea>
+                      <label for="exampleTextarea1">* 공지사항</label>
+                      <textarea class="form-control" id="campNotify" rows="4" name="campNotify" style="white-space: pre-line;">${secCamp.campNotify}</textarea>
                     </div>
                     <div class="form-group">
                       <label for="exampleTextarea1">소개글</label>
-                      <textarea class="form-control" id="campIntro" rows="4" name="campIntro" style="white-space: pre-line;">${camp.campIntro}</textarea>
+                      <textarea class="form-control" id="campIntro" rows="4" name="campIntro" style="white-space: pre-line;">${secCamp.campIntro}</textarea>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputCity1">부대시설</label>
-                      <input type="text" class="form-control" id="campFacility" name="campFacility" value="${camp.campFacility}" placeholder="여러개 작성시 꼭 ',' 콤마로 구분해주세요">
+                      <label for="exampleInputCity1">* 부대시설</label>
+                      <input type="text" class="form-control" id="campFacility" name="campFacility" value="${secCamp.campFacility}" placeholder="여러개 작성시 꼭 ',' 콤마로 구분해주세요">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputCity1">체크인 시간</label>
-                      <input type="text" class="form-control" id="campCheckin" name="campCheckin" value="${camp.campCheckin}" placeholder="24시간 단위로 작성해주세요(24:00)">
+                      <label for="exampleInputCity1">* 체크인 시간</label>
+                      <input type="text" class="form-control" id="campCheckin" name="campCheckin" value="${secCamp.campCheckin}" placeholder="24시간 단위로 작성해주세요(24:00)">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputCity1">체크아웃 시간</label>
-                      <input type="text" class="form-control" id="campCheckout" name="campCheckout" value="${camp.campCheckout}" placeholder="24시간 단위로 작성해주세요(24:00)">
+                      <label for="exampleInputCity1">* 체크아웃 시간</label>
+                      <input type="text" class="form-control" id="campCheckout" name="campCheckout" value="${secCamp.campCheckout}" placeholder="24시간 단위로 작성해주세요(24:00)">
                     </div>
                     <button type="submit" class="btn btn-primary mr-2" id="campUpdate" name="campUpdate">수정</button>
-                    <button class="btn btn-light">취소</button>
+                    <button class="btn btn-light" id="updateCancelBtn">취소</button>
                   </form>
                 </div>
               </div>
             </div>
-            
-            
-            
           </div>
         </div>
         <!-- content-wrapper ends -->
@@ -522,7 +520,12 @@
   <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
   <script>     
       $(function(){
-    	//이메일 유효성 체크
+    	  	$("#updateCancelBtn").click(function(){
+    	  		$(location).attr('href','${pageContext.request.contextPath}/owner/camp/campSelect');
+    	  	});
+    	  
+    	  
+    		//이메일 유효성 체크
 			$("#campEmail").change(function(){
   			checkEmail($("#campEmail").val());
 			});	

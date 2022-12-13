@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>   
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <!doctype html>
 <html lang="en">
 
@@ -35,6 +36,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main_petsgo.css">
 
     <style type="text/css">
+    
+    a#navbarDropdown_1.nav-link {width: 150px;}
+    
     </style>
 
 </head>
@@ -62,7 +66,7 @@
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                             role="button" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
+                                            aria-expanded="false" style="margin-top: 10px;">
                                             커뮤니티
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -76,38 +80,34 @@
                                     <c:choose>
                                     	<c:when test="${empty pageContext.request.userPrincipal}">
                                     		<li class="nav-item">
-		                                        <a class="nav-link" href="${pageContext.request.contextPath}/loginForm">로그인</a>
+		                                        <a class="nav-link" href="${pageContext.request.contextPath}/loginForm" style="margin-top: 10px;">로그인</a>
 		                                    </li>
 		                                    <li class="nav-item">
-		                                        <a class="nav-link" href="${pageContext.request.contextPath}/registerForm">회원가입</a>
+		                                        <a class="nav-link" href="${pageContext.request.contextPath}/registerForm" style="margin-top: 10px;">회원가입</a>
 		                                    </li>
                                     	</c:when>
                                     	<c:otherwise>
-                                    		<li class="nav-item">
-		                                        <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
-		                                    </li>
-		                                    
-		                                    <li class="nav-item dropdown" style="display:block;">
-												<!-- 회원 프로필 아이콘 -->
-												<%-- <c:if test="${not empty member}">
-			    									${member.memberProfile}
-												</c:if> --%>
-												
-		                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1"
-		                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-		                                            aria-expanded="false">
-		                                            마이페이지
-		                                        </a>
-		                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-		                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myReservation">예약내역</a>
-		                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myScrap">스크랩북</a>
-		                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myCommunity">내 커뮤니티</a>
-		                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myInfo">회원정보</a>
-		                                              <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myQna">문의하기</a>
-		                                        </div>
-		                                    </li>
-		                                    
-                                    	</c:otherwise>
+                                          <li class="nav-item">
+                                              <a class="nav-link" href="${pageContext.request.contextPath}/logout" style="margin-top: 10px;">로그아웃</a>
+                                          </li>
+                                          <!-- 회원 프로필 아이콘 -->
+                                          <li class="nav-item dropdown" style="display:block; text-align: center; margin-left: -28px;">
+                                              <a class="nav-link" href="#" id="navbarDropdown_1"
+                                                  role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                  aria-expanded="false">
+                                                  <sec:authentication var="mvo" property="principal" />
+                                                  <img src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" style="width: 40%;">
+
+                                              </a>
+                                              <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                                  <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myReservation">예약내역</a>
+                                                  <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myScrap">스크랩북</a>
+                                                  <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myCommunity">내 커뮤니티</a>
+                                                   <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myInfo">회원정보</a>
+                                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myQna">문의하기</a>
+                                              </div>
+                                          </li>
+                                       </c:otherwise>
                                     </c:choose>
                                 </ul>
                             </div>

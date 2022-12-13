@@ -5,6 +5,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.LikeBoard;
+import kosta.mvc.domain.LikeBoardArrange;
 import kosta.mvc.domain.QCommunityBoard;
 import kosta.mvc.repository.CommunityRepository;
 import kosta.mvc.repository.LikeBoardRepository;
@@ -35,9 +38,9 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	
 	@Override
-	public List<CommunityBoard> selectAll(Pageable pageable) {
+	public Page<CommunityBoard> selectAll(Pageable pageable) {
 		
-		return communityRepository.findAll();
+		return communityRepository.findAll(pageable);
 	}
 
 	@Override
@@ -74,37 +77,26 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public void delete(Long boardNo) {
 		System.out.println("queryFactory = " + queryFactory);
-		
-		QCommunityBoard board = QCommunityBoard.communityBoard;
-		
-		long re = queryFactory
-				.delete(board)
-				.where(board.boardNo.eq(boardNo))
-				.execute();
-		
-		System.out.println("re = " + re);
-		
-		if(re==0)throw new RuntimeException("삭제할 수 없습니다.");
-		
+
+		communityRepository.deleteById(boardNo);
+
 	}
 
 	@Override
-	public List<CommunityBoard> selectByTag(String tag) {
-		List<CommunityBoard> list = null;
+	public Page<CommunityBoard> selectByTag(String tag,PageRequest page) {
+		Page<CommunityBoard> list = null;
 		if(tag.equals("최신")) {
 			System.out.println("최신 정렬기능, 서비스 tag = " + tag);
-			list = communityRepository.latestSelect();
-			
-		}else if(tag.equals("좋아요")) {
-			System.out.println("좋아요 정렬기능, 서비스 tag = " + tag);
-			//list = communityRepository.likeSelect();
+			list = communityRepository.latestSelect(page);
 			
 		}else {
-			list = communityRepository.tagSelect("%"+tag+"%");
+			list = communityRepository.tagSelect("%"+tag+"%", page);
 		}
 		
 		return list;
 	}
+	
+	
 
 	@Override
 	public int selectAll(Long memberNo, Long boardNo) {
@@ -134,6 +126,19 @@ public class CommunityServiceImpl implements CommunityService {
 	    }
 	    	
 	}
+
+	@Override
+	public Page<LikeBoardArrange> selectLikeBoardArrange(PageRequest page) {
+		
+		return communityRepository.likeSelect(page);
+	}
+
+	@Override
+	public LikeBoard selectLikeNo(Long memberNo, Long boardNo) {
+		
+		return likeBoardRepository.selectAll(memberNo, boardNo);
+	}
+
 
 
 }

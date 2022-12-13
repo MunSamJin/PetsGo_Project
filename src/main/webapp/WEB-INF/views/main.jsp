@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>   
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!doctype html>
 <html lang="en">
@@ -93,7 +94,7 @@
                                         <div class="form-row">
                                             <div class="form_colum">
                                                 <select class="nc_select" id="addr_select">
-                                                    <option selected>지역명 검색 </option>
+                                                    <option selected>경기도 지역명 검색 </option>
                                                     <option value="포천시">포천시</option>
                                                     <option value="평택시">평택시</option>
                                                     <option value="여주시">여주시</option>
@@ -119,7 +120,7 @@
 
                                             <div class="form_colum">
                                                 <select class="nc_select" id="people_select">
-                                                    <option selected>인원 </option>
+                                                    <option selected> 캠핑 인원 </option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -147,7 +148,7 @@
     <!--주간 펫츠고 인기순 영역-->
     <section class="top_place section_padding" style="padding-top: 240px;">
         <div class="container">
-             <span style="color: #25483a; font-family: BMJUA; font-size: 28px;">이번주 펫츠GO PICK!</span>
+             <span style="color: #25483a; font-family: BMJUA; font-size: 28px;">이번주 펫츠GO! PICK!</span>
 
             <div class="row">
                 <div class="col-lg-6 col-md-6">
@@ -517,9 +518,9 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="client_review_slider owl-carousel">
-                       
-                            <!-- 커뮤니티 게시글01-->
+                  <div class="client_review_slider owl-carousel">
+                  	 <!-- 커뮤니티 게시글01-->
+                  	 		
                               <div class="card">
                                 <div class="card__header">
                                   <div class="header-in-card">
@@ -535,7 +536,7 @@
                                         <div class="share-block__twitter-icon"></div>
                                       </div>
                                       <div class="like-block">
-                                        <div class="like-block__like-icon"></div>
+                                        <!-- <div class="like-block__like-icon"></div> -->
                                       </div>
                                     </div>
                                   </div>
@@ -544,10 +545,11 @@
                                                
                                  
                                   <div class="card-tags">
-                                    <a href="#" target="_blank" class="card-tags__item">#가평군321-1</a>
+                                    <a href="#" target="_blank" class="card-tags__item">${communityBoardList[0].boardTag }</a>
                                 </div>
-                                </div><img src="${pageContext.request.contextPath}/img/community_01.jpg" alt="" class="card__image">
+                                </div><img src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList[0].boardFileName,',')[0]}" alt="" class="card__image">
                               </div>
+                             
                             <!-- 커뮤니티 게시글01 End -->
                             <!-- 커뮤니티 게시글02-->
                               <div class="card">
@@ -565,7 +567,7 @@
                                         <div class="share-block__twitter-icon"></div>
                                       </div>
                                       <div class="like-block">
-                                        <div class="like-block__like-icon"></div>
+                                        <!-- <div class="like-block__like-icon"></div> -->
                                       </div>
                                     </div>
                                   </div>
@@ -573,9 +575,9 @@
                                 <div class="card__body">
                                  
                                   <div class="card-tags">
-                                    <a href="#" target="_blank" class="card-tags__item">#성남시521-1</a>
+                                    <a href="#" target="_blank" class="card-tags__item">${communityBoardList[1].boardTag }</a>
                                 </div>
-                                </div><img src="${pageContext.request.contextPath}/img/community_02.jpg" alt="" class="card__image">
+                                </div><img src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList[1].boardFileName,',')[0]}" alt="" class="card__image">
                               </div>
                             <!-- 커뮤니티 게시글02 End -->
                             <!-- 커뮤니티 게시글03-->
@@ -594,7 +596,7 @@
                                         <div class="share-block__twitter-icon"></div>
                                       </div>
                                       <div class="like-block">
-                                        <div class="like-block__like-icon"></div>
+                                        <!-- <div class="like-block__like-icon"></div> -->
                                       </div>
                                     </div>
                                   </div>
@@ -602,9 +604,9 @@
                                 <div class="card__body">
                                  
                                   <div class="card-tags">
-                                    <a href="#" target="_blank" class="card-tags__item">#용인시431-3</a>
+                                    <a href="#" target="_blank" class="card-tags__item">${communityBoardList[2].boardTag }</a>
                                 </div>
-                                </div><img src="${pageContext.request.contextPath}/img/community_03.jpg" alt="" class="card__image">
+                                </div><img src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList[2].boardFileName,',')[0]}" alt="" class="card__image">
                               </div>
                             <!-- 커뮤니티 게시글03 End -->
                             <!-- 커뮤니티 게시글04-->
@@ -623,7 +625,7 @@
                                         <div class="share-block__twitter-icon"></div>
                                       </div>
                                       <div class="like-block">
-                                        <div class="like-block__like-icon"></div>
+                                        <!-- <div class="like-block__like-icon"></div> -->
                                       </div>
                                     </div>
                                   </div>
@@ -631,12 +633,12 @@
                                 <div class="card__body">
                                  
                                   <div class="card-tags">
-                                    <a href="#" target="_blank" class="card-tags__item">#포천시567-2</a>
+                                    <a href="#" target="_blank" class="card-tags__item">${communityBoardList[3].boardTag }</a>
                                 </div>
-                                </div><img src="${pageContext.request.contextPath}/img/community_04.jpg" alt="" class="card__image">
+                                </div><img src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList[3].boardFileName,',')[0]}" alt="" class="card__image">
                               </div>
                             <!-- 커뮤니티 게시글04 End -->
-                            <!-- 커뮤니티 게시글05-->
+                    		<!-- 커뮤니티 게시글05-->
                               <div class="card">
                                 <div class="card__header">
                                   <div class="header-in-card">
@@ -652,7 +654,7 @@
                                         <div class="share-block__twitter-icon"></div>
                                       </div>
                                       <div class="like-block">
-                                        <div class="like-block__like-icon"></div>
+                                        <!-- <div class="like-block__like-icon"></div> -->
                                       </div>
                                     </div>
                                   </div>
@@ -660,12 +662,11 @@
                                 <div class="card__body">
                                  
                                   <div class="card-tags">
-                                    <a href="#" target="_blank" class="card-tags__item">#수원시235</a>
+                                    <a href="#" target="_blank" class="card-tags__item">${communityBoardList[4].boardTag }</a>
                                 </div>
-                                </div><img src="${pageContext.request.contextPath}/img/community_05.jpg" alt="" class="card__image">
+                                </div><img src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList[4].boardFileName,',')[0]}" alt="" class="card__image">
                               </div>
                             <!-- 커뮤니티 게시글05 End -->
-                      
                     </div>
                 </div>
             </div>
@@ -720,54 +721,53 @@
       webUrl: 'https://localhost:9000',
     },
   });
-  
   Kakao.Share.createDefaultButton({
-       container: '#kakaotalk-sharing-btn02',
-       objectType: 'text',
-       text:
-         '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
-       link: {
-         // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-         mobileWebUrl: 'https://localhost:9000',
-         webUrl: 'https://localhost:9000',
-       },
-     });
-  
-  Kakao.Share.createDefaultButton({
-       container: '#kakaotalk-sharing-btn03',
-       objectType: 'text',
-       text:
-         '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
-       link: {
-         // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-         mobileWebUrl: 'https://localhost:9000',
-         webUrl: 'https://localhost:9000',
-       },
-     });
-  
-  Kakao.Share.createDefaultButton({
-       container: '#kakaotalk-sharing-btn04',
-       objectType: 'text',
-       text:
-         '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
-       link: {
-         // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-         mobileWebUrl: 'https://localhost:9000',
-         webUrl: 'https://localhost:9000',
-       },
-     });
-  
-  Kakao.Share.createDefaultButton({
-       container: '#kakaotalk-sharing-btn05',
-       objectType: 'text',
-       text:
-         '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
-       link: {
-         // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-         mobileWebUrl: 'https://localhost:9000',
-         webUrl: 'https://localhost:9000',
-       },
-     });
+      container: '#kakaotalk-sharing-btn02',
+      objectType: 'text',
+      text:
+        '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+      link: {
+        // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+        mobileWebUrl: 'https://localhost:9000',
+        webUrl: 'https://localhost:9000',
+      },
+    });
+ 
+ Kakao.Share.createDefaultButton({
+      container: '#kakaotalk-sharing-btn03',
+      objectType: 'text',
+      text:
+        '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+      link: {
+        // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+        mobileWebUrl: 'https://localhost:9000',
+        webUrl: 'https://localhost:9000',
+      },
+    });
+ 
+ Kakao.Share.createDefaultButton({
+      container: '#kakaotalk-sharing-btn04',
+      objectType: 'text',
+      text:
+        '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+      link: {
+        // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+        mobileWebUrl: 'https://localhost:9000',
+        webUrl: 'https://localhost:9000',
+      },
+    });
+ 
+ Kakao.Share.createDefaultButton({
+      container: '#kakaotalk-sharing-btn05',
+      objectType: 'text',
+      text:
+        '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+      link: {
+        // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+        mobileWebUrl: 'https://localhost:9000',
+        webUrl: 'https://localhost:9000',
+      },
+    });
   
 </script>
 

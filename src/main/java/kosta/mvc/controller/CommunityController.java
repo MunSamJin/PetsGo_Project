@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,18 +35,27 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.LikeBoard;
+import kosta.mvc.domain.LikeBoardArrange;
 import kosta.mvc.domain.Member;
+import kosta.mvc.domain.Reservation;
 import kosta.mvc.service.CommunityService;
-import lombok.NonNull;
+import kosta.mvc.service.MemberService;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("/community")
+@RequiredArgsConstructor
 public class CommunityController {
 	
 	@Autowired
 	private CommunityService communityService;
 	
-	private final static int PAGE_COUNT=10;
+	@Autowired
+	private MemberService memberService;
+	
+	private final static int PAGE_COUNT=6;
+	
+	private final static int BLOCK_COUNT=2;
 
 	/**
 	 *  커뮤니티 전체 검색
@@ -53,28 +63,70 @@ public class CommunityController {
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public void list(String tag, Model model, @RequestParam(defaultValue = "1")int nowPage) {
 		
-		List<CommunityBoard> list = null;
+		PageRequest page = PageRequest.of( (nowPage)-1, PAGE_COUNT, Direction.DESC, "boardNo");
+		Page<CommunityBoard> pageList = null;
+		int temp = (nowPage-1) % BLOCK_COUNT;
+		int startPage = nowPage-temp;
 		
 		System.out.println("tag = " + tag);
 		
-		//태그로 검색하기 + 정렬기능
+		//태그로 검색하기 + 정렬기능 + 페이징 처리
 		if(tag != null) {
-			list = communityService.selectByTag(tag);
+			if(tag.equals("좋아요")) {
+				page = PageRequest.of( (nowPage)-1, PAGE_COUNT, Direction.DESC, "board_no");
+				Page<LikeBoardArrange> likeList = communityService.selectLikeBoardArrange(page);
+				System.out.println("likeList = " + likeList);
+				
+				model.addAttribute("likeList", likeList.getContent());	
+				model.addAttribute("blockCount", BLOCK_COUNT);
+				model.addAttribute("startPage", startPage);
+				model.addAttribute("nowPage", nowPage);
+				
+			}else {
+				pageList = communityService.selectByTag(tag,page);
+				System.out.println("pageList = " + pageList);
+				
+				model.addAttribute("communityBoardList", pageList.getContent());
+				model.addAttribute("blockCount", BLOCK_COUNT);
+				model.addAttribute("startPage", startPage);
+				model.addAttribute("nowPage", nowPage);
+			}
+			
 		} else {
-			list = communityService.selectAll();
+			pageList = communityService.selectAll(page);
+			System.out.println("pageList = " + pageList);
+			
+			model.addAttribute("communityBoardList", pageList.getContent());//communityBoardList
+			model.addAttribute("blockCount", BLOCK_COUNT);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("nowPage", nowPage);
 		}
-		System.out.println("list = " + list);
-		model.addAttribute("communityBoardList", list);
+		
 		
 	}
+	
 	
 	
 	/**
 	 *  등록폼
 	 */
 	@RequestMapping("/write")
-	public void write() {
+	public void write(Model model, Authentication auth) {
 		System.out.println("컨트롤러 등록폼 들어왔니??");
+		
+		Object object = auth.getPrincipal();
+		Member member = null;
+		
+		if(object instanceof Member) {
+			member = (Member)auth.getPrincipal();
+		}
+		Long memberNo = member.getMemberNo();
+		//System.out.println("member컨트롤러 memberNo = " + memberNo);
+		
+		List<Reservation> list = memberService.selectAll(memberNo);
+		//System.out.println("member컨트롤러 list = " + list);
+		
+		model.addAttribute("reservation", list);
 	}
 	
 	
@@ -137,11 +189,24 @@ public class CommunityController {
 	 *  상세보기
 	 */
 	@RequestMapping("/read/{boardNo}")
-	public ModelAndView read(@PathVariable Long boardNo) {
+	public String read(@PathVariable Long boardNo, Model model) {
 		
+		Member member =(Member)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	      Long memberNo = member.getMemberNo();
+	
 		CommunityBoard communityBoard = communityService.selectBy(boardNo);
+		LikeBoard likeBoard = communityService.selectLikeNo(memberNo, boardNo);
 		
-		return new ModelAndView("community/read", "communityBoard", communityBoard);
+		//HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		//map.put("communityBoard", communityBoard);
+		//map.put("likeBoard", likeBoard);
+		
+		model.addAttribute("communityBoard", communityBoard); //${communityBoard}
+		model.addAttribute("likeBoard", likeBoard); //${likeBoard}
+		
+	
+		return "community/read";
 	}
 	
 	/**
@@ -214,7 +279,8 @@ public class CommunityController {
 	 *  좋아요 기능
 	 */
 	@RequestMapping("/likeHeart/{boardNo}")
-	public String likeHeart(@PathVariable Long boardNo) {
+	@ResponseBody
+	public int likeHeart(@PathVariable Long boardNo) {
 		System.out.println("컨트롤러 좋아요기능 들어오니??"); //ok
 		
 		// 뷰에서 넘어오는 게시글 번호 받음.
@@ -224,14 +290,14 @@ public class CommunityController {
 		//Spring Security 세션 회원정보를 반환받는다
 	      Member member =(Member)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	      Long memberNo = member.getMemberNo();
-	      //System.out.println("좋아요컨트롤러 member = " + member); //ok
+	      System.out.println("좋아요컨트롤러 member = " + member); //ok
 
 	      
 		//서비스 호출
 	    int likeBoard = communityService.selectAll(memberNo,boardNo);
 	    System.out.println("컨트롤러 좋아요 결과 = " + likeBoard);
 		
-		return "redirect:/community/list";
+		return likeBoard;
 		
 	}
 	

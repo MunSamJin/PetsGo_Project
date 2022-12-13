@@ -18,11 +18,14 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -30,6 +33,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Builder
+//@ToString(exclude = {"residence","detailList","camp"})
 /**
  *  예약 도메인
  */
@@ -66,18 +70,22 @@ public class Reservation {
 	@Column(nullable = true)
 	private int reservInsuranceTotal;
 	
+	 @JsonIgnore
 	 @ManyToOne(fetch = FetchType.LAZY)//지연로딩
 	 @JoinColumn(name = "memberNo")
 	 private Member member;
 	 
+	 @JsonIgnore
      @ManyToOne(fetch = FetchType.LAZY)//지연로딩
      @JoinColumn(name = "campNo")
      private Camp camp;
 
+	 @JsonIgnore
 	 @ManyToOne(fetch = FetchType.LAZY)//지연로딩
 	 @JoinColumn(name = "resiNo")
 	 private Residence residence;
 	 
+	 @JsonIgnore
 	 @ManyToOne(fetch = FetchType.LAZY)
 	 @Transient
 	 private List<Detail> detailList;

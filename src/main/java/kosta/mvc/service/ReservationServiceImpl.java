@@ -45,10 +45,31 @@ public class ReservationServiceImpl implements ReservationService {
 		return re;
 	}
 
+	@Override
 	public List<Reservation> selectByCampNo(Long campNo) {
 		//List<Reservation> reservList = reservationRepository.findByCampOrderByReservDate(campNo);
 		List<Reservation> reservList = reservationRepository.selectByCamp(campNo);
 		return reservList;
+	}
+	
+	@Override
+	public List<Reservation> selectByReservState(Long campNo, int reservState) {
+		List<Reservation> reservList = reservationRepository.selectByCampState(campNo, reservState);
+		return reservList;
+	}
+
+	@Override
+	public Reservation selectByReservNo(Long reservNo) {
+		Reservation reserv = reservationRepository.findById(reservNo).orElse(null);
+		if(reserv==null) throw new RuntimeException("존재하지 않는 예약 내역입니다.");
+		return reserv;
+	}
+
+	@Override
+	public int updateState(Long reservNo, int reservState) {
+		int result = reservationRepository.updateReservState(reservNo, reservState);
+		if(result<=0) throw new RuntimeException("예약 상태 수정에 실패했습니다.");
+		return result;
 	}
 
 }

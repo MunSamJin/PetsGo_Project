@@ -22,6 +22,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -29,6 +30,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Builder
+//@ToString(exclude = {"residenceList","scrapList","reservationList"})
 /**
  *  캠핑장 도메인
  */
@@ -95,6 +97,7 @@ public class Camp {
 	
 	private String campRole;
 	
+	//@JsonIgnore
 	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
 	private List<Residence> residenceList;
 	

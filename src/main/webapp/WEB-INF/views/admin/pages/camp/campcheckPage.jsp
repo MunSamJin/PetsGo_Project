@@ -323,15 +323,13 @@
   					type:"post",
   					url:"${pageContext.request.contextPath}/admin/camp/campStateUpdate",
   					dataType: "json",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
-					data:"${_csrf.parameterName}=${_csrf.token}&campState=" + campState + "&campNo="+${camp.campNo}, //서버에게 보낼 parameter 정보 
-					//data:"${_csrf.parameterName}=${_csrf.token}&email=" + email,	
+					data:"${_csrf.parameterName}=${_csrf.token}&campState=" + campState + "&campNo="+${camp.campNo}, //서버에게 보낼 parameter 정보
 					success:function(data) {	
-						/*$.each(data, function(index, item){
-							$("#campManageNo").text(item.campManageNo);
-						});
+						
+						$("#campManageNo").text(data.campManageNo);
 						$("button[name=stateBtn]").html(campStateStr);	
-						$("#campState").html(campStateStr);	*/
-						//$("#campRegNo").text("141-12-01303");
+						$("#campState").html(campStateStr);
+						//$("#campRegNo").text("482-41-00845");
 					}
   				});
   				

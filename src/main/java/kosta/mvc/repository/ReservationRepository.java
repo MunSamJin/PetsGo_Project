@@ -26,4 +26,11 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long>,
 	
 	@Query(value="select * from Reservation where camp_no=?1 order by reserv_date", nativeQuery = true)
 	List<Reservation> selectByCamp(Long campNo);
+	
+	@Query(value="select * from Reservation where camp_no=?1 and reserv_state=?2 order by reserv_date", nativeQuery = true)
+	List<Reservation> selectByCampState(Long campNo, int reservState);
+	
+	@Query(value = "update reservation set reserv_state=?2 where reserv_no=?1", nativeQuery = true)
+	@Modifying
+	int updateReservState(Long reservNo, int reservState);
 }

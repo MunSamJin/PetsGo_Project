@@ -1,11 +1,17 @@
 package kosta.mvc.controller;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Camp;
+import kosta.mvc.domain.Member;
 import kosta.mvc.domain.Reservation;
 import kosta.mvc.domain.Residence;
 import kosta.mvc.service.CampService;
@@ -35,12 +42,16 @@ public class OwnerController {
 	@Autowired
 	private ReservationService reservService;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder; 
+	
 	
 	@RequestMapping("/campHome")
 	public void ownerIndex(Model model) {
 	}
 	
-	@RequestMapping("/camp/campSelect/{campNo}")
+	
+	/*@RequestMapping("/camp/campSelect/{campNo}")
 	public String campSelect(@PathVariable("campNo") Long campNo , Model model) {
 		Camp camp = campService.selectBy(campNo);
 		model.addAttribute("camp",camp);
@@ -48,12 +59,13 @@ public class OwnerController {
 		System.out.println("camp filename = " + camp.getCampFilename());
 		
 		return "owner/camp/campSelect";
-	}
-	
-	
-	/*@RequestMapping("/camp/campSelect")
-	public void campSelect() {
 	}*/
+	
+	
+	@RequestMapping("/camp/campSelect")
+	public void campSelect() {
+		System.out.println("campSelect");
+	}
 	
 	
 	@RequestMapping("/campInsert/campRegNoCheck")
@@ -98,9 +110,6 @@ public class OwnerController {
 		} 
 		
 		camp.setCampFilename(filenames);
-		//String text = camp.getCampIntro().replace("\r\n","<br>");
-		//camp.setCampIntro(text);
-		
 		campService.insert(camp);
 		
 		return "success";
@@ -108,11 +117,16 @@ public class OwnerController {
 	
 	
 	
-	@RequestMapping("/camp/campUpdateForm/{campNo}")
+	/*@RequestMapping("/camp/campUpdateForm/{campNo}")
 	public ModelAndView campUpdateForm(@PathVariable("campNo") Long campNo) {
 		//FreeBoard board = campService.selectBy(bno, false); //조회수 증가 안 함
 		Camp camp = campService.selectBy(campNo);
 		return new ModelAndView("owner/camp/campUpdateForm","camp", camp);
+	}*/
+	
+	@RequestMapping("/camp/campUpdateForm")
+	public ModelAndView campUpdateForm() {
+		return new ModelAndView("owner/camp/campUpdateForm");
 	}
 	
 	
@@ -131,50 +145,69 @@ public class OwnerController {
 		String filenames = "";
 		
 		try {
-			
-			for (int i = 0; i < files.size(); i++) {
-				MultipartFile m = files.get(i);
-				System.out.println("첨부파일이름 = " + m.getOriginalFilename());
 				
-				if (i == (files.size() - 1))
-					filenames += m.getOriginalFilename();
-				else
-					filenames += m.getOriginalFilename() + ",";
+				for (int i = 0; i < files.size(); i++) {
+					MultipartFile m = files.get(i);
+					
+					if(m.getSize() > 0) {
+						
+						System.out.println("첨부파일이름 = " + m.getOriginalFilename());
+						
+						if (i == (files.size() - 1))
+							filenames += m.getOriginalFilename();
+						else
+							filenames += m.getOriginalFilename() + ",";
+						
+						System.out.println("update filenames = " + filenames);
+						m.transferTo(new File(saveDir + "/" + m.getOriginalFilename()));
+						camp.setCampFilename(filenames);
+					}
+				}
 				
-				System.out.println("update filenames = " + filenames);
-				m.transferTo(new File(saveDir + "/" + m.getOriginalFilename()));
-			}
+				System.out.println("filenames : " +filenames);
+				if(filenames.equals("")) {
+					Camp camp2 = campService.selectBy(camp.getCampNo());
+					camp.setCampFilename(camp2.getCampFilename());
+					System.out.println("없으면 dbFilenames " + camp.getCampFilename());
+				}
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 		
-		if(filenames.equals("")) {
+		/*if(filenames.equals("")) {
 			Camp camp2 = campService.selectBy(camp.getCampNo());
 			camp.setCampFilename(camp2.getCampFilename());
 		} else {
 			camp.setCampFilename(filenames);
-		}
-		
-		//String text = camp.getCampIntro().replace("\r\n","<br>");
-		//camp.setCampIntro(text);
+		}*/
 		
 		campService.update(camp);
-		
 		System.out.println("업데이트 완료!!! camp="+camp);
 		
 		//Authentication정보 수정
-		/*Camp c=(Camp)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		c.setCampAddr(filenames)*/
+		Camp updateCamp = (Camp)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		updateCamp.setCampAddr(camp.getCampAddr());
+		updateCamp.setCampCheckin(camp.getCampCheckin());
+		updateCamp.setCampCheckout(camp.getCampCheckout());
+		updateCamp.setCampEmail(camp.getCampEmail());
+		updateCamp.setCampFacility(camp.getCampFacility());
+		updateCamp.setCampFilename(camp.getCampFilename());
+		updateCamp.setCampIntro(camp.getCampIntro());
+		updateCamp.setCampName(camp.getCampName());
+		updateCamp.setCampNotify(camp.getCampNotify());
+		updateCamp.setCampPassword(camp.getCampPassword());
+		updateCamp.setCampPhone(camp.getCampPhone());
+		updateCamp.setCampPost(camp.getCampPost());
 		
-		
-		return "redirect:/owner/camp/campSelect/"+camp.getCampNo() ;
+		return "redirect:/owner/camp/campSelect";
 		//return "redirect:/owner/camp/campSelect";
 	}
 	
 	
-	@RequestMapping("/camp/campDeleteForm/{campNo}") 
-	public String campDeleteForm(@PathVariable Long campNo) {
-		return "/owner/camp/campDeleteForm";
+	@RequestMapping("/camp/campDeleteForm") 
+	public void campDeleteForm() {
+		
 	}
 	
 	
@@ -191,23 +224,28 @@ public class OwnerController {
 	public String passwordCheck(String password, Long campNo) {
 		Camp camp = campService.selectBy(campNo);
 		String pwd = camp.getCampPassword();
-		
-		if(pwd.equals(password)) return "success";
+		System.out.println("pwd = "+pwd);
+		//비밀번호 암호화
+		String encodedPassword = passwordEncoder.encode(password);
+
+		if(pwd.equals(encodedPassword)) return "success";
 		else return "fail";
 	}
 	
 	
 	
 	@RequestMapping("/resi/resiSelect/{campNo}")
-	public String resiSelect(@PathVariable("campNo") Long campNo , Model model) {
-		/*List<Residence> resiList = resiService. selectAll(campNo);
-		model.addAttribute("resiList", resiList);*/
-		
+	public String resiSelect(@PathVariable("campNo") Long campNo , Model model) {		
 		Camp camp = campService.selectBy(campNo);
 		List<Residence> resiList = camp.getResidenceList();
+		System.out.println("resiList =" + resiList);
 		model.addAttribute("resiList", resiList);
 		return "/owner/resi/resiSelect";
 	}
+	
+	/*@RequestMapping("/resi/resiSelect")
+	public void resiSelect() {
+	}*/
 	
 	
 	@RequestMapping("/resi/resiInsertForm")
@@ -303,23 +341,69 @@ public class OwnerController {
 		return "redirect:/owner/resi/resiDetail/"+resi.getResiNo();
 	}
 	
-
-	@RequestMapping("/reserv/reservManagement/{campNo}")
-	public String reservManagement(@PathVariable("campNo") Long campNo, Model model) {
-		System.out.println("컨트롤러진입");
-		List<Reservation> reservList = reservService.selectByCampNo(campNo);
+	
+	@RequestMapping("/reserv/reservCheck/{campNo}")
+	public String reservCheck(@PathVariable("campNo") Long campNo, Model model) {
+		List<Reservation> reservList =  reservService.selectByCampNo(campNo);
+		
+		for(Reservation r : reservList) {
+			Member member=r.getMember();
+			r.setMember(member);
+			System.out.println("reserv = " + r);
+		}
+		
 		model.addAttribute("reservList",reservList);
-		return "owner/reserv/reservManagement";
+		return "owner/reserv/reservCheck";
+	}
+	
+
+	@RequestMapping("/reserv/reservCheckAjax/{campNo}")
+	@ResponseBody
+	public Map<String, Object> reservCheckAjax(@PathVariable("campNo") Long campNo, int reservState) {
+		System.out.println("아작스");
+		
+		List<Reservation> reservList = null;
+		if(reservState==5) {
+			reservList = reservService.selectByCampNo(campNo);
+		} else {
+			reservList = reservService.selectByReservState(campNo, reservState);
+		}
+		
+		//model.addAttribute("reservList",reservList);
+		Map<String, Object> map = new HashMap<>();
+		
+		List<String> memberList = new ArrayList<String>();
+		System.out.println("reservList = " + reservList);
+		
+		if(reservList.size() > 0) {
+			for(Reservation r : reservList) {
+				Member member=r.getMember();
+				memberList.add(member.getMemberNickname());
+			}
+		}
+		
+		System.out.println("memberList = "+memberList);
+		
+		map.put("reservList", reservList);
+		map.put("memberList", memberList);
+		
+		return map;
 	}
 	
 	
-	/*@RequestMapping("/{url}")
-	public void url1() {}
+	@RequestMapping("/reserv/reservDetail/{reservNo}")
+	public String reservDetail(@PathVariable("reservNo") Long reservNo, Model model) {
+		Reservation reserv = reservService.selectByReservNo(reservNo);
+		model.addAttribute("reserv",reserv);
+		return "owner/reserv/reservDetail";
+	}
 	
-	@RequestMapping("/{url}/{url2}")
-	public void url2(Model model) {
-		Long campNo = (long) 2;
-		List<Reservation> reservList = reservService.selectByCampNo(campNo);
-		model.addAttribute("reservList",reservList);
-	}*/
+	
+	@RequestMapping("/reserv/reservStateUpdate")
+	@ResponseBody
+	public String reservStateUpdate(Long reservNo, int reservState) {
+		reservService.updateState(reservNo, reservState);
+		return "success";
+	}
+	
 }

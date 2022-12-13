@@ -73,6 +73,11 @@
 				});//ajax
 
 			});//keyup 
+			
+			
+			${"#campRequestCancelBtn"}.click(function(){
+				$(location).attr('href','${pageContext.request.contextPath}/main');
+			});
 		})
    </script>
    
@@ -350,68 +355,7 @@
       </div>
       <!-- partial -->
       <!-- partial:../../partials/_sidebar.html -->
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/owner/campHome">
-              <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">캠핑장 홈</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="icon-layout menu-icon"></i>
-              <span class="menu-title">캠핑장 관리</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/camp/campSelect">캠핑장 조회</a></li>
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/resi/resiSelect">숙소 목록 조회</a></li>
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/resi/resiInsertForm">숙소 등록</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-              <i class="icon-columns menu-icon"></i>
-              <span class="menu-title">예약 관리</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="form-elements">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reserv/reservManagement">예약 신청 관리</a></li>
-                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reservChart">예약 통계</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-              <i class="icon-bar-graph menu-icon"></i>
-              <span class="menu-title">후기</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="charts">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/review/review">후기 조회</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
-              <span class="menu-title">사업자 페이지</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/info/infoSelect">정보 조회</a></li>
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </nav>
+     
       <!-- partial -->
       
       <div class="main-panel">        
@@ -531,7 +475,7 @@
                       <input type="text" class="form-control" id="campCheckout" name="campCheckout" placeholder="24시간 단위로 작성해주세요(24:00)">
                     </div>
                     <input type="button" class="btn btn-primary mr-2" id="campRequest" name="campRequest" value="신청">
-                    <button type="reset" class="btn btn-light">취소</button>
+                    <button type="button" class="btn btn-light" id="campRequestCancelBtn">취소</button>
                   </form>
                 </div>
               </div>
