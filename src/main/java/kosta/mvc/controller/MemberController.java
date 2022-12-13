@@ -22,13 +22,14 @@ import kosta.mvc.service.MemberService;
 @RequestMapping("/member")
 public class MemberController {
 
-	
-	@Autowired
-	private MemberService memberService;
-	
-	@Autowired
-	private CommunityService communityService;
-	
+   
+   @Autowired
+   private MemberService memberService;
+   
+   @Autowired
+   private CommunityService communityService;
+   
+ 
 
    /**
     * 마이페이지 내 스크랩북 이동
@@ -37,7 +38,6 @@ public class MemberController {
    public void myScrap() {}
    
 
-   
    /**
     * 마이페이지 내 회원 정보 이동
     * */
@@ -54,6 +54,7 @@ public class MemberController {
       return new ModelAndView("member/myInfo", "member", member);
    }
    
+
 	
 	/**
 	 *  예약내역 조회
@@ -99,27 +100,7 @@ public class MemberController {
 		return dbReservState;
 	}
 
-	/**
-	 * 마이페이지 내 문의 이동
-	 * */
-	@RequestMapping("/myQna")
-	public void qnaList(Model model) {
-		List<QnaBoard> qnaBoardList = memberService.qnaList();
-		
-		model.addAttribute("qnaBoardList", qnaBoardList);
-	}
-	
-	/**
-	 * 마이페이지 내 문의 등록하기
-	 * */
-	@RequestMapping("/qnaInsert")
-	public String qnaInsert(QnaBoard qna) {		
-		memberService.qnaInsert(qna);
-		
-		return "redirect:/member/myQna";
-	}
-	
-	
+
 	/**
 	 * 마이페이지 내커뮤니티 조회
 	 */
@@ -151,8 +132,29 @@ public class MemberController {
 		communityService.delete(boardNo);
 		return "redirect:/member/myCommunity";
 	}
-	
- 
+
+
+   /**
+    * 마이페이지 내 문의 이동
+    * */
+   @RequestMapping("/myQna")
+   public void qnaList(Model model) {
+      List<QnaBoard> qnaBoardList = memberService.qnaList();
+      
+      model.addAttribute("qnaBoardList", qnaBoardList);
+   }
+   
+   /**
+    * 마이페이지 내 문의 등록하기
+    * */
+   @RequestMapping("/qnaInsert")
+   public String qnaInsert(QnaBoard qna) {      
+      memberService.qnaInsert(qna);
+      
+      return "redirect:/member/myQna";
+   }
+   
+
    /**
     * 마이페이지 내 문의 삭제하기
     * */
@@ -163,5 +165,7 @@ public class MemberController {
       return "redirect:/member/myQna";
    }
 
+ 
+  
 }
 
