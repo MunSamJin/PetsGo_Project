@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Camp;
 import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.domain.Residence;
-import kosta.mvc.service.AdminService;
 import kosta.mvc.service.CampService;
+import kosta.mvc.service.QnaService;
 
 
 @Controller
@@ -33,7 +34,7 @@ public class AdminController {
 	private CampService campService;
 	
 	@Autowired
-	private AdminService adminService;
+	private QnaService qnaService;
 	
 	private final static int PAGE_COUNT = 10;
 	private final static int BLOCK_COUNT = 3;
@@ -59,7 +60,7 @@ public class AdminController {
 	@RequestMapping("/pages/qna/qna_list")
 	public void qnaList(Model model, @RequestParam(defaultValue = "1") int nowPage) {
 		Pageable page = PageRequest.of((nowPage-1), PAGE_COUNT, Direction.DESC, "qnaNo");
-		Page<QnaBoard> pageList = adminService.selectAll(page);
+		Page<QnaBoard> pageList = qnaService.selectAll(page);
 		
 		int temp = (nowPage-1) % BLOCK_COUNT;
 		int startPage = nowPage - temp;
@@ -70,7 +71,26 @@ public class AdminController {
 		model.addAttribute("nowPage", nowPage);
 	}
 	
+	/**
+	 * 문의 답변 등록하기
+	 * */
+	@RequestMapping("/pages/qna/replyInsert")
+	public ModelAndView replyInsert(QnaBoard qna) {
+		QnaBoard dbQna = qnaService.replyInsert(qna);
+
+		return new ModelAndView("redirect:/admin/pages/qna/qna_list");
+	}
 	
+	/**
+	 * 문의 답변 삭제하기
+	 * */
+	@RequestMapping("/pages/qna/replyDelete")
+	public ModelAndView replyDelete(QnaBoard qna) {		
+		QnaBoard dbQna = qnaService.replyDelete(qna);
+		
+		return new ModelAndView("redirect:/admin/pages/qna/qna_list");
+	}
+
 	/**
 	 * 캠핑장 전체 검색
 	 */
@@ -156,33 +176,3 @@ public class AdminController {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

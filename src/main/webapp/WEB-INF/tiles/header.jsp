@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>   
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <!doctype html>
 <html lang="en">
 
@@ -86,17 +87,13 @@
                                     		<li class="nav-item">
 		                                        <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 		                                    </li>
-		                                    
+		                                    <!-- 회원 프로필 아이콘 -->
 		                                    <li class="nav-item dropdown" style="display:block;">
-												<!-- 회원 프로필 아이콘 -->
-												<c:if test="${not empty member}">
-			    									${member.memberProfile}
-												</c:if>
-												
-		                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1"
+		                                        <a class="nav-link" href="#" id="navbarDropdown_1"
 		                                            role="button" data-toggle="dropdown" aria-haspopup="true"
 		                                            aria-expanded="false">
-		                                            마이페이지
+		                                            <sec:authentication var="mvo" property="principal" />
+												<img alt="" src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}">
 		                                        </a>
 		                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
 		                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myReservation">예약내역</a>
@@ -106,7 +103,6 @@
 		                                              <a class="dropdown-item" href="${pageContext.request.contextPath}/member/myQna">문의하기</a>
 		                                        </div>
 		                                    </li>
-		                                    
                                     	</c:otherwise>
                                     </c:choose>
                                 </ul>

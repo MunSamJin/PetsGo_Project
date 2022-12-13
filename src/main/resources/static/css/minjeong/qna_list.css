@@ -1,0 +1,11 @@
+#replyForm > div.modal-footer > button.btn.btn-primary > input[type=submit] {
+	background-color: transparent !important;
+    border: none !important;
+    color: white !important;
+}
+
+#replyForm > div.modal-footer > button.btn.btn-danger > input[type=submit] {
+	background-color: transparent !important;
+    border: none !important;
+    color: white !important;
+}
