@@ -21,6 +21,7 @@ import kosta.mvc.service.MemberService;
 @Controller //ajax 처리할 메소드는 @Reponsebody를 붙여주면 됨
 @RequestMapping("/member")
 public class MemberController {
+
 	
 	@Autowired
 	private MemberService memberService;
@@ -28,45 +29,35 @@ public class MemberController {
 	@Autowired
 	private CommunityService communityService;
 	
-	/**
-	 * 이메일 중복 확인
-	 * */
-	/* @RequestMapping("/emailCheck")
-	@ResponseBody
-	public String emailCheck(HttpServletRequest request) {
-		return memberService.emailCheck(request.getParameter("memberEmail"));
-	} */
-	
-	/**
-	 * 닉네임 중복 확인
-	 * */
-	/* @RequestMapping("/nicknameCheck")
-	@ResponseBody
-	public String nicknameCheck(HttpServletRequest request) {
-		return memberService.nicknameCheck(request.getParameter("memberNickname"));
-	} */
 
-	/**
-	 * 회원 정보 수정하기
-	 * */
-	@RequestMapping("/updateInfo")
-	public ModelAndView updateInfo(Member member) {
-		member = memberService.updateInfo(member);
-		
-		return new ModelAndView("member/myInfo", "member", member);
-	}
-	
-	/**
-	 * 마이페이지 내 반려견 정보(회원정보-반려견 정보) 이동
-	 * */
-	/* @RequestMapping("myPet")
-	public String myPet() {
-		return "member/myPet";
-	} */
-	
-
-	/*@RequestMapping("{url}")
-	public void url() {}*/
+   /**
+    * 마이페이지 내 스크랩북 이동
+    * */
+   @RequestMapping("/myScrap")
+   public void myScrap() {}
+   
+   /**
+    * 마이페이지 내 커뮤니티 이동
+    * */
+   @RequestMapping("/myCommunity")
+   public void myCommunity() {}
+   
+   /**
+    * 마이페이지 내 회원 정보 이동
+    * */
+   @RequestMapping("/myInfo")
+   public void myInfo() {}
+   
+   /**
+    * 회원 정보 수정하기
+    * */
+   @RequestMapping("/updateInfo")
+   public ModelAndView updateInfo(Member member) {
+      member = memberService.updateInfo(member);
+      
+      return new ModelAndView("member/myInfo", "member", member);
+   }
+   
 	
 	/**
 	 *  예약내역 조회
@@ -132,39 +123,6 @@ public class MemberController {
 		return "redirect:/member/myQna";
 	}
 	
-	/**
-	 * 마이페이지 내 문의 수정 폼
-	 * */
-	/* @RequestMapping("/qnaUpdateForm/{qnaNo}")
-	public ModelAndView qnaUpdateForm(@PathVariable Long qnaNo) {
-		System.out.println("controller qnaUpdateForm 호출~");
-		
-		QnaBoard qna = memberService.selectByQnaNo(qnaNo);
-		
-		System.out.println("selectByQnaNo까지 다녀옴!");
-		
-		return new ModelAndView("member/qnaUpdateForm", "qna", qna);
-	} */
-	
-	/**
-	 * 마이페이지 내 문의 수정하기
-	 * */
-	/* @RequestMapping("/qnaUpdate")
-	public ModelAndView qnaUpdate(QnaBoard qna) {
-		qna = memberService.qnaUpdate(qna);
-		
-		return new ModelAndView("member/myQna", "qna", qna);
-	} */
-	
-	/**
-	 * 마이페이지 내 문의 삭제하기
-	 * */
-	@RequestMapping("/qnaDelete/{qnaNo}")
-	public String qnaDelete(@PathVariable Long qnaNo) {
-		memberService.qnaDelete(qnaNo);
-		
-		return "redirect:/member/myQna";
-	}
 	
 	/**
 	 * 마이페이지 내커뮤니티 조회
@@ -198,28 +156,16 @@ public class MemberController {
 		return "redirect:/member/myCommunity";
 	}
 	
-	
+ 
+   /**
+    * 마이페이지 내 문의 삭제하기
+    * */
+   @RequestMapping("/qnaDelete/{qnaNo}")
+   public String qnaDelete(@PathVariable Long qnaNo) {
+      memberService.qnaDelete(qnaNo);
+      
+      return "redirect:/member/myQna";
+   }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

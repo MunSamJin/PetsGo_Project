@@ -81,6 +81,7 @@
     <!--================ Area =================-->
 		    <section class="blog_area single-post-area section_padding">
 		        <div class="container">
+		        	<div class="my_topmenu">나의 예약내역</div>
 		            <div class="row">
 		                <div class="col-lg-4">
 		                    <div class="blog_right_sidebar">
