@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Camp;
+import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.service.CampUserViewService;
+import kosta.mvc.service.CommunityService;
 
 @Controller
 @RequestMapping("/camp")
@@ -19,6 +21,9 @@ public class CampController {
 	
 	@Autowired
 	private CampUserViewService campUserViewService;
+	
+	@Autowired
+	private CommunityService communityService;
 	
 	@RequestMapping("/selectAll")
 	public String selectAll(int resiPeople, String campAddr, String checkIn, String checkOut, Model model) {
@@ -48,9 +53,11 @@ public class CampController {
 	@RequestMapping("/detail")
 	public void detail(Long campNo, int resiPeople, String checkIn, String checkOut, Model model) {
 		Camp camp = campUserViewService.selectByCampNo(campNo);
+		//List<CommunityBoard> boardList = communityService.selectByTag(camp.getCampName());
 		model.addAttribute("camp", camp);
 		model.addAttribute("resiPeople", resiPeople);
 		model.addAttribute("checkIn", checkIn);
 		model.addAttribute("checkOut", checkOut);
+		//model.addAttribute("boardList", boardList);
 	}
 }

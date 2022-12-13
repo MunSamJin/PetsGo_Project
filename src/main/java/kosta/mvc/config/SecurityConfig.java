@@ -36,6 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.authorizeRequests()  //  security-context  <security:intercept-url
 				//.antMatchers("/admin/**") //     pattern="/member/main" 
 				//.hasRole("ADMIN") 
+				.antMatchers("/camp/**")
+				.permitAll()
 				.antMatchers("/owner/campInsert/**")
 				.permitAll()
 				.antMatchers("/owner/**") //     pattern="/member/main" 
@@ -48,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.permitAll()
 				.antMatchers("/member/myCommunity")
 				.permitAll()
-				.antMatchers("/member/myQna")
+				.antMatchers("/member/myInfo")
 				.permitAll()
 				.antMatchers("/member/**")
 				.hasRole("MEMBER")

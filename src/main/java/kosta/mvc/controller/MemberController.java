@@ -11,57 +11,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.Member;
 import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.domain.Reservation;
+import kosta.mvc.service.CommunityService;
 import kosta.mvc.service.MemberService;
 
 @Controller //ajax 처리할 메소드는 @Reponsebody를 붙여주면 됨
 @RequestMapping("/member")
 public class MemberController {
+
 	
 	@Autowired
 	private MemberService memberService;
 	
-	/**
-	 * 이메일 중복 확인
-	 * */
-	/* @RequestMapping("/emailCheck")
-	@ResponseBody
-	public String emailCheck(HttpServletRequest request) {
-		return memberService.emailCheck(request.getParameter("memberEmail"));
-	} */
-	
-	/**
-	 * 닉네임 중복 확인
-	 * */
-	/* @RequestMapping("/nicknameCheck")
-	@ResponseBody
-	public String nicknameCheck(HttpServletRequest request) {
-		return memberService.nicknameCheck(request.getParameter("memberNickname"));
-	} */
-
-	/**
-	 * 회원 정보 수정하기
-	 * */
-	@RequestMapping("/updateInfo")
-	public ModelAndView updateInfo(Member member) {
-		member = memberService.updateInfo(member);
-		
-		return new ModelAndView("member/myInfo", "member", member);
-	}
-	
-	/**
-	 * 마이페이지 내 반려견 정보(회원정보-반려견 정보) 이동
-	 * */
-	/* @RequestMapping("myPet")
-	public String myPet() {
-		return "member/myPet";
-	} */
+	@Autowired
+	private CommunityService communityService;
 	
 
-	/*@RequestMapping("{url}")
-	public void url() {}*/
+   /**
+    * 마이페이지 내 스크랩북 이동
+    * */
+   @RequestMapping("/myScrap")
+   public void myScrap() {}
+   
+
+   
+   /**
+    * 마이페이지 내 회원 정보 이동
+    * */
+   @RequestMapping("/myInfo")
+   public void myInfo() {}
+   
+   /**
+    * 회원 정보 수정하기
+    * */
+   @RequestMapping("/updateInfo")
+   public ModelAndView updateInfo(Member member) {
+      member = memberService.updateInfo(member);
+      
+      return new ModelAndView("member/myInfo", "member", member);
+   }
+   
 	
 	/**
 	 *  예약내역 조회
@@ -127,62 +119,49 @@ public class MemberController {
 		return "redirect:/member/myQna";
 	}
 	
-	/**
-	 * 마이페이지 내 문의 수정 폼
-	 * */
-	/* @RequestMapping("/qnaUpdateForm/{qnaNo}")
-	public ModelAndView qnaUpdateForm(@PathVariable Long qnaNo) {
-		System.out.println("controller qnaUpdateForm 호출~");
-		
-		QnaBoard qna = memberService.selectByQnaNo(qnaNo);
-		
-		System.out.println("selectByQnaNo까지 다녀옴!");
-		
-		return new ModelAndView("member/qnaUpdateForm", "qna", qna);
-	} */
 	
 	/**
-	 * 마이페이지 내 문의 수정하기
-	 * */
-	/* @RequestMapping("/qnaUpdate")
-	public ModelAndView qnaUpdate(QnaBoard qna) {
-		qna = memberService.qnaUpdate(qna);
+	 * 마이페이지 내커뮤니티 조회
+	 */
+	@RequestMapping("/myCommunity")
+	public void myCommunity(Model model, Authentication auth) {
 		
-		return new ModelAndView("member/myQna", "qna", qna);
-	} */
-	
-	/**
-	 * 마이페이지 내 문의 삭제하기
-	 * */
-	@RequestMapping("/qnaDelete/{qnaNo}")
-	public String qnaDelete(@PathVariable Long qnaNo) {
-		memberService.qnaDelete(qnaNo);
+		Object object = auth.getPrincipal();
+		Member member = null;
 		
-		return "redirect:/member/myQna";
+		if(object instanceof Member) {
+			member = (Member)auth.getPrincipal();
+		}
+		Long memberNo = member.getMemberNo();
+		//System.out.println("member컨트롤러 memberNo = " + memberNo);
+		
+		List<CommunityBoard> list = memberService.selectCommunityAll(memberNo);
+		System.out.println("member컨트롤러 list = " + list);
+		
+		model.addAttribute("myCommunity", list);
+		
 	}
 	
+	/**
+	 * 마이페이지 내커뮤니티 게시글 삭제
+	 */
+	@RequestMapping("/delete/{boardNo}")
+	public String delete(@PathVariable Long boardNo) {
+		System.out.println("마이페이지컨트롤러 boardNo = " + boardNo);
+		communityService.delete(boardNo);
+		return "redirect:/member/myCommunity";
+	}
 	
+ 
+   /**
+    * 마이페이지 내 문의 삭제하기
+    * */
+   @RequestMapping("/qnaDelete/{qnaNo}")
+   public String qnaDelete(@PathVariable Long qnaNo) {
+      memberService.qnaDelete(qnaNo);
+      
+      return "redirect:/member/myQna";
+   }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

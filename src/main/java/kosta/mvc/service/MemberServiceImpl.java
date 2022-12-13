@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.Member;
 import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.domain.Reservation;
+import kosta.mvc.repository.CommunityRepository;
 import kosta.mvc.repository.MemberRepository;
 import kosta.mvc.repository.QnaRepository;
 import kosta.mvc.repository.ReservationRepository;
@@ -25,8 +27,12 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private ReservationRepository reservationRep;
+	
 	@Autowired
 	private QnaRepository qnaRep;
+	
+	@Autowired
+	private CommunityRepository communityRep;
 
 	
 	/*
@@ -148,5 +154,11 @@ public class MemberServiceImpl implements MemberService {
 		int dbReservState = reservationRep.selectReservState(memberNo, reservationNo);
 		
 		return dbReservState;
+	}
+
+	@Override
+	public List<CommunityBoard> selectCommunityAll(Long memberNo) {
+		
+		return communityRep.selectCommunityAll(memberNo);
 	}
 }

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 <head>
@@ -17,6 +17,27 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 	$(function() {
+		$("a[name=scrap]").click(function() {
+			let member = $("#member").val();
+			let camp = $(this).next().val();
+			
+			$.ajax({
+				url : '${pageCotext.request.contextPath}/scrap/scrap',
+				type : 'post',
+				dataType : 'text',
+				data : {
+					member : member,
+					camp : camp
+				},
+				success : function(message) {
+					alert(message);
+				},
+				error : function(err) {
+					alert(err);
+				}
+			});
+		});
+		
 		$("#moreBtn").click(function() {
 			let len = $("div[name=hideview]").length;
 			if(len===0) {
@@ -138,6 +159,15 @@
 </head>
 
 <body>
+<c:choose>
+	<c:when test="${empty pageContext.request.userPrincipal}"></c:when>
+	<c:otherwise>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+   		<sec:authentication var="mvo" property="principal" />
+   		<input type="hidden" id="member" value="${mvo.memberNo}">
+	</c:otherwise>
+</c:choose>
+
     <!-- bradcam_area  -->
     <div class="bradcam_area bradcam_bg_2">
         <div class="container">
@@ -306,15 +336,20 @@
 		                                <div class="place_info" >
 		                                    <a href="${pageCotext.request.contextPath}/camp/detail?campNo=${camp.campNo}&resiPeople=${resiPeople}&checkIn=${checkIn}&checkOut=${checkOut}"><h3>${camp.campName}</h3></a>
 		                                    <p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${camp.campIntro}</p>
-		                                    <div class="rating_days d-flex justify-content-between">
-		                                        <span class="d-flex justify-content-center align-items-center">
-		                                             <a href="#">(20 Review)</a>
-		                                        </span>
-		                                        <div class="days">
-		                                            <i class="fa fa-clock-o"></i>
-		                                            <a href="#">스크랩</a>
-		                                        </div>
-		                                    </div>
+		                                    
+		                                    <c:choose>
+		                                    	<c:when test="${empty pageContext.request.userPrincipal}"></c:when>
+		                                    	<c:otherwise>
+		                                    		<div class="rating_days d-flex justify-content-between">
+				                                        <div class="days">
+				                                            <i class="fa fa-clock-o"></i>
+				                                            <a href="#" name="scrap">스크랩</a>
+				                                            <input type="hidden" value="${camp.campNo}">
+				                                        </div>
+				                                    </div>
+		                                    	</c:otherwise>
+		                                    </c:choose>
+		                                    
 		                                </div>
 		                            </div>
 	                       		</div>

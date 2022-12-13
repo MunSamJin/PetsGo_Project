@@ -41,7 +41,9 @@
 	<link rel='stylesheet' href='${pageContext.request.contextPath}/css/swiper.min.css'>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/comu_style.css">
 
-	<title>Insert title here</title>
+	
+	
+	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
 	
 	<script type="text/javascript">
@@ -183,98 +185,15 @@
 		<div class="container" ><!-- style="width: 80%; margin-left: auto; margin-right: auto; margin-bottom: 50px" -->
 			
 			<ul id="tagResult">
-				<c:forEach items="${requestScope.communityBoardList}" var="communityBoardList" varStatus="status" >				  				  				  				    
+			<c:choose>
+			  <c:when test="${not empty communityBoardList}">
+			     <c:forEach items="${requestScope.communityBoardList}" var="communityBoardList" varStatus="status" >				  				  				  				    
 				    <li>
 						<div class="communityCard">
 							<img class="communityImg" src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList.boardFileName,',')[0]}" 
 								onclick="javascript:location.href='${pageContext.request.contextPath}/community/read/${communityBoardList.boardNo}'"/><br> 
 						
-							<div style="text-align: left;">
-								
-							<c:if test="${not empty pageContext.request.userPrincipal}">
-								<sec:authentication var="mvo" property="principal" />
-								<c:choose>
-									<c:when test="${communityBoardList.likeList.size()>0}">
-										<c:forEach items="${communityBoardList.likeList}" var="like">
-										
-											<c:choose>
-												<c:when test="${like.member.memberNo==mvo.memberNo}">
-													<span class="heart" style="cursor: pointer;"
-											          	  onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
-														<img src="${pageContext.request.contextPath}/img/samjin/redheart.png" 
-														 	 width="15px" height="15px" style="padding-bottom: 3px;">
-													</span>
-												</c:when>
-												<c:otherwise>
-													<span class="heart" style="cursor: pointer;"
-														  onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
-														<img src="${pageContext.request.contextPath}/img/samjin/heart.png" 
-															 width="15px" height="15px" style="padding-bottom: 3px;">
-													</span>
-												</c:otherwise>											
-											</c:choose>
-										
-										</c:forEach>
-									
-									</c:when>
-									<c:otherwise>
-										<span class="heart" style="cursor: pointer;"
-											  onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
-											<img src="${pageContext.request.contextPath}/img/samjin/heart.png" 
-												 width="15px" height="15px" style="padding-bottom: 3px;">
-										</span>
-									</c:otherwise>
-								</c:choose>
-							</c:if>	
-								
-								
-								
-								
-								<%-- <c:choose>
-								   <c:when test="${communityBoardList.likeList.size()>0}">
-								     <c:forEach items="${communityBoardList.likeList}" var="like">
-								     	<c:choose>
-								     		<c:when test="${not empty pageContext.request.userPrincipal}">
-								     		
-								     			<sec:authentication var="mvo" property="principal" />
-												<c:choose>
-													<c:when test="${like.member.memberNo==mvo.memberNo}">
-														<span class="heart" style="cursor: pointer;"
-											          		onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
-															<img src="${pageContext.request.contextPath}/img/samjin/redheart.png" 
-														 		  width="15px" height="15px" style="padding-bottom: 3px;">
-														</span>
-													</c:when>
-													<c:otherwise>
-														<span class="heart" style="cursor: pointer;"
-												       		onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
-															<img src="${pageContext.request.contextPath}/img/samjin/heart.png" 
-															 	 width="15px" height="15px" style="padding-bottom: 3px;">
-														</span>
-													</c:otherwise> 
-												</c:choose>
-								     		
-								     		</c:when>
-								     		<c:otherwise>
-								     			<span class="heart" style="cursor: pointer;"
-										       		onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
-													<img src="${pageContext.request.contextPath}/img/samjin/heart.png" 
-													 	 width="15px" height="15px" style="padding-bottom: 3px;">
-												</span>
-								     		</c:otherwise>
-								     	</c:choose>
-								     	
-								     </c:forEach>
-								   </c:when>
-								   <c:otherwise>
-								       <span class="heart" style="cursor: pointer;"
-								       		onclick="javascript:location.href='${pageContext.request.contextPath}/community/likeHeart/${communityBoardList.boardNo}'" >
-											<img src="${pageContext.request.contextPath}/img/samjin/heart.png" 
-											 	 width="15px" height="15px" style="padding-bottom: 3px;">
-										</span>
-								   </c:otherwise>
-								</c:choose> --%>
-								
+							<div style="text-align: left;">							
 								<span><b>좋아요&nbsp${communityBoardList.likeList.size() }개</b></span>
 								<span><b>${communityBoardList.boardTag}</b></span><br>
 								<span class="communityBoardContent">${communityBoardList.boardContent}</span>
@@ -284,10 +203,72 @@
 						<br> 
 				    </li>
 				</c:forEach>
+			  </c:when>
+			  <c:otherwise>
+			    <c:forEach items="${requestScope.likeList}" var="like" varStatus="status" >				  				  				  				    
+				      <li>
+						<div class="communityCard">
+							<img class="communityImg" src="${pageContext.request.contextPath}/img/samjin/${fn:split(like.boardfilename,',')[0]}" 
+								onclick="javascript:location.href='${pageContext.request.contextPath}/community/read/${like.boardno}'"/><br> 
+						
+							<div style="text-align: left;">							
+								<span><b>좋아요&nbsp${like.likecount }개</b></span>
+								<span><b>${like.boardtag}</b></span><br>
+								<span class="communityBoardContent">${like.boardcontent}</span>
+								<a href="${pageContext.request.contextPath}/community/read/${like.boardno}" style="color: gray">더보기</a>
+							</div>	
+						</div>
+						<br> 
+				    </li>
+				</c:forEach>
+			  
+			  </c:otherwise>
+			</c:choose>
+				
 			</ul> 
 			<!-- <button type="button" id="moreBtn">더보기</button> -->
 		</div>	
-	</div>	
+		
+
+			<!--  블럭당  -->
+			<nav class="blog-pagination justify-content-center d-flex">
+				<ul class="pagination">
+					<c:set var="doneLoop" value="false"/>
+					
+					<c:if test="${(startPage-blockCount) > -2}">
+						<li class="page-item">
+							<a class="page-link" href="${pageContext.request.contextPath}/community/list?nowPage=${startPage-1}">PREV
+								<i class="ti-angle-left"></i>
+							</a>
+						</li>
+					</c:if>
+					  
+					<span class="pagination-inner"> 
+						<c:forEach var='i' begin='${startPage}' end='${(startPage-1)+blockCount}'> 
+					  
+							<c:if test="${(i-1)>=pageList.getTotalPages()}">
+								<c:set var="doneLoop" value="true"/>
+							</c:if> 
+					    
+							<c:if test="${not doneLoop}" >
+								<a class="${i==nowPage?'pagination-active':page}" href="${pageContext.request.contextPath}/community/list?nowPage=${i}">${i}</a> 
+							</c:if>
+					   
+						</c:forEach>
+					</span> 
+							
+					<c:if test="${(startPage+blockCount)<=pageList.getTotalPages()}">
+						<li class="page-item">
+							<a class="page-link"  href="${pageContext.request.contextPath}/community/list?nowPage=${startPage+blockCount}">NEXT
+								<i class="ti-angle-right"></i>
+							</a>
+							
+						</li>
+					</c:if>
+				
+				</ul>
+			</nav>  
+	</div>
 
 </body>
 </html>
