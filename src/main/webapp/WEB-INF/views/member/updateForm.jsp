@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,11 +117,7 @@
 	<h1> member/updateForm.jsp 문서 </h1>
 	
 	<form id="updateForm" action="${pageContext.request.contextPath}/member/updateInfo" method="post">
-		<input type="hidden" name="memberNo" value="<sec:authentication property="principal.memberNo"/>">
-		<%-- <input type="hidden" name="memberProfile" value="<sec:authentication property="principal.memberProfile"/>">
-		<input type="hidden" name="memberEmail" value="<sec:authentication property="principal.memberEmail"/>">  --%>
-		
-		
+		<input type="hidden" name="memberNo" value="<sec:authentication property="principal.memberNo"/>">	
 		
 		    <sec:authentication var="mvo" property="principal" /> 
 		    	아이콘 
@@ -148,8 +144,6 @@
 		        </script>
 		        생년월일 <input type="text" name="memberBirthDate" id="datepicker" value="${mvo.memberBirthDate}"><br><br>
 
-		
-			
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<input type="submit" value="수정">
 		<button type="button">취소</button>

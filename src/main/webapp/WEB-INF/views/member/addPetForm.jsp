@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,9 +15,7 @@
 	<script src="https://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 	
 	<script>
-		$(document).ready(function(){	
-			//alert( $("input[name=petNeuter]:checked").val() );
-			
+		$(document).ready(function(){				
 			/////////////////////////////////////
 			//등록 버튼 클릭 시 유효성 체크
 			$("#addPetForm").submit(function(){	
@@ -32,10 +31,10 @@
 					return false;
 				}
 				
-				/* if( $("input[name=petNeuter]:checked").length < 1 ){
-					alert("중성화 수술 여부를 선택해 주세요");						
+				/* if($("input[name=petNeuter]:checked").val() == 0 || $("input[name=petNeuter]:checked").val() == 1) {
+					alert("중성화 수술 여부를 다시 확인해 주세요");						
 					return false;
-				} */				
+				} */		
 			})
 			
 			//////////////////////////////////////////
@@ -59,14 +58,14 @@
 				
 			/////////////////////////////////////
 			//중성화 수술 여부 checked 변경하기
-			$("#petWeight").change(function(){
+			/* $("#petWeight").change(function(){
 				//alert( $("input[name=petNeuter]:checked").val() );
 				$("input:radio[id=notNeuter]").prop("checked", false); 
 				$("input:radio[id=doneNeuter]").prop("checked", true); 
-				alert( $("input[name=petNeuter]:checked").val() );
+				//alert( $("input[name=petNeuter]:checked").val() );
 			})
 			
-			$("input[name=petNeuter]:checked").val();
+			$("input[name=petNeuter]:checked").val(); */
 			
 			
 			/////////////////////////////////////
@@ -103,32 +102,35 @@
 			/////////////////////////////////////
 			//취소 버튼 클릭 시 반려견 정보 페이지로 이동
 			$("#addPetForm > button").click(function(){								
-				location.href = "${pageContext.request.contextPath}/myPet";
+				location.href = "${pageContext.request.contextPath}/member/myInfo";
 			})
 			
 		}) //ready
 	</script>
-
 </head>
 <body>
-	<h1> pet/addPetForm.jsp 문서 </h1>
-
-	<form id="addPetForm" action="${pageContext.request.contextPath}/addPet" method="post">
-		<input type="hidden" name="memberNo" value="${member.memberNo}">
+	<div class="container">
+		<h3>member/addPetForm.jsp</h3>
 		
-		이름 <input type="text" name="petName" id="petName"><br>
-		몸무게 <input type="text" name="petWeight" id="petWeight"> kg <br>
-		<span id="weigthValid"></span><br><br>
-		중성화 수술 여부 
-			<input type="radio" name="petNeuter" id="notNeuter" value="0" checked> 비수술
-			<input type="radio" name="petNeuter" id="doneNeuter" value="1"> 수술 <br>
-		마지막 광견병 예방 접종일 <input type="text" name="memberBirthDate" id="datepicker"> <br>
-		* 예약 시 증빙 서류를 제출하셔야 합니다.<br><br>
-		
-		기타 특이사항 <br>
-		<textarea name="petOther" cols="50" rows="5"></textarea><br><br>
-		<input type="submit" value="등록">
-		<button type="button">취소</button>
-	</form>
+		<form id="addPetForm" action="${pageContext.request.contextPath}/member/addPet" method="post">
+			<input type="hidden" name="memberNo" value="<sec:authentication property="principal.memberNo"/>">
+			
+			이름 <input type="text" name="petName" id="petName"><br>
+			몸무게 <input type="text" name="petWeight" id="petWeight"> kg <br>
+			<span id="weigthValid"></span><br><br>
+			중성화 수술 여부 
+				<input type="radio" name="petNeuter" id="notNeuter" value="0" checked> 비수술
+				<input type="radio" name="petNeuter" id="doneNeuter" value="1"> 수술 <br>
+			마지막 광견병 예방 접종일 <input type="text" name="petVaccine" id="datepicker"> <br>
+			* 예약 시 증빙 서류를 제출하셔야 합니다.<br><br>
+			
+			기타 특이사항 <br>
+			<textarea name="petOther" cols="50" rows="5"></textarea><br><br>
+			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<input type="submit" value="등록">
+			<button type="button">취소</button>
+		</form>
+	</div>	
 </body>
 </html>

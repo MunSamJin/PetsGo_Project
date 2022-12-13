@@ -4,9 +4,9 @@ import java.util.List;
 
 import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.Member;
+import kosta.mvc.domain.Pet;
 import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.domain.Reservation;
-
 
 public interface MemberService {
 	
@@ -26,14 +26,24 @@ public interface MemberService {
 	void register(Member member);
 	
 	/**
-	 * 로그인
-	 * */
-	//Member login(Member member);
-	
-	/**
 	 * 회원 정보 수정하기
 	 * */
 	Member updateInfo(Member member);
+	
+	/**
+	 * 반려견 등록
+	 * */
+	void addPet(Pet pet);
+	
+	/**
+	 * 회원 번호로 검색
+	 * */
+	Member selectByMemberNo(Long memberNo);
+	
+	/**
+	 * 마이페이지 내 회원정보 이동
+	 * */
+	List<Pet> petList();
 	
 	/**
 	 * 마이페이지 내 문의 이동
@@ -49,11 +59,6 @@ public interface MemberService {
 	 * 문의 번호 검색
 	 * */
 	QnaBoard selectByQnaNo(Long qnaNo);
-	
-	/**
-	 * 마이페이지 내 문의 수정하기
-	 * */
-	//QnaBoard qnaUpdate(QnaBoard qna);
 	
 	/**
 	 * 마이페이지 내 문의 삭제하기

@@ -62,7 +62,6 @@ public class Member {
 	private String memberAuth; //본인인증
 	
 	private String memberRole;//권한
-	
 
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
 	private List<Pet> petList;
@@ -81,7 +80,4 @@ public class Member {
  
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
 	private List<LikeBoard> likeList;
-	  
-	
-	
 }

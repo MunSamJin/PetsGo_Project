@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.Member;
+import kosta.mvc.domain.Pet;
 import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.domain.Reservation;
 import kosta.mvc.service.CommunityService;
@@ -90,7 +91,11 @@ public class MemberController {
 	 * 마이페이지 내 회원 정보 이동
 	 * */
 	@RequestMapping("/myInfo")
-	public void myInfo() {}
+	public void myInfo(Model model) {
+		List<Pet> petList = memberService.petList();
+		
+		model.addAttribute("petList", petList);
+	}
 	
 	/**
 	 * 회원 정보 수정 전 비밀번호 확인
@@ -127,18 +132,24 @@ public class MemberController {
 	}
 	
 	/**
-	 * 마이페이지 내 반려견 정보(회원정보-반려견 정보) 이동
+	 * 반려견 등록 폼
 	 * */
-	/* @RequestMapping("myPet")
-	public String myPet() {
-		return "member/myPet";
-	} */
+	@RequestMapping("/addPetForm")
+	public void addPetForm() {}
 	
+	/**
+	 * 반려견 등록
+	 * */
+	@RequestMapping("/addPet")
+	public String addPet(Pet pet, Long memberNo) {
+		Member member = memberService.selectByMemberNo(memberNo);
+		pet.setMember(member);
 
-	/*@RequestMapping("{url}")
-	public void url() {}*/
-	
-	
+		memberService.addPet(pet);
+		
+		return "redirect:/member/myInfo";
+	}
+
 	/**
 	 * 마이페이지 내 문의 이동
 	 * */
@@ -189,7 +200,6 @@ public class MemberController {
 		communityService.delete(boardNo);
 		return "redirect:/member/myCommunity";
 	}
-	
 
    /**
     * 마이페이지 내 문의 삭제하기
