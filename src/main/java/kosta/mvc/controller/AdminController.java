@@ -72,15 +72,6 @@ public class AdminController {
 	}
 	
 	/**
-	 * 문의 답변 등록 폼
-	 * */
-	/* @RequestMapping("/pages/qna/replyWriteForm")
-	public void replyWriteForm(Long qnaNo, Model model) {
-		model.addAttribute("qnaNo", qnaNo);
-		//return "admin/pages/qna/replyWriteForm";
-	} */
-	
-	/**
 	 * 문의 답변 등록하기
 	 * */
 	@RequestMapping("/pages/qna/replyInsert")

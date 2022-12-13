@@ -63,8 +63,9 @@ public class Member implements Serializable{
 	private String memberAuth; //본인인증
 	
 	private String memberRole;//권한
+
 	
-     @JsonIgnore
+    @JsonIgnore
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
 	private List<Pet> petList;
 	  
@@ -88,7 +89,4 @@ public class Member implements Serializable{
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
 	private List<LikeBoard> likeList;
 
-	
-	
-	
 }

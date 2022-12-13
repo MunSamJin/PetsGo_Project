@@ -246,7 +246,7 @@
 													      	<b>문의 내용</b> <p>
 													        ${qna.qnaContent} <br><br><br>
 																<input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
-															<b>문의 내용</b> <p>
+															<b>문의답변 내용</b> <p>
 															${qna.qnaReContent} <br><br><br>
 													      </div>
 													      <div class="modal-footer">

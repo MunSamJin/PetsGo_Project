@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.Member;
+import kosta.mvc.domain.Pet;
 import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.domain.Reservation;
 import kosta.mvc.service.CommunityService;
@@ -23,6 +24,7 @@ import kosta.mvc.service.MemberService;
 @Controller //ajax 처리할 메소드는 @Reponsebody를 붙여주면 됨
 @RequestMapping("/member")
 public class MemberController {
+
   
    @Autowired
    private MemberService memberService;
@@ -36,13 +38,6 @@ public class MemberController {
 	@Autowired
 	private PasswordEncoder passwordEncoder; 
     
-
-   /**
-    * 마이페이지 내 스크랩북 이동
-    * */
-   @RequestMapping("/myScrap")
-   public void myScrap() {}
-   
 
    /**
     * 마이페이지 내 회원 정보 이동
@@ -95,26 +90,22 @@ public class MemberController {
 		return dbReservState;
 	}
 
-
+	
+	/*
+	 * 마이페이지 내 스크랩북 이동
+	 * */
+	@RequestMapping("/myScrap")
+	public void myScrap() {}
+	
 	/**
-	 * 마이페이지 내커뮤니티 조회
-	 */
-	@RequestMapping("/myCommunity")
-	public void myCommunity(Model model, Authentication auth) {
+	 * 마이페이지 내 회원 정보 이동
+	 * */
+	@RequestMapping("/myInfo")
+	public void myInfo(Model model) {
+		List<Pet> petList = memberService.petList();
 		
-		Object object = auth.getPrincipal();
-		Member member = null;
-		
-		if(object instanceof Member) {
-			member = (Member)auth.getPrincipal();
-		}
-		Long memberNo = member.getMemberNo();
-		//System.out.println("member컨트롤러 memberNo = " + memberNo);
-		
-		List<CommunityBoard> list = memberService.selectCommunityAll(memberNo);
-		System.out.println("member컨트롤러 list = " + list);
-		
-		model.addAttribute("myCommunity", list);
+		model.addAttribute("petList", petList);
+
 	}
 	
 	/**
@@ -152,19 +143,67 @@ public class MemberController {
 	}
 	
 	/**
-	 * 마이페이지 내 반려견 정보(회원정보-반려견 정보) 이동
+	 * 반려견 등록 폼
 	 * */
-	/* @RequestMapping("myPet")
-	public String myPet() {
-		return "member/myPet";
-	} */
-	
-
-	/*@RequestMapping("{url}")
-	public void url() {}*/
-	
+	@RequestMapping("/addPetForm")
+	public void addPetForm() {}
 	
 	/**
+	 * 반려견 등록
+	 * */
+	@RequestMapping("/addPet")
+	public String addPet(Pet pet, Long memberNo) {
+		Member member = memberService.selectByMemberNo(memberNo);
+		pet.setMember(member);
+
+		memberService.addPet(pet);
+		
+		return "redirect:/member/myInfo";
+	}
+
+	/**
+	 * 마이페이지 내 문의 이동
+	 * */
+	@RequestMapping("/myQna")
+	public void qnaList(Model model) {
+		List<QnaBoard> qnaBoardList = memberService.qnaList();
+		
+		model.addAttribute("qnaBoardList", qnaBoardList);
+	}
+	
+	/**
+	 * 마이페이지 내 문의 등록하기
+	 * */
+	@RequestMapping("/qnaInsert")
+	public String qnaInsert(QnaBoard qna) {		
+		memberService.qnaInsert(qna);
+		
+		return "redirect:/member/myQna";
+	}
+	
+	/**
+	 * 마이페이지 내커뮤니티 조회
+	 */
+	@RequestMapping("/myCommunity")
+	public void myCommunity(Model model, Authentication auth) {
+		
+		Object object = auth.getPrincipal();
+		Member member = null;
+		
+		if(object instanceof Member) {
+			member = (Member)auth.getPrincipal();
+		}
+		Long memberNo = member.getMemberNo();
+		//System.out.println("member컨트롤러 memberNo = " + memberNo);
+		
+		List<CommunityBoard> list = memberService.selectCommunityAll(memberNo);
+		System.out.println("member컨트롤러 list = " + list);
+		
+		model.addAttribute("myCommunity", list);		
+	}
+	
+	/**
+
 	 * 마이페이지 내커뮤니티 게시글 삭제
 	 */
 	@RequestMapping("/delete/{boardNo}")
@@ -173,29 +212,6 @@ public class MemberController {
 		communityService.delete(boardNo);
 		return "redirect:/member/myCommunity";
 	}
-
-
-
-   /**
-    * 마이페이지 내 문의 이동
-    * */
-   @RequestMapping("/myQna")
-   public void qnaList(Model model) {
-      List<QnaBoard> qnaBoardList = memberService.qnaList();
-      
-      model.addAttribute("qnaBoardList", qnaBoardList);
-   }
-   
-   /**
-    * 마이페이지 내 문의 등록하기
-    * */
-   @RequestMapping("/qnaInsert")
-   public String qnaInsert(QnaBoard qna) {      
-      memberService.qnaInsert(qna);
-      
-      return "redirect:/member/myQna";
-   }
-   
 
    /**
     * 마이페이지 내 문의 삭제하기
@@ -206,6 +222,7 @@ public class MemberController {
       
       return "redirect:/member/myQna";
    }
+
   
 }
 

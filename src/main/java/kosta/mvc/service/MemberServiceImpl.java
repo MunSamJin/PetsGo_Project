@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.Member;
+import kosta.mvc.domain.Pet;
 import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.domain.Reservation;
 import kosta.mvc.repository.CommunityRepository;
 import kosta.mvc.repository.MemberRepository;
+import kosta.mvc.repository.PetRepository;
 import kosta.mvc.repository.QnaRepository;
 import kosta.mvc.repository.ReservationRepository;
 
@@ -33,6 +35,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private CommunityRepository communityRep;
+	
+	@Autowired
+	private PetRepository petRep;
 
 	/*
 	 * 비밀번호 암호화를 위한 객체를 주입받는다 
@@ -67,11 +72,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member updateInfo(Member member) {
-		//해당하는 회원 찾기
-		System.out.println("member 서비스 updateInfo 호출~");
-		System.out.println("member 서비스 member = " + member.getMemberNo());
-		
+		//해당하는 회원 찾기		
 		Member dbMember = memberRep.findById(member.getMemberNo()).orElse(null);
+		
 		if(dbMember == null) throw new RuntimeException("회원 정보를 수정할 수 없습니다.");
 
 		//회원 정보 수정
@@ -81,10 +84,26 @@ public class MemberServiceImpl implements MemberService {
 		dbMember.setMemberPhone(member.getMemberPhone());
 		dbMember.setMemberBirthDate(member.getMemberBirthDate());
 		
-		System.out.println("member컨트롤러 updateInfo rep까지 다녀옴!");
-		System.out.println("member컨트롤러 updateInfo rep dbMember = " + dbMember.getMemberNo());
-		
 		return dbMember;
+	}
+	
+	@Override
+	public void addPet(Pet pet) {
+		petRep.save(pet);
+	}
+	
+	@Override
+	public Member selectByMemberNo(Long memberNo) {
+		Member member = memberRep.findById(memberNo).orElse(null);
+		
+		if(member == null) throw new RuntimeException("해당 회원은 존재하지 않습니다.");
+		
+		return member;
+	}
+	
+	@Override
+	public List<Pet> petList() {
+		return petRep.findAll();
 	}
 	
 	@Override
@@ -105,17 +124,6 @@ public class MemberServiceImpl implements MemberService {
 		
 		return qna;
 	}
-	
-	/* @Override
-	public QnaBoard qnaUpdate(QnaBoard qna) {
-		QnaBoard dbQna = qnaRep.findById(qna.getQnaNo()).orElse(null);
-		
-		if(dbQna == null) throw new RuntimeException("수정할 수 없습니다.");
-		
-		dbQna.setQnaContent(qna.getQnaContent());
-		
-		return dbQna;
-	} */
 	
 	@Override
 	public void qnaDelete(Long qnaNo) {
