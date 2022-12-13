@@ -52,10 +52,10 @@
 		$(function() {
 			$(".form_btn").click(function() {
 				let campAddr = $("#addr_select").val();
-				if(campAddr=='지역명 검색') campAddr = '';
+				if(campAddr=='경기도 지역명 검색') campAddr = '';
 				
 				let resiPeople = $("#people_select").val();
-				if(resiPeople=='인원') resiPeople = 0;
+				if(resiPeople=='캠핑 인원') resiPeople = 0;
 				
 				let checkIn = $("#datepicker_1").val().split('/');
 				if(!$("#datepicker_1").val()=='') checkIn = checkIn[2].split('0')[1]+"/"+checkIn[0]+"/"+checkIn[1];
@@ -94,7 +94,7 @@
                                         <div class="form-row">
                                             <div class="form_colum">
                                                 <select class="nc_select" id="addr_select">
-                                                    <option selected>경기도 지역명 검색 </option>
+                                                    <option selected>경기도 지역명 검색</option>
                                                     <option value="포천시">포천시</option>
                                                     <option value="평택시">평택시</option>
                                                     <option value="여주시">여주시</option>
@@ -120,7 +120,7 @@
 
                                             <div class="form_colum">
                                                 <select class="nc_select" id="people_select">
-                                                    <option selected> 캠핑 인원 </option>
+                                                    <option selected>캠핑 인원</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
