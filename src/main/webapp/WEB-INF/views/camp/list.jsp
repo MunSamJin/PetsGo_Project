@@ -193,11 +193,11 @@
                     </div>
                 </div>
                 <div class="col-lg-9">
-                    <div class="search_wrap">
+                    <div class="booking_part">
                     
-                        <form class="search_form" action="/camp/selectAll" name="campFrom">
+                        <form class="form-row" action="/camp/selectAll" name="campFrom">
                         
-                            <div class="input_field">
+                            <div class="form_colum">
                                 <select class="nc_select" id="campAddr" name="campAddr">
                             		<option selected value="">지역명 검색 </option>
 									<option value="포천시">포천시</option>
@@ -216,15 +216,15 @@
                                  </select>
                             </div>
                             
-                            <div class="input_field">
+                            <div class="form_colum">
                                 <input id="checkIn" placeholder="${checkIn}" name="checkIn" value="${checkIn}">
                             </div>
                             
-                            <div class="input_field">
+                            <div class="form_colum">
                                 <input id="checkOut" placeholder="${checkOut }" name="checkOut" value="${checkOut}">
                             </div>
                             
-                            <div class="input_field">
+                            <div class="form_colum">
                             	<select class="nc_select"  id="resiPeople" name="resiPeople">
                             		<option selected value="0">인원 </option>
                             		<option value="1">1</option>
@@ -236,8 +236,8 @@
                             	</select>
                             </div>
                             
-                            <div class="search_btn">
-                                <button class="boxed-btn4 " type="submit" >Search</button>
+                            <div class="form_btn">
+                                <button class="btn_1 " type="submit" >Search</button>
                             </div>
                         </form>
                         

@@ -44,6 +44,7 @@ public class CampUserViewServiceImpl implements CampUserViewService {
 								.where(qReservation.reservCheckin.between(checkIn, checkOut))
 								.where(qReservation.reservCheckout.between(checkIn, checkOut))))))
 				.where(qCamp.campAddr.contains(campAddr))
+				.where(qCamp.campState.eq(1))
 				.fetch();
 				
 		return campList;
@@ -66,6 +67,7 @@ public class CampUserViewServiceImpl implements CampUserViewService {
 								.where(qReservation.reservCheckin.between(checkIn, checkOut))
 								.where(qReservation.reservCheckout.between(checkIn, checkOut))))))
 				.where(qCamp.campAddr.contains(campAddr))
+				.where(qCamp.campState.eq(1))
 				.where(qCamp.campFacility.contains(tag))
 				.fetch();
 		return campList;
