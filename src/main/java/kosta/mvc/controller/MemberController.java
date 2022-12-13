@@ -36,12 +36,6 @@ public class MemberController {
    public void myScrap() {}
    
    /**
-    * 마이페이지 내 커뮤니티 이동
-    * */
-   @RequestMapping("/myCommunity")
-   public void myCommunity() {}
-   
-   /**
     * 마이페이지 내 회원 정보 이동
     * */
    @RequestMapping("/myInfo")
