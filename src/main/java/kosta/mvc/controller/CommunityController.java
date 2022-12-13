@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -66,9 +67,9 @@ public class CommunityController {
 		//태그로 검색하기 + 최신순정렬기능
 		if(tag != null) {
 			if(tag.equals("좋아요")) {
-				//List<LikeBoardArrange> likeList = communityService.selectLikeBoardArrange();
-				//model.addAttribute("communityBoardList", likeList);
-				//System.out.println("likeList = " + likeList);
+				List<LikeBoardArrange> likeList = communityService.selectLikeBoardArrange();
+				model.addAttribute("likeList", likeList);
+				System.out.println("likeList = " + likeList);
 			}else {
 				list = communityService.selectByTag(tag);
 				System.out.println("list = " + list);
@@ -168,11 +169,24 @@ public class CommunityController {
 	 *  상세보기
 	 */
 	@RequestMapping("/read/{boardNo}")
-	public ModelAndView read(@PathVariable Long boardNo) {
+	public String read(@PathVariable Long boardNo, Model model) {
 		
+		Member member =(Member)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	      Long memberNo = member.getMemberNo();
+	
 		CommunityBoard communityBoard = communityService.selectBy(boardNo);
+		LikeBoard likeBoard = communityService.selectLikeNo(memberNo, boardNo);
 		
-		return new ModelAndView("community/read", "communityBoard", communityBoard);
+		//HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		//map.put("communityBoard", communityBoard);
+		//map.put("likeBoard", likeBoard);
+		
+		model.addAttribute("communityBoard", communityBoard); //${communityBoard}
+		model.addAttribute("likeBoard", likeBoard); //${likeBoard}
+		
+	
+		return "community/read";
 	}
 	
 	/**
@@ -245,7 +259,8 @@ public class CommunityController {
 	 *  좋아요 기능
 	 */
 	@RequestMapping("/likeHeart/{boardNo}")
-	public String likeHeart(@PathVariable Long boardNo) {
+	@ResponseBody
+	public int likeHeart(@PathVariable Long boardNo) {
 		System.out.println("컨트롤러 좋아요기능 들어오니??"); //ok
 		
 		// 뷰에서 넘어오는 게시글 번호 받음.
@@ -255,14 +270,14 @@ public class CommunityController {
 		//Spring Security 세션 회원정보를 반환받는다
 	      Member member =(Member)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	      Long memberNo = member.getMemberNo();
-	      //System.out.println("좋아요컨트롤러 member = " + member); //ok
+	      System.out.println("좋아요컨트롤러 member = " + member); //ok
 
 	      
 		//서비스 호출
 	    int likeBoard = communityService.selectAll(memberNo,boardNo);
 	    System.out.println("컨트롤러 좋아요 결과 = " + likeBoard);
 		
-		return "redirect:/community/list";
+		return likeBoard;
 		
 	}
 	

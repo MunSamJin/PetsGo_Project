@@ -49,9 +49,12 @@ public interface CommunityService {
 	List<LikeBoardArrange> selectLikeBoardArrange();
 	
 	/**
-	 *  좋아요 기능
+	 *  좋아요 등록 / 좋아요 삭제
 	 */
 	int selectAll(Long memberNo, Long boardNo);
 	
-	
+	/**
+	 * 커뮤니티 게시글 상세보기에서 좋아요 조회
+	 */
+	LikeBoard selectLikeNo(Long memberNo, Long boardNo);
 }

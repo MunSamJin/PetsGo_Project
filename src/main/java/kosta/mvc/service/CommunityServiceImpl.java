@@ -75,18 +75,9 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public void delete(Long boardNo) {
 		System.out.println("queryFactory = " + queryFactory);
-		
-		QCommunityBoard board = QCommunityBoard.communityBoard;
-		
-		long re = queryFactory
-				.delete(board)
-				.where(board.boardNo.eq(boardNo))
-				.execute();
-		
-		System.out.println("re = " + re);
-		
-		if(re==0)throw new RuntimeException("삭제할 수 없습니다.");
-		
+
+		communityRepository.deleteById(boardNo);
+
 	}
 
 	@Override
@@ -138,6 +129,12 @@ public class CommunityServiceImpl implements CommunityService {
 	public List<LikeBoardArrange> selectLikeBoardArrange() {
 		
 		return communityRepository.likeSelect();
+	}
+
+	@Override
+	public LikeBoard selectLikeNo(Long memberNo, Long boardNo) {
+		
+		return likeBoardRepository.selectAll(memberNo, boardNo);
 	}
 
 

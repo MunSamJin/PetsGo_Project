@@ -41,13 +41,49 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage_style.css">
 
     <style>
-
+    	/*커뮤니티 이미지*/
+			.myComImg{cursor: pointer;}
+		
+		/*수정하기, 삭제하기 버튼*/
+			ul{list-style:none;}
+			a{text-decoration:none; color:#333;}
+			.menu:after{display:block; content:''; clear:both;}
+			.menu > li{position:relative; float:left; margin-right:5px;}
+			.menu > li > a{display:block; padding:0 15px; background:white; height:40px; line-height:40px; color:#fff;}
+			.menu > li:hover .depth_1 {display:block;}
+			.menu .depth_1{display:none; position:absolute; left:0; right:0; text-align:center;}
+			.menu .depth_1 a{display:block; padding:5px; background:white; color:#fff;}
     </style>
+    
+    <script type="text/javascript">
+    	$(function(){
+    		//alert("반응오니??");
+    		var boardNo = $("input[name=myComBoardNo]").val();
+    		//alert("boardNo = " + boardNo);
+    		
+    		/* 내가 쓴 게시물 상세보기 */
+    		$("img[class=myComImg]").on("click", function(){
+    			//alert("클릭");
+    			
+    			var a=open();
+    			a.location.href="${pageContext.request.contextPath}/community/read/"+boardNo;
+    		});
+    		
+    		
+    		/* 삭제하기 */
+    		$("a[class=myComUpdate]").on("click", function(){
+    			//alert("수정버튼");
+    			if (confirm("정말 삭제하시겠습니까?") == true) {
+    				location.href="${pageContext.request.contextPath}/member/delete/"+boardNo;
+    			}
+    		});
+    	});//readyEnd
+    </script>
 
 </head>
 
 <body>
-    
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     <!--================ community Area =================-->
     <section class="blog_area single-post-area section_padding">
         <div class="container">
@@ -92,12 +128,22 @@
 	                                            <div class="nick_name">${mvo.memberNickname}</div> 
 	                                        </div>
 	                                    </div>
-	                                    <div class="sprite_more_icon"></div>
+	                                    
+	                                    <ul class="menu">
+	                                    	<li>
+												<a href="#"><div class="sprite_more_icon"></div></a>
+											    <ul class="depth_1">
+											      <li><a href="javascript:void(0)" class="myComUpdate"><b>삭제</b></a></li>
+											      <!-- <li><a href="javascript:void(0)"><b>수정</b></a></li> -->
+											    </ul>
+											 </li>
+	                                    </ul>
 	                                </header>
 	
 	                                <div class="img_section">
 	                                    <div class="trans_inner">
-	                                        <div><img  src="${pageContext.request.contextPath}/img//samjin/${fn:split(myCommunity.boardFileName,',')[0]}" alt=""></div>
+	                                        <div><img class="myComImg" src="${pageContext.request.contextPath}/img//samjin/${fn:split(myCommunity.boardFileName,',')[0]}" alt=""></div>
+	                                        <input type="hidden" value="${myCommunity.boardNo}" name="myComBoardNo">
 	                                    </div>
 	                                </div>
 	

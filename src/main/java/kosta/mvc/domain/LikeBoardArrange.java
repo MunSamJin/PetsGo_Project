@@ -2,7 +2,7 @@ package kosta.mvc.domain;
 
 public interface LikeBoardArrange {
 	
-	Integer getLikeCount();
+	Integer getLikecount();
 	Long getBoardno();
 	String getBoardcontent();
 	String getBoardfilename();

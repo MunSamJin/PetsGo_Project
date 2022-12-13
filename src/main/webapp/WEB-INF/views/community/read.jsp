@@ -17,7 +17,7 @@
 			$("input[value=수정]").click(function(){
 				   $("#requestForm").attr("action", "${pageContext.request.contextPath}/community/updateForm");
 				   $("#requestForm").submit();
-			});
+			});//수정
 			   
 			   
 			$("input[value=삭제]").click(function(){
@@ -30,14 +30,47 @@
 			            return;
 			            
 			        }
+			});//삭제
+			
+			$("span[class=heart]").on("click", function(){
+				//alert("하트 눌렀니???");
+				
+				var boardNo = $("input[name=boardNo]").val();
+				//alert("boardNo? " + boardNo);
+				
+				 $.ajax({
+    				url : "${pageContext.request.contextPath}/community/likeHeart/" + boardNo, //서버요청주소
+    				type : "post", //요청방식(get, post, put, delete, patch)
+    				dataType : "json", //서버가 응답(보내온) 한 데이터타입(text | hrml | xml | json)
+    				data : { boardNo : "boardNo" ,
+    						 "${_csrf.parameterName}" : "${_csrf.token}"
+    				}, //서버에게 보낼 parameter 정보
+    				success : function(result){ //받을값이 있다면 result
+    					alert("좋아요 결과 ?" + result); 
+    				
+    					if(result == 1){
+    						$("#likeHeart").attr({src : "${pageContext.request.contextPath}/img/samjin/redheart.png"});
+    					}else{
+    						$("#likeHeart").attr({src : "${pageContext.request.contextPath}/img/samjin/heart.png"});
+    					}
+    					
+    					
+    				}, 
+    				error : function(){
+    					alert(err+"에러발생!")
+    				}
+    			}) ;//ajaxEnd
+				
 			});
-		});
+			
+		});//readyEnd
 
 	</script>
 </head>
 <body>
 
 <!-- 상세보기 -->
+	<sec:authentication var="mvo" property="principal" />
 	<div style="position: relative; padding: 32px; border: 1px solid #edeef0; border-radius: 8px;
 				width: 80%; margin-top: 16px; margin-left: auto; margin-right: auto; margin-bottom: 50px">
 		
@@ -45,9 +78,25 @@
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			<input type=hidden name="boardNo" value="${communityBoard.boardNo}">		
 			
-			<div style="text-align: right;">		
-				<sec:authentication var="mvo" property="principal" />
-				<c:if test="${not empty pageContext.request.userPrincipal}">
+			<div style="text-align: right;">
+			<c:choose>
+				<c:when test="${not empty likeBoard}">
+					<span class="heart" style="cursor: pointer;">
+						<img id="likeHeart" src="${pageContext.request.contextPath}/img/samjin/redheart.png" 
+								width="20px" height="20px" style="padding-bottom: 3px;">
+					</span>
+				</c:when>
+				<c:otherwise>
+					<span class="heart" style="cursor: pointer;">
+						<img id="likeHeart" src="${pageContext.request.contextPath}/img/samjin/heart.png" 
+								width="20px" height="20px" style="padding-bottom: 3px;">
+					</span>
+				</c:otherwise>
+			</c:choose>		
+				
+				
+				
+				<c:if test="${not empty pageContext.request.userPrincipal}">	
 					<c:if test="${communityBoard.member.memberNo == mvo.memberNo}">
 						<input type="button" value="수정"
 						   style="display: inline-block; margin-left: 6px; border-color: #4876ef; color: #4876ef; background-color: #fff;
@@ -61,7 +110,7 @@
 					</c:if>
 				</c:if>
 				
-				</div>
+			</div>
 		</form>
 		
 		<table style="margin-left: auto; margin-right: auto; margin-top: 50px; margin-bottom: 50px; text-align: center; width: 600px;" >

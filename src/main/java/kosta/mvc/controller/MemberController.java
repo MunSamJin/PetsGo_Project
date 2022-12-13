@@ -15,6 +15,7 @@ import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.Member;
 import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.domain.Reservation;
+import kosta.mvc.service.CommunityService;
 import kosta.mvc.service.MemberService;
 
 @Controller //ajax 처리할 메소드는 @Reponsebody를 붙여주면 됨
@@ -23,6 +24,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private CommunityService communityService;
 	
 	/**
 	 * 이메일 중복 확인
@@ -182,6 +186,16 @@ public class MemberController {
 		
 		model.addAttribute("myCommunity", list);
 		
+	}
+	
+	/**
+	 * 마이페이지 내커뮤니티 게시글 삭제
+	 */
+	@RequestMapping("/delete/{boardNo}")
+	public String delete(@PathVariable Long boardNo) {
+		System.out.println("마이페이지컨트롤러 boardNo = " + boardNo);
+		communityService.delete(boardNo);
+		return "redirect:/member/myCommunity";
 	}
 	
 	
