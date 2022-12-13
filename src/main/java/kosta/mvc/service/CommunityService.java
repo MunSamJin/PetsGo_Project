@@ -2,6 +2,8 @@ package kosta.mvc.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import kosta.mvc.domain.CommunityBoard;
@@ -14,7 +16,7 @@ public interface CommunityService {
 	 *  전체검색
 	 */
 	List<CommunityBoard> selectAll(); 
-	List<CommunityBoard> selectAll(Pageable pageable); 
+	Page<CommunityBoard> selectAll(Pageable pageable); 
 	
 	/**
 	 *  등록
@@ -39,14 +41,16 @@ public interface CommunityService {
     /**
      * 태그 검색하기 + 최신순정렬기능
      * @param tag
+     * @param page 
      * @return 
      */
-	List<CommunityBoard> selectByTag(String tag);
+	Page<CommunityBoard> selectByTag(String tag, PageRequest page);
 	
 	/**
 	 * 좋아요많은순 정렬
+	 * @param page 
 	 */
-	List<LikeBoardArrange> selectLikeBoardArrange();
+	Page<LikeBoardArrange> selectLikeBoardArrange(PageRequest page);
 	
 	/**
 	 *  좋아요 등록 / 좋아요 삭제

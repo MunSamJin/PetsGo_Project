@@ -41,7 +41,9 @@
 	<link rel='stylesheet' href='${pageContext.request.contextPath}/css/swiper.min.css'>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/comu_style.css">
 
-	<title>Insert title here</title>
+	
+	
+	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
 	
 	<script type="text/javascript">
@@ -226,7 +228,47 @@
 			</ul> 
 			<!-- <button type="button" id="moreBtn">더보기</button> -->
 		</div>	
-	</div>	
+		
+
+			<!--  블럭당  -->
+			<nav class="blog-pagination justify-content-center d-flex">
+				<ul class="pagination">
+					<c:set var="doneLoop" value="false"/>
+					
+					<c:if test="${(startPage-blockCount) > -2}">
+						<li class="page-item">
+							<a class="page-link" href="${pageContext.request.contextPath}/community/list?nowPage=${startPage-1}">PREV
+								<i class="ti-angle-left"></i>
+							</a>
+						</li>
+					</c:if>
+					  
+					<span class="pagination-inner"> 
+						<c:forEach var='i' begin='${startPage}' end='${(startPage-1)+blockCount}'> 
+					  
+							<c:if test="${(i-1)>=pageList.getTotalPages()}">
+								<c:set var="doneLoop" value="true"/>
+							</c:if> 
+					    
+							<c:if test="${not doneLoop}" >
+								<a class="${i==nowPage?'pagination-active':page}" href="${pageContext.request.contextPath}/community/list?nowPage=${i}">${i}</a> 
+							</c:if>
+					   
+						</c:forEach>
+					</span> 
+							
+					<c:if test="${(startPage+blockCount)<=pageList.getTotalPages()}">
+						<li class="page-item">
+							<a class="page-link"  href="${pageContext.request.contextPath}/community/list?nowPage=${startPage+blockCount}">NEXT
+								<i class="ti-angle-right"></i>
+							</a>
+							
+						</li>
+					</c:if>
+				
+				</ul>
+			</nav>  
+	</div>
 
 </body>
 </html>

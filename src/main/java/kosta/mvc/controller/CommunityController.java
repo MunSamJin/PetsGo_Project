@@ -40,10 +40,11 @@ import kosta.mvc.domain.Member;
 import kosta.mvc.domain.Reservation;
 import kosta.mvc.service.CommunityService;
 import kosta.mvc.service.MemberService;
-import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("/community")
+@RequiredArgsConstructor
 public class CommunityController {
 	
 	@Autowired
@@ -52,7 +53,9 @@ public class CommunityController {
 	@Autowired
 	private MemberService memberService;
 	
-	private final static int PAGE_COUNT=10;
+	private final static int PAGE_COUNT=6;
+	
+	private final static int BLOCK_COUNT=2;
 
 	/**
 	 *  커뮤니티 전체 검색
@@ -60,26 +63,43 @@ public class CommunityController {
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public void list(String tag, Model model, @RequestParam(defaultValue = "1")int nowPage) {
 		
-		List<CommunityBoard> list = null;
+		PageRequest page = PageRequest.of( (nowPage)-1, PAGE_COUNT, Direction.DESC, "boardNo");
+		Page<CommunityBoard> pageList = null;
+		int temp = (nowPage-1) % BLOCK_COUNT;
+		int startPage = nowPage-temp;
 		
 		System.out.println("tag = " + tag);
 		
-		//태그로 검색하기 + 최신순정렬기능
+		//태그로 검색하기 + 정렬기능 + 페이징 처리
 		if(tag != null) {
 			if(tag.equals("좋아요")) {
-				List<LikeBoardArrange> likeList = communityService.selectLikeBoardArrange();
-				model.addAttribute("likeList", likeList);
+				page = PageRequest.of( (nowPage)-1, PAGE_COUNT, Direction.DESC, "board_no");
+				Page<LikeBoardArrange> likeList = communityService.selectLikeBoardArrange(page);
 				System.out.println("likeList = " + likeList);
+				
+				model.addAttribute("likeList", likeList.getContent());	
+				model.addAttribute("blockCount", BLOCK_COUNT);
+				model.addAttribute("startPage", startPage);
+				model.addAttribute("nowPage", nowPage);
+				
 			}else {
-				list = communityService.selectByTag(tag);
-				System.out.println("list = " + list);
-				model.addAttribute("communityBoardList", list);
+				pageList = communityService.selectByTag(tag,page);
+				System.out.println("pageList = " + pageList);
+				
+				model.addAttribute("communityBoardList", pageList.getContent());
+				model.addAttribute("blockCount", BLOCK_COUNT);
+				model.addAttribute("startPage", startPage);
+				model.addAttribute("nowPage", nowPage);
 			}
 			
 		} else {
-			list = communityService.selectAll();
-			System.out.println("list = " + list);
-			model.addAttribute("communityBoardList", list);
+			pageList = communityService.selectAll(page);
+			System.out.println("pageList = " + pageList);
+			
+			model.addAttribute("communityBoardList", pageList.getContent());//communityBoardList
+			model.addAttribute("blockCount", BLOCK_COUNT);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("nowPage", nowPage);
 		}
 		
 		

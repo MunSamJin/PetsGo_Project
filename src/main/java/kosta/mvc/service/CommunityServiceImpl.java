@@ -5,6 +5,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -36,9 +38,9 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	
 	@Override
-	public List<CommunityBoard> selectAll(Pageable pageable) {
+	public Page<CommunityBoard> selectAll(Pageable pageable) {
 		
-		return communityRepository.findAll();
+		return communityRepository.findAll(pageable);
 	}
 
 	@Override
@@ -81,14 +83,14 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public List<CommunityBoard> selectByTag(String tag) {
-		List<CommunityBoard> list = null;
+	public Page<CommunityBoard> selectByTag(String tag,PageRequest page) {
+		Page<CommunityBoard> list = null;
 		if(tag.equals("최신")) {
 			System.out.println("최신 정렬기능, 서비스 tag = " + tag);
-			list = communityRepository.latestSelect();
+			list = communityRepository.latestSelect(page);
 			
 		}else {
-			list = communityRepository.tagSelect("%"+tag+"%");
+			list = communityRepository.tagSelect("%"+tag+"%", page);
 		}
 		
 		return list;
@@ -126,9 +128,9 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public List<LikeBoardArrange> selectLikeBoardArrange() {
+	public Page<LikeBoardArrange> selectLikeBoardArrange(PageRequest page) {
 		
-		return communityRepository.likeSelect();
+		return communityRepository.likeSelect(page);
 	}
 
 	@Override
@@ -136,6 +138,7 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		return likeBoardRepository.selectAll(memberNo, boardNo);
 	}
+
 
 
 }

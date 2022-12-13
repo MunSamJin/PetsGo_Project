@@ -35,7 +35,11 @@ public class HomeController {
 	
 
 	@RequestMapping("/")
-	public String index() {
+	public String index(Model model) {
+		
+		List<CommunityBoard> list = communityService.selectAll();
+		model.addAttribute("communityBoardList",list);
+		
 		return "main";
 	}
 	
