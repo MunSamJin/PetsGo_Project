@@ -394,11 +394,11 @@
                           <th>예약상태</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody id="ajaxPart">
                       	<c:forEach items="${reservList}" var="reserv">
 	                        <tr onclick="location.href='${pageContext.request.contextPath}/owner/reserv/reservDetail/${reserv.reservNo}'" style="cursor:pointer;">
 	                          <td><p id="reservNo">${reserv.reservNo}</p></td>
-	                          <td><p id="memberNo">${reserv.member}</p></td>
+	                          <td><p id="memberNo">${reserv.member.memberNickname}</p></td>
 	                          <td><p id="reservDate">${reserv.reservDate}</p></td>
 	                          <td>
 	                            <p><fmt:formatNumber value="${reserv.reservPrice}" pattern="###,### 원"/></p>
@@ -461,38 +461,82 @@
   
   <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
   <script type="text/javascript">
-  	$(function(){
-  		$(".dropdown-item").click(function(){
-  			let reservStateStr = $(this).text();
-  			let reservState = 0;
-  			
-  			if(reservStateStr == "예약대기"){
-  				reservState = 0;
-  			}else if(reservStateStr == "예약확정"){
-  				reservState = 1;
-  			}else if(reservStateStr == "예약취소"){
-  				reservState = 3;
-  			}else if(reservStateStr == "결제취소요청"){
-  				reservState = 4;
-  			}else if(reservStateStr == "전체"){
-  				reservState = 5;
-  			}
-  			alert(reservState);
-  		
-  			$.ajax({
-  				type:"post",
-  				url:"${pageContext.request.contextPath}/owner/reserv/reservCheckAjax/${secCamp.campNo}",
-  				dataType: "json",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
+  $(function(){
+		$(".dropdown-item").click(function(){
+			let reservStateStr = $(this).text();
+			let reservState = 0;
+			
+			if(reservStateStr == "예약대기"){
+				reservState = 0;
+			}else if(reservStateStr == "예약확정"){
+				reservState = 1;
+			}else if(reservStateStr == "예약취소"){
+				reservState = 3;
+			}else if(reservStateStr == "결제취소요청"){
+				reservState = 4;
+			}else if(reservStateStr == "전체"){
+				reservState = 5;
+			}
+			
+			//alert("reservStateStr = " + reservStateStr +"reservState = "+ reservState)
+			
+		
+			$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/owner/reserv/reservCheckAjax/${secCamp.campNo}",
+				dataType: "json",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
 				data:"${_csrf.parameterName}=${_csrf.token}&reservState="+reservState, //서버에게 보낼 parameter 정보 
 				success:function(data) {	
-					//alert(data);
+					//alert(data); //map
 					$("#reservStateArr").html(reservStateStr);	
+					$("#ajaxPart").empty();
+					let str = "";
 					
-					/* var contents = html.find("tbody#reservAjax").html();
-					$("#ajaxtbody").html(contents) */
+					$.each(data.reservList, function(index, item){ //item은 reserv
+						
+						//$.each(data.memberList, function(i, member){
+						//예약 하나에 멤버 이름 하나
+						
+						let state = "";
+						let style = ""
+						let memberId = 1;
+						
+						if(item.reservState == 0) {
+							state = "예약대기";
+							style = "badge badge-info";
+						}
+						else if(item.reservState == 1) {
+							state = "예약확정";
+							style = "badge badge-success";
+						}
+						else if(item.reservState == 3) {
+							state = "예약취소";
+							style = "badge badge-wait";
+						}
+						else if(item.reservState == 4) {
+							state = "결제취소요청";
+							style = "badge badge-danger";
+						}
+						else if(item.reservState == 5) {
+							state = "전체";
+						}
+						
+						
+						str += '<tr onclick=location.href="${pageContext.request.contextPath}/owner/reserv/reservDetail/' + item.reservNo + '" style="cursor:pointer;">';
+						str += '<td><p>' + item.reservNo + '</p></td><td><p>' + data.memberList[index] + '</p></td><td><p>' + item.reservDate + '</p></td>';
+						str += '<td><p>'+ item.reservPrice + '</p></td><td><label class="' + style + '">' + state + '</label></td></tr>';
+            			
+						
+						//});//memberList
+						
+					}); //reservList$each
+					
+					$("#ajaxPart").append(str);
 					
 					
-					/*$.each(data.campList , function(index, item){ //item은 camp
+					
+				
+					/* $.each(data.campList , function(index, item){ //item은 camp
 						alert(item.campNo  + " , campEmail = " + item.campEmail);
 					      $.each(data.residenceList , function(i, residence ){
 					    	   //alert(i+" = resiName = " + residence.resiName)
@@ -500,12 +544,13 @@
 					    		   alert("되니 ? "+re.resiName)
 					    	   })
 					      } )
-					});*/
-				}
-  			});
-  		});
-  	})
+					}); */ 
+				}//success
+			});//ajax
+		});//click
+	})
   </script>
+  
 </body>
 
 </html>

@@ -76,7 +76,7 @@ public class CampServiceImpl implements CampService {
 		Camp camp = campRep.findById(campNo).orElse(null);
 		
 		if(campState==0) camp.setCampState(0);
-		else if(campState==1) {//등록
+		else if(campState==1) {//등록승인
 			camp.setCampState(1);
 			camp.setCampRole("ROLE_OWNER");
 			while(true) {
@@ -89,7 +89,10 @@ public class CampServiceImpl implements CampService {
 			
 		}
 		else if(campState==2) camp.setCampState(2);
-		else if(campState==3) camp.setCampState(3);
+		else if(campState==3) {
+			camp.setCampState(3);
+			camp.setCampRole("");
+		}
 		else if(campState==5) delete(campNo);
 		
 		System.out.println("캠핑장 상태 변경! campNo="+campNo+" campState="+campState);

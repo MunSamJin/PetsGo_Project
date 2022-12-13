@@ -1,5 +1,6 @@
 package kosta.mvc.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,9 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Transient;
 
-import org.springframework.web.multipart.MultipartFile;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,11 +30,12 @@ import lombok.ToString;
 @Entity
 @Builder
 @RequiredArgsConstructor
-//@ToString
+//@ToString(exclude = {"petList" , "qnaBoardList","communityBoardList","reservationList","likeList","petList"})
 /**
  * 회원 도메인
  */
-public class Member {
+//@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+public class Member implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_mno_seq")
@@ -63,25 +64,31 @@ public class Member {
 	
 	private String memberRole;//권한
 	
-
+     @JsonIgnore
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
 	private List<Pet> petList;
 	  
+     @JsonIgnore
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
 	private List<QnaBoard> qnaBoardList;
 	  
+     @JsonIgnore
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
 	private	List<Scrap> scrapList;
 	 
+     @JsonIgnore
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
 	private List<Reservation> reservationList;
 
+	 @JsonIgnore
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
 	private List<CommunityBoard> communityBoardList;
  
+	 @JsonIgnore
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
 	private List<LikeBoard> likeList;
-	  
+
+	
 	
 	
 }

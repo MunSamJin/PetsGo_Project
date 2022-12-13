@@ -1,9 +1,13 @@
 package kosta.mvc.controller;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Camp;
+import kosta.mvc.domain.Member;
 import kosta.mvc.domain.Reservation;
 import kosta.mvc.domain.Residence;
 import kosta.mvc.service.CampService;
@@ -340,6 +345,13 @@ public class OwnerController {
 	@RequestMapping("/reserv/reservCheck/{campNo}")
 	public String reservCheck(@PathVariable("campNo") Long campNo, Model model) {
 		List<Reservation> reservList =  reservService.selectByCampNo(campNo);
+		
+		for(Reservation r : reservList) {
+			Member member=r.getMember();
+			r.setMember(member);
+			System.out.println("reserv = " + r);
+		}
+		
 		model.addAttribute("reservList",reservList);
 		return "owner/reserv/reservCheck";
 	}
@@ -347,7 +359,7 @@ public class OwnerController {
 
 	@RequestMapping("/reserv/reservCheckAjax/{campNo}")
 	@ResponseBody
-	public List<Reservation> reservCheckAjax(@PathVariable("campNo") Long campNo, int reservState) {
+	public Map<String, Object> reservCheckAjax(@PathVariable("campNo") Long campNo, int reservState) {
 		System.out.println("아작스");
 		
 		List<Reservation> reservList = null;
@@ -358,7 +370,24 @@ public class OwnerController {
 		}
 		
 		//model.addAttribute("reservList",reservList);
-		return reservList;
+		Map<String, Object> map = new HashMap<>();
+		
+		List<String> memberList = new ArrayList<String>();
+		System.out.println("reservList = " + reservList);
+		
+		if(reservList.size() > 0) {
+			for(Reservation r : reservList) {
+				Member member=r.getMember();
+				memberList.add(member.getMemberNickname());
+			}
+		}
+		
+		System.out.println("memberList = "+memberList);
+		
+		map.put("reservList", reservList);
+		map.put("memberList", memberList);
+		
+		return map;
 	}
 	
 	

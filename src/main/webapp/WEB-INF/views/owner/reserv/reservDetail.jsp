@@ -466,30 +466,33 @@
 	                      	</c:when>
                       </c:choose>
                     </div>
-                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuSplitButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="sr-only">상태 변경</span>
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuSplitButton1">
-                      	<c:choose>
+                    <div class="btn-group">
+                      <c:choose>
                           	<c:when test="${reserv.reservState == 0}">
-                      			<h6 class="dropdown-header" style="font-weight: bold">예약대기</h6>
+                      			<button type="button" class="btn btn-primary" name="stateBtn">예약대기</button>
 	                      	</c:when>
 	                      	<c:when test="${reserv.reservState == 1}">
-	                      		<h6 class="dropdown-header" style="font-weight: bold">예약확정</h6>
+	                      		<button type="button" class="btn btn-primary" name="stateBtn">예약확정</button>
 	                      	</c:when>
 	                      	<c:when test="${reserv.reservState == 3}">
-	                      		<h6 class="dropdown-header" style="font-weight: bold">예약취소</h6>
+	                      		<button type="button" class="btn btn-primary" name="stateBtn">예약취소</button>
 	                      	</c:when>
 	                      	<c:when test="${reserv.reservState == 4}">
-	                      		<h6 class="dropdown-header" style="font-weight: bold">결제취소요청</h6>
+	                      		<button type="button" class="btn btn-primary" name="stateBtn">결제취소요청</button>
 	                      	</c:when>
-                       </c:choose>
+                      </c:choose>
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuSplitButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only"></span>
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuSplitButton1">
+                      	<h6 class="dropdown-header" style="font-weight: bold">상태변경</h6>
                         <a class="dropdown-item" href="#"></a>
                         <a class="dropdown-item" href="#">예약대기</a>
                         <a class="dropdown-item" href="#">예약확정</a>
                         <a class="dropdown-item" href="#">결제취소요청</a>
                         <a class="dropdown-item" href="#">예약취소</a>
                       </div>
+                    </div>
                     <button type="button" class="btn btn-light" id="reservListBtn">목록보기</button>
                   <!-- </form> -->
                 </div>
@@ -563,7 +566,7 @@
 					data:"${_csrf.parameterName}=${_csrf.token}&reservState=" + reservState + "&reservNo="+${reserv.reservNo}, //서버에게 보낼 parameter 정보
 					success:function(data) {
 						
-						$(".dropdown-header").html(reservStateStr);	
+						$("button[name=stateBtn]").html(reservStateStr);	
 						$("#reservState").html(reservStateStr);
 					}
   				});
