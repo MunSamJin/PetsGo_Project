@@ -175,9 +175,6 @@
 			                          <td>
 			                            <div>
 			                            	${qna.qnaContent}
-			                            	<%-- <a href="${pageContext.request.contextPath}/admin/pages/qna/replyWriteForm">${qna.qnaContent}
-			                            		<input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
-			                            	</a> --%>
 			                            </div>
 			                          </td>
 			                          <td>
@@ -214,15 +211,8 @@
 													      </div>
 													      <div class="modal-footer">
 													      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-													        <%-- <a href="${pageContext.request.contextPath}/admin/replyInsert"> --%>
-													        	<%-- <input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
-													        	<input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
-													        	<input type="hidden" name="qnaNo" value="${qna.qnaNo}" /> --%>
-													        	<!-- <button type="button" class="btn btn-primary">답변 등록</button> -->
-													        	<button type="button" class="btn btn-primary"><input type="submit" value="답변 등록"></button>
-													      	<!-- </a> -->
+													        <button type="button" class="btn btn-primary"><input type="submit" value="답변 등록"></button>
 													      </div>
-												      
 												      </form>
 												    </div>
 												  </div>
@@ -232,7 +222,6 @@
 			                            		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${qna.qnaNo}">
 												  답변 완료
 												</button>
-												
 												<!-- Modal -->
 												<div class="modal fade" id="exampleModal${qna.qnaNo}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 												  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -240,7 +229,6 @@
 												      <div class="modal-header">
 												        <h3 class="modal-title fs-5" id="exampleModalLabel">문의답변 삭제</h3>
 												      </div>
-												      
 												      <form name="replyForm" method="post" id="replyForm" action="${pageContext.request.contextPath}/admin/pages/qna/replyDelete">
 													      <div class="modal-body">
 													      	<b>문의 내용</b> <p>
@@ -251,16 +239,8 @@
 													      </div>
 													      <div class="modal-footer">
 													      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-													        <%-- <a href="${pageContext.request.contextPath}/admin/pages/qna/replyDelete"> --%>
-													        	<%-- <input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
-													        	<input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
-													        	<input type="hidden" name="qnaNo" value="${qna.qnaNo}" /> --%>
-													        	<!-- <button type="button" class="btn btn-primary">답변 등록</button> -->
-													        	<!-- <input type="submit" value="답변 삭제"> -->
-													        	<button type="button" class="btn btn-danger"><input type="submit" value="답변 삭제"></button>
-													      	<!-- </a> -->
+													        <button type="button" class="btn btn-danger"><input type="submit" value="답변 삭제"></button>
 													      </div>
-												      
 												      </form>
 												    </div>
 												  </div>

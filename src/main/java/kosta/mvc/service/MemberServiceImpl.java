@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -69,6 +70,24 @@ public class MemberServiceImpl implements MemberService {
 		
 		memberRep.save(member);
 	}
+	
+	@Override
+	public String passwordCheck(String password) {
+		//int count = memberRep.passwordCheck(password);
+		
+		//return (count == 0) ? "ok" : "fail";
+		return null;
+	} 
+	
+	/* public String passwordCheck(Authentication auth) {
+		int count = memberRep.passwordCheck(password);
+		
+		return (count == 0) ? "ok" : "fail";
+	} */
+	
+	
+	
+	
 
 	@Override
 	public Member updateInfo(Member member) {
@@ -88,6 +107,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public int deleteInfo(String memberEmail) {
+		int result = memberRep.deleteInfo(memberEmail);
+		
+		return result;
+	}
+	
+	@Override
 	public void addPet(Pet pet) {
 		petRep.save(pet);
 	}
@@ -102,13 +128,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public List<Pet> petList() {
-		return petRep.findAll();
+	public List<Pet> petList(Long memberNo) {
+		return petRep.selectPetByMember(memberNo);
 	}
 	
 	@Override
-	public List<QnaBoard> qnaList() {
-		return qnaRep.findAll();
+	public List<QnaBoard> myQna(Long memberNo) {
+		return qnaRep.selectQnaByMember(memberNo);
 	}
 
 	@Override

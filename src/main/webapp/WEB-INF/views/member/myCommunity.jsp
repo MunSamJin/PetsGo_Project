@@ -94,7 +94,7 @@
                         	<sec:authentication var="mvo" property="principal" />
                             <aside class="single_sidebar_widget instagram_feeds">                          
                                     <div class="my_img">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/img/my_community/thumb.png" alt="">
+                                        <img class="img-fluid" src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" alt="">
                                     </div>
                                      <h4 class="widget_title">${mvo.memberNickname}님</h4><br>
                                      
@@ -122,7 +122,7 @@
 	                                <header class="top">
 	                                    <div class="user_container">
 	                                        <div class="profile_img">
-	                                            <img src="${pageContext.request.contextPath}/img/my_community/thumb.png" alt="">
+	                                            <img src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" alt="">
 	                                        </div>
 	                                        <div class="user_name">
 	                                            <div class="nick_name">${mvo.memberNickname}</div> 

@@ -26,9 +26,19 @@ public interface MemberService {
 	void register(Member member);
 	
 	/**
+	 * 회원 정보 수정 전 비밀번호 확인
+	 * */
+	String passwordCheck(String password);
+	
+	/**
 	 * 회원 정보 수정하기
 	 * */
 	Member updateInfo(Member member);
+	
+	/**
+	 * 회원 탈퇴하기
+	 * */
+	int deleteInfo(String memberEmail);
 	
 	/**
 	 * 반려견 등록
@@ -43,12 +53,12 @@ public interface MemberService {
 	/**
 	 * 마이페이지 내 회원정보 이동
 	 * */
-	List<Pet> petList();
+	List<Pet> petList(Long memberNo);
 	
 	/**
 	 * 마이페이지 내 문의 이동
 	 * */
-	 List<QnaBoard> qnaList();
+	 List<QnaBoard> myQna(Long memberNo);
 	
 	/**
 	 * 마이페이지 내 문의 등록하기

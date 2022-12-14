@@ -31,8 +31,6 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
-	//InMemoryUserDetailsManagerConfigurer adminProvider = new InMemoryUserDetailsManagerConfigurer();
 
 	@Override
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
@@ -40,12 +38,6 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 		
 		//Member
 		String id = auth.getName();
-		
-		
-		/* if(id == "admin") {
-			System.out.println("provider admin id = " + id);
-			
-		} */
 		
 		if(id.contains("@")) {
 			Member member = memberRep.findMember(id);
@@ -70,7 +62,6 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 		
 			//Camp
 			Camp camp = campRep.findByCampRegNo(id);
-			//System.out.println("rep 다녀온 provider camp = " + camp.getCampRegNo());
 			
 			if(camp == null){
 				throw new UsernameNotFoundException(id + "는 등록되지 않은 사업자입니다."); //spring exception

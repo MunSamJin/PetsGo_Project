@@ -2,6 +2,8 @@ package kosta.mvc.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,7 +28,6 @@ import kosta.mvc.service.MemberService;
 @RequestMapping("/member")
 public class MemberController {
 
-  
    @Autowired
    private MemberService memberService;
    
@@ -36,15 +38,7 @@ public class MemberController {
 	* 비밀번호 암호화를 위한 객체를 주입받는다 
 	*/
 	@Autowired
-	private PasswordEncoder passwordEncoder; 
-    
-
-   /**
-    * 마이페이지 내 회원 정보 이동
-    * */
-   @RequestMapping("/myInfo")
-   public void myInfo() {}
-   
+	private PasswordEncoder passwordEncoder;    
 
 	/**
 	 *  예약내역 조회
@@ -90,7 +84,6 @@ public class MemberController {
 		return dbReservState;
 	}
 
-	
 	/*
 	 * 마이페이지 내 스크랩북 이동
 	 * */
@@ -101,18 +94,61 @@ public class MemberController {
 	 * 마이페이지 내 회원 정보 이동
 	 * */
 	@RequestMapping("/myInfo")
-	public void myInfo(Model model) {
-		List<Pet> petList = memberService.petList();
+	public void myInfo(Model model, Authentication auth) {
+		Object obj = auth.getPrincipal();
+		Member member = null;
+		
+		if(obj instanceof Member) {
+			member = (Member)auth.getPrincipal();
+		}
+		
+		Long memberNo = member.getMemberNo();
+		
+		List<Pet> petList = memberService.petList(memberNo);
 		
 		model.addAttribute("petList", petList);
-
 	}
 	
+	/**
+	 * 회원 정보 수정 전 비밀번호 확인 폼
+	 * */
+	@RequestMapping("/passwordCheckForm")
+	public void passwordCheckForm() {}
+
 	/**
 	 * 회원 정보 수정 전 비밀번호 확인
 	 * */
 	@RequestMapping("/passwordCheck")
-	public void passwordCheck() {}
+	@ResponseBody
+	/* public String passwordCheck(HttpServletRequest request) {
+		return memberService.passwordCheck(request.getParameter("memberPassword"));
+	} */
+	/* public String passwordCheck(Authentication auth, @RequestParam("memberPassword") String password) {
+		//return memberService.passwordCheck(request.getParameter("memberPassword"));
+		
+		Member member = (Member)auth.getPrincipal();
+		//String dbPwd = member.getMemberPassword();
+		
+		if(!passwordEncoder.matches(password, member.getMemberPassword())){
+			return "fail";
+		} else {
+			return "ok";
+		}
+	} */
+	
+	public String passwordCheck(HttpServletRequest request, Authentication auth) {
+		//return memberService.passwordCheck();
+		String password = request.getParameter("memberPassword");
+		
+		Member member = (Member)auth.getPrincipal();
+		//String dbPwd = member.getMemberPassword();
+		
+		if(!passwordEncoder.matches(password, member.getMemberPassword())){
+			return "fail";
+		} else {
+			return "ok";
+		}
+	}
 	
 	/**
 	 * 회원 정보 수정 폼
@@ -134,6 +170,7 @@ public class MemberController {
 		//Authentication 정보 수정		
 		Member dbMember = (Member)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
+		dbMember.setMemberProfile(member.getMemberProfile());
 		dbMember.setMemberPassword(encodedPassword);
 		dbMember.setMemberNickname(member.getMemberNickname());
 		dbMember.setMemberPhone(member.getMemberPhone());
@@ -141,6 +178,24 @@ public class MemberController {
 		
 		return new ModelAndView("redirect:/member/myInfo");
 	}
+	
+	/**
+	 * 회원 탈퇴하기
+	 * */
+	@RequestMapping("/deleteInfo")
+	public String deleteInfo(Authentication auth) {		
+		Object obj = auth.getPrincipal();
+		Member member = null;
+		
+		if(obj instanceof Member) {
+			member = (Member)auth.getPrincipal();
+		}
+		
+		String memberEmail = member.getMemberEmail();
+	
+		if(memberService.deleteInfo(memberEmail) == 1)	return "redirect:/logout";
+		else return "redirect:/member/myInfo";	
+	} 
 	
 	/**
 	 * 반려견 등록 폼
@@ -165,10 +220,19 @@ public class MemberController {
 	 * 마이페이지 내 문의 이동
 	 * */
 	@RequestMapping("/myQna")
-	public void qnaList(Model model) {
-		List<QnaBoard> qnaBoardList = memberService.qnaList();
+	public void myQna(Model model, Authentication auth) {
+		Object obj = auth.getPrincipal();
+		Member member = null;
 		
-		model.addAttribute("qnaBoardList", qnaBoardList);
+		if(obj instanceof Member) {
+			member = (Member)auth.getPrincipal();
+		}
+		
+	 	Long memberNo = member.getMemberNo();		
+		
+		List<QnaBoard> qnaBoardList = memberService.myQna(memberNo);
+		
+		model.addAttribute("myQna", qnaBoardList);
 	}
 	
 	/**
@@ -222,7 +286,5 @@ public class MemberController {
       
       return "redirect:/member/myQna";
    }
-
-  
 }
 

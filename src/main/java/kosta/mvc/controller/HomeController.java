@@ -33,38 +33,32 @@ public class HomeController {
 	@Autowired
 	private CommunityService communityService;
 	
-
 	@RequestMapping("/")
-	public String index(Model model) {
-		
-		List<CommunityBoard> list = communityService.selectAll();
-		model.addAttribute("communityBoardList",list);
-		
+	public String index() {
 		return "main";
 	}
 	
-	/*@RequestMapping("/{}") 
-	public void url() {}*/
-	
 	@RequestMapping("/main")
 	public void main() {};
-	 
 
 	/**
-	 * 로그인 폼
+	 * 회원 로그인 폼
 	 * */
 	@RequestMapping("/loginForm") 
 	public void loginForm() {}
+	
+	/**
+	 * 관리자 로그인 폼
+	 * */
+	@RequestMapping("/login") 
+	public void login() {}
 
 	/**
 	 * 회원/사업자에 따라 로그인 후 이동할 기본 페이지
 	 * */
 	@RequestMapping("/default")
-	public String defaultAfterLogin(Authentication auth) throws AuthenticationException {		
-		
+	public String defaultAfterLogin(Authentication auth) throws AuthenticationException {				
 		Object object = auth.getPrincipal();
-		
-		System.out.println("/default에 들어온 auth = " + object);
 		
 		if(object instanceof Member) {
 			Member  m = (Member)auth.getPrincipal();
@@ -72,18 +66,7 @@ public class HomeController {
 		} else {
 			Camp  c = (Camp)auth.getPrincipal();
 			return "redirect:/owner/campHome";
-		
-		}
-		
-		/* else if(object instanceof Camp) {
-			Camp  c = (Camp)auth.getPrincipal();
-			return "redirect:/owner/campHome";
-		
-		} else {
-			object = auth.getPrincipal();
-			System.out.println("admin????????");
-			return "redirect:/admin/main";
-		} */
+		} 
 	}
 	
 	/**
@@ -131,6 +114,4 @@ public class HomeController {
 		
 		return "redirect:/";
 	}
-
-	
 }
