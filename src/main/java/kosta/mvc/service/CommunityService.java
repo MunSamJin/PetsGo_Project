@@ -61,4 +61,11 @@ public interface CommunityService {
 	 * 커뮤니티 게시글 상세보기에서 좋아요 조회
 	 */
 	LikeBoard selectLikeNo(Long memberNo, Long boardNo);
+	
+
+	/**
+	 * 태그로 검색
+	 */
+	Page<CommunityBoard> selectByCampTag(String tag, Pageable page);
+
 }

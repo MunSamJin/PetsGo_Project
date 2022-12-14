@@ -1,5 +1,7 @@
 package kosta.mvc.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,16 @@ public class ScrapServiceImpl implements ScrapService {
 		}
 		
 		return message;
+	}
+
+	@Override
+	public List<Scrap> selectByMember(Long memberNo) {
+		List<Scrap> campList = queryFactory
+				.selectFrom(qScrap)
+				.where(qScrap.member.memberNo.eq(memberNo))
+				.fetch();
+		
+		return campList;
 	}
 
 }

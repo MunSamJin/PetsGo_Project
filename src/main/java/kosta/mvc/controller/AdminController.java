@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Camp;
+import kosta.mvc.domain.Member;
 import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.domain.Residence;
 import kosta.mvc.service.CampService;
+import kosta.mvc.service.MemberService;
 import kosta.mvc.service.QnaService;
 
 
@@ -35,6 +37,9 @@ public class AdminController {
 	
 	@Autowired
 	private QnaService qnaService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	private final static int PAGE_COUNT = 10;
 	private final static int BLOCK_COUNT = 3;
@@ -95,11 +100,10 @@ public class AdminController {
 	 * 캠핑장 전체 검색
 	 */
 	@RequestMapping("/pages/camp/campcheck")
-	public String campCheckAll(Model model) {
+	public void campCheckAll(Model model) {
 		List<Camp> campList = campService.selectAll();
 		System.out.println("campList="+campList);
 		model.addAttribute("campList",campList);
-		return "/admin/pages/camp/campcheck";
 	}
 	
 	
@@ -125,7 +129,7 @@ public class AdminController {
 	
 	@RequestMapping("/camp/campcheck")
 	@ResponseBody
-	public Map<String, Object> campCheck(int campState) {
+	public List<Camp> campCheck(int campState) {
 		System.out.println("캠핑장 상태 확인 campState = "+campState);
 		
 		List<Camp> campList;
@@ -135,21 +139,19 @@ public class AdminController {
 			campList = campService.select(campState);
 		}
 		
-		
+		//camp안에있는 다른객체 속성을 뷰로 전달해야 한다면...
 		System.out.println("campList = " + campList);
-		Map<String, Object> map = new HashMap<>();
+		/*Map<String, Object> map = new HashMap<>();
 		map.put("campList", campList);
-		
 		
 		List<List<Residence>> residenceList = new ArrayList<List<Residence>>();
 		for(Camp camp : campList) {
 			System.out.println("camp.getResidenceList() = " + camp.getResidenceList());
 			residenceList.add( camp.getResidenceList()) ;
 		}
-		//camp안에있는 다른객체 속성을 뷰로 전달해야 한다면...
-		map.put("residenceList", residenceList);
+		map.put("residenceList", residenceList);*/
 		
-		return map;
+		return campList;
 	}
 	
 	
@@ -173,6 +175,15 @@ public class AdminController {
 		Camp camp = campService.campStateUpdate(campNo, campState);
 		
 		return camp;
+	}
+	
+	/**
+	 * 회원관리
+	 */
+	@RequestMapping("/pages/user/user_list")
+	public void userList(Model model) {
+		List<Member> memberList = memberService.selectMemberAll();
+		model.addAttribute("memberList", memberList);
 	}
 	
 }

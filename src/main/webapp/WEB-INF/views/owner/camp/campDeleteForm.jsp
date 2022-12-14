@@ -401,8 +401,9 @@
               <br>
               <h6 class="font-weight-light">종료 신청을 위해서 사업자 비밀번호를 입력해주세요.</h6>
               <form class="pt-3" method="post" id="campDeleteRequest" name="campDeleteRequest">
+              	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" id="campPassword" name="campPassword" placeholder="Password">
+                  <input type="password" class="form-control form-control-lg" id="campPassword" name="password" placeholder="Password">
                 </div>
                 <div class="mt-3">
                   <input type="button" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" id="requestBtn" value="신청">

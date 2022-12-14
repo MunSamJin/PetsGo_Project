@@ -58,25 +58,22 @@
     <script type="text/javascript">
     	$(function(){
     		//alert("반응오니??");
-    		var boardNo = $("input[name=myComBoardNo]").val();
-    		//alert("boardNo = " + boardNo);
     		
-    		/* 내가 쓴 게시물 상세보기 */
-    		$("img[class=myComImg]").on("click", function(){
-    			//alert("클릭");
+    		
+    		/* 게시물 클릭 */
+    		$("a[name=communityList]").on("click", function(){
+    			$("div[name=contents_box_02]").hide();
+    			$("div[name=contents_box_01]").show();
     			
-    			var a=open();
-    			a.location.href="${pageContext.request.contextPath}/community/read/"+boardNo;
+    		});
+    		
+    		/* 좋아요 리스트 클릭 */
+    		$("a[name=likeList]").on("click", function(){
+    			$("div[name=contents_box_01]").hide();
+    			$("div[name=contents_box_02]").show();
     		});
     		
     		
-    		/* 삭제하기 */
-    		$("a[class=myComUpdate]").on("click", function(){
-    			//alert("수정버튼");
-    			if (confirm("정말 삭제하시겠습니까?") == true) {
-    				location.href="${pageContext.request.contextPath}/member/delete/"+boardNo;
-    			}
-    		});
     	});//readyEnd
     </script>
 
@@ -94,16 +91,16 @@
                         	<sec:authentication var="mvo" property="principal" />
                             <aside class="single_sidebar_widget instagram_feeds">                          
                                     <div class="my_img">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" alt="">
+                                        <img class="img-fluid" src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" >
                                     </div>
                                      <h4 class="widget_title">${mvo.memberNickname}님</h4><br>
                                      
-			                         <a href="javascript:void(0);" name="">
+			                         <a href="javascript:void(0);" name="communityList">
 			                         	<i class="far fa-star"></i> 
 			                         	<p style="display: inline-block;">게시물</p>
 			                         </a>
 			                         &nbsp	
-			                         <a href="javascript:void(0);" name="">
+			                         <a href="javascript:void(0);" name="likeList">
 			                         	<i class="far fa-star"></i> 
 			                         	<p style="display: inline-block;">좋아요 리스트</p>
 			                         </a>
@@ -114,52 +111,85 @@
                    
                     <div class="col-lg-8 mb-5 mb-lg-0">
                         <!-- my_community field01 -->  
-                        <div class="contents_box">
+                        <div class="contents_box" name="contents_box_01">
                             
                             <c:forEach items="${requestScope.myCommunity}" var="myCommunity" varStatus="status" >
                             
 	                            <article class="contents cont01" >
 	                                <header class="top">
 	                                    <div class="user_container">
-	                                        <div class="profile_img">
-	                                            <img src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" alt="">
+	                                        <div class="profile_img" >
+	                                            <img src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}">
 	                                        </div>
 	                                        <div class="user_name">
 	                                            <div class="nick_name">${mvo.memberNickname}</div> 
 	                                        </div>
 	                                    </div>
 	                                    
-	                                    <ul class="menu">
+	                                    <%-- <ul class="menu">
 	                                    	<li>
 												<a href="#"><div class="sprite_more_icon"></div></a>
 											    <ul class="depth_1">
-											      <li><a href="javascript:void(0)" class="myComUpdate"><b>삭제</b></a></li>
+											      <li>
+											      	 <a href="javascript:void(0)"
+											      	 	onclick="javascript:location.href='${pageContext.request.contextPath}/community/delete/${myCommunity.boardNo}'">
+											      	 	<b>삭제</b>
+											      	 </a>
+											      </li>
 											      <!-- <li><a href="javascript:void(0)"><b>수정</b></a></li> -->
 											    </ul>
 											 </li>
-	                                    </ul>
+	                                    </ul> --%>
 	                                </header>
 	
-	                                <div class="img_section">
+	                                <div class="img_section" >
 	                                    <div class="trans_inner">
-	                                        <div><img class="myComImg" src="${pageContext.request.contextPath}/img//samjin/${fn:split(myCommunity.boardFileName,',')[0]}" alt=""></div>
-	                                        <input type="hidden" value="${myCommunity.boardNo}" name="myComBoardNo">
+	                                        <div style="text-align: center; width:330px; height: 410px">
+	                                        	<img style="width: 300px; height: 400px; cursor: pointer;"
+	                                        		  src="${pageContext.request.contextPath}/img//samjin/${fn:split(myCommunity.boardFileName,',')[0]}" 
+	                                        		  onclick="javascript:window.open('${pageContext.request.contextPath}/community/read/${myCommunity.boardNo}',
+	                                        		  			'communityPop','width=800,height=400,left=200,top=100')">
+	                                        </div>	                                        
 	                                    </div>
-	                                </div>
-	
-	
-	                                <div class="bottom_icons">
-	                                    <div class="left_icons">
-	                                        <div class="heart_btn">
-	                                            <div class="sprite_heart_icon_outline" data-name="heartbeat"></div>
-	                                            <span class="lik_num">좋아요 ${myCommunity.likeList.size() }개</span>
-	                                        </div>
-	                                    </div>
-	                                </div>
+	                                </div>	                                
 	                        </article>
                         </c:forEach>
                     </div> 
                     <!-- my_community field01 End -->
+                    
+                    
+                    <!-- my_community field02 -->  
+                        <div class="contents_box" name="contents_box_02" style="display: none;">
+                            
+                            <c:forEach items="${requestScope.likeList}" var="likeList" varStatus="status" >
+                            
+	                            <article class="contents cont02" >
+	                                <header class="top">
+	                                    <div class="user_container">
+	                                        <div class="profile_img">
+	                                            <img src="${pageContext.request.contextPath}/img/regi_profile/${likeList.communityBoard.member.memberProfile}" alt="">
+	                                        </div>
+	                                        <div class="user_name">
+	                                            <div class="nick_name">${likeList.communityBoard.member.memberNickname}</div> 
+	                                        </div>
+	                                    </div>
+	                                </header>
+	
+	                                <div class="img_section">
+	                                    <div class="trans_inner">
+	                                        <div style="text-align: center; width:330px; height: 410px">
+	                                        	<img style="width: 300px; height: 400px; cursor: pointer;"
+	                                        		 src="${pageContext.request.contextPath}/img//samjin/${fn:split(likeList.communityBoard.boardFileName,',')[0]}" alt=""
+	                                        		 onclick="javascript:window.open('${pageContext.request.contextPath}/community/read/${likeList.communityBoard.boardNo}',
+	                                        		  			'communityPop','width=800,height=400,left=200,top=100')">	                                        		
+	                                        </div>	                                        
+	                                    </div>
+	                                </div>
+	
+	                        </article>
+                        </c:forEach>
+                    </div> 
+                    <!-- my_community field02 End -->
                     
                 </div>
             </div>

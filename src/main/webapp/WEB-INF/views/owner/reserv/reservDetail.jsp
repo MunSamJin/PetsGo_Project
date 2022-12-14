@@ -402,12 +402,12 @@
                       <p class="form-control" id="exampleInputName1" name="resiName">${reserv.reservNo}</p>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputCity1">회원번호</label>
-                      <p class="form-control" id="memberNo" name="memberNo">${reserv.member}</p>
+                      <label for="exampleInputCity1">회원이름</label>
+                      <p class="form-control" id="memberNo" name="memberNo">${reserv.member.memberNickname}</p>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputCity1">숙소번호(숙소이름)</label>
-                      <p class="form-control" id="resiNo" name="resiNo">${reserv.residence}</p>
+                      <p class="form-control" id="resiNo" name="resiNo">${reserv.residence.resiName}</p>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputCity1">투숙객 이름</label>
@@ -423,7 +423,10 @@
                     </div>
                     <div class="form-group">
                       <label for="exampleTextarea1">예약일</label>
-                      <p class="form-control" id="reservDate" name="reservDate">${reserv.reservDate}</p>
+                      <p class="form-control" id="reservDate" name="reservDate">
+                      	<fmt:parseDate value="${reserv.reservDate}" pattern="yyyy-MM-dd" var="parsedDateTime" type="both" />
+                      	<fmt:formatDate value="${parsedDateTime}" pattern="yyyy-MM-dd"/>
+                      </p>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputCity1">체크인 날짜</label>

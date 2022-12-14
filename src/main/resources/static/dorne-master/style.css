@@ -1162,7 +1162,7 @@ li {
 }
 
 .map-ratings-review-area {
-    position: absolute;
+   
     bottom: 40px;
     right: 0;
     z-index: 999;
@@ -1170,20 +1170,20 @@ li {
 
 .map-ratings-review-area > a {
     padding: 0 30px;
-    height: 70px;
-    line-height: 70px;
+    
+    line-height: 30px;
     color: #fff;
     font-size: 15px;
     background-color: #30c0a3;
 }
 
 .map-ratings-review-area > a:nth-child(2) {
-    background-color: #FF4A52;
+    background-color: #165738;
 }
 
 .map-ratings-review-area > a:last-child {
-    background-color: #fff;
-    color: #2a2a2a;
+    background-color: #a56934;
+    color: #fff;
 }
 
 .book-a-table-widget {
@@ -1230,7 +1230,7 @@ li {
 }
 
 .opening-hours li:first-child p {
-    color: #7643ea;
+    color: #f7612f;
 }
 
 .opening-hours li:last-child p {

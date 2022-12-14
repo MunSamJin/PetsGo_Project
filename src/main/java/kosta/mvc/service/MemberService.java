@@ -3,6 +3,7 @@ package kosta.mvc.service;
 import java.util.List;
 
 import kosta.mvc.domain.CommunityBoard;
+import kosta.mvc.domain.LikeBoard;
 import kosta.mvc.domain.Member;
 import kosta.mvc.domain.Pet;
 import kosta.mvc.domain.QnaBoard;
@@ -98,7 +99,18 @@ public interface MemberService {
 	int updateReservState(Long memberNo, Long reservationNo);
 	
 	/**
-	 *  마이페이지 내 커뮤니티 조회
+	 *  마이페이지 내 커뮤니티 등록한 게시글 조회
 	 */
 	List<CommunityBoard> selectCommunityAll(Long memberNo);
+	
+	/**
+	 *  마이페이지 내 커뮤니티 좋아요 누른 게시글 조회
+	 */
+	List<LikeBoard> selectLikeList(Long memberNo);
+	
+	/**
+	 * 모든 멤버 조회
+	 */
+	List<Member> selectMemberAll();
+
 }

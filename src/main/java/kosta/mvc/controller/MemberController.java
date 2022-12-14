@@ -1,5 +1,6 @@
 package kosta.mvc.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,23 +17,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kosta.mvc.domain.Camp;
 import kosta.mvc.domain.CommunityBoard;
+import kosta.mvc.domain.LikeBoard;
 import kosta.mvc.domain.Member;
 import kosta.mvc.domain.Pet;
 import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.domain.Reservation;
+import kosta.mvc.domain.Scrap;
+import kosta.mvc.service.CampService;
 import kosta.mvc.service.CommunityService;
 import kosta.mvc.service.MemberService;
+import kosta.mvc.service.ScrapService;
 
 @Controller //ajax 처리할 메소드는 @Reponsebody를 붙여주면 됨
 @RequestMapping("/member")
 public class MemberController {
 
-   @Autowired
-   private MemberService memberService;
+	@Autowired
+	private ScrapService scrapService;
+  
+	@Autowired
+	private MemberService memberService;
    
-   @Autowired
-   private CommunityService communityService;
+	@Autowired
+	private CommunityService communityService;
+
+	@Autowired
+	private CampService campService;
+
  
    /*
 	* 비밀번호 암호화를 위한 객체를 주입받는다 
@@ -107,6 +120,29 @@ public class MemberController {
 		List<Pet> petList = memberService.petList(memberNo);
 		
 		model.addAttribute("petList", petList);
+	}
+	
+	
+	/*
+	 * 마이페이지 내 스크랩북 이동
+	 * */
+	@RequestMapping("/myScrap")
+	public void myScrap(Authentication auth, Model model) {
+		Object object = auth.getPrincipal();
+		Member member = null;
+
+		
+		if(object instanceof Member) {
+			member = (Member)auth.getPrincipal();
+		}
+		Long memberNo = member.getMemberNo();
+		
+		List<Scrap> scrapList = scrapService.selectByMember(memberNo);
+		List<Camp> campList = new ArrayList<Camp>();
+		for(Scrap s : scrapList) {
+			campList.add(campService.selectBy(s.getCamp().getCampNo()));
+		}
+		model.addAttribute("campList", campList);
 	}
 	
 	/**
@@ -263,9 +299,12 @@ public class MemberController {
 		List<CommunityBoard> list = memberService.selectCommunityAll(memberNo);
 		System.out.println("member컨트롤러 list = " + list);
 		
-		model.addAttribute("myCommunity", list);		
+		List<LikeBoard> likeList = memberService.selectLikeList(memberNo);
+		
+		model.addAttribute("myCommunity", list);
+		model.addAttribute("likeList", likeList);
 	}
-	
+
 	/**
 
 	 * 마이페이지 내커뮤니티 게시글 삭제

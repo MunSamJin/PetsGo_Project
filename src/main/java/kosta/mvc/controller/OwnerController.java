@@ -10,6 +10,11 @@ import javax.servlet.http.HttpSession;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -22,10 +27,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Camp;
+import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.Member;
+import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.domain.Reservation;
 import kosta.mvc.domain.Residence;
 import kosta.mvc.service.CampService;
+import kosta.mvc.service.CommunityService;
 import kosta.mvc.service.ReservationService;
 import kosta.mvc.service.ResiService;
 
@@ -43,7 +51,13 @@ public class OwnerController {
 	private ReservationService reservService;
 	
 	@Autowired
+	private CommunityService commService;
+	
+	@Autowired
 	private PasswordEncoder passwordEncoder; 
+	
+	private final static int PAGE_COUNT = 10;
+	private final static int BLOCK_COUNT = 3;
 	
 	
 	@RequestMapping("/campHome")
@@ -221,15 +235,17 @@ public class OwnerController {
 	
 	@RequestMapping("/passwordCheck")
 	@ResponseBody
-	public String passwordCheck(String password, Long campNo) {
+	public String passwordCheck(String password, Long campNo, Authentication auth) {
+		//auth는 내가 폼에 입력한 정보(여기선 pw)
+		String pwd = (String)auth.getCredentials();
+		
 		Camp camp = campService.selectBy(campNo);
-		String pwd = camp.getCampPassword();
-		System.out.println("pwd = "+pwd);
-		//비밀번호 암호화
-		String encodedPassword = passwordEncoder.encode(password);
-
-		if(pwd.equals(encodedPassword)) return "success";
-		else return "fail";
+		
+		if(!passwordEncoder.matches(password,camp.getCampPassword())) {
+			System.out.println("입력한 pwd : " + password);
+			System.out.println("기존 pwd : " + camp.getCampPassword());
+			return "fail";
+		} else return "success";
 	}
 	
 	
@@ -373,12 +389,14 @@ public class OwnerController {
 		Map<String, Object> map = new HashMap<>();
 		
 		List<String> memberList = new ArrayList<String>();
-		System.out.println("reservList = " + reservList);
+		List<String> resiList = new ArrayList<String>();
 		
 		if(reservList.size() > 0) {
 			for(Reservation r : reservList) {
-				Member member=r.getMember();
+				Member member = r.getMember();
+				Residence resi = r.getResidence();
 				memberList.add(member.getMemberNickname());
+				resiList.add(resi.getResiName());
 			}
 		}
 		
@@ -386,6 +404,7 @@ public class OwnerController {
 		
 		map.put("reservList", reservList);
 		map.put("memberList", memberList);
+		map.put("resiList", resiList);
 		
 		return map;
 	}
@@ -406,4 +425,58 @@ public class OwnerController {
 		return "success";
 	}
 	
+	
+	/*@RequestMapping("/review/campReview/{campNo}")
+	public String campReview(@PathVariable("campNo") Long campNo, Model model, @RequestParam(defaultValue = "1") int nowPage) {
+		Pageable page = PageRequest.of((nowPage-1), PAGE_COUNT, Direction.DESC, "boardNo");
+		Camp camp = campService.selectBy(campNo);
+		Page<CommunityBoard> commList = commService.selectByCampTag(camp.getCampName(), page);
+		
+		int temp = (nowPage-1) % BLOCK_COUNT;
+		int startPage = nowPage - temp;
+		
+		model.addAttribute("commList", commList);
+		model.addAttribute("blockCount", BLOCK_COUNT);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("nowPage", nowPage);
+		
+		return "owner/review/campReview";
+	}*/
+
+	
+	@RequestMapping("/reserv/reservChart/{campNo}")
+	public String campChart(@PathVariable("campNo") Long campNo, Model model) {
+		Camp camp = campService.selectBy(campNo);
+		model.addAttribute("camp",camp);
+		return "owner/reserv/reservChart";
+	}
+	
+	
+	@RequestMapping("/info/campInfo")
+	public void campInfo() {
+		
+	}
+	
+	@RequestMapping("/info/campInfoUpdateForm")
+	public void campInfoUpdateForm() {
+		
+	}
+	
+	@RequestMapping("/info/campInfoUpdate")
+	public String campInfoUpdate(Camp camp) {
+		Camp dbCamp = campService.selectBy(camp.getCampNo());
+		
+		dbCamp.setCampEmail(camp.getCampEmail());
+		dbCamp.setCampPassword(camp.getCampPassword());
+		dbCamp.setCampPhone(camp.getCampPhone());
+		campService.update(dbCamp);
+		
+		//Authentication정보 수정
+		Camp updateCamp = (Camp)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		updateCamp.setCampEmail(camp.getCampEmail());
+		updateCamp.setCampPassword(camp.getCampPassword());
+		updateCamp.setCampPhone(camp.getCampPhone());
+		
+		return "/owner/info/campInfo";
+	}
 }

@@ -88,7 +88,7 @@
 		                    <sec:authentication var="mvo" property="principal" />
 								<aside class="single_sidebar_widget instagram_feeds">                          
 				                	<div class="my_img">
-				                    	<img class="img-fluid" src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" alt="">
+				                    	<img class="img-fluid" src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" >
 				                    </div>		                                
 				                        <h4 class="widget_title">${mvo.memberNickname}님</h4>
 				                </aside>

@@ -388,7 +388,8 @@
                       <thead>
                         <tr>
                           <th>예약번호</th>
-                          <th>회원번호</th>
+                          <th>회원이름</th>
+                          <th>숙소</th>
                           <th>예약일</th>
                           <th>결제금액</th>
                           <th>예약상태</th>
@@ -397,9 +398,10 @@
                       <tbody id="ajaxPart">
                       	<c:forEach items="${reservList}" var="reserv">
 	                        <tr onclick="location.href='${pageContext.request.contextPath}/owner/reserv/reservDetail/${reserv.reservNo}'" style="cursor:pointer;">
-	                          <td><p id="reservNo">${reserv.reservNo}</p></td>
-	                          <td><p id="memberNo">${reserv.member.memberNickname}</p></td>
-	                          <td><p id="reservDate">${reserv.reservDate}</p></td>
+	                          <td><p>${reserv.reservNo}</p></td>
+	                          <td><p>${reserv.member.memberNickname}</p></td>
+	                          <td><p>${reserv.residence.resiName}</p></td>
+	                          <td><p>${reserv.reservDate}</p></td>
 	                          <td>
 	                            <p><fmt:formatNumber value="${reserv.reservPrice}" pattern="###,### 원"/></p>
 	                          </td>
@@ -494,12 +496,8 @@
 					
 					$.each(data.reservList, function(index, item){ //item은 reserv
 						
-						//$.each(data.memberList, function(i, member){
-						//예약 하나에 멤버 이름 하나
-						
 						let state = "";
-						let style = ""
-						let memberId = 1;
+						let style = "";
 						
 						if(item.reservState == 0) {
 							state = "예약대기";
@@ -523,12 +521,9 @@
 						
 						
 						str += '<tr onclick=location.href="${pageContext.request.contextPath}/owner/reserv/reservDetail/' + item.reservNo + '" style="cursor:pointer;">';
-						str += '<td><p>' + item.reservNo + '</p></td><td><p>' + data.memberList[index] + '</p></td><td><p>' + item.reservDate + '</p></td>';
+						str += '<td><p>' + item.reservNo + '</p></td><td><p>' + data.memberList[index] + '</p></td><td><p>' + data.resiList[index] + '</p></td><td><p>' + item.reservDate + '</p></td>';
 						str += '<td><p>'+ item.reservPrice + '</p></td><td><label class="' + style + '">' + state + '</label></td></tr>';
             			
-						
-						//});//memberList
-						
 					}); //reservList$each
 					
 					$("#ajaxPart").append(str);

@@ -163,147 +163,24 @@
                           </th>
                         </tr>
                       </thead>
+                      
                       <tbody>
-                        <tr>
+                      	<c:forEach items="${memberList}" var="member" varStatus="status">
+                      		<tr>
+                          <td>${member.memberNo}</td>
+                          <td>${member.memberNickname}</td>
+                          <td>${member.memberEmail}</td>
+                          <td>${member.memberPhone}</td>
+                          <td>${member.memberBirthDate}</td>
                           <td>
-                            1
-                          </td>
-                          <td>
-                            Herman Beck
-                          </td>
-                          <td>
-                            @
-                          </td>
-                          <td>
-                            010-1234-5678
-                          </td>
-                          <td>
-                            1999-09-09
-                          </td>
-                          <td>
-                            회원
+                          	<c:choose>
+                          		<c:when test="${member.memberRole == null}">회원탈퇴</c:when>
+                          		<c:otherwise>회원</c:otherwise>
+                          	</c:choose>
                           </td>
                         </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>
-                            Messsy Adam
-                          </td>
-                          <td>
-                            @
-                          </td>
-                          <td>
-                            010-1234-5678
-                          </td>
-                          <td>
-                            1999-09-09
-                          </td>
-                          <td>
-                            회원
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>
-                            John Richards
-                          </td>
-                          <td>
-                            @
-                          </td>
-                          <td>
-                            010-1234-5678
-                          </td>
-                          <td>
-                            1999-09-09
-                          </td>
-                          <td>
-                            회원
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>
-                            Peter Meggik
-                          </td>
-                          <td>
-                            @
-                          </td>
-                          <td>
-                            010-1234-5678
-                          </td>
-                          <td>
-                            1999-09-09
-                          </td>
-                          <td>
-                            회원
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            Edward
-                          </td>
-                          <td>
-                            @
-                          </td>
-                          <td>
-                            010-1234-5678
-                          </td>
-                          <td>
-                            1999-09-09
-                          </td>
-                          <td>
-                            회원
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            John Doe
-                          </td>
-                          <td>
-                            @
-                          </td>
-                          <td>
-                            010-1234-5678
-                          </td>
-                          <td>
-                            1999-09-09
-                          </td>
-                          <td>
-                            회원탈퇴
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            7
-                          </td>
-                          <td>
-                            Henry Tom
-                          </td>
-                          <td>
-                            @
-                          </td>
-                          <td>
-                            010-1234-5678
-                          </td>
-                          <td>
-                            1999-09-09
-                          </td>
-                          <td>
-                            회원
-                          </td>
-                        </tr>
+                      	</c:forEach>
+                        
                       </tbody>
                     </table>
                   </div>
