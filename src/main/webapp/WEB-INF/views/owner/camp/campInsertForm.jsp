@@ -81,12 +81,26 @@
 		})
    </script>
    
+   <style type="text/css">
+   .page-body-wrapper {
+   	justify-content: center;
+   	padding-top: 0px;
+   }
+   
+   .main-panel {
+   	width: calc(70% - 235px);
+   }
+   
+   body {background: #ededed;}
+   
+   </style>
+   
 </head>
 
 <body>
   <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
-    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+<%--     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo mr-5" href="/main"><img src="${pageContext.request.contextPath}/../../images/logo_main.png" class="mr-2" alt="logo"/></a>
         <a class="navbar-brand brand-logo-mini" href="/main"><img src="${pageContext.request.contextPath}/../../images/logo-mini.svg" alt="logo"/></a>
@@ -169,12 +183,12 @@
           <span class="icon-menu"></span>
         </button>
       </div>
-    </nav>
+    </nav> --%>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- partial:../../partials/_settings-panel.html -->
       <div class="theme-setting-wrapper">
-        <div id="settings-trigger"><i class="ti-settings"></i></div>
+       
         <div id="theme-settings" class="settings-panel">
           <i class="settings-close ti-close"></i>
           <p class="settings-heading">SIDEBAR SKINS</p>
@@ -203,7 +217,7 @@
             <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">캠핑장 신청폼</h4>
+                  <h4 class="card-title">펫츠고 캠핑장 신청폼</h4>
                   <p class="card-description">
                     신청 정보를 입력하세요
                   </p>
@@ -328,10 +342,11 @@
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright ©2022 All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Made with by Pet's Go Owner <i class="ti-heart text-danger ml-1"></i></span>
           </div>
-        </footer>
+          </div>
+        </footer> 
         <!-- partial -->
       </div>
       <!-- main-panel ends -->

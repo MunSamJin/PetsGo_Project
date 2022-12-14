@@ -1,0 +1,99 @@
+.updateForm {
+	padding: 24px;
+	margin: 66px auto 120px;
+	min-height: 0px;
+	max-width: 700px;
+}
+
+.line {
+    padding-bottom: 10px;
+    border-bottom: 2px solid #25483a;
+    line-height: 17px;
+    text-align: right;
+    margin-bottom: 28px;
+}
+
+.form-content img {
+	max-width: 10%; margin:0 10px 0 5px;
+}
+
+.gj-icon {
+	padding: 5px;
+}
+
+.gj-textbox-md {
+	border: 1px solid #ced4da !important;
+}
+
+.buttons {
+	font-family:SCDream3;
+}
+
+h1 {
+	color: #25483a !important; 
+	font-family: SCDream4 !important;
+	text-align: center;
+}
+
+.necessary {
+    color: red;
+}
+
+#updateForm {
+    padding: 10px;
+}
+
+.form-content {
+    display: flex;
+    margin-top: 28px !important;
+}
+
+.form-label {
+    width: 150px;
+    padding-top: 6px;
+}
+
+#passwordValid {
+	font-size: 13px;	
+	margin-left: 115px;
+	margin-top: 8px;
+}
+
+#passwordEqual {
+	font-size: 13px;	
+	margin-left: 115px;
+	margin-top: 8px;
+}
+
+#nicknameValid {
+	font-size: 13px;	
+	margin-left: 115px;
+	margin-top: 8px;
+}
+
+#datepicker {
+	border: 1px solid #ced4da !important; 
+	margin-left: -32px; 
+	padding-left: 5px;
+}
+
+.buttons {
+	text-align: center;
+}
+
+.btn {
+	margin-top: 28px;
+	border-radius: 20px !important;
+}
+
+.btn-primary {
+	color: #fff !important;
+    background-color: #25483a !important;
+    border-color: #25483a !important;
+}
+
+@media screen and (max-width: 768px) {
+	.updateForm {
+		padding: 12px 24px;
+	}
+}

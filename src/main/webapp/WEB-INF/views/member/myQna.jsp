@@ -8,12 +8,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Insert title here</title>
-	
-	<!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Martine</title>
+
     <link rel="icon" href="${pageContext.request.contextPath}/img/favicon.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
@@ -54,11 +51,12 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
+                    	<sec:authentication var="mvo" property="principal" />
                         <aside class="single_sidebar_widget instagram_feeds">                          
                                 <div class="my_img">
-                                    <img class="img-fluid" src="${pageContext.request.contextPath}/img/my_community/thumb.png" alt="">
+                                    <img class="img-fluid" src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" alt="">
                                 </div>
-                                 <h4 class="widget_title">Emily G</h4>
+                                 <h4 class="widget_title">${mvo.memberNickname}님</h4>
                         </aside>
                     </div>
                 </div>
@@ -80,25 +78,23 @@
                             </div>
                             <div class="form-group" style="text-align: center;">
                                 <button type="submit" class="button button-contactForm btn_1">등록</button>
-                                <!-- <input type=submit value="등록" /> -->
                             </div>
                         </form>
                     </div>
                        <!-- 문의내역 -->
                         <div class="comments-area">
                         <h4 style="color: #f7612f; font-weight: bold; text-align: center;">문의내역</h4>
-                        
                         <c:choose>
-							<c:when test="${empty requestScope.qnaBoardList}">
+							<c:when test="${empty requestScope.myQna}">
 								<b>작성한 문의가 없습니다.</b>
 							</c:when>
 							<c:otherwise>	
-								<c:forEach items="${requestScope.qnaBoardList}" var="qna">
+								<c:forEach items="${requestScope.myQna}" var="qna">
 									<div class="comment-list_user">
 			                            <div class="single-comment_user justify-content-between d-flex">
 			                                <div class="user justify-content-between d-flex">
 			                                    <div class="thumb">
-			                                        <img src="${pageContext.request.contextPath}/img/my_community/thumb.png" alt="">
+			                                        <img src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" alt="">
 			                                    </div>
 			                                    <div class="desc">
 			                                        <p class="comment">
@@ -119,7 +115,6 @@
 			                                </div>
 			                            </div>
 			                        </div>
-			                        
 			                        <c:choose>
 			                        	<c:when test="${qna.qnaReContent == null}">
 			                            </c:when>
@@ -146,8 +141,8 @@
 					                                    
 					                                </div>
 					                                <div class="thumb">
-					                                        <img src="${pageContext.request.contextPath}/images/admin_pr.jpg" alt="">
-					                                    </div>
+					                                	<img src="${pageContext.request.contextPath}/images/admin_pr.jpg" alt="">
+					                                </div>
 					                            </div>
 					                        </div>
 			                            </c:otherwise>

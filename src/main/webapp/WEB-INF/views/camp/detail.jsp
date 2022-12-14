@@ -290,7 +290,7 @@
 			                        	<span class="listing-resi-img">
 			                        		<img alt="" src="${pageContext.request.contextPath}/img/seryun/${fn:split(resi.resiFilename, ',')[0]}"
 			                        			onclick="javascript:window.open('${pageContext.request.contextPath}/camp/resiDetail/${resi.resiNo}',
-	                                        		  	'resiPop','width=800,height=400,left=200,top=100')"
+	                                        		  	'resiPop','width=600,height=400,left=200,top=100')"
 	                                        	style="cursor: pointer;">			                        		
 			                        	</span>
                                         <p class="listing-resi-intro">${resi.resiIntro}</p>

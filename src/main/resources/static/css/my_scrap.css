@@ -18,10 +18,8 @@
             width: 100px;
             background-color: none !important;
          }
-
-         .blog_left_sidebar { 
-            padding: 0px 80px 80px 80px;
-          }
+         
+         .blog_item {width: 300px;}
 
           .card-img {
             width: 600px;
@@ -86,5 +84,10 @@
            }
 
            .fa-star:before{content:"\f005"}
+           
+           .col-lg-6 {
+           	margin-right: 80px;
+			
+           }
            
            
