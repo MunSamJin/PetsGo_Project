@@ -97,11 +97,6 @@ public class MemberController {
 		return dbReservState;
 	}
 
-	/*
-	 * 마이페이지 내 스크랩북 이동
-	 * */
-	@RequestMapping("/myScrap")
-	public void myScrap() {}
 	
 	/**
 	 * 마이페이지 내 회원 정보 이동

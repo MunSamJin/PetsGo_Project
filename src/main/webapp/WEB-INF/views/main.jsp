@@ -70,6 +70,10 @@
 		});
 
 	</script>
+	
+	<style type="text/css">
+	  .camp_title {font-size: 18px;}
+	</style>
 
 </head>
 
@@ -176,13 +180,11 @@
                                 		<div class="share-block__twitter-icon"></div>
                             		</div>
                         		</div>                           
-                                <a href="#"><h3>${campList[0].campName}</h3></a>
+                                <a href="#"><h3 class="camp_title">${campList[0].campName}</h3></a>
                                 <p>${campList[0].campAddr.substring(0,6)}</p>
                                 <div class="place_review"></div>
                             </div>
-                            <div class="details_icon text-right">
-                                <i class="ti-share" alt="스크랩북"></i>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -206,13 +208,10 @@
                                 		<div class="share-block__twitter-icon"></div>
                             		</div>
                         		</div>
-                                <a href="#"><h3>${campList[1].campName}</h3></a>
+                                <a href="#"><h3 class="camp_title">${campList[1].campName}</h3></a>
                                 <p>${campList[1].campAddr.substring(0,6)}</p>
                                 <div class="place_review"></div>
-                            </div>
-                            <div class="details_icon text-right">
-                                <i class="ti-share" alt="스크랩북"></i>
-                            </div>
+                            </div>                       
                         </div>
                     </div>
                 </div>
@@ -234,12 +233,9 @@
                                 		<div class="share-block__twitter-icon"></div>
                             		</div>
                         		</div>
-                                <a href="#"><h3>${campList[2].campName}</h3></a>
+                                <a href="#"><h3 class="camp_title">${campList[2].campName}</h3></a>
                                 <p>${campList[2].campAddr.substring(0,6)}</p>
                                 <div class="place_review"></div>
-                            </div>
-                            <div class="details_icon text-right">
-                                <i class="ti-share" alt="스크랩북"></i>
                             </div>
                         </div>
                     </div>
@@ -262,12 +258,9 @@
                                 		<div class="share-block__twitter-icon"></div>
                             		</div>
                         		</div>
-                                <a href="#"><h3>${campList[3].campName}</h3></a>
+                                <a href="#"><h3 class="camp_title">${campList[3].campName}</h3></a>
                                 <p>${campList[3].campAddr.substring(0,6)}</p>
                                 <div class="place_review"></div>
-                            </div>
-                            <div class="details_icon text-right">
-                                <i class="ti-share" alt="스크랩북"></i>
                             </div>
                         </div>
                     </div>
@@ -290,12 +283,9 @@
                                 		<div class="share-block__twitter-icon"></div>
                             		</div>
                         		</div>
-                                <a href="#"><h3>${campList[4].campName}</h3></a>
+                                <a href="#"><h3 class="camp_title">${campList[4].campName}</h3></a>
                                 <p>${campList[4].campAddr.substring(0,6)}</p>
                                 <div class="place_review"></div>
-                            </div>
-                            <div class="details_icon text-right">
-                                <i class="ti-share" alt="스크랩북"></i>
                             </div>
                         </div>
                     </div>
@@ -318,12 +308,9 @@
                                 		<div class="share-block__twitter-icon"></div>
                             		</div>
                         		</div>
-                                <a href="#"><h3>${campList[5].campName}</h3></a>
+                                <a href="#"><h3 class="camp_title">${campList[5].campName}</h3></a>
                                 <p>${campList[5].campAddr.substring(0,6)}</p>
                                 <div class="place_review"></div>
-                            </div>
-                            <div class="details_icon text-right">
-                                <i class="ti-share" alt="스크랩북"></i>
                             </div>
                         </div>
                     </div>
