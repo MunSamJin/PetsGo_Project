@@ -222,11 +222,11 @@
                             </div>
                             
                             <div class="form_colum">
-                                <input id="datepicker_1" placeholder="체크인날짜" name="datepicker_1" value="${checkIn}">
+                                <input id="datepicker_1" placeholder="체크인날짜" name="checkIn" value="${checkIn}">
                             </div>
                             
                             <div class="form_colum">
-                                <input id="datepicker_2" placeholder="체크아웃날짜" name="datepicker_2" value="${checkOut}">
+                                <input id="datepicker_2" placeholder="체크아웃날짜" name="checkOut" value="${checkOut}">
                             </div>
                             
                             <div class="form_colum">
