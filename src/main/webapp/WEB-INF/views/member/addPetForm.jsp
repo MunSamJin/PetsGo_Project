@@ -129,7 +129,7 @@
 			
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<input type="submit" value="등록">
-			<button type="button">취소</button>
+			<a href="${pageContext.request.contextPath}/member/myInfo"><button type="button">취소</button></a>
 		</form>
 	</div>	
 </body>

@@ -26,10 +26,6 @@
 </head>
 <body>
 	
-	<c:if test="${param.err !=null}">
-		Error message: <b style="color: red">${SPRING_SECURITY_LAST_EXCEPTION.message} / 정보가 일치하지 않습니다. </b>
-	</c:if> 
-	
 	<!-- login part start -->
 	<div class="container">
 		<div class="row justify-content-center">
@@ -48,9 +44,9 @@
 					</ul>
 					<div class="tab-content" id="myTabContent">
 					<h1>로그인</h1>
-					<c:if test="${not empty requestScope.errorMessage}">
-						<span style="color:red">${requestScope.errorMessage}</span>
-					</c:if>
+					<c:if test="${param.err !=null}">
+						<b style="color: red"> 정보가 일치하지 않습니다. </b>
+					</c:if> 
 					  <div class="tab-pane fade show active" id="member-tab-pane" role="tabpanel" aria-labelledby="member-tab" tabindex="0">
 						<form id="memberLoginForm" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
 							<input type="email" class="form-control" name="id" id="email" placeholder="이메일"> 
@@ -77,7 +73,7 @@
 					  </div>	
 					  
 					  <div class="tab-pane fade" id="admin-tab-pane" role="tabpanel" aria-labelledby="admin-tab" tabindex="0">
-						<form id="adminLoginForm" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
+						<form id="adminLoginForm" action="${pageContext.request.contextPath}/admin/adminLogin" method="post">
 							<input type="text" class="form-control" name="id" id="adminId" placeholder="ID"> 
 							<!-- <span id="adminValid"></span> -->
 							<input type="password" class="form-control" name="password" id="adminPwd" placeholder="Password"> 

@@ -267,9 +267,8 @@
                                         <div class="single_select">
                                             <select id="aa">
                                                 <option selected value="">기본 정렬</option>
-                                                <option value="pricedesc">가격↑</option>
-                                                <option value="priceasc">가격↓</option>
-                                                <option value="4">USA</option>
+                                                <option value="asc">스크랩↑</option>
+                                                <option value="desc">스크랩↓</option>
                                               </select>
                                         </div>
                                     </div>

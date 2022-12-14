@@ -44,9 +44,7 @@ $(document).ready(function(){
 	
 	/////////////////////////////////////
 	//관리자 로그인 버튼 클릭 시 유효성 체크
-	$("#adminLoginForm").submit(function() {	
-		alert("id = " + $("#adminId").val() + ", password = " + $("#adminPwd").val());
-			
+	$("#adminLoginForm").submit(function() {				
 		/* if ($("#email").val().trim() == "") {
 			alert("이메일을 입력해 주세요");
 			$("#email").focus();
@@ -59,4 +57,19 @@ $(document).ready(function(){
 			return false;
 		} */
 	}) 
+	
+	
+	
+	
+	/* $('#myTab a').click(function (e) {
+	    var tab = $(this);
+	    if(tab.parent('li').hasClass('active')){
+	        window.setTimeout(function(){
+	            $(".tab-pane").removeClass('active');
+	            tab.parent('li').removeClass('active');
+	        },1);
+	    }
+	}); */
+	
+	//$('#admin-tab').addClass('hide');
 })

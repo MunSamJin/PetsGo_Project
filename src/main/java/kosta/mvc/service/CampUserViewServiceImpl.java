@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -69,6 +71,7 @@ public class CampUserViewServiceImpl implements CampUserViewService {
 				.where(qCamp.campAddr.contains(campAddr))
 				.where(qCamp.campState.eq(1))
 				.where(qCamp.campFacility.contains(tag))
+				.orderBy(aagz(aa))
 				.fetch();
 		return campList;
 	}
@@ -78,5 +81,15 @@ public class CampUserViewServiceImpl implements CampUserViewService {
 		Camp camp = campUserViewRepository.findById(campNo).orElse(null);
 		if(camp==null) throw new RuntimeException("해당 캠핑장은 없는 정보 입니다");
 		return camp;
+	}
+	
+	private OrderSpecifier<Integer> aagz(String aa) {
+		if(aa.equals("desc")) {
+			return qCamp.scrapList.size().asc();
+		} else if(aa.equals("asc")) {
+			return qCamp.scrapList.size().desc();
+		} else {
+			return null;
+		}
 	}
 }

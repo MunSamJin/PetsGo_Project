@@ -28,8 +28,3 @@ public class MemberAuthenticationFailureHandler implements AuthenticationFailure
 		req.getRequestDispatcher("/WEB-INF/views/loginForm.jsp").forward(req, res);
 	}
 }
-
-
-
-
-
