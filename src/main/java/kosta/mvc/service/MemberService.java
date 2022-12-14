@@ -94,8 +94,14 @@ public interface MemberService {
 	List<CommunityBoard> selectCommunityAll(Long memberNo);
 	
 	/**
+<<<<<<< HEAD
 	 *  마이페이지 내 커뮤니티 좋아요 누른 게시글 조회
 	 */
 	List<LikeBoard> selectLikeList(Long memberNo);
 	
+=======
+	 * 모든 멤버 조회
+	 */
+	List<Member> selectMemberAll();
+>>>>>>> origin/haewon
 }

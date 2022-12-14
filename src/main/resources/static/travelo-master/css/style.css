@@ -550,7 +550,7 @@ h3 {
 
 /* line 53, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_btn.scss */
 .boxed-btn4 {
-  background: #FF4A52;
+  background: #165738;
   color: #fff;
   display: inline-block;
   padding: 13px 39px;
@@ -572,7 +572,7 @@ h3 {
 
 /* line 67, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_btn.scss */
 .boxed-btn4:hover {
-  background: #1EC6B6;
+  background: #f7612f;
   color: #fff !important;
 }
 
@@ -583,6 +583,44 @@ h3 {
 
 /* line 74, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_btn.scss */
 .boxed-btn4.large-width {
+  width: 220px;
+}
+
+/* line 53, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_btn.scss */
+.boxed-btn4m {
+  background: #f7612f;
+  color: #fff;
+  display: inline-block;
+  padding: 13px 39px;
+  font-family: "Rubik", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  border: 0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  text-align: center;
+  text-transform: capitalize;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+/* line 67, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_btn.scss */
+.boxed-btn4m:hover {
+  background: #165738;
+  color: #fff !important;
+}
+
+/* line 71, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_btn.scss */
+.boxed-btn4m:focus {
+  outline: none;
+}
+
+/* line 74, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_btn.scss */
+.boxed-btn4m.large-width {
   width: 220px;
 }
 
@@ -3068,7 +3106,7 @@ h3 {
 
 /* line 1, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_popular_place.scss */
 .popular_places_area {
-  padding-top: 142px;
+  padding-top: 80px;
   padding-bottom: 150px;
   background: #F7FAFD;
 }
@@ -3109,7 +3147,7 @@ h3 {
 /* line 21, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_popular_place.scss */
 .popular_places_area .single_place .thumb .prise {
   position: absolute;
-  background: #1EC6B6;
+  background: #f7612f;
   padding: 7px 18px 4px 18px;
   display: inline-block;
   top: 20px;
@@ -3144,7 +3182,7 @@ h3 {
 
 /* line 43, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_popular_place.scss */
 .popular_places_area .single_place .place_info p {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
   color: #7A838B;
   margin-top: 2px;
@@ -3196,7 +3234,7 @@ h3 {
 
 /* line 85, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_popular_place.scss */
 .popular_places_area .single_place:hover .thumb .prise {
-  background: #FF4A52;
+  background: #f7612f;
 }
 
 /* line 91, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_popular_place.scss */
@@ -3209,7 +3247,6 @@ h3 {
   font-size: 16px;
   font-weight: 500;
   color: #001D38;
-  margin-bottom: 26px;
 }
 
 /* line 103, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_popular_place.scss */
@@ -3256,9 +3293,9 @@ h3 {
 
 /* line 128, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_popular_place.scss */
 .filter_result_wrap .filter_inner .nice-select::after {
-  content: '\f0d7 ';
+ 
   right: 21px;
-  top: 5px;
+  top: 25px;
   font-family: 'fontawesome';
   color: #AAB1B7;
   font-size: 16px;
@@ -3309,7 +3346,7 @@ h3 {
 /* line 171, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_popular_place.scss */
 .filter_result_wrap .range_slider_wrap .ui-widget.ui-widget-content {
   border: 0;
-  background: #FFD8DA;
+  background: #ffe8d8;
 }
 
 /* line 175, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_popular_place.scss */
@@ -3319,7 +3356,7 @@ h3 {
 
 /* line 178, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_popular_place.scss */
 .filter_result_wrap .range_slider_wrap .ui-state-default, .filter_result_wrap .range_slider_wrap .ui-widget-content .ui-state-default, .filter_result_wrap .range_slider_wrap .ui-widget-header .ui-state-default, .filter_result_wrap .range_slider_wrap .ui-button, .filter_result_wrap .range_slider_wrap html .ui-button.ui-state-disabled:hover, .filter_result_wrap .range_slider_wrap html .ui-button.ui-state-disabled:active {
-  border: 2px solid #FF4A52;
+  border: 2px solid #ff7c4a;
   background: #fff;
   font-weight: normal;
   width: 14px;
@@ -3329,7 +3366,7 @@ h3 {
 
 /* line 186, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_popular_place.scss */
 .filter_result_wrap .range_slider_wrap .ui-widget-header {
-  background: #FF4A52;
+  background: #ff744a;
 }
 
 /* line 189, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_popular_place.scss */

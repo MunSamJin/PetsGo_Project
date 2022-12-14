@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -184,5 +185,10 @@ public class MemberServiceImpl implements MemberService {
 	public List<LikeBoard> selectLikeList(Long memberNo) {
 		
 		return likeBoardRep.selectLikeList(memberNo);
+	}
+
+	public List<Member> selectMemberAll() {
+		return memberRep.findAll(Sort.by(Sort.Direction.DESC, "memberNo"));
+
 	}
 }

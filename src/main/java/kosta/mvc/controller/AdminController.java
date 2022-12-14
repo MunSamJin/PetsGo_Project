@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Camp;
+import kosta.mvc.domain.Member;
 import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.domain.Residence;
 import kosta.mvc.service.CampService;
+import kosta.mvc.service.MemberService;
 import kosta.mvc.service.QnaService;
 
 
@@ -35,6 +37,9 @@ public class AdminController {
 	
 	@Autowired
 	private QnaService qnaService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	private final static int PAGE_COUNT = 10;
 	private final static int BLOCK_COUNT = 3;
@@ -170,6 +175,15 @@ public class AdminController {
 		Camp camp = campService.campStateUpdate(campNo, campState);
 		
 		return camp;
+	}
+	
+	/**
+	 * 회원관리
+	 */
+	@RequestMapping("/pages/user/user_list")
+	public void userList(Model model) {
+		List<Member> memberList = memberService.selectMemberAll();
+		model.addAttribute("memberList", memberList);
 	}
 	
 }
