@@ -15,7 +15,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.LikeBoard;
 import kosta.mvc.domain.LikeBoardArrange;
-import kosta.mvc.domain.QCommunityBoard;
 import kosta.mvc.repository.CommunityRepository;
 import kosta.mvc.repository.LikeBoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -137,6 +136,11 @@ public class CommunityServiceImpl implements CommunityService {
 	public LikeBoard selectLikeNo(Long memberNo, Long boardNo) {
 		
 		return likeBoardRepository.selectAll(memberNo, boardNo);
+	}
+
+	@Override
+	public Page<CommunityBoard> selectByCampTag(String tag, Pageable page) {
+		return communityRepository.campTagSelect("%"+tag+"%", page);
 	}
 
 

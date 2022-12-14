@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -50,4 +51,11 @@ public interface CommunityRepository extends JpaRepository<CommunityBoard, Long>
 	 */
 	@Query(value = "select * from community_board where member_no = ?1 order by board_date", nativeQuery = true)
 	List<CommunityBoard> selectCommunityAll(Long memberNo);
+	
+	
+	/**
+	 *  캠프 이름이 태그에 포함된 글 검색
+	 */
+	@Query("select c from CommunityBoard c where c.boardTag like ?1 order by c.boardDate desc")
+	Page<CommunityBoard> campTagSelect(String tag, Pageable page);
 }

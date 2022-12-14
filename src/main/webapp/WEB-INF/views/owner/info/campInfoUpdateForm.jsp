@@ -8,22 +8,35 @@
 
 <!DOCTYPE html>
 <html lang="kr">
+
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Skydash Admin</title>
+  <title>PetsGo Owner</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/../../vendors/feather/feather.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/../../vendors/ti-icons/css/themify-icons.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/../../vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/vendors/feather/feather.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/select.dataTables.min.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/../../css/vertical-layout-light/style.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/vertical-layout-light/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="${pageContext.request.contextPath}/../../images/favicon.png" />
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" />
+  <link rel="icon" href="data:,">
+  
+  <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
+  <script type="text/javascript">
+		$(function(){
+			
+		})
+   </script>
+   
 </head>
 
 <body>
@@ -328,7 +341,7 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reserv/reservCheck/${secCamp.campNo}">예약 신청 관리</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reserv/reservManagement/${secCamp.campNo}">예약 신청 관리</a></li>
                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reservChart/${secCamp.campNo}">예약 통계</a></li>
               </ul>
             </div>
@@ -341,7 +354,7 @@
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/review/review/${secCamp.campNo}">후기 조회</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/review/campReview">후기 조회</a></li>
               </ul>
             </div>
           </li>
@@ -361,81 +374,73 @@
         </ul>
       </nav>
       <!-- partial -->
-      <div class="main-panel">
+      
+      <div class="main-panel">        
         <div class="content-wrapper">
-          <!-- <div class="row"> -->
-            <div class="col-lg-12 grid-margin stretch-card">
+          <div class="row">
+            <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">예약 신청 관리</h4>
+                  <h4 class="card-title">사업자 정보</h4>
                   <p class="card-description">
-                     <div class="dropdown">
-                      <button class="btn btn-danger btn-sm dropdown-toggle" type="button" id="reservStateArr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        전체
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
-                        <h6 class="dropdown-header" style="font-weight: bold">예약상태</h6>
-                        <a class="dropdown-item" href="#">전체</a>
-                        <a class="dropdown-item" href="#">예약대기</a>
-                        <a class="dropdown-item" href="#">예약확정</a>
-                        <a class="dropdown-item" href="#">결제취소요청</a>
-                        <a class="dropdown-item" href="#">예약취소</a>
-                      </div>
-                    </div>
+                  	정보를 수정하세요
                   </p>
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>예약번호</th>
-                          <th>회원이름</th>
-                          <th>숙소</th>
-                          <th>예약일</th>
-                          <th>결제금액</th>
-                          <th>예약상태</th>
-                        </tr>
-                      </thead>
-                      <tbody id="ajaxPart">
-                      	<c:forEach items="${reservList}" var="reserv">
-	                        <tr onclick="location.href='${pageContext.request.contextPath}/owner/reserv/reservDetail/${reserv.reservNo}'" style="cursor:pointer;">
-	                          <td><p>${reserv.reservNo}</p></td>
-	                          <td><p>${reserv.member.memberNickname}</p></td>
-	                          <td><p>${reserv.residence.resiName}</p></td>
-	                          <td><p>${reserv.reservDate}</p></td>
-	                          <td>
-	                            <p><fmt:formatNumber value="${reserv.reservPrice}" pattern="###,### 원"/></p>
-	                          </td>
-	                          <c:choose>
-	                          	<c:when test="${reserv.reservState == 0}">
-	                      			<td><label class="badge badge-info" >예약대기</label></td>
-		                      	</c:when>
-		                      	<c:when test="${reserv.reservState == 1}">
-		                      		<td><label class="badge badge-success">예약확정</label></td>
-		                      	</c:when>
-		                      	<c:when test="${reserv.reservState == 3}">
-		                      		<td><label class="badge badge-wait">예약취소</label></td>
-		                      	</c:when>
-		                      	<c:when test="${reserv.reservState == 4}">
-		                      		<td><label class="badge badge-danger">결제취소요청</label></td>
-		                      	</c:when>
-                          	  </c:choose>
-	                        </tr>
-	                  	</c:forEach>
-                      </tbody>
-                    </table>
-                  </div>
+                  <form class="forms-sample" method="post" action="${pageContext.request.contextPath}/owner/info/campInfoUpdate">
+                  	<input type="hidden" name="campNo" value="${secCamp.campNo}">
+        			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">캠핑장</label>
+                      <p class="form-control" id="campName">${secCamp.campName}</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">이메일(Email)</label>
+                      <input type="email" class="form-control" id="campEmail" name="campEmail" placeholder="Email"  value="${secCamp.campEmail}">
+                      <span id="emailValid"></span>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">연락처</label>
+                      <input type="text" class="form-control" id="campPhone" name="campPhone" placeholder="Phone Number" oninput="autoHyphen2(this)" maxlength="13" placeholder="'-'없이 숫자만 입력해 주세요" value="${secCamp.campPhone}">
+                      <script>
+						const autoHyphen2 = (target) => {
+							target.value = target.value
+							.replace(/[^0-9]/g, '')
+							.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+						}
+					  </script>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">비밀번호 확인</label>
+                      <input type="password" class="form-control" id="campPwdCheck" placeholder="Password">
+                      <span id="campPwdCheckValid"></span>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">재설정 비밀번호</label>
+                      <input type="password" class="form-control" id="campPassword" name="campPassword" placeholder="Password" value="${secCamp.campPassword}">
+                      <span id="passwordValid"></span>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputConfirmPassword1">재설정 비밀번호 일치 확인</label>
+                      <input type="password" class="form-control" id="campPasswordCheck" placeholder="Password">
+                      <span id="passwordEqual"></span>
+                    </div>
+                    <div class="form-check form-check-flat form-check-primary">
+                      <p class="card-description">
+                        비밀번호 변경을 원하지 않으시면 '재설정 비밀번호' 입력칸을 그대로 두세요
+                      </p>
+                    </div>
+                    <button type="button" class="btn btn-primary mr-2" id="infoUpdateBtn">수정</button>
+                    <button class="btn btn-light" id="updateCancleBtn">취소</button>
+                  </form>
                 </div>
               </div>
             </div>
-            
-            
-          <!-- </div> -->
+          </div>
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap owner template</a> from BootstrapDash. All rights reserved.</span>
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
           </div>
         </footer>
@@ -450,6 +455,8 @@
   <script src="${pageContext.request.contextPath}/../../vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
+  <script src="${pageContext.request.contextPath}/../../vendors/typeahead.js/typeahead.bundle.min.js"></script>
+  <script src="${pageContext.request.contextPath}/../../vendors/select2/select2.min.js"></script>
   <!-- End plugin js for this page -->
   <!-- inject:js -->
   <script src="${pageContext.request.contextPath}/../../js/off-canvas.js"></script>
@@ -459,93 +466,123 @@
   <script src="${pageContext.request.contextPath}/../../js/todolist.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
+  <script src="${pageContext.request.contextPath}/../../js/file-upload.js"></script>
+  <script src="${pageContext.request.contextPath}/../../js/typeahead.js"></script>
+  <script src="${pageContext.request.contextPath}/../../js/select2.js"></script>
   <!-- End custom js for this page-->
+  
+  <!-- modal js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   
   <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
   <script type="text/javascript">
-  $(function(){
-		$(".dropdown-item").click(function(){
-			let reservStateStr = $(this).text();
-			let reservState = 0;
-			
-			if(reservStateStr == "예약대기"){
-				reservState = 0;
-			}else if(reservStateStr == "예약확정"){
-				reservState = 1;
-			}else if(reservStateStr == "예약취소"){
-				reservState = 3;
-			}else if(reservStateStr == "결제취소요청"){
-				reservState = 4;
-			}else if(reservStateStr == "전체"){
-				reservState = 5;
-			}
-			
-			//alert("reservStateStr = " + reservStateStr +"reservState = "+ reservState)
-			
+  	$(function(){
+  		$("#updateCancleBtn").click(function(){
+	  		$(location).attr('href','${pageContext.request.contextPath}/owner/info/campInfo');
+	  	});
+	  
+	  
+		//이메일 유효성 체크
+		$("#campEmail").change(function(){
+			checkEmail($("#campEmail").val());
+		});	
 		
+		function checkEmail(email){
+			let expectEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+			/* if($("#campEmail").val().equals("")){
+				$("#emailValid").html("");
+			}
+			else  */if(!(expectEmail.test(email))){            
+		        $("#emailValid").html("이메일 형식을 확인해 주세요").css("color","red");
+		        $("#campEmail").focus();
+		        //emailCheckRs = "";
+		        return false;
+		    }
+		    
+		    $("#emailValid").html("");
+		    return true;
+		}
+		
+		
+		//비밀번호 유효성 체크
+		$("#campPassword").change(function(){
+			checkPassword($("#campPassword").val());
+		});			
+		
+		function checkPassword(password){			    
+			if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)){            
+		        $("#passwordValid").html("숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.").css("color","red");
+		        $("#campPassword").focus();
+		        return false;
+		    }    
+		    
+		    let checkNumber = password.search(/[0-9]/g);
+		    let checkEnglish = password.search(/[a-z]/ig);
+		    
+		    if(checkNumber < 0 || checkEnglish < 0){
+		        $("#passwordValid").html("숫자와 영문자를 혼용하여야 합니다.").css("color","red");
+		        $("#campPassword").focus();
+		        return false;
+		    }
+		    
+		    if(/(\w)\1\1\1/.test(password)){
+		        $("#passwordValid").html("같은 문자를 4번 이상 사용하실 수 없습니다.").css("color","red");
+		        $("#campPassword").focus();
+		        return false;
+		    }
+		    
+		    $("#passwordValid").html("");
+		    return true;
+		}
+		
+		//////////////////////////////////////////
+		//비밀번호와 비밀번호 확인 일치 체크
+		$("#campPasswordCheck").change(function(){
+			let password = $("#campPassword").val();
+			let passwordCheck = $("#campPasswordCheck").val();
+			
+			if(passwordCheck != password) {
+				$("#passwordEqual").html("비밀번호가 일치하지 않습니다.").css("color","red");
+				$("#campPasswordCheck").focus();
+				$("#passwordEqual").html("");
+	        	return false;
+			} else {
+				$("#passwordEqual").html("");
+			    return true;
+			}
+		});
+		
+		
+		//비밀번호 확인
+		/* $("#infoUpdateBtn").click(function(){
+			let password = $("#campPwdCheck").val();
+
 			$.ajax({
 				type:"post",
-				url:"${pageContext.request.contextPath}/owner/reserv/reservCheckAjax/${secCamp.campNo}",
-				dataType: "json",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
-				data:"${_csrf.parameterName}=${_csrf.token}&reservState="+reservState, //서버에게 보낼 parameter 정보 
-				success:function(data) {	
-					//alert(data); //map
-					$("#reservStateArr").html(reservStateStr);	
-					$("#ajaxPart").empty();
-					let str = "";
-					
-					$.each(data.reservList, function(index, item){ //item은 reserv
-						
-						let state = "";
-						let style = "";
-						
-						if(item.reservState == 0) {
-							state = "예약대기";
-							style = "badge badge-info";
-						}
-						else if(item.reservState == 1) {
-							state = "예약확정";
-							style = "badge badge-success";
-						}
-						else if(item.reservState == 3) {
-							state = "예약취소";
-							style = "badge badge-wait";
-						}
-						else if(item.reservState == 4) {
-							state = "결제취소요청";
-							style = "badge badge-danger";
-						}
-						else if(item.reservState == 5) {
-							state = "전체";
-						}
-						
-						
-						str += '<tr onclick=location.href="${pageContext.request.contextPath}/owner/reserv/reservDetail/' + item.reservNo + '" style="cursor:pointer;">';
-						str += '<td><p>' + item.reservNo + '</p></td><td><p>' + data.memberList[index] + '</p></td><td><p>' + data.resiList[index] + '</p></td><td><p>' + item.reservDate + '</p></td>';
-						str += '<td><p>'+ item.reservPrice + '</p></td><td><label class="' + style + '">' + state + '</label></td></tr>';
-            			
-					}); //reservList$each
-					
-					$("#ajaxPart").append(str);
-					
-					
-					
-				
-					/* $.each(data.campList , function(index, item){ //item은 camp
-						alert(item.campNo  + " , campEmail = " + item.campEmail);
-					      $.each(data.residenceList , function(i, residence ){
-					    	   //alert(i+" = resiName = " + residence.resiName)
-					    	   $.each(residence , function(a , re){
-					    		   alert("되니 ? "+re.resiName)
-					    	   })
-					      } )
-					}); */ 
-				}//success
-			});//ajax
-		});//click
-	})
+				url:"${pageContext.request.contextPath}/owner/passwordCheck",
+				data:"${_csrf.parameterName}=${_csrf.token}&password="+password+"&campNo=${secCamp.campNo}",
+				success:function(result){						
+					if(result=="fail"){
+						alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+						$("#campPwdCheck").val("");
+						$("#campPwdCheck").focus();
+						return false;
+					} else{
+						alert("수정 되었습니다");
+						location.href = "${pageContext.request.contextPath}/owner/info/campInfo";
+					}		
+				},
+				error:function(err){
+					alert(err+" 에러가 발생했습니다");
+				}
+			});
+
+		});//keyup  */
+		
+		
+  	})
   </script>
-  
+ 
 </body>
 
 </html>

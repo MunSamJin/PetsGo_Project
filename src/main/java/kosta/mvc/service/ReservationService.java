@@ -17,5 +17,5 @@ public interface ReservationService {
 	List<Reservation> selectByReservState(Long campNo, int reservState);
 	
 	int updateState(Long reservNo, int reservState);
-
+	
 }

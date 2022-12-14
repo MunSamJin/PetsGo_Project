@@ -164,7 +164,7 @@
                           <th>승인상태</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody id="ajaxPart">
                       	<c:forEach items="${campList}" var="camp">
                         <tr>
                           <td>${camp.campRegNo}</td>
@@ -184,6 +184,7 @@
 	                      		<td><label class="badge badge-wait">종료</label></td>
 	                      	</c:when>
                           </c:choose>
+                          </tr>
                         </c:forEach>
                       </tbody>
                     </table>
@@ -230,6 +231,7 @@
   		$(".dropdown-item").click(function(){
   			let campStateStr = $(this).text();
   			let campState = 0;
+  			let style = "";
   			
   			if(campStateStr == "등록승인대기"){
   				campState = 0;
@@ -250,11 +252,51 @@
   				dataType: "json",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
 				data:"${_csrf.parameterName}=${_csrf.token}&campState="+campState, //서버에게 보낼 parameter 정보 
 				//data:"${_csrf.parameterName}=${_csrf.token}&email=" + email,	
-				success:function(data) {	
-					alert(data.campList)
-					//$("#campStateArr").html(campStateStr);	
+				success:function(data) {
+					$("#campStateArr").html(campStateStr);	
+					$("#ajaxPart").empty();
+					let str = "";
 					
-					$.each(data.campList , function(index, item){ //item은 camp
+					$.each(data, function(index, item){ 
+						
+						let state = "";
+						let style = "";
+						
+						if(item.campState == 0) {
+							state = "등록승인대기";
+							style = "badge badge-info";
+						}
+						else if(item.campState == 1) {
+							state = "승인";
+							style = "badge badge-success";
+						}
+						else if(item.campState == 2) {
+							state = "종료승인대기";
+							style = "badge badge-danger";
+						}
+						else if(item.campState == 4) {
+							state = "종료";
+							style = "badge badge-wait";
+						}
+						else if(item.campState == 5) {
+							state = "전체";
+						}
+						
+						
+						/* str += '<tr onclick=location.href="${pageContext.request.contextPath}/owner/reserv/reservDetail/' + item.reservNo + '" style="cursor:pointer;">';
+						str += '<td><p>' + item.reservNo + '</p></td><td><p>' + data.memberList[index] + '</p></td><td><p>' + item.reservDate + '</p></td>';
+						str += '<td><p>'+ item.reservPrice + '</p></td><td><label class="' + style + '">' + state + '</label></td></tr>'; */
+            			
+						
+						str += '<tr><td>' + item.campRegNo + '</td><td>' + item.campName + '</td><td class="text-success">';
+						str += '<a href="${pageContext.request.contextPath}/admin/camp/campcheckPage/' + item.campNo + '">캠핑장 정보</a><i class="ti-arrow-up"></i></td>';
+						str += '<td><label class="' + style + '">' + state + '</label></td></tr>';
+                        
+					}); 
+					
+					$("#ajaxPart").append(str);
+					
+					/* $.each(data.campList , function(index, item){ //item은 camp
 						alert(item.campNo  + " , campEmail = " + item.campEmail);
 					      $.each(data.residenceList , function(i, residence ){
 					    	   //alert(i+" = resiName = " + residence.resiName)
@@ -262,7 +304,7 @@
 					    		   alert("되니 ? "+re.resiName)
 					    	   })
 					      } )
-					});
+					}); */
 				}
   			});
   		});

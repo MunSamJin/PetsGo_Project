@@ -8,22 +8,35 @@
 
 <!DOCTYPE html>
 <html lang="kr">
+
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Skydash Admin</title>
+  <title>PetsGo Owner</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/../../vendors/feather/feather.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/../../vendors/ti-icons/css/themify-icons.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/../../vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/vendors/feather/feather.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/select.dataTables.min.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/../../css/vertical-layout-light/style.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/vertical-layout-light/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="${pageContext.request.contextPath}/../../images/favicon.png" />
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" />
+  <link rel="icon" href="data:,">
+  
+  <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
+  <script type="text/javascript">
+		$(function(){
+			
+		})
+   </script>
+   
 </head>
 
 <body>
@@ -328,7 +341,7 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reserv/reservCheck/${secCamp.campNo}">예약 신청 관리</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reserv/reservManagement/${secCamp.campNo}">예약 신청 관리</a></li>
                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reservChart/${secCamp.campNo}">예약 통계</a></li>
               </ul>
             </div>
@@ -341,7 +354,7 @@
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/review/review/${secCamp.campNo}">후기 조회</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/owner/review/campReview">후기 조회</a></li>
               </ul>
             </div>
           </li>
@@ -361,66 +374,94 @@
         </ul>
       </nav>
       <!-- partial -->
-      <div class="main-panel">
+      
+      
+      <div class="main-panel">        
         <div class="content-wrapper">
-          <!-- <div class="row"> -->
-            <div class="col-lg-12 grid-margin stretch-card">
+          <div class="row">
+            <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">예약 신청 관리</h4>
+                  <h4 class="card-title">캠핑장 후기</h4>
                   <p class="card-description">
-                     <div class="dropdown">
-                      <button class="btn btn-danger btn-sm dropdown-toggle" type="button" id="reservStateArr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        전체
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
-                        <h6 class="dropdown-header" style="font-weight: bold">예약상태</h6>
-                        <a class="dropdown-item" href="#">전체</a>
-                        <a class="dropdown-item" href="#">예약대기</a>
-                        <a class="dropdown-item" href="#">예약확정</a>
-                        <a class="dropdown-item" href="#">결제취소요청</a>
-                        <a class="dropdown-item" href="#">예약취소</a>
-                      </div>
-                    </div>
+                    ${secCamp.campName}과 관련된 게시글
                   </p>
                   <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-striped">
                       <thead>
                         <tr>
-                          <th>예약번호</th>
                           <th>회원이름</th>
-                          <th>숙소</th>
-                          <th>예약일</th>
-                          <th>결제금액</th>
-                          <th>예약상태</th>
+                          <th>등록일</th>
+                          <th>게시글</th>
+                          <th>조회<th>
                         </tr>
                       </thead>
-                      <tbody id="ajaxPart">
-                      	<c:forEach items="${reservList}" var="reserv">
-	                        <tr onclick="location.href='${pageContext.request.contextPath}/owner/reserv/reservDetail/${reserv.reservNo}'" style="cursor:pointer;">
-	                          <td><p>${reserv.reservNo}</p></td>
-	                          <td><p>${reserv.member.memberNickname}</p></td>
-	                          <td><p>${reserv.residence.resiName}</p></td>
-	                          <td><p>${reserv.reservDate}</p></td>
-	                          <td>
-	                            <p><fmt:formatNumber value="${reserv.reservPrice}" pattern="###,### 원"/></p>
-	                          </td>
-	                          <c:choose>
-	                          	<c:when test="${reserv.reservState == 0}">
-	                      			<td><label class="badge badge-info" >예약대기</label></td>
-		                      	</c:when>
-		                      	<c:when test="${reserv.reservState == 1}">
-		                      		<td><label class="badge badge-success">예약확정</label></td>
-		                      	</c:when>
-		                      	<c:when test="${reserv.reservState == 3}">
-		                      		<td><label class="badge badge-wait">예약취소</label></td>
-		                      	</c:when>
-		                      	<c:when test="${reserv.reservState == 4}">
-		                      		<td><label class="badge badge-danger">결제취소요청</label></td>
-		                      	</c:when>
-                          	  </c:choose>
-	                        </tr>
-	                  	</c:forEach>
+                      <tbody>
+                        <c:choose>
+							<c:when test="${empty commList}">
+								<b>작성된 후기가 없습니다.</b>
+							</c:when>
+							<c:otherwise>	
+								<c:forEach items="${commList.content}" var="review">
+									<tr>
+			                          <td class="py-1">
+			                            <div>${review.member.memberNickname}</div>
+			                          </td>
+			                          <td>
+			                            <div class="qnadate">
+			                              <div>
+			                              	<fmt:parseDate value="${review.boardDate}" pattern="yyyy-MM-dd" var="parsedDateTime" type="both" />
+			                              	<fmt:formatDate value="${parsedDateTime}" pattern="yyyy-MM-dd"/>
+			                              </div>
+			                            </div>
+			                          </td>
+			                          <td>
+			                            <div>
+			                            	<!-- <p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"> -->
+			                            	${review.boardContent}
+			                            	<%-- <a href="${pageContext.request.contextPath}/admin/pages/qna/replyWriteForm">${qna.qnaContent}
+			                            		<input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
+			                            	</a> --%>
+			                            </div>
+			                          </td>
+			                          <td>
+			                           <!--  조회 모달 -->
+			                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${review.boardNo}">
+											조회
+										</button>
+											<!-- Modal -->
+											<div class="modal fade" id="exampleModal${review.boardNo}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+												<div class="modal-content">
+												  <div class="modal-header">
+												     <h3 class="modal-title fs-5" id="exampleModalLabel">문의답변 삭제</h3>
+												  </div>
+												  <form name="commForm" method="post" id="commForm" action="${pageContext.request.contextPath}/community/read/${review.boardNo}">
+													 <div class="modal-body" style="overflow: auto;">
+													   <b>게시글 내용</b> <p>
+													    ${review.boardContent} <br><br><br>
+														<input type="hidden" name="qnaNo" value="${review.boardNo}" />
+													   <b>태그</b> <p>
+														${review.boardTag} <br><br><br>
+													   <b>등록일</b> <p>
+														<fmt:parseDate value="${review.boardDate}" pattern="yyyy-MM-dd" var="parsedDateTime" type="both" />
+			                              				<fmt:formatDate value="${parsedDateTime}" pattern="yyyy-MM-dd"/><br><br><br>
+													   <b>작성자</b> <p>
+													    ${review.member.memberNickname} <br><br><br>
+													 </div>
+													 <div class="modal-footer">
+													 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+													 <button type="submit" class="btn btn-danger">게시글 확인</button>
+													</div>
+												  </form>
+												</div>
+											</div>
+										</div>	                            
+			                          </td>
+			                        </tr>
+								</c:forEach> 
+							</c:otherwise>
+						</c:choose>
                       </tbody>
                     </table>
                   </div>
@@ -428,14 +469,41 @@
               </div>
             </div>
             
+            <!-- 페이징 처리 start -->
+            <div style="text-align: center">
+			<!--  블럭당  -->
+			 <nav class="pagination-container">
+				<div class="pagination">
+				<c:set var="doneLoop" value="false"/>
+					 <c:if test="${(startPage-blockCount) > 0}">
+					      <a class="pagination-newer" href="${pageContext.request.contextPath}/owner/review/campReview?nowPage=${startPage-1}">PREV</a>
+					  </c:if>
+					<span class="pagination-inner"> 
+					  <c:forEach var='i' begin='${startPage}' end='${(startPage-1) + blockCount}'> 
+						    <c:if test="${(i-1)>=commList.getTotalPages()}">
+						       <c:set var="doneLoop" value="true"/>
+						    </c:if> 
+					  <c:if test="${not doneLoop}" >
+					         <a class="${i==nowPage?'pagination-active':page}" href="${pageContext.request.contextPath}/owner/review/campReview?nowPage=${i}">${i}</a> 
+					  </c:if>
+					</c:forEach>
+					</span> 
+					<c:if test="${(startPage+blockCount)<=commList.getTotalPages()}">
+					     <a class="pagination-older" href="${pageContext.request.contextPath}/owner/review/campReview?nowPage=${startPage+blockCount}">NEXT</a>
+					 </c:if>
+					</div>
+				</nav>  
+			</div>
+			<!-- 페이징 처리 end -->
             
-          <!-- </div> -->
+            
+          </div>
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap owner template</a> from BootstrapDash. All rights reserved.</span>
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
           </div>
         </footer>
@@ -450,6 +518,8 @@
   <script src="${pageContext.request.contextPath}/../../vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
+  <script src="${pageContext.request.contextPath}/../../vendors/typeahead.js/typeahead.bundle.min.js"></script>
+  <script src="${pageContext.request.contextPath}/../../vendors/select2/select2.min.js"></script>
   <!-- End plugin js for this page -->
   <!-- inject:js -->
   <script src="${pageContext.request.contextPath}/../../js/off-canvas.js"></script>
@@ -459,93 +529,20 @@
   <script src="${pageContext.request.contextPath}/../../js/todolist.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
+  <script src="${pageContext.request.contextPath}/../../js/file-upload.js"></script>
+  <script src="${pageContext.request.contextPath}/../../js/typeahead.js"></script>
+  <script src="${pageContext.request.contextPath}/../../js/select2.js"></script>
   <!-- End custom js for this page-->
+  
+  <!-- modal js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   
   <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
   <script type="text/javascript">
-  $(function(){
-		$(".dropdown-item").click(function(){
-			let reservStateStr = $(this).text();
-			let reservState = 0;
-			
-			if(reservStateStr == "예약대기"){
-				reservState = 0;
-			}else if(reservStateStr == "예약확정"){
-				reservState = 1;
-			}else if(reservStateStr == "예약취소"){
-				reservState = 3;
-			}else if(reservStateStr == "결제취소요청"){
-				reservState = 4;
-			}else if(reservStateStr == "전체"){
-				reservState = 5;
-			}
-			
-			//alert("reservStateStr = " + reservStateStr +"reservState = "+ reservState)
-			
-		
-			$.ajax({
-				type:"post",
-				url:"${pageContext.request.contextPath}/owner/reserv/reservCheckAjax/${secCamp.campNo}",
-				dataType: "json",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
-				data:"${_csrf.parameterName}=${_csrf.token}&reservState="+reservState, //서버에게 보낼 parameter 정보 
-				success:function(data) {	
-					//alert(data); //map
-					$("#reservStateArr").html(reservStateStr);	
-					$("#ajaxPart").empty();
-					let str = "";
-					
-					$.each(data.reservList, function(index, item){ //item은 reserv
-						
-						let state = "";
-						let style = "";
-						
-						if(item.reservState == 0) {
-							state = "예약대기";
-							style = "badge badge-info";
-						}
-						else if(item.reservState == 1) {
-							state = "예약확정";
-							style = "badge badge-success";
-						}
-						else if(item.reservState == 3) {
-							state = "예약취소";
-							style = "badge badge-wait";
-						}
-						else if(item.reservState == 4) {
-							state = "결제취소요청";
-							style = "badge badge-danger";
-						}
-						else if(item.reservState == 5) {
-							state = "전체";
-						}
-						
-						
-						str += '<tr onclick=location.href="${pageContext.request.contextPath}/owner/reserv/reservDetail/' + item.reservNo + '" style="cursor:pointer;">';
-						str += '<td><p>' + item.reservNo + '</p></td><td><p>' + data.memberList[index] + '</p></td><td><p>' + data.resiList[index] + '</p></td><td><p>' + item.reservDate + '</p></td>';
-						str += '<td><p>'+ item.reservPrice + '</p></td><td><label class="' + style + '">' + state + '</label></td></tr>';
-            			
-					}); //reservList$each
-					
-					$("#ajaxPart").append(str);
-					
-					
-					
-				
-					/* $.each(data.campList , function(index, item){ //item은 camp
-						alert(item.campNo  + " , campEmail = " + item.campEmail);
-					      $.each(data.residenceList , function(i, residence ){
-					    	   //alert(i+" = resiName = " + residence.resiName)
-					    	   $.each(residence , function(a , re){
-					    		   alert("되니 ? "+re.resiName)
-					    	   })
-					      } )
-					}); */ 
-				}//success
-			});//ajax
-		});//click
-	})
+  	$(function(){
+  	})
   </script>
-  
+ 
 </body>
 
 </html>

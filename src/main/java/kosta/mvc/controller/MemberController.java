@@ -38,12 +38,6 @@ public class MemberController {
 	@Autowired
 	private PasswordEncoder passwordEncoder; 
     
-
-   /**
-    * 마이페이지 내 회원 정보 이동
-    * */
-   @RequestMapping("/myInfo")
-   public void myInfo() {}
    
 
 	/**
