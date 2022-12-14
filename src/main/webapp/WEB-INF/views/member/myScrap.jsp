@@ -70,7 +70,7 @@ pageEncoding="UTF-8"%>
                         <div class="my_img">
                             <img class="img-fluid" src="/img/post_5.png" alt="">
                         </div>
-                        <h4 class="widget_title">쫑쫑2님</h4>
+                        <h4 class="widget_title">${mvo.memberNickname}님</h4>
                     </aside>
                 </div>
             </div>
