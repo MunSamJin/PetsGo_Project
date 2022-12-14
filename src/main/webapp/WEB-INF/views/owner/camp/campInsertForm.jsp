@@ -75,7 +75,7 @@
 			});//keyup 
 			
 			
-			${"#campRequestCancelBtn"}.click(function(){
+			$("#campRequestCancelBtn").click(function(){
 				$(location).attr('href','${pageContext.request.contextPath}/main');
 			});
 		})
