@@ -237,15 +237,16 @@ public class OwnerController {
 	@ResponseBody
 	public String passwordCheck(String password, Long campNo, Authentication auth) {
 		//auth는 내가 폼에 입력한 정보(여기선 pw)
-		String pwd = (String)auth.getCredentials();
-		
+		//String pwd = (String)auth.getCredentials();
 		Camp camp = campService.selectBy(campNo);
+		System.out.println("입력한 pwd:/" + password+"/");
+		System.out.println("기존 pwd : " + camp.getCampPassword());
+		System.out.println("auth pwd : " + camp.getCampPassword());
 		
-		if(!passwordEncoder.matches(password,camp.getCampPassword())) {
-			System.out.println("입력한 pwd : " + password);
-			System.out.println("기존 pwd : " + camp.getCampPassword());
+		if( !passwordEncoder.matches( password,camp.getCampPassword() )  ) {
 			return "fail";
-		} else return "success";
+		} else 
+			return "success";
 	}
 	
 	
@@ -426,7 +427,7 @@ public class OwnerController {
 	}
 	
 	
-	/*@RequestMapping("/review/campReview/{campNo}")
+	@RequestMapping("/review/campReview/{campNo}")
 	public String campReview(@PathVariable("campNo") Long campNo, Model model, @RequestParam(defaultValue = "1") int nowPage) {
 		Pageable page = PageRequest.of((nowPage-1), PAGE_COUNT, Direction.DESC, "boardNo");
 		Camp camp = campService.selectBy(campNo);
@@ -441,15 +442,17 @@ public class OwnerController {
 		model.addAttribute("nowPage", nowPage);
 		
 		return "owner/review/campReview";
-	}*/
+	}
 
 	
-	@RequestMapping("/reserv/reservChart/{campNo}")
-	public String campChart(@PathVariable("campNo") Long campNo, Model model) {
+	
+	@RequestMapping("/reserv/reservChart")
+	@ResponseBody
+	public List<Residence> campChart(Long campNo) {
 		Camp camp = campService.selectBy(campNo);
-		model.addAttribute("camp",camp);
-		return "owner/reserv/reservChart";
+		return camp.getResidenceList();
 	}
+	
 	
 	
 	@RequestMapping("/info/campInfo")

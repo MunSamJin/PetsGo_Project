@@ -32,7 +32,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity
 @Builder
-//@ToString
+//@ToString(exclude = {"camp","reservationList" , "residenceDetailList"})
 /**
  *  숙소 도메인
  */
@@ -76,7 +76,7 @@ public class Residence {
 	@JoinColumn(name = "camp_no")
 	private Camp camp;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
 	private List<Reservation> reservationList;
 
