@@ -443,7 +443,12 @@ public class OwnerController {
 		
 		return "owner/review/campReview";
 	}
-
+	
+	
+	@RequestMapping("/reserv/reservChart/{campNo}")
+	public String reservChart(@PathVariable Long campNo) {
+		return "owner/reserv/reservChart";
+	}
 	
 	
 	@RequestMapping("/reserv/reservChart")

@@ -46,24 +46,68 @@
 					success:function(data) {
 						let resiNameList = [];
 				    	let reservCount = [];
+				    	let reservSales = [];
 					
 						$.each(data, function(index, item){ //resi
 						    console.log("dd = "+item.resiName);
 						    console.log("ee = " + item.reservationList.length);
+						    console.log("판매금액 = " + (item.reservationList.length * item.resiPrice));
 						    
 						    resiNameList.push(item.resiName);
 						    reservCount.push(item.reservationList.length);
+						    reservSales.push(item.reservationList.length * item.resiPrice);
 				        });
 					
-						
+
 						//chart.js
-						/* const ctx = document.getElementById('myChart').getContext('2d');
+						const ctx = document.getElementById('myChart').getContext('2d');
 						const myChart = new Chart(ctx, {
 						    type: 'bar',
 						    data: {
 						        labels: resiNameList, //x축
 						        datasets: [{
-						            label: '숙소 예약 통계',
+						            label: '숙소 이용 금액',
+						            data: reservSales, //값
+						            backgroundColor: [
+						                'rgba(255, 99, 132, 0.2)',
+						                'rgba(54, 162, 235, 0.2)',
+						                'rgba(255, 206, 86, 0.2)',
+						                'rgba(75, 192, 192, 0.2)',
+						                'rgba(153, 102, 255, 0.2)',
+						                'rgba(255, 159, 64, 0.2)'
+						            ],
+						            borderColor: [
+						                'rgba(255, 99, 132, 1)',
+						                'rgba(54, 162, 235, 1)',
+						                'rgba(255, 206, 86, 1)',
+						                'rgba(75, 192, 192, 1)',
+						                'rgba(153, 102, 255, 1)',
+						                'rgba(255, 159, 64, 1)'
+						            ],
+						            borderWidth: 1
+						        }]
+						    },
+						    options: {
+						        scales: {
+						            y: {
+						                beginAtZero: true,
+						                ticks:{ // y축 줄당 표시 값
+						                    stepSize:2
+						                  }
+						            }
+						        }
+						    }
+						})
+						
+						
+						//2
+						const ctx2 = document.getElementById('myChart2').getContext('2d');
+						const myChart2 = new Chart(ctx2, {
+						    type: 'pie',
+						    data: {
+						        labels: resiNameList, //x축
+						        datasets: [{
+						            label: '숙소 예약 횟수',
 						            data: reservCount, //값
 						            backgroundColor: [
 						                'rgba(255, 99, 132, 0.2)',
@@ -87,18 +131,22 @@
 						    options: {
 						        scales: {
 						            y: {
-						                beginAtZero: true
+						                beginAtZero: true,
+						                ticks:{ // y축 줄당 표시 값
+						                    stepSize:2
+						                  }
 						            }
 						        }
 						    }
+						})
 						
 					},
 					error : function(err){
 					    alert("에러(error) : " + err);
-					} */
+					} 
 										
 				 			
-				});//ajax
+			});//ajax
 		})
    </script>
    
@@ -109,8 +157,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/images/logo_owner.svg" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="${pageContext.request.contextPath}/owner/reserv/reservCheck/${secCamp.campNo}"><img src="${pageContext.request.contextPath}/images/logo_owner.svg" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="${pageContext.request.contextPath}/owner/reserv/reservCheck/${secCamp.campNo}"><img src="${pageContext.request.contextPath}/images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -128,7 +176,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-              <a class="dropdown-item preview-item" href="${pageContext.request.contextPath}/owner/review/campReview">
+              <a class="dropdown-item preview-item" href="${pageContext.request.contextPath}/owner/review/campReview/${secCamp.campNo}">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-info">
                     <i class="ti-user mx-0"></i>
@@ -180,7 +228,7 @@
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item">
+          <li class="nav-item" style="display: none;">
             <a class="nav-link" href="${pageContext.request.contextPath}/owner/campHome">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">캠핑장 홈</span>
@@ -209,7 +257,7 @@
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reserv/reservCheck/${secCamp.campNo}">예약 신청 관리</a></li>
-                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reserv/reservChart">예약 통계</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reserv/reservChart/${secCamp.campNo}">예약 통계</a></li>
               </ul>
             </div>
           </li>
@@ -246,11 +294,21 @@
       <div class="main-panel">        
         <div class="content-wrapper">
           <div class="row">
-            <div class="col-lg-6 grid-margin stretch-card">
+            <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">숙소별 예약 통계</h4>
-                  <canvas id="myChart" width="400" height="400"></canvas>
+                  <h4 class="card-title">숙소별 이용 금액</h4>
+                  <canvas id="myChart" ></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">숙소별 예약 횟수</h4>
+                  <canvas id="myChart2" ></canvas>
                 </div>
               </div>
             </div>

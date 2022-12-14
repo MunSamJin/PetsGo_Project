@@ -59,7 +59,7 @@
               <img src="${pageContext.request.contextPath}/../../images/admin_pr.jpg" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">
                 <i class="ti-power-off text-primary"></i>
                 Logout
               </a>
