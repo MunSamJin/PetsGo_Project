@@ -16,127 +16,127 @@
     
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
-	$(function() {
-		$("a[name=scrap]").click(function() {
-			let member = $("#member").val();
-			let camp = $(this).next().val();
-			
-			$.ajax({
-				url : '${pageCotext.request.contextPath}/scrap/scrap',
-				type : 'post',
-				dataType : 'text',
-				data : {
-					member : member,
-					camp : camp
-				},
-				success : function(message) {
-					alert(message);
-				},
-				error : function(err) {
-					alert(err);
-				}
-			});
-		});
-		
-		$("#moreBtn").click(function() {
-			let len = $("div[name=hideview]").length;
-			if(len===0) {
-				alert("더 이상 게시물이 없습니다.");
-			} else {
-				let arr = new Array(len);
-				for(var i=0; i<6; i++){         
-					arr[i] = $("div[name=hideview]").eq(i);
-			    }
-				for(var j=0; j<arr.length; j++) {
-					arr[j].attr('name', 'showview');
-					arr[j].css('display', 'block');
-				}
-				$("html, body").animate({scrollTop:$(document).height()}, 500);
-			}
-		});
+   $(function() {
+      $("a[name=scrap]").click(function() {
+         let member = $("#member").val();
+         let camp = $(this).next().val();
+         
+         $.ajax({
+            url : '${pageCotext.request.contextPath}/scrap/scrap',
+            type : 'post',
+            dataType : 'text',
+            data : {
+               member : member,
+               camp : camp
+            },
+            success : function(message) {
+               alert(message);
+            },
+            error : function(err) {
+               alert(err);
+            }
+         });
+      });
+      
+      $("#moreBtn").click(function() {
+         let len = $("div[name=hideview]").length;
+         if(len===0) {
+            alert("더 이상 게시물이 없습니다.");
+         } else {
+            let arr = new Array(len);
+            for(var i=0; i<6; i++){         
+               arr[i] = $("div[name=hideview]").eq(i);
+             }
+            for(var j=0; j<arr.length; j++) {
+               arr[j].attr('name', 'showview');
+               arr[j].css('display', 'block');
+            }
+            $("html, body").animate({scrollTop:$(document).height()}, 500);
+         }
+      });
 
-		
-		$("#filterBtn").click(function() {
-			let price = $("#amount").val();
-			price = price.split('-');
-			
-			let price1 = $.trim(price[0]).replace('￦','').replace(',','');
-			let price2 = $.trim(price[1]).replace('￦','').replace(',','');
-			
-			let aa = $("#aa").val();
-			
-			let addr = $("#campAddr").val();
-			if(addr=='지역명 검색') addr = '';
-			
-			let checkIn = $("#checkIn").val();
-			let checkOut = $("#checkOut").val();
-			
-			let resiPeople = $("#resiPeople").val();
-			if(resiPeople=='인원') resiPeople = 0;
-			
-			let tag = $("#tag_select").val();
-			
-			$.ajax({
-				url : '/camp/select',
-				type : 'post',
-				data : {
-					price1:price1,
-					price2:price2,
-					aa:aa,
-					campAddr:addr,
-					checkIn:checkIn,
-					checkOut:checkOut,
-					resiPeople:resiPeople,
-					tag:tag},
-				dataType: 'json',
-				success : function(result) {
-					$("#listAll").empty();
-					
-					let str = "";
-					$.each(result, function(index, item) {
-						let imeName = item.campFilename;
-						imeName = imeName.split(',')[0];
-						
-						let resifia = item.residenceList;
-						let minprice = price2;
-						$.each(resifia, function(i, j) {
-							if(j.resiPrice>price1 && j.resiPrice<price2) {
-								if(j.resiPrice<minprice) {
-									minprice=j.resiPrice;
-								}
-							}
-						});
-						
-						/* if(minprice == price2) */
+      
+      $("#filterBtn").click(function() {
+         let price = $("#amount").val();
+         price = price.split('-');
+         
+         let price1 = $.trim(price[0]).replace('￦','').replace(',','');
+         let price2 = $.trim(price[1]).replace('￦','').replace(',','');
+         
+         let aa = $("#aa").val();
+         
+         let addr = $("#campAddr").val();
+         if(addr=='지역명 검색') addr = '';
+         
+         let checkIn = $("#checkIn").val();
+         let checkOut = $("#checkOut").val();
+         
+         let resiPeople = $("#resiPeople").val();
+         if(resiPeople=='인원') resiPeople = 0;
+         
+         let tag = $("#tag_select").val();
+         
+         $.ajax({
+            url : '/camp/select',
+            type : 'post',
+            data : {
+               price1:price1,
+               price2:price2,
+               aa:aa,
+               campAddr:addr,
+               checkIn:checkIn,
+               checkOut:checkOut,
+               resiPeople:resiPeople,
+               tag:tag},
+            dataType: 'json',
+            success : function(result) {
+               $("#listAll").empty();
+               
+               let str = "";
+               $.each(result, function(index, item) {
+                  let imeName = item.campFilename;
+                  imeName = imeName.split(',')[0];
+                  
+                  let resifia = item.residenceList;
+                  let minprice = price2;
+                  $.each(resifia, function(i, j) {
+                     if(j.resiPrice>price1 && j.resiPrice<price2) {
+                        if(j.resiPrice<minprice) {
+                           minprice=j.resiPrice;
+                        }
+                     }
+                  });
+                  
+                  /* if(minprice == price2) */
 
-						if(index<6) {
-							str += '<div class="col-lg-6 col-md-6"  name="showview">';
-						} else {
-							str += '<div class="col-lg-6 col-md-6"  style="display: none" name="hideview">';
-						}
-						str += '<div class="single_place"><div class="thumb">';
-						str += '<img src="${pageContext.request.contextPath}/img/seryun/'+imeName+'" alt="">';
-						str += '<a href="${pageContext.request.contextPath}/camp/detail?campNo='+item.campNo+'&checkIn='+checkIn+'&checkOut='+checkOut+'&resiPeople='+resiPeople+'" class="prise">￦ '+minprice.toLocaleString('ko-KR')+'</a></div>';
-						str += '<div class="place_info" >';
-						str += '<a href="${pageContext.request.contextPath}/camp/detail?campNo='+item.campNo+'&checkIn='+checkIn+'&checkOut='+checkOut+'&resiPeople='+resiPeople+'">';
-						str += '<h3>'+item.campName+'</h3></a>';
-						str += '<p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">'+item.campIntro+'</p>';
-						str += `<div class="rating_days d-flex justify-content-between">`;
-						str += `<span class="d-flex justify-content-center align-items-center">`;
-						str += `<a href="#">(20 Review)</a></span>`;
-						str += `<div class="days"><i class="fa fa-clock-o"></i><a href="#">스크랩</a>`;
-						str += `</div></div></div></div></div>`;
-					});
-					$("#listAll").append(str);
-				},
-				error : function(err) {
-					console.log(err);
-				}
-			});
-		});
-	});
+                  if(index<6) {
+                     str += '<div class="col-lg-6 col-md-6"  name="showview">';
+                  } else {
+                     str += '<div class="col-lg-6 col-md-6"  style="display: none" name="hideview">';
+                  }
+                  str += '<div class="single_place"><div class="thumb">';
+                  str += '<img src="${pageContext.request.contextPath}/img/seryun/'+imeName+'" alt="">';
+                  str += '<a href="${pageContext.request.contextPath}/camp/detail?campNo='+item.campNo+'&checkIn='+checkIn+'&checkOut='+checkOut+'&resiPeople='+resiPeople+'" class="prise">￦ '+minprice.toLocaleString('ko-KR')+'</a></div>';
+                  str += '<div class="place_info" >';
+                  str += '<a href="${pageContext.request.contextPath}/camp/detail?campNo='+item.campNo+'&checkIn='+checkIn+'&checkOut='+checkOut+'&resiPeople='+resiPeople+'">';
+                  str += '<h3>'+item.campName+'</h3></a>';
+                  str += '<p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">'+item.campIntro+'</p>';
+                  str += `<div class="rating_days d-flex justify-content-between">`;
+                  str += `<span class="d-flex justify-content-center align-items-center">`;
+                  str += `<a href="#">(20 Review)</a></span>`;
+                  str += `<div class="days"><i class="fa fa-clock-o"></i><a href="#">스크랩</a>`;
+                  str += `</div></div></div></div></div>`;
+               });
+               $("#listAll").append(str);
+            },
+            error : function(err) {
+               console.log(err);
+            }
+         });
+      });
+   });
 </script>
-	
+   
     <!-- <link rel="manifest" href="site.webmanifest"> -->
     <%-- <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/travelo-master/img/favicon.png"> --%>
 
@@ -156,32 +156,30 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/travelo-master/css/slicknav.css">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/travelo-master/css/style.css">
+    
+    <!-- style CSS -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <!-- main HYEJIN CSS -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main_petsgo.css">
+     <!-- list HYEJIN CSS -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/list_hj.css">
+    
+    <style type="text/css">
+
+    </style>
+
+
 </head>
 
 <body>
 <c:choose>
-	<c:when test="${empty pageContext.request.userPrincipal}"></c:when>
-	<c:otherwise>
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-   		<sec:authentication var="mvo" property="principal" />
-   		<input type="hidden" id="member" value="${mvo.memberNo}">
-	</c:otherwise>
+   <c:when test="${empty pageContext.request.userPrincipal}"></c:when>
+   <c:otherwise>
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+         <sec:authentication var="mvo" property="principal" />
+         <input type="hidden" id="member" value="${mvo.memberNo}">
+   </c:otherwise>
 </c:choose>
-
-    <!-- bradcam_area  -->
-    <div class="bradcam_area bradcam_bg_2">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="bradcam_text text-center">
-                        <h3>Pet's Go</h3>
-                        <p>반려견과 함께 떠나는 즐거운 캠핑! 이제 어디든 가능합니다!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--/ bradcam_area  -->
 
     <!-- where_togo_area_start  -->
     <div class="where_togo_area">
@@ -189,51 +187,58 @@
             <div class="row align-items-center">
                 <div class="col-lg-3">
                     <div class="form_area">
-                        <h3>Where you want to go?</h3>
+                        <h3 style="font-size: 18px; font-family: SCDream2; font-style: italic; margin-top: 10px">
+                       		캠핑 떠날 준비 되셨나요?
+                        </h3>
+                         <img src="${pageContext.request.contextPath}/img/car_m.gif" alt="" style="width:14%; margin-left:6px;">
                     </div>
                 </div>
                 <div class="col-lg-9">
-                    <div class="booking_part">
+                    <div class="booking_part_list">
                     
                         <form class="form-row" action="/camp/selectAll" name="campFrom">
                         
                             <div class="form_colum">
                                 <select class="nc_select" id="campAddr" name="campAddr">
-                            		<option selected value="">지역명 검색 </option>
-									<option value="포천시">포천시</option>
-                                    <option value="평택시">평택시</option>
-                                    <option value="여주시">여주시</option>
-                                    <option value="가평군">가평군</option>
-                                    <option value="동두천시">동두천시</option>
-                                    <option value="안산시">안산시</option>
-                                    <option value="김포시">김포시</option>
-                                    <option value="하남시">하남시</option>
-                                    <option value="용인시">용인시</option>
-                                    <option value="파주시">파주시</option>
-                                    <option value="연천시">연천시</option>
-                                    <option value="광주시">광주시</option>
-                                    <option value="안성시">안성시</option>
+                                 <option selected>지역명 검색 </option>
+                                 <option value="포천시">포천시</option>
+                                 <option value="평택시">평택시</option>
+                                 <option value="여주시">여주시</option>
+                                 <option value="가평군">가평군</option>
+                                 <option value="동두천시">동두천시</option>
+                                 <option value="안산시">안산시</option>
+                                 <option value="김포시">김포시</option>
+                                 <option value="하남시">하남시</option>
+                                 <option value="용인시">용인시</option>
+                                 <option value="파주시">파주시</option>
+                                 <option value="연천시">연천시</option>
+                                 <option value="광주시">광주시</option>
+                                 <option value="양평군">양평군</option>
+                                 <option value="남양주시">남양주시</option>
+                                 <option value="양주시">양주시</option>
+                                 <option value="성남시">성남시</option>
+                                 <option value="안성시">안성시</option>
                                  </select>
                             </div>
                             
                             <div class="form_colum">
-                                <input id="checkIn" placeholder="${checkIn}" name="checkIn" value="${checkIn}">
+                                <input id="datepicker_1" placeholder="체크인날짜" name="datepicker_1" value="${datepicker_1}">
                             </div>
                             
                             <div class="form_colum">
-                                <input id="checkOut" placeholder="${checkOut }" name="checkOut" value="${checkOut}">
+                                <input id="datepicker_2" placeholder="체크아웃날짜" name="datepicker_2" value="${datepicker_2}">
                             </div>
                             
                             <div class="form_colum">
-                            	<select class="nc_select"  id="resiPeople" name="resiPeople">
-                            		<option selected value="0">인원 </option>
-                            		<option value="1">1</option>
-                            		<option value="2">2</option>
-                            		<option value="3">3</option>
-                            		<option value="4">4</option>
-                            		<option value="5">5</option>
-                            		<option value="6">6</option>
-                            	</select>
+                               <select class="nc_select"  id="resiPeople" name="resiPeople">
+                                  <option selected value="0">인원 </option>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                  <option value="6">6</option>
+                               </select>
                             </div>
                             
                             <div class="form_btn">
@@ -254,8 +259,8 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="filter_result_wrap">
-                        <h3>Filter Result</h3>
-                        <div class="filter_bordered" style="background-color: white;">
+                        <h3>필터</h3>
+                        <div class="filter_bordered" style="background-color:#f4f7f3;">
                             <div class="filter_inner">
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -292,7 +297,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="range_slider_wrap">
-                                            <span class="range">Prise range</span>
+                                            <span class="range">가격 범위</span>
                                             <div id="slider-range"></div>
                                             <p>
                                                 <input type="text" id="amount" readonly style="border:0; color:#7A838B; font-weight:400;">
@@ -312,54 +317,55 @@
                 <div class="col-lg-8">
                     <div class="row" id="listAll">
         
-                    	<!-- 캠핑장 목록 -->
-                    	<c:forEach items="${campList}" var="camp" varStatus="status">
-                    		<c:choose>
-                    			<c:when test="${status.count<=6}">
-                    				<div class="col-lg-6 col-md-6"  name="showview">
-                    			</c:when>
-                    			<c:otherwise>
-                    				<div class="col-lg-6 col-md-6"  style="display: none" name="hideview">
-                    			</c:otherwise>
-                    		</c:choose>
-		                            <div class="single_place">
-		                                <div class="thumb">
-		                                    <img src="${pageContext.request.contextPath}/img/seryun/${fn:split(camp.campFilename, ',')[0]}" alt="">
-		                                    <c:set var="aaprice" value="100000000"/>
-		                                    <c:forEach items="${camp.residenceList}" var="residence">
-		                                    	<c:if test="${residence.resiPrice < aaprice}">
-		                                    		 <c:set var="aaprice" value="${residence.resiPrice}"/>
-		                                    	</c:if>
-		                                    </c:forEach>
-		                                    <a href="${pageCotext.request.contextPath}/camp/detail?campNo=${camp.campNo}&resiPeople=${resiPeople}&checkIn=${checkIn}&checkOut=${checkOut}" class="prise"><fmt:formatNumber value="${aaprice}" pattern="￦ ###,###"/></a>
-		                                </div>
-		                                <div class="place_info" >
-		                                    <a href="${pageCotext.request.contextPath}/camp/detail?campNo=${camp.campNo}&resiPeople=${resiPeople}&checkIn=${checkIn}&checkOut=${checkOut}"><h3>${camp.campName}</h3></a>
-		                                    <p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${camp.campIntro}</p>
-		                                    
-		                                    <c:choose>
-		                                    	<c:when test="${empty pageContext.request.userPrincipal}"></c:when>
-		                                    	<c:otherwise>
-		                                    		<div class="rating_days d-flex justify-content-between">
-				                                        <div class="days">
-				                                            <i class="fa fa-clock-o"></i>
-				                                            <a href="#" name="scrap">스크랩</a>
-				                                            <input type="hidden" value="${camp.campNo}">
-				                                        </div>
-				                                    </div>
-		                                    	</c:otherwise>
-		                                    </c:choose>
-		                                    
-		                                </div>
-		                            </div>
-	                       		</div>
-                    	</c:forEach>
+                       <!-- 캠핑장 목록 -->
+                       <c:forEach items="${campList}" var="camp" varStatus="status">
+                          <c:choose>
+                             <c:when test="${status.count<=6}">
+                                <div class="col-lg-6 col-md-6"  name="showview">
+                             </c:when>
+                             <c:otherwise>
+                                <div class="col-lg-6 col-md-6"  style="display: none" name="hideview">
+                             </c:otherwise>
+                          </c:choose>
+                                  <div class="single_place">
+                                      <div class="thumb">
+                                          <img src="${pageContext.request.contextPath}/img/seryun/${fn:split(camp.campFilename, ',')[0]}" alt="">
+                                          <c:set var="aaprice" value="100000000"/>
+                                          <c:forEach items="${camp.residenceList}" var="residence">
+                                             <c:if test="${residence.resiPrice < aaprice}">
+                                                 <c:set var="aaprice" value="${residence.resiPrice}"/>
+                                             </c:if>
+                                          </c:forEach>
+                                          <a href="${pageCotext.request.contextPath}/camp/detail?campNo=${camp.campNo}&resiPeople=${resiPeople}&checkIn=${checkIn}&checkOut=${checkOut}" class="prise"><fmt:formatNumber value="${aaprice}" pattern="￦ ###,###"/></a>
+                                      </div>
+                                      <div class="place_info" >
+                                          <a href="${pageCotext.request.contextPath}/camp/detail?campNo=${camp.campNo}&resiPeople=${resiPeople}&checkIn=${checkIn}&checkOut=${checkOut}">
+                                          <div class="camp_name">${camp.campName}</div></a>
+                                          <p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${camp.campIntro}</p>
+                                          
+                                          <c:choose>
+                                             <c:when test="${empty pageContext.request.userPrincipal}"></c:when>
+                                             <c:otherwise>
+                                                <div class="rating_days d-flex justify-content-between">
+                                                    <div class="days">
+                                                        <i class="fa fa-clock-o"></i>
+                                                        <a href="#" name="scrap">스크랩</a>
+                                                        <input type="hidden" value="${camp.campNo}">
+                                                    </div>
+                                                </div>
+                                             </c:otherwise>
+                                          </c:choose>
+                                          
+                                      </div>
+                                  </div>
+                                </div>
+                       </c:forEach>
                     </div>
                     
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="more_place_btn text-center">
-                                <button type="button" class="boxed-btn4" id="moreBtn">More Places</button>
+                                <button type="button" class="boxed-btn4m" id="moreBtn">More</button>
                             </div>
                         </div>
                     </div>
@@ -368,7 +374,8 @@
             </div>
         </div>
         
-        <!-- JS here -->
+        <!-- JS here -->   
+    
     <script src="${pageContext.request.contextPath}/travelo-master/js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="${pageContext.request.contextPath}/travelo-master/js/vendor/jquery-1.12.4.min.js"></script>
     <script src="${pageContext.request.contextPath}/travelo-master/js/popper.min.js"></script>
@@ -399,5 +406,15 @@
     <script src="${pageContext.request.contextPath}/travelo-master/js/jquery.validate.min.js"></script>
     <script src="${pageContext.request.contextPath}/travelo-master/js/mail-script.js"></script>
     <script src="${pageContext.request.contextPath}/travelo-master/js/main.js"></script>
+    
+    <!-- magnific js -->
+    <script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.js"></script>
+
+    <!-- masonry js -->
+    <script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
+   	 
+    <!-- custom js -->
+    <script src="${pageContext.request.contextPath}/js/custom.js"></script>
+    
 </body>
 </html>

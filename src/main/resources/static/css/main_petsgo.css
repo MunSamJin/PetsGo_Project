@@ -7,6 +7,12 @@ z-index: 9;
 position: relative;
 }
 
+.booking_part_list{
+margin-top: 10px;
+z-index: 9;
+position: relative;
+}
+
 .booking_part .form-row .form_colum input::placeholder {color:#f7612f;}
 .booking_part .form-row .form_colum input {border: 1px solid #f7612f !important;}
 .booking_part .form-row .form_colum .gj-datepicker-md [role=right-icon] {
@@ -21,7 +27,7 @@ position: relative;
 .btn_1 {background-color: #2c6b52;}
 .btn_1:hover {background-color: #f7612f;}
 
-.gj-textbox-md { border: 1px solid #f7612f !important;}
+.gj-textbox-md { border: 1px solid #f7612f;}
 
 .banner_part{
     height: 580px;
@@ -113,6 +119,15 @@ padding: 20px;
     font-size: 28px;
     color: #f1faf7;
     }
+
+
+/*============== camp list css ==============*/
+.form_colum {
+	    margin-right: 10px;
+}
+
+
+
 
 
 /*============== Font ==============*/
