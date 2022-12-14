@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -173,5 +174,10 @@ public class MemberServiceImpl implements MemberService {
 	public List<CommunityBoard> selectCommunityAll(Long memberNo) {
 		
 		return communityRep.selectCommunityAll(memberNo);
+	}
+
+	@Override
+	public List<Member> selectMemberAll() {
+		return memberRep.findAll(Sort.by(Sort.Direction.DESC, "memberNo"));
 	}
 }

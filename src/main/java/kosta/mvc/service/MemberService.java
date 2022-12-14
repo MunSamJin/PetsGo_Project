@@ -91,4 +91,9 @@ public interface MemberService {
 	 *  마이페이지 내 커뮤니티 조회
 	 */
 	List<CommunityBoard> selectCommunityAll(Long memberNo);
+	
+	/**
+	 * 모든 멤버 조회
+	 */
+	List<Member> selectMemberAll();
 }
