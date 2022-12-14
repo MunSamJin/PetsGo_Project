@@ -8,6 +8,9 @@ pageEncoding="UTF-8"%>
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage_style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/my_scrap.css">
+    
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
     <script type="text/javascript">
     	$(function() {
@@ -61,19 +64,21 @@ pageEncoding="UTF-8"%>
 
 <section class="blog_area single-post-area section_padding">
     <div class="container">
+    <div class="my_topmenu">나의 스크랩</div>
         <div class="row">
 
             <!-- 프로필 -->
             <div class="col-lg-4">
-                <div class="blog_right_sidebar">
-                    <aside class="single_sidebar_widget instagram_feeds">
-                        <div class="my_img">
-                            <img class="img-fluid" src="/img/post_5.png" alt="">
-                        </div>
-                        <h4 class="widget_title">쫑쫑2님</h4>
-                    </aside>
-                </div>
-            </div>
+		                    <div class="blog_right_sidebar">
+		                    <sec:authentication var="mvo" property="principal" />
+								<aside class="single_sidebar_widget instagram_feeds">                          
+				                	<div class="my_img">
+				                    	<img class="img-fluid" src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" >
+				                    </div>		                                
+				                        <h4 class="widget_title">${mvo.memberNickname}님</h4>
+				                </aside>
+			            </div>
+		                </div>
 
             <!-- 캠핑장 -->
             <div class="col-lg-8">
