@@ -13,7 +13,7 @@
 
     <!-- Title -->
     <title>Pet's GO</title>
-
+	
     <!-- Core Stylesheet -->
     <link href="${pageContext.request.contextPath}/dorne-master/style.css" rel="stylesheet">
     <!-- Responsive CSS -->
@@ -21,6 +21,10 @@
     <!-- 캠핏 -->
     <link href="${pageContext.request.contextPath}/css/haewon/detail.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/haewon/reservationForm.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/slide_style.css">
+
 
     <!-- 내부 CSS -->
     <style type="text/css">
@@ -42,6 +46,81 @@
             display: inline-block;
             margin-right: 10px;
         }
+        
+        .map-ratings-review-area > a {
+        	background-color: #165738;
+        }
+        
+        #scrollUp {
+        	background-color:#165738; 
+        }
+        
+        .single-listing-nav li a {
+        	font-family: SCDream4;
+        	font-size: 16px;
+        	padding: 20px 20px;
+        	
+        }
+        		        
+		.single-listing-nav li.active a {
+			color: #f7612f;
+		}
+		
+		.single-listing-nav li.active a:after {
+			background-color: #f7612f !important;
+		}
+        
+        .detail_header {
+        	font-family: SCDream5;
+        	font-size: 20px;
+        	color : #f7612f;
+        	display: block;
+        	margin-bottom: 10px;
+        }
+
+		*, *::before, *::after {
+		  font-family: inherit;
+		  box-sizing: inherit;
+		  margin: 0;
+		  padding: 0;
+		}
+		
+		html {
+		  box-sizing: border-box;
+		  font-family: 'Nunito Sans', sans-serif;
+		  font-size: 62.5%;
+		}
+		
+		html body {
+		  font-size: 1.6rem;
+		  margin: 0;
+		}
+		
+		ul {
+		  list-style: none;
+		}
+		
+		a, a:link, a:visited {
+		  text-decoration: none;
+		}
+		
+		.gallery figure img {
+			width: 800px;
+			higth: 800px;
+		}
+		
+		.jumbotron {
+			padding: 0 !important;
+			margin-bottom: 1rem !important;
+		}
+		
+		.carousel .jumbotron {
+			border-top-left-radius: 10rem;
+			margin-right: 1rem;
+		}
+		
+		#campAddr {color: #666;}
+		
     </style>
     <!-- 기능 -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
@@ -138,27 +217,28 @@
 </head>
 
 <body>
+
 <!-- ***** Breadcumb Area Start ***** -->
-<div class="breadcumb-area height-700 bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/img/seryun/${fn:split(camp.campFilename, ',')[0]})">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcumb-content">
-                    <div class="map-ratings-review-area d-flex">
-                        <a id="kakaotalk-sharing-btn" href="javascript:Kakao.Share.createDefaultButton;">공유하기</a>
-                        <a id="testest" href="#">8.7</a>
-                        <a href="#">Write a review</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<%-- <div class="breadcumb-area height-700 bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/img/seryun/${fn:split(camp.campFilename, ',')[0]})"> --%>      
+
 <!-- ***** Breadcumb Area End ***** -->
 
 <!-- ***** Single Listing Area Start ***** -->
 <section class="dorne-single-listing-area section-padding-100">
     <div class="container">
+        <div class="carousel">
+			<div class="jumbotron"></div>
+			<div class="gallery">
+			<c:set var="campFilenameResult" value="${fn:split(camp.campFilename,',')}"/>
+			<c:forEach items="${campFilenameResult}" var="campFilenameResult" begin="0" end="4">
+				<figure><img src="${pageContext.request.contextPath}/img/seryun/${campFilenameResult}" /></figure>
+			</c:forEach>
+			</div>
+		</div>
+		<div class="map-ratings-review-area d-flex">
+         <a id="kakaotalk-sharing-btn" href="javascript:Kakao.Share.createDefaultButton;">공유하기</a>
+         <a href="#">리뷰 작성</a>
+     	</div>
         <div class="row justify-content-center">
             <!-- Single Listing Content -->
             <div class="col-12 col-lg-8">
@@ -196,7 +276,10 @@
                     </div>
 
                     <div class="listing-menu-area mt-100" id="menu">
-                        <h4>숙소</h4>
+                        <div class="icon">
+                        <i class="fa fa-thumb-tack" aria-hidden="true" style="display: block; float: left; padding: 8px; color: #f7612f;">
+                        </i><span class="detail_header">숙소</span>
+                        </div>
                         <!-- 숙소 목록 -->
                         <c:forEach items="${camp.residenceList}" var="resi">
                             <div class="single-listing-menu d-flex justify-content-between">
@@ -222,11 +305,14 @@
                                 </div>
                             </div>
                         </c:forEach>
-                        <a href="#" class="btn dorne-btn mt-50">더보기</a>
+                        <a href="#" class="btn dorne-btn mt-50" style="background-color: #ededed; padding: 15px;">더보기</a>
                     </div>
 
                     <div class="listing-reviews-area mt-100" id="review">
-                        <h4>후기</h4>
+                       <div class="icon">
+                        <i class="fa fa-thumb-tack" aria-hidden="true" style="display: block; float: left; padding: 8px; color: #f7612f;">
+                        </i><span class="detail_header">후기</span>
+                        </div>
 
                         <c:forEach items="${boardList}" var="board">
                             <c:set value="${fn:split(board.boardFileName,',')}" var="fileNames"/>
@@ -258,7 +344,10 @@
 
                     <!-- 지도 -->
                     <div class="location-on-map mt-50" id="lomap">
-                        <h4>지도</h4>
+                       <div class="icon">
+                        <i class="fa fa-thumb-tack" aria-hidden="true" style="display: block; float: left; padding: 8px; color: #f7612f;">
+                        </i><span class="detail_header">지도</span>
+                        </div>
                         <div class="location-map">
                             <div id="map" style="width: 100%; height: 350px;"></div>
                         </div>
@@ -358,7 +447,7 @@
 
                     <!-- Opening Hours Widget -->
                     <div class="opening-hours-widget mt-50">
-                        <h6>Opening Hours</h6>
+                        <h6 style="font-weight: bold; color: #666;">운영시간</h6>
                         <ul class="opening-hours">
                             <li>
                                 <p>${camp.campCheckin} - ${camp.campCheckout }</p>
@@ -428,10 +517,11 @@
 <!-- Active JS -->
 <script src="${pageContext.request.contextPath}/dorne-master/js/active.js"></script>
 
- <!-- Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-  <!-- qna_list js -->
-  <script src="${pageContext.request.contextPath}/js/minjeong/qna_list.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+
+<script src='https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js'></script>
+<script  src="${pageContext.request.contextPath}/js/slide_script.js"></script>
 
 </body>
 

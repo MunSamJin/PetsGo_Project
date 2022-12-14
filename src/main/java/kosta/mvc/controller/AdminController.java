@@ -23,6 +23,7 @@ import kosta.mvc.domain.Camp;
 import kosta.mvc.domain.Member;
 import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.domain.Residence;
+import kosta.mvc.mail.CampStateMail;
 import kosta.mvc.service.CampService;
 import kosta.mvc.service.MemberService;
 import kosta.mvc.service.QnaService;
@@ -40,6 +41,9 @@ public class AdminController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private CampStateMail campStateMail;
 	
 	private final static int PAGE_COUNT = 10;
 	private final static int BLOCK_COUNT = 3;
@@ -172,7 +176,20 @@ public class AdminController {
 	@RequestMapping("/camp/campStateUpdate")
 	@ResponseBody
 	public Camp campStateUpdate(Long campNo, int campState) {
+		
+		String campEmail = "";
+		
+		if(campState==5) {
+			//campNo에 해당하는 camp를 찾아
+			Camp camp = campService.selectBy(campNo);
+			
+			//camp의 이메일을 꺼내자
+			campEmail = camp.getCampEmail();
+		}
 		Camp camp = campService.campStateUpdate(campNo, campState);
+		
+		//메일을 보내자
+		//campStateMail.mailSend(camp, campEmail);
 		
 		return camp;
 	}
