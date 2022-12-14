@@ -7,7 +7,7 @@ public interface CampStateMail {
 	/**
 	 * 캠핑장 접수, 승인, 승인거절, 종료이후 -> adminController
 	 */
-	void mailSend(Camp camp);
+	void mailSend(Camp camp, String campEmail);
 	
 	
 	/**
