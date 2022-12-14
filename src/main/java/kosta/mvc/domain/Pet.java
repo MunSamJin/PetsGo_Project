@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,6 +44,7 @@ public class Pet {
 	private String petVaccine;
 	private String petOther;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY) //지연 로딩
 	@JoinColumn(name = "member_no") 
 	private Member member;

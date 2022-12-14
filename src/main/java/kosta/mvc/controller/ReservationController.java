@@ -1,5 +1,7 @@
 package kosta.mvc.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -8,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kosta.mvc.domain.Camp;
+import kosta.mvc.domain.Detail;
 import kosta.mvc.domain.Member;
+import kosta.mvc.domain.Pet;
 import kosta.mvc.domain.Reservation;
 import kosta.mvc.domain.Residence;
 import kosta.mvc.domain.Temporary;
@@ -56,7 +60,13 @@ public class ReservationController {
 			String reservInsuranceTotal,
 			Camp camp,
 			Residence residence,
-			Long teNo) {
+			Long teNo,
+			String detailInsurancePrice,
+			String detailPetName,
+			String detailPetWeight,
+			int detailPetNeuter,
+			String detailPetVaccin,
+			String detailPetOther) {
 		
 		Object object = auth.getPrincipal();
 		Member member = null;
@@ -70,9 +80,13 @@ public class ReservationController {
 		int totalPet = Integer.parseInt(reservTotalPet);
 		int insuranceTotal = Integer.parseInt(reservInsuranceTotal);
 		
-
+		int detailInsurancePrice1 = Integer.parseInt(detailInsurancePrice);
+		int detailPetWeight1 = Integer.parseInt(detailPetWeight);
+		
 		Reservation reser = new Reservation(null, reservName, reservPhone, null, reservType, price, state, people, reservCheckin, reservCheckout, totalPet, insuranceTotal, member, camp, residence, null);
-		reservationService.insert(reser);
+		Detail detail = new Detail(teNo, detailInsurancePrice1, detailPetName, detailPetWeight1, detailPetNeuter, detailPetVaccin, detailPetOther, null);
+		
+		reservationService.insert(reser, detail);
 		temporaryService.delete(teNo);
 		return "결제완료";
 	}
@@ -92,5 +106,11 @@ public class ReservationController {
 	public void deleteTem(Long teNo) {
 		Temporary te = temporaryService.findBy(teNo);
 		if(te!=null) temporaryService.delete(teNo);
+	}
+	
+	@RequestMapping("/pet")
+	@ResponseBody
+	public List<Pet> selectPet(Long memberNo) {
+		return reservationService.selectPet(memberNo);
 	}
 }

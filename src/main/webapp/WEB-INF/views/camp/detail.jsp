@@ -128,15 +128,13 @@
             integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" crossorigin="anonymous"></script>
     <script type="text/javascript">
         Kakao.init('507651c271794aae6b448c4df48e74f3');
-        let kakaoUrl = 'http://localhost:9000/camp/detail?campNo='+${camp.campNo};
+        let kakaoUrl = 'http://localhost:9000/camp/detail?campNo='+${camp.campNo}+"&resiPeople=0&checkIn="+'${checkIn}'+"&checkOut="+'${checkOut}';
         let kakaoTitle = '${camp.campName}';
         let kakaoDescription = '${camp.campAddr}';
 
         $(function() {
             $("#copyBtn").click(function() {
                 let content = $("#campAddr").text();
-
-                alert(content);
 
                 navigator.clipboard.writeText(content);
                 alert("복사되었습니다");
@@ -148,7 +146,7 @@
                 let checkOut = '${checkOut}';
 
                 $.ajax({
-                    url : '/reservation/test',
+                    url : '${pageContext.request.contextPath}/reservation/test',
                     type: 'post',
                     dataType : 'text',
                     data : {

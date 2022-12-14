@@ -9,9 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
+import kosta.mvc.domain.Detail;
+import kosta.mvc.domain.Pet;
+import kosta.mvc.domain.QPet;
 import kosta.mvc.domain.QReservation;
 import kosta.mvc.domain.QTemporary;
 import kosta.mvc.domain.Reservation;
+import kosta.mvc.repository.DetailRepository;
+import kosta.mvc.repository.PetRepository;
 import kosta.mvc.repository.ReservationRepository;
 
 @Service
@@ -21,6 +26,10 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private ReservationRepository reservationRepository;
 	
+	@Autowired
+	private DetailRepository detailRepository;
+	
+	@Autowired PetRepository petRepository;
 	
 	@Autowired
 	private JPAQueryFactory queryFactory;
@@ -28,10 +37,16 @@ public class ReservationServiceImpl implements ReservationService {
 	private QReservation qReservation = QReservation.reservation;
 	
 	private QTemporary qTemporary = QTemporary.temporary;
+	
+	private QPet qPet = QPet.pet;
 
 	@Override
-	public void insert(Reservation reser) {
-		reservationRepository.save(reser);
+	public void insert(Reservation reser, Detail detail) {
+		Reservation re = reservationRepository.save(reser);
+		if(re != null) {
+			detail.setReservation(re);
+			detailRepository.save(detail);
+		}
 	}
 
 	@Override
@@ -70,6 +85,14 @@ public class ReservationServiceImpl implements ReservationService {
 		int result = reservationRepository.updateReservState(reservNo, reservState);
 		if(result<=0) throw new RuntimeException("예약 상태 수정에 실패했습니다.");
 		return result;
+	}
+
+	@Override
+	public List<Pet> selectPet(Long memberNo) {
+		return queryFactory
+				.selectFrom(qPet)
+				.where(qPet.member.memberNo.eq(memberNo))
+				.fetch();
 	}
 
 }

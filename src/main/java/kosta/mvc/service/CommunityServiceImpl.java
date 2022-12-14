@@ -15,6 +15,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import kosta.mvc.domain.CommunityBoard;
 import kosta.mvc.domain.LikeBoard;
 import kosta.mvc.domain.LikeBoardArrange;
+import kosta.mvc.domain.QCommunityBoard;
 import kosta.mvc.repository.CommunityRepository;
 import kosta.mvc.repository.LikeBoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,8 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	@Autowired
 	private JPAQueryFactory queryFactory;
+	
+	private QCommunityBoard qCommunityBoard = QCommunityBoard.communityBoard;
 
 	@Override
 	public List<CommunityBoard> selectAll() {
@@ -141,6 +144,14 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public Page<CommunityBoard> selectByCampTag(String tag, Pageable page) {
 		return communityRepository.campTagSelect("%"+tag+"%", page);
+	}
+
+	@Override
+	public List<CommunityBoard> selectByCampRe(String campName) {
+		return queryFactory
+				.selectFrom(qCommunityBoard)
+				.where(qCommunityBoard.boardTag.contains(campName))
+				.fetch();
 	}
 
 

@@ -58,12 +58,12 @@ public class CampController {
 	@RequestMapping("/detail")
 	public void detail(Long campNo, int resiPeople, String checkIn, String checkOut, Model model) {
 		Camp camp = campUserViewService.selectByCampNo(campNo);
-		//List<CommunityBoard> boardList = communityService.selectByTag(camp.getCampName());
+		List<CommunityBoard> boardList = communityService.selectByCampRe(camp.getCampName());
 		model.addAttribute("camp", camp);
 		model.addAttribute("resiPeople", resiPeople);
 		model.addAttribute("checkIn", checkIn);
 		model.addAttribute("checkOut", checkOut);
-		//model.addAttribute("boardList", boardList);
+		model.addAttribute("boardList", boardList);
 	}
 	
 	/**

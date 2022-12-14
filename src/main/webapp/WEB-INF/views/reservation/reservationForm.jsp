@@ -49,6 +49,20 @@
                 let reservInsuranceTotal = price-${resi.resiPrice};
                 let reservTotalPet = reservInsuranceTotal/10000;
                 
+                /* 펫 정보 - 디테일 */
+                let detailInsurancePrice = reservInsuranceTotal;
+                let detailPetName = $("#petsname").val();
+                let detailPetWeight = $("#petsweight").val();
+                let detailPetNeuter;
+                let detailPetVaccin = $("#petsdate").val();
+                let detailPetOther = $("#detailPetOther").text();
+                
+                if($("#neuter").is(":checked")) {
+                	detailPetNeuter = 1;
+                } else {
+                	detailPetNeuter = 0;
+                }
+                
                 let camp = '${resi.camp.campNo}';
                 let residence = '${resi.resiNo}';
                 let teNo = '${teNo}';
@@ -81,7 +95,13 @@
                                 reservInsuranceTotal: reservInsuranceTotal,
                                 camp:camp,
                                 residence:residence,
-                                teNo:teNo
+                                teNo:teNo,
+                                detailInsurancePrice:detailInsurancePrice,
+                                detailPetName:detailPetName,
+                                detailPetWeight:detailPetWeight,
+                                detailPetNeuter:detailPetNeuter,
+                                detailPetVaccin:detailPetVaccin,
+                                detailPetOther:detailPetOther
                             },
                             success: function (result) {
                                 location.href="${pageContext.request.contextPath}/main";
@@ -166,6 +186,29 @@
             	let gg = $("#memberPhone").val();
                 $("#reservPhone").val(gg);
             });
+            
+            $("#selectPet").click(function() {
+            	let memberNo = $("#memberNo").val();
+            	
+            	$.ajax({
+            		url : '${pageContext.request.contextPath}/reservation/pet',
+            		type : 'post',
+            		dataType : 'json',
+            		data : {memberNo:memberNo},
+            		success : function(result) {
+						$.each(result, function(index, item) {
+							if(index==0){
+								$("#petsname").val(item.petName);
+								$("#petsweight").val(item.petWeight);
+								$("#petsdate").val(item.petVaccine);
+							}
+						});
+					},
+					error : function(err) {
+						alert("실패");
+					}
+            	});
+			});
 
 
             /* 
@@ -245,8 +288,8 @@
                                                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                                                                     <sec:authentication var="mvo" property="principal" />
                                                                     <input type=hidden  id="memberPhone" value="${mvo.memberPhone}">
+                                                                    <input type=hidden  id="memberNo" value="${mvo.memberNo}">
                                                                 </span>
-                                                                	<c:if test=""></c:if>
                                                                     <a class="sc-kBPahn jzkOjd">회원 정보 불러오기</a>
                                                                 </label>
                                                             </div>
@@ -331,7 +374,7 @@
                                                 <div class="sc-JJYsw hAgyNZ">
                                                     <h3 class="sc-eCstlR bcvgNe" type="NORMAL_LARGE">반려견 정보</h3>
                                                     <div class="sc-eCjjWe bGoMZg sc-kEbmIj qmrJc">
-                                                        <div style="color: inherit; font-weight: inherit; font-size: inherit;">
+                                                        <div style="color: inherit; font-weight: inherit; font-size: inherit;" id="selectPet">
                                                             <label for="isSameGuest" tabindex="0"
                                                                    class="sc-irOPex kbQGyP">
                                                                 <span class="sc-ezrnTI VKDJw">
@@ -363,7 +406,7 @@
                                                                                 placeholder="이름"
                                                                                 class="sc-dHnuKO ikCiJV input_error"
                                                                                 type="text" maxlength="50" minlength="0"
-                                                                                tabindex="0" id="pet[0].name"
+                                                                                tabindex="0" id="petsname"
                                                                                 name="pet[0].name"
                                                                                 autocorrect="off"
                                                                                 autocapitalize="off" autocomplete="off"
@@ -389,8 +432,34 @@
                                                                                 placeholder="몸무게"
                                                                                 class="sc-dHnuKO ikCiJV input_error"
                                                                                 type="text" maxlength="50" minlength="0"
-                                                                                tabindex="0" id="pet0].weight"
+                                                                                tabindex="0" id="petsweight"
                                                                                 name="pet[0].weight"
+                                                                                autocorrect="off"
+                                                                                autocapitalize="off" autocomplete="off"
+                                                                                spellcheck="false"
+                                                                                aria-autocomplete="none"
+                                                                                inputmode="email" value="">
+                                                                        <i class="sc-crrszt etqBmk sc-jcRCNh gnFHpz"></i>
+                                                                    </div>
+                                                                    <div class="sc-fnlXEO cCLzKl"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <!-- 최근 광견병 예방 접종일 -->
+                                                        <div class="sc-bAffKu gaChro sc-fPppAf fRQMrR">
+                                                            <label for="pet[0].date" title="최근 광견병 예방 접종일" class="sc-bxnjHY gnmuIc">
+                                                                <i class="sc-crrszt jLdeKt sc-fkubCs gbBWBW"></i>최근 광견병 예방 접종일
+                                                            </label>
+                                                            <div class="sc-jVKKMF keJGhf">
+                                                                <div class="sc-jYCGPb eLPgDl input">
+                                                                    <div class="sc-Qpmqz kFeFTm">
+                                                                        <input
+                                                                                placeholder="몸무게"
+                                                                                class="sc-dHnuKO ikCiJV input_error"
+                                                                                type="text" maxlength="50" minlength="0"
+                                                                                tabindex="0" id="petsdate"
+                                                                                name="pet[0].date"
                                                                                 autocorrect="off"
                                                                                 autocapitalize="off" autocomplete="off"
                                                                                 spellcheck="false"
@@ -646,7 +715,7 @@
                                                 	<textarea name="customRemarks" type="textarea"
                                                               placeholder="추가 요청에 대한 세부 내용을 포함해 주시면 숙박 시설에 전달해 드립니다. 요청하신 사항이 반드시 제공되는 것은 아니며, 숙박 시설으로 직접 문의 부탁 드립니다."
                                                               form="hotel-order" maxlength="200" minlength="0"
-                                                              class="sc-dsxaqW fiVXtw"></textarea>
+                                                              class="sc-dsxaqW fiVXtw" id="detailPetOther"></textarea>
                                                     <em class="sc-kkBfgx cEXIEJ">
                                                         <p class="sc-eCstlR kZysRf sc-jVKBdY UUozp" type="NORMAL_SMALL"></p>0 / 200
                                                     </em>

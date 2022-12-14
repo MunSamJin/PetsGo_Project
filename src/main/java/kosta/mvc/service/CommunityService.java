@@ -67,5 +67,10 @@ public interface CommunityService {
 	 * 태그로 검색
 	 */
 	Page<CommunityBoard> selectByCampTag(String tag, Pageable page);
+	
+	/**
+	 * 후기 검색(캠핑장 페이지)
+	 */
+	List<CommunityBoard> selectByCampRe(String campName);
 
 }
