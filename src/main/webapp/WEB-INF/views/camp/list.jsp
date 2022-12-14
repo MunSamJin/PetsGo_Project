@@ -68,8 +68,8 @@
          let addr = $("#campAddr").val();
          if(addr=='지역명 검색') addr = '';
          
-         let checkIn = $("#checkIn").val();
-         let checkOut = $("#checkOut").val();
+         let checkIn = $("#datepicker_1").val();
+         let checkOut = $("#datepicker_2").val();
          
          let resiPeople = $("#resiPeople").val();
          if(resiPeople=='인원') resiPeople = 0;
@@ -200,7 +200,7 @@
                         
                             <div class="form_colum">
                                 <select class="nc_select" id="campAddr" name="campAddr">
-                                 <option selected>지역명 검색 </option>
+                                 <option selected value="${campAddr}">지역명 검색 </option>
                                  <option value="포천시">포천시</option>
                                  <option value="평택시">평택시</option>
                                  <option value="여주시">여주시</option>
@@ -222,16 +222,16 @@
                             </div>
                             
                             <div class="form_colum">
-                                <input id="datepicker_1" placeholder="체크인날짜" name="datepicker_1" value="${datepicker_1}">
+                                <input id="datepicker_1" placeholder="체크인날짜" name="datepicker_1" value="${checkIn}">
                             </div>
                             
                             <div class="form_colum">
-                                <input id="datepicker_2" placeholder="체크아웃날짜" name="datepicker_2" value="${datepicker_2}">
+                                <input id="datepicker_2" placeholder="체크아웃날짜" name="datepicker_2" value="${checkOut}">
                             </div>
                             
                             <div class="form_colum">
                                <select class="nc_select"  id="resiPeople" name="resiPeople">
-                                  <option selected value="0">인원 </option>
+                                  <option selected value="${resiPeople}">인원 </option>
                                   <option value="1">1</option>
                                   <option value="2">2</option>
                                   <option value="3">3</option>
