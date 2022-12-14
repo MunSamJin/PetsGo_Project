@@ -55,7 +55,7 @@ public class CommunityController {
 	
 	private final static int PAGE_COUNT=6;
 	
-	private final static int BLOCK_COUNT=2;
+	private final static int BLOCK_COUNT=3;
 
 	/**
 	 *  커뮤니티 전체 검색
@@ -81,6 +81,7 @@ public class CommunityController {
 				model.addAttribute("blockCount", BLOCK_COUNT);
 				model.addAttribute("startPage", startPage);
 				model.addAttribute("nowPage", nowPage);
+				model.addAttribute("totalPages", likeList.getTotalPages());
 				
 			}else {
 				pageList = communityService.selectByTag(tag,page);
@@ -90,6 +91,7 @@ public class CommunityController {
 				model.addAttribute("blockCount", BLOCK_COUNT);
 				model.addAttribute("startPage", startPage);
 				model.addAttribute("nowPage", nowPage);
+				model.addAttribute("totalPages", pageList.getTotalPages());
 			}
 			
 		} else {
@@ -100,6 +102,7 @@ public class CommunityController {
 			model.addAttribute("blockCount", BLOCK_COUNT);
 			model.addAttribute("startPage", startPage);
 			model.addAttribute("nowPage", nowPage);
+			model.addAttribute("totalPages", pageList.getTotalPages());
 		}
 		
 		
@@ -190,17 +193,13 @@ public class CommunityController {
 	 */
 	@RequestMapping("/read/{boardNo}")
 	public String read(@PathVariable Long boardNo, Model model) {
+
+		CommunityBoard communityBoard = communityService.selectBy(boardNo);
 		
 		Member member =(Member)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	      Long memberNo = member.getMemberNo();
-	
-		CommunityBoard communityBoard = communityService.selectBy(boardNo);
+	    Long memberNo = member.getMemberNo();
+	    
 		LikeBoard likeBoard = communityService.selectLikeNo(memberNo, boardNo);
-		
-		//HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		//map.put("communityBoard", communityBoard);
-		//map.put("likeBoard", likeBoard);
 		
 		model.addAttribute("communityBoard", communityBoard); //${communityBoard}
 		model.addAttribute("likeBoard", likeBoard); //${likeBoard}

@@ -129,6 +129,12 @@
             });
         });
     </script>
+    
+    <script type="text/javascript">
+    	$(function(){
+    		
+    	});//readyEnd
+    </script>
 </head>
 
 <body>
@@ -198,9 +204,12 @@
                                 <div class="listing-menu-title">
                                     <h6>${resi.resiName}</h6>
                                     <div>
-			                        			<span class="listing-resi-img">
-			                        				<img alt="" src="${pageContext.request.contextPath}/img/seryun/${fn:split(resi.resiFilename, ',')[0]}">
-			                        			</span>
+			                        	<span class="listing-resi-img">
+			                        		<img alt="" src="${pageContext.request.contextPath}/img/seryun/${fn:split(resi.resiFilename, ',')[0]}"
+			                        			onclick="javascript:window.open('${pageContext.request.contextPath}/camp/resiDetail/${resi.resiNo}',
+	                                        		  	'resiPop','width=800,height=400,left=200,top=100')"
+	                                        	style="cursor: pointer;">			                        		
+			                        	</span>
                                         <p class="listing-resi-intro">${resi.resiIntro}</p>
                                     </div>
                                 </div>
@@ -418,6 +427,12 @@
 
 <!-- Active JS -->
 <script src="${pageContext.request.contextPath}/dorne-master/js/active.js"></script>
+
+ <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  <!-- qna_list js -->
+  <script src="${pageContext.request.contextPath}/js/minjeong/qna_list.js"></script>
+
 </body>
 
 </html>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.CommunityBoard;
+import kosta.mvc.domain.LikeBoard;
 import kosta.mvc.domain.Member;
 import kosta.mvc.domain.Pet;
 import kosta.mvc.domain.QnaBoard;
@@ -31,20 +32,14 @@ public class MemberController {
    
    @Autowired
    private CommunityService communityService;
+   
  
    /*
 	* 비밀번호 암호화를 위한 객체를 주입받는다 
 	*/
 	@Autowired
 	private PasswordEncoder passwordEncoder; 
-    
-
-   /**
-    * 마이페이지 내 회원 정보 이동
-    * */
-   @RequestMapping("/myInfo")
-   public void myInfo() {}
-   
+     
 
 	/**
 	 *  예약내역 조회
@@ -89,13 +84,13 @@ public class MemberController {
 		
 		return dbReservState;
 	}
-
 	
-	/*
-	 * 마이페이지 내 스크랩북 이동
-	 * */
-	@RequestMapping("/myScrap")
-	public void myScrap() {}
+	 /*
+	  * 마이페이지 내 스크랩북 이동
+	  * */
+	   @RequestMapping("/myScrap")
+	   public void myScrap() {}
+
 	
 	/**
 	 * 마이페이지 내 회원 정보 이동
@@ -199,7 +194,10 @@ public class MemberController {
 		List<CommunityBoard> list = memberService.selectCommunityAll(memberNo);
 		System.out.println("member컨트롤러 list = " + list);
 		
-		model.addAttribute("myCommunity", list);		
+		List<LikeBoard> likeList = memberService.selectLikeList(memberNo);
+		
+		model.addAttribute("myCommunity", list);
+		model.addAttribute("likeList", likeList);
 	}
 	
 	/**

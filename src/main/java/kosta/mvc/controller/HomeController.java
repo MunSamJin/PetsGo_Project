@@ -33,10 +33,18 @@ public class HomeController {
 	@Autowired
 	private CommunityService communityService;
 	
+	@Autowired
+	private CampService campService;
+	
 
 	@RequestMapping("/")
 	public String index(Model model) {
 		
+		//이번주 펫츠GO! PICK!
+		List<Camp> campList = campService.selectAll();
+		model.addAttribute("campList", campList);
+		
+		//커뮤니티 인기 콘텐츠
 		List<CommunityBoard> list = communityService.selectAll();
 		model.addAttribute("communityBoardList",list);
 		
