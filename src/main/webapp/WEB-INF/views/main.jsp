@@ -40,14 +40,14 @@
 
 
 <!-- 카카오톡 공유하기 -->
-    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
+    <!-- <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
          integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" 
          crossorigin="anonymous">
-    </script>
+    </script> -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
-
+  
 	<script type="text/javascript">
-		Kakao.init('d32f3063e698e99009c22188c7a65c7e');
+		//Kakao.init('d32f3063e698e99009c22188c7a65c7e'); //혜진 키
 		
 		$(function() {
 			$(".form_btn").click(function() {
@@ -68,6 +68,7 @@
 				location.href="/camp/selectAll?checkIn="+checkIn+"&checkOut="+checkOut+"&campAddr="+campAddr+"&resiPeople="+resiPeople; 	
 			});
 		});
+
 	</script>
 
 </head>
@@ -150,35 +151,58 @@
         <div class="container">
              <span style="color: #25483a; font-family: BMJUA; font-size: 28px;">이번주 펫츠GO! PICK!</span>
 
-            <div class="row">
+            <div class="row">            
                 <div class="col-lg-6 col-md-6">
                     <div class="single_place">
-                        <img src="${pageContext.request.contextPath}/img/single_place_1.png" alt="" style="border-radius: 6px;">
+                    	<img src="${pageContext.request.contextPath}/img/seryun/${fn:split(campList[0].campFilename,',')[0]}" alt="" 
+                        	 style="border-radius: 6px; width: 400px; height: 300px;">
                         <div class="hover_Text d-flex align-items-end justify-content-between">
-                            <div class="hover_text_iner">
-                                <a href="#"><h3>경기도 캠핑장01</h3></a>
-                                <p>경기도, 수원시</p>
-                                <div class="place_review">
-                                    <span>후기(5)</span>
-                                </div>
+                        	<div class="hover_text_iner">
+                            	<div class="header-in-card__share-and-like">
+                        			<div class="share-block">
+                            			<div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
+                                		<div class="share-block__facebook-icon">
+                                    		<a class="kakaotalk-sharing-btn">
+					                           <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+					                                alt="카카오톡 공유 보내기 버튼" />
+                              				</a>
+                              			</div>                    
+                                		<div class="share-block__twitter-icon"></div>
+                            		</div>
+                        		</div>                           
+                                <a href="#"><h3>${campList[0].campName}</h3></a>
+                                <p>${campList[0].campAddr.substring(0,6)}</p>
+                                <div class="place_review"></div>
                             </div>
-                              <div class="details_icon text-right">
+                            <div class="details_icon text-right">
                                 <i class="ti-share" alt="스크랩북"></i>
-                              </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                      <div class="single_place">
-                        <img src="${pageContext.request.contextPath}/img/single_place_2.png" alt="" style="border-radius: 6px;">
+                        <img src="${pageContext.request.contextPath}/img/seryun/${fn:split(campList[1].campFilename,',')[0]}" alt="" 
+                        	style="border-radius: 6px; width: 400px; height: 300px;">
 
                         <div class="hover_Text d-flex align-items-end justify-content-between">
                             <div class="hover_text_iner">
-                                <a href="#"><h3>경기도 캠핑장02</h3></a>
-                                <p>경기도, 가평시</p>
-                                <div class="place_review">
-                                    <span>후기(105)</span>
-                                </div>
+                            
+                            	<div class="header-in-card__share-and-like">
+                        			<div class="share-block">
+                            			<div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
+                                		<div class="share-block__facebook-icon">
+                                    		<a class="kakaotalk-sharing-btn">
+					                           <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+					                                alt="카카오톡 공유 보내기 버튼" />
+                              				</a>
+                              			</div>                    
+                                		<div class="share-block__twitter-icon"></div>
+                            		</div>
+                        		</div>
+                                <a href="#"><h3>${campList[1].campName}</h3></a>
+                                <p>${campList[1].campAddr.substring(0,6)}</p>
+                                <div class="place_review"></div>
                             </div>
                             <div class="details_icon text-right">
                                 <i class="ti-share" alt="스크랩북"></i>
@@ -188,14 +212,25 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="single_place">
-                        <img src="${pageContext.request.contextPath}/img/single_place_3.png" alt="" style="border-radius: 6px;">
+                        <img src="${pageContext.request.contextPath}/img/seryun/${fn:split(campList[2].campFilename,',')[0]}" alt="" 
+                        	style="border-radius: 6px; width: 400px; height: 300px;">
                         <div class="hover_Text d-flex align-items-end justify-content-between">
                             <div class="hover_text_iner">
-                                <a href="#"><h3>경기도 캠핑장03</h3></a>
-                                <p>경기도, 포천시</p>
-                                <div class="place_review">
-                                    <span>후기(10)</span>
-                                </div>
+                                <div class="header-in-card__share-and-like">
+                        			<div class="share-block">
+                            			<div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
+                                		<div class="share-block__facebook-icon">
+                                    		<a class="kakaotalk-sharing-btn">
+					                           <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+					                                alt="카카오톡 공유 보내기 버튼" />
+                              				</a>
+                              			</div>                    
+                                		<div class="share-block__twitter-icon"></div>
+                            		</div>
+                        		</div>
+                                <a href="#"><h3>${campList[2].campName}</h3></a>
+                                <p>${campList[2].campAddr.substring(0,6)}</p>
+                                <div class="place_review"></div>
                             </div>
                             <div class="details_icon text-right">
                                 <i class="ti-share" alt="스크랩북"></i>
@@ -205,14 +240,25 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                    <div class="single_place">
-                        <img src="${pageContext.request.contextPath}/img/single_place_4.png" alt="" style="border-radius: 6px;">
+                        <img src="${pageContext.request.contextPath}/img/seryun/${fn:split(campList[3].campFilename,',')[0]}" alt="" 
+                        	style="border-radius: 6px; width: 400px; height: 300px;">
                         <div class="hover_Text d-flex align-items-end justify-content-between">
                             <div class="hover_text_iner">
-                                <a href="#"><h3>경기도 캠핑장04</h3></a>
-                                <p>경기도, 용인시</p>
-                                <div class="place_review">
-                                    <span>후기(12)</span>
-                                </div>
+                                <div class="header-in-card__share-and-like">
+                        			<div class="share-block">
+                            			<div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
+                                		<div class="share-block__facebook-icon">
+                                    		<a class="kakaotalk-sharing-btn">
+					                           <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+					                                alt="카카오톡 공유 보내기 버튼" />
+                              				</a>
+                              			</div>                    
+                                		<div class="share-block__twitter-icon"></div>
+                            		</div>
+                        		</div>
+                                <a href="#"><h3>${campList[3].campName}</h3></a>
+                                <p>${campList[3].campAddr.substring(0,6)}</p>
+                                <div class="place_review"></div>
                             </div>
                             <div class="details_icon text-right">
                                 <i class="ti-share" alt="스크랩북"></i>
@@ -222,14 +268,25 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="single_place">
-                        <img src="${pageContext.request.contextPath}/img/single_place_1.png" alt="" style="border-radius: 6px;">
+                        <img src="${pageContext.request.contextPath}/img/seryun/${fn:split(campList[4].campFilename,',')[0]}" alt="" 
+                        	style="border-radius: 6px; width: 400px; height: 300px;">
                         <div class="hover_Text d-flex align-items-end justify-content-between">
                             <div class="hover_text_iner">
-                                <a href="#"><h3>경기도 캠핑장05</h3></a>
-                                <p>경기도, 화성시</p>
-                                <div class="place_review">
-                                    <span>후기(8)</span>
-                                </div>
+                                <div class="header-in-card__share-and-like">
+                        			<div class="share-block">
+                            			<div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
+                                		<div class="share-block__facebook-icon">
+                                    		<a class="kakaotalk-sharing-btn">
+					                           <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+					                                alt="카카오톡 공유 보내기 버튼" />
+                              				</a>
+                              			</div>                    
+                                		<div class="share-block__twitter-icon"></div>
+                            		</div>
+                        		</div>
+                                <a href="#"><h3>${campList[4].campName}</h3></a>
+                                <p>${campList[4].campAddr.substring(0,6)}</p>
+                                <div class="place_review"></div>
                             </div>
                             <div class="details_icon text-right">
                                 <i class="ti-share" alt="스크랩북"></i>
@@ -239,14 +296,25 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                      <div class="single_place">
-                        <img src="${pageContext.request.contextPath}/img/single_place_2.png" alt="" style="border-radius: 6px;">
+                        <img src="${pageContext.request.contextPath}/img/seryun/${fn:split(campList[5].campFilename,',')[0]}" alt="" 
+                        	style="border-radius: 6px; width: 400px; height: 300px;">
                         <div class="hover_Text d-flex align-items-end justify-content-between">
                             <div class="hover_text_iner">
-                                <a href="#"><h3>경기도 캠핑장06</h3></a>
-                                <p>경기도, 의왕시</p>
-                                <div class="place_review">
-                                    <span>후기(16)</span>
-                                </div>
+                                <div class="header-in-card__share-and-like">
+                        			<div class="share-block">
+                            			<div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
+                                		<div class="share-block__facebook-icon">
+                                    		<a class="kakaotalk-sharing-btn">
+					                           <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+					                                alt="카카오톡 공유 보내기 버튼" />
+                              				</a>
+                              			</div>                    
+                                		<div class="share-block__twitter-icon"></div>
+                            		</div>
+                        		</div>
+                                <a href="#"><h3>${campList[5].campName}</h3></a>
+                                <p>${campList[5].campAddr.substring(0,6)}</p>
+                                <div class="place_review"></div>
                             </div>
                             <div class="details_icon text-right">
                                 <i class="ti-share" alt="스크랩북"></i>
@@ -525,29 +593,23 @@
                                 <div class="card__header">
                                   <div class="header-in-card">
                                     <div class="header-in-card__share-and-like">
-                                      <div class="share-block">
-                                        <div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
-                                        <div class="share-block__facebook-icon">
-                                        <a id="kakaotalk-sharing-btn01">
-                                <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-                                  alt="카카오톡 공유 보내기 버튼" />
-                              </a>
-                              </div>                    
-                                        <div class="share-block__twitter-icon"></div>
-                                      </div>
+                                      
                                       <div class="like-block">
                                         <!-- <div class="like-block__like-icon"></div> -->
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                                <div class="card__body">
-                                               
-                                 
-                                  <div class="card-tags">
-                                    <a href="#" target="_blank" class="card-tags__item">${communityBoardList[0].boardTag }</a>
+                                <div class="card__body">                                               
+                                 <br>
+                                  <div class="card-tags" >
+                                    <a href="javascript:void(0)"  class="card-tags__item"
+                                    	onclick="javascript:window.open('${pageContext.request.contextPath}/community/read/${communityBoardList[0].boardNo}',
+                                    			'mainCommunityPop','width=800,height=400,left=200,top=100')">
+                                    	${communityBoardList[0].boardTag }</a>
                                 </div>
-                                </div><img src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList[0].boardFileName,',')[0]}" alt="" class="card__image">
+                                </div><img src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList[0].boardFileName,',')[0]}" 
+                                			alt="" class="card__image">
                               </div>
                              
                             <!-- 커뮤니티 게시글01 End -->
@@ -556,16 +618,7 @@
                                 <div class="card__header">
                                   <div class="header-in-card">
                                     <div class="header-in-card__share-and-like">
-                                      <div class="share-block">
-                                        <div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
-                                        <div class="share-block__facebook-icon">
-                                         <a id="kakaotalk-sharing-btn02">
-                                <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-                                  alt="카카오톡 공유 보내기 버튼" />
-                               </a>
-                                        </div>
-                                        <div class="share-block__twitter-icon"></div>
-                                      </div>
+                                      
                                       <div class="like-block">
                                         <!-- <div class="like-block__like-icon"></div> -->
                                       </div>
@@ -573,9 +626,12 @@
                                   </div>
                                 </div>
                                 <div class="card__body">
-                                 
+                                 <br>
                                   <div class="card-tags">
-                                    <a href="#" target="_blank" class="card-tags__item">${communityBoardList[1].boardTag }</a>
+                                    <a href="javascript:void(0)" class="card-tags__item"
+                                    onclick="javascript:window.open('${pageContext.request.contextPath}/community/read/${communityBoardList[1].boardNo}',
+                                    			'mainCommunityPop','width=800,height=400,left=200,top=100')">
+                                    ${communityBoardList[1].boardTag }</a>
                                 </div>
                                 </div><img src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList[1].boardFileName,',')[0]}" alt="" class="card__image">
                               </div>
@@ -585,16 +641,7 @@
                                 <div class="card__header">
                                   <div class="header-in-card">
                                     <div class="header-in-card__share-and-like">
-                                      <div class="share-block">
-                                        <div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
-                                        <div class="share-block__facebook-icon">
-                                         <a id="kakaotalk-sharing-btn03">
-                                <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-                                  alt="카카오톡 공유 보내기 버튼" />
-                               </a>
-                                        </div>
-                                        <div class="share-block__twitter-icon"></div>
-                                      </div>
+                                      
                                       <div class="like-block">
                                         <!-- <div class="like-block__like-icon"></div> -->
                                       </div>
@@ -602,9 +649,12 @@
                                   </div>
                                 </div>
                                 <div class="card__body">
-                                 
+                                 <br>
                                   <div class="card-tags">
-                                    <a href="#" target="_blank" class="card-tags__item">${communityBoardList[2].boardTag }</a>
+                                    <a href="javascript:void(0)" class="card-tags__item"
+                                    onclick="javascript:window.open('${pageContext.request.contextPath}/community/read/${communityBoardList[2].boardNo}',
+                                    			'mainCommunityPop','width=800,height=400,left=200,top=100')">
+                                    ${communityBoardList[2].boardTag }</a>
                                 </div>
                                 </div><img src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList[2].boardFileName,',')[0]}" alt="" class="card__image">
                               </div>
@@ -614,16 +664,7 @@
                                 <div class="card__header">
                                   <div class="header-in-card">
                                     <div class="header-in-card__share-and-like">
-                                      <div class="share-block">
-                                        <div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
-                                        <div class="share-block__facebook-icon">
-                                         <a id="kakaotalk-sharing-btn04">
-                                <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-                                  alt="카카오톡 공유 보내기 버튼" />
-                               </a>
-                                        </div>
-                                        <div class="share-block__twitter-icon"></div>
-                                      </div>
+                                      
                                       <div class="like-block">
                                         <!-- <div class="like-block__like-icon"></div> -->
                                       </div>
@@ -631,9 +672,12 @@
                                   </div>
                                 </div>
                                 <div class="card__body">
-                                 
+                                 <br>
                                   <div class="card-tags">
-                                    <a href="#" target="_blank" class="card-tags__item">${communityBoardList[3].boardTag }</a>
+                                    <a href="javascript:void(0)" class="card-tags__item"
+                                    onclick="javascript:window.open('${pageContext.request.contextPath}/community/read/${communityBoardList[3].boardNo}',
+                                    			'mainCommunityPop','width=800,height=400,left=200,top=100')">
+                                    ${communityBoardList[3].boardTag }</a>
                                 </div>
                                 </div><img src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList[3].boardFileName,',')[0]}" alt="" class="card__image">
                               </div>
@@ -643,16 +687,7 @@
                                 <div class="card__header">
                                   <div class="header-in-card">
                                     <div class="header-in-card__share-and-like">
-                                      <div class="share-block">
-                                        <div class="share-block__share-icon"><span></span><span></span><span></span><span></span><span></span></div>
-                                        <div class="share-block__facebook-icon">
-                                         <a id="kakaotalk-sharing-btn05">
-                                <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-                                  alt="카카오톡 공유 보내기 버튼" />
-                               </a>
-                                        </div>
-                                        <div class="share-block__twitter-icon"></div>
-                                      </div>
+                                      
                                       <div class="like-block">
                                         <!-- <div class="like-block__like-icon"></div> -->
                                       </div>
@@ -660,9 +695,12 @@
                                   </div>
                                 </div>
                                 <div class="card__body">
-                                 
+                                 <br>
                                   <div class="card-tags">
-                                    <a href="#" target="_blank" class="card-tags__item">${communityBoardList[4].boardTag }</a>
+                                    <a href="javascript:void(0)" class="card-tags__item"
+                                    onclick="javascript:window.open('${pageContext.request.contextPath}/community/read/${communityBoardList[4].boardNo}',
+                                    			'mainCommunityPop','width=800,height=400,left=200,top=100')">
+                                    ${communityBoardList[4].boardTag }</a>
                                 </div>
                                 </div><img src="${pageContext.request.contextPath}/img/samjin/${fn:split(communityBoardList[4].boardFileName,',')[0]}" alt="" class="card__image">
                               </div>
@@ -709,7 +747,7 @@
     <!--광고영역배너 End -->
 
 <!-- 카카오톡 공유하기 -->
-<script>
+<!-- <script>
   Kakao.Share.createDefaultButton({
     container: '#kakaotalk-sharing-btn01',
     objectType: 'text',
@@ -768,8 +806,20 @@
         webUrl: 'https://localhost:9000',
       },
     });
+ 
+ Kakao.Share.createDefaultButton({
+     container: '#kakaotalk-sharing-btn06',
+     objectType: 'text',
+     text:
+       '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+     link: {
+       // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+       mobileWebUrl: 'https://localhost:9000',
+       webUrl: 'https://localhost:9000',
+     },
+   });
   
-</script>
+</script> -->
 
     <!-- jquery plugins here-->
     <script src="${pageContext.request.contextPath}/js/jquery-1.12.1.min.js"></script>
@@ -794,6 +844,21 @@
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js'></script>
 <script  src="${pageContext.request.contextPath}/js/comu_script.js"></script>
+
+<!-- Kakao API -->
+	  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+	  <script>
+	  Kakao.init('646a0d07558214ebe7ff129447bc2ed2'); //발급 받았던 javascript key를 여기에 넣는다.
+		 
+	  $("a[class=kakaotalk-sharing-btn]").click(function(e) { //jquery를 사용한다 가정
+	 		alert("카카오!");
+			e.preventDefault();   //이벤트 버블링 prevent
+
+			Kakao.Link.sendCustom({
+			templateId: 87239   //확인하였던 이벤트번호 등록 
+			});
+		});
+	  </script>
 
 </body>
 </html>

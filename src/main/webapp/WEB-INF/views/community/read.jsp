@@ -46,7 +46,7 @@
     						 "${_csrf.parameterName}" : "${_csrf.token}"
     				}, //서버에게 보낼 parameter 정보
     				success : function(result){ //받을값이 있다면 result
-    					alert("좋아요 결과 ?" + result); 
+    					//alert("좋아요 결과 ?" + result); 
     				
     					if(result == 1){
     						$("#likeHeart").attr({src : "${pageContext.request.contextPath}/img/samjin/redheart.png"});
@@ -124,7 +124,7 @@
 						<c:set var="boardFileName" value="${fn:split(communityBoard.boardFileName,',')}"/>
 						<c:forEach items="${boardFileName}" var="boardFileName">
 							<img src="${pageContext.request.contextPath}/img/samjin/${boardFileName}"
-								width="600px" height="450px" style="border-radius: 10px" />
+								width="600px" style="border-radius: 10px" />
 							<br><br><br>
 						</c:forEach>
 					</c:if>	

@@ -12,8 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Camp;
 import kosta.mvc.domain.CommunityBoard;
+import kosta.mvc.domain.Residence;
 import kosta.mvc.service.CampUserViewService;
 import kosta.mvc.service.CommunityService;
+import kosta.mvc.service.ResiService;
 
 @Controller
 @RequestMapping("/camp")
@@ -24,6 +26,9 @@ public class CampController {
 	
 	@Autowired
 	private CommunityService communityService;
+	
+	@Autowired
+	private ResiService resiService;
 	
 	@RequestMapping("/selectAll")
 	public String selectAll(int resiPeople, String campAddr, String checkIn, String checkOut, Model model) {
@@ -59,5 +64,17 @@ public class CampController {
 		model.addAttribute("checkIn", checkIn);
 		model.addAttribute("checkOut", checkOut);
 		//model.addAttribute("boardList", boardList);
+	}
+	
+	/**
+	 * 숙소 상세 페이지 이미지 팝업창
+	 */
+	@RequestMapping("/resiDetail/{resiNo}")
+	public String resiDetail(@PathVariable Long resiNo, Model model) {
+		
+		Residence resi = resiService.selectByResiNo(resiNo);
+		model.addAttribute("resi", resi);
+		
+		return "camp/resiDetail";
 	}
 }

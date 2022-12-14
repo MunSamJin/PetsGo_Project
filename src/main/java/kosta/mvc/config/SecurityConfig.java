@@ -44,9 +44,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.hasRole("OWNER")            //      access="isAuthenticated()"
 				.antMatchers("/community/list")
 				.permitAll()
-				.antMatchers("/community/read/*")
-				.permitAll()
-
 				.antMatchers("/member/myReservation")
 				.permitAll()
 				.antMatchers("/member/myCommunity")

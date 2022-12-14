@@ -426,7 +426,7 @@ public class OwnerController {
 	}
 	
 	
-	@RequestMapping("/review/campReview/{campNo}")
+	/*@RequestMapping("/review/campReview/{campNo}")
 	public String campReview(@PathVariable("campNo") Long campNo, Model model, @RequestParam(defaultValue = "1") int nowPage) {
 		Pageable page = PageRequest.of((nowPage-1), PAGE_COUNT, Direction.DESC, "boardNo");
 		Camp camp = campService.selectBy(campNo);
@@ -441,7 +441,7 @@ public class OwnerController {
 		model.addAttribute("nowPage", nowPage);
 		
 		return "owner/review/campReview";
-	}
+	}*/
 
 	
 	@RequestMapping("/reserv/reservChart/{campNo}")

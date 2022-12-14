@@ -51,6 +51,12 @@
 		$(function(){
 			//alert(11);
 			
+			/* 상세보기 */
+			$("img[class=communityImg]").on("click",function(){
+				
+				//비회원일 때만
+				//alert("로그인 후 이용해주세요!");
+			});
 			
 			
 			/* 태그 검색 */			
@@ -113,7 +119,7 @@
 
 </head>
 <body>
-
+<sec:authentication var="mvo" property="principal" />
 
 <div class="communityBoardList">
 							
@@ -235,18 +241,17 @@
 				<ul class="pagination">
 					<c:set var="doneLoop" value="false"/>
 					
-					<c:if test="${(startPage-blockCount) > -2}">
-						<li class="page-item">
-							<a class="page-link" href="${pageContext.request.contextPath}/community/list?nowPage=${startPage-1}">PREV
-								<i class="ti-angle-left"></i>
-							</a>
+					<c:if test="${(startPage-blockCount) > 0}">
+						<li class="page-item" style="font-size: 20px">							
+							<a href="${pageContext.request.contextPath}/community/list?nowPage=${startPage-1}">PREV</a>
+							<i class="ti-angle-left"></i>
 						</li>
 					</c:if>
 					  
-					<span class="pagination-inner"> 
+					<span class="pagination-inner" style="font-size: 20px"> 
 						<c:forEach var='i' begin='${startPage}' end='${(startPage-1)+blockCount}'> 
 					  
-							<c:if test="${(i-1)>=pageList.getTotalPages()}">
+							<c:if test="${(i-1)>=totalPages}">
 								<c:set var="doneLoop" value="true"/>
 							</c:if> 
 					    
@@ -256,12 +261,11 @@
 					   
 						</c:forEach>
 					</span> 
-							
-					<c:if test="${(startPage+blockCount)<=pageList.getTotalPages()}">
-						<li class="page-item">
-							<a class="page-link"  href="${pageContext.request.contextPath}/community/list?nowPage=${startPage+blockCount}">NEXT
-								<i class="ti-angle-right"></i>
-							</a>
+					
+					<c:if test="${(startPage+blockCount) <= totalPages}">
+						<li class="page-item" style="font-size: 20px">
+							<i class="ti-angle-right"></i>
+							<a href="${pageContext.request.contextPath}/community/list?nowPage=${startPage+blockCount}">NEXT</a>
 							
 						</li>
 					</c:if>

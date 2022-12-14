@@ -9,11 +9,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.CommunityBoard;
+import kosta.mvc.domain.LikeBoard;
 import kosta.mvc.domain.Member;
 import kosta.mvc.domain.Pet;
 import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.domain.Reservation;
 import kosta.mvc.repository.CommunityRepository;
+import kosta.mvc.repository.LikeBoardRepository;
 import kosta.mvc.repository.MemberRepository;
 import kosta.mvc.repository.PetRepository;
 import kosta.mvc.repository.QnaRepository;
@@ -39,6 +41,9 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private PetRepository petRep;
 
+	@Autowired
+	private LikeBoardRepository likeBoardRep;
+	
 	/*
 	 * 비밀번호 암호화를 위한 객체를 주입받는다 
 	 */
@@ -173,5 +178,11 @@ public class MemberServiceImpl implements MemberService {
 	public List<CommunityBoard> selectCommunityAll(Long memberNo) {
 		
 		return communityRep.selectCommunityAll(memberNo);
+	}
+
+	@Override
+	public List<LikeBoard> selectLikeList(Long memberNo) {
+		
+		return likeBoardRep.selectLikeList(memberNo);
 	}
 }
