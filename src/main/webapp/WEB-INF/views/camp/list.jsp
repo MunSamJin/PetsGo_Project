@@ -115,7 +115,7 @@
                      str += '<div class="col-lg-6 col-md-6"  style="display: none" name="hideview">';
                   }
                   str += '<div class="single_place"><div class="thumb">';
-                  str += '<img src="${pageContext.request.contextPath}/img/seryun/'+imeName+'" alt="">';
+                  str += '<div class="thumb_photo"><img src="${pageContext.request.contextPath}/img/seryun/'+imeName+'" alt=""></div>';
                   str += '<a href="${pageContext.request.contextPath}/camp/detail?campNo='+item.campNo+'&checkIn='+checkIn+'&checkOut='+checkOut+'&resiPeople='+resiPeople+'" class="prise">￦ '+minprice.toLocaleString('ko-KR')+'</a></div>';
                   str += '<div class="place_info" >';
                   str += '<a href="${pageContext.request.contextPath}/camp/detail?campNo='+item.campNo+'&checkIn='+checkIn+'&checkOut='+checkOut+'&resiPeople='+resiPeople+'">';
@@ -165,7 +165,11 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/list_hj.css">
     
     <style type="text/css">
-
+		.thumb_photo img {
+			width: 300px;
+		    height: 200px;
+		    object-fit: cover;
+		}
     </style>
 
 
@@ -328,7 +332,7 @@
                           </c:choose>
                                   <div class="single_place">
                                       <div class="thumb">
-                                          <img src="${pageContext.request.contextPath}/img/seryun/${fn:split(camp.campFilename, ',')[0]}" alt="">
+                                          <div class="thumb_photo"><img src="${pageContext.request.contextPath}/img/seryun/${fn:split(camp.campFilename, ',')[0]}" alt=""></div>
                                           <c:set var="aaprice" value="100000000"/>
                                           <c:forEach items="${camp.residenceList}" var="residence">
                                              <c:if test="${residence.resiPrice < aaprice}">
