@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>PetsGo</title>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 	<!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -21,8 +21,6 @@
 	<script src="https://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 	<script>
 		$(document).ready(function(){	
-			let checkResult = "";
-			
 			//////////////////////////////////////////
 			//비밀번호 유효성 체크
 			$("#password").change(function(){
@@ -75,29 +73,14 @@
 			//닉네임 유효성&중복 체크			
 			$("#nickname").keyup(function(){
 				let nickname = $(this).val().trim();
+				$("#nicknameCheck").html("");
 				
 				if(nickname.length < 2 || nickname.length > 15){
 					$("#nicknameValid").html("닉네임은 최소 2자 이상 15자 미만이어야 합니다.").css("color","red");
-					checkResult="";
 					return;
 				} 
 				
-				$("#nicknameValid").html(""); //ajax 활용 시 없애도 됨
-				
-				/* $.ajax({
-					type:"POST",
-					url:"${pageContext.request.contextPath}/emailCheck",				
-					data:"${_csrf.parameterName}=${_csrf.token}&email="+email,	
-					success:function(data){						
-						if(data=="fail"){
-						$("#emailCheck").html("  " + email + " 사용할 수 없습니다.").css("background","red");
-							checkResult="";
-						}else{						
-							$("#emailCheck").html("  " + email + " 사용 가능합니다.").css("background","yellow");		
-							checkResult = email;
-						}					
-					}//callback			
-				});//ajax */
+				$("#nicknameValid").html("");
 				
 				$.ajax({
 					type: "POST",

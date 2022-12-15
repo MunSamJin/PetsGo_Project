@@ -7,9 +7,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>PetsGo</title>
 	<!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<!-- myInfo CSS -->
+	<link href="${pageContext.request.contextPath}/css/minjeong/passwordCheckForm.css" rel="stylesheet">
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
@@ -29,10 +31,6 @@
 			//비밀번호 일치 여부 확인(ajax)
 			$("#password").keyup(function(){
 				let password = $(this).val().trim();
-				
-				alert(password);
-				
-				//$("#nicknameValid").html("");
 			
 				$.ajax({
 					type: "POST",
@@ -43,7 +41,7 @@
 						if (data == "fail") {
 							$("#passwordCheck").html("비밀번호가 일치하지 않습니다.").css("color", "red");
 						} else {
-							//$("#passwordCheck").html("사용 가능한 닉네임입니다.").css("color", "black");
+							$("#passwordCheck").html("");
 							//location.href = "${pageContext.request.contextPath}/member/updateForm";
 						}
 					}//callback			
@@ -62,20 +60,16 @@
 	<div class="container"> 
 		<div class="row justify-content-center">
 			<div class="col-12 col-lg-6">
-				<div class="loginForm"> 
-					<h3>회원 정보 수정</h3>
-					<b>비밀번호 재확인</b> <p>
-					<%-- <c:if test="${not empty requestScope.errorMessage}">
-						<span style="color:red">${requestScope.errorMessage}</span>
-					</c:if> --%>
+				<div class="checkForm"> 
+					<h1>회원 정보 수정</h1>
+					<b>비밀번호 재확인</b>
 					<sec:authentication var="mvo" property="principal" />
-					<%-- <c:if test="${param.err !=null}">
-						Error message: <b style="color: red"> 정보가 일치하지 않습니다. </b>
-					</c:if>  --%>
+
 					<div id="passwordCheck"></div> 
+					
 					<form id="checkForm" action="${pageContext.request.contextPath}/member/updateForm" method="post">
-						<input type="email" name="memberEmail" name="id" id="email" readonly value="${mvo.memberEmail}"> <br>
-						<input type="password" name="memberPassword" id="password" placeholder="현재 비밀번호를 입력해 주세요">
+						<input type="email"  class="form-control" name="memberEmail" name="id" id="email" readonly value="${mvo.memberEmail}"> 
+						<input type="password" class="form-control" name="memberPassword" id="password" placeholder="현재 비밀번호를 입력해 주세요">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />		
 						<div class="buttons">
 							<input type="submit" class="btn btn-primary" value="확인">			

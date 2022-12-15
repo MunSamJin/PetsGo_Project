@@ -71,7 +71,6 @@
 							</div>			
 						</form>
 					  </div>	
-					  
 					  <div class="tab-pane fade" id="admin-tab-pane" role="tabpanel" aria-labelledby="admin-tab" tabindex="0">
 						<form id="adminLoginForm" action="${pageContext.request.contextPath}/admin/adminLogin" method="post">
 							<input type="text" class="form-control" name="id" id="adminId" placeholder="ID"> 

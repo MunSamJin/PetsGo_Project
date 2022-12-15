@@ -24,6 +24,32 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/../../css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/../../images/favicon.png" />
+  
+  <style type="text/css">
+   .pagination-container {
+		text-align: center;
+		margin: 10px 680px;
+	}
+	
+	.pagination {
+		position: relative;
+	} 
+
+	.pagination a {
+		position: relative;
+		display: inline-block;
+		text-decoration: none;
+		padding: 8px 16px 10px;
+	}
+	.pagination-newer {
+		margin-right: 50px;
+	}
+
+	.pagination-older {
+		margin-left: 50px;
+	} 
+  </style>
+  
 </head>
 
 <body>
@@ -255,37 +281,52 @@
                       </tbody>
                     </table>
                   </div>
+                  
+                  <!-- 페이징 처리 start -->
+	            <div style="text-align: center">
+				<!--  블럭당  -->
+				 <nav class="pagination-container">
+					<div class="pagination">
+					<c:set var="doneLoop" value="false"/>
+						 <c:if test="${(startPage-blockCount) > 0}">
+						      <a class="pagination-newer" href="${pageContext.request.contextPath}/admin/pages/qna/qna_list?nowPage=${startPage-1}">PREV</a>
+						  </c:if>
+						<span class="pagination-inner"> 
+						  <c:forEach var='i' begin='${startPage}' end='${(startPage-1) + blockCount}'> 
+							    <c:if test="${(i-1)>=pageList.getTotalPages()}">
+							       <c:set var="doneLoop" value="true"/>
+							    </c:if> 
+						  <c:if test="${not doneLoop}" >
+						         <a class="${i==nowPage?'pagination-active':page}" href="${pageContext.request.contextPath}/admin/pages/qna/qna_list?nowPage=${i}">${i}</a> 
+						  </c:if>
+						</c:forEach>
+						</span> 
+						<c:if test="${(startPage+blockCount)<=pageList.getTotalPages()}">
+						     <a class="pagination-older" href="${pageContext.request.contextPath}/admin/pages/qna/qna_list?nowPage=${startPage+blockCount}">NEXT</a>
+						 </c:if>
+						</div>
+					</nav>  
+				</div>
+				<!-- 페이징 처리 end -->
+                  
+                  
+                  
+                  
                 </div>
+                
+                
+                
+                
+                
+                
+                
+                
+                
               </div>
             </div>   
           </div>
 	
-          <!-- 페이징 처리 start -->
-            <div style="text-align: center">
-			<!--  블럭당  -->
-			 <nav class="pagination-container">
-				<div class="pagination">
-				<c:set var="doneLoop" value="false"/>
-					 <c:if test="${(startPage-blockCount) > 0}">
-					      <a class="pagination-newer" href="${pageContext.request.contextPath}/admin/pages/qna/qna_list?nowPage=${startPage-1}">PREV</a>
-					  </c:if>
-					<span class="pagination-inner"> 
-					  <c:forEach var='i' begin='${startPage}' end='${(startPage-1) + blockCount}'> 
-						    <c:if test="${(i-1)>=pageList.getTotalPages()}">
-						       <c:set var="doneLoop" value="true"/>
-						    </c:if> 
-					  <c:if test="${not doneLoop}" >
-					         <a class="${i==nowPage?'pagination-active':page}" href="${pageContext.request.contextPath}/admin/pages/qna/qna_list?nowPage=${i}">${i}</a> 
-					  </c:if>
-					</c:forEach>
-					</span> 
-					<c:if test="${(startPage+blockCount)<=pageList.getTotalPages()}">
-					     <a class="pagination-older" href="${pageContext.request.contextPath}/admin/pages/qna/qna_list?nowPage=${startPage+blockCount}">NEXT</a>
-					 </c:if>
-					</div>
-				</nav>  
-			</div>
-			<!-- 페이징 처리 end -->
+          
           
         </div>
         <!-- content-wrapper ends -->

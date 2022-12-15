@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>PetsGo</title>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 	
 	<script src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
@@ -70,7 +70,7 @@
 			
 			/////////////////////////////////////
 			//광견병 예방 접종일 달력
-			$.datepicker.regional['ko'] = {
+			/* $.datepicker.regional['ko'] = {
 		        closeText: '닫기',
 		        prevText: '이전달',
 		        nextText: '다음달',
@@ -97,7 +97,14 @@
 		    $.datepicker.setDefaults($.datepicker.regional['ko']);
 		
 		    $("#datepicker").datepicker();    
-		    $("#datepicker").datepicker("option", "maxDate", new Date());
+		    $("#datepicker").datepicker("option", "maxDate", new Date()); */
+		    
+		    $( "#datepicker" ).datepicker({
+				changeMonth:true,
+                changeYear:true, 
+                yearRange:"1930:2030",
+                dateFormat:"yy-mm-dd"
+			});
 			
 			/////////////////////////////////////
 			//취소 버튼 클릭 시 반려견 정보 페이지로 이동
