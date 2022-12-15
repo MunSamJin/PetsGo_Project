@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.mvel2.ast.StaticImportNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,7 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 import kosta.mvc.domain.Camp;
 import kosta.mvc.domain.Member;
 import kosta.mvc.domain.QnaBoard;
+import kosta.mvc.domain.Reservation;
 import kosta.mvc.domain.Residence;
+import kosta.mvc.domain.Scrap;
 import kosta.mvc.mail.CampStateMail;
 import kosta.mvc.service.CampService;
 import kosta.mvc.service.MemberService;
@@ -203,4 +206,44 @@ public class AdminController {
 		model.addAttribute("memberList", memberList);
 	}
 	
+	
+	/**
+	 * 관리자 차트
+	 */
+	@RequestMapping("/pages/chart/adminChart")
+	@ResponseBody
+	public Map<String,Object> adminChart() {
+		List<Camp> campList = campService.selectAll();
+		
+		//List<List<Scrap>> scrapList = new ArrayList<List<Scrap>>();
+		
+		//List<List<Reservation>> reservList = new ArrayList<List<Reservation>>();
+		
+		List<Integer> scrapListLen = new ArrayList<Integer>();
+		List<Integer> reservListLen = new ArrayList<Integer>();
+		
+		System.out.println("캠프리스트 " + campList);
+		
+		//for(Camp c : campList) {
+		//	 scrapListLen.add(c.getScrapList().size());
+			// reservListLen.add(c.getReservationList().size());
+			
+			/*System.out.println(c.getCampName()); System.out.println();
+			scrapList.add(c.getScrapList());
+			reservList.add(c.getReservationList());
+			
+			System.out.println("캠핑장별 스크랩 " + scrapList);
+			System.out.println("예약 리스트 " + reservList);
+			System.out.println();*/
+		//}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("campList", campList);
+		//map.put("scrapListLen", scrapListLen);
+		//map.put("reservListLen", reservListLen);
+		
+		System.out.println("map put!!!!");
+		
+		return map;
+	}
 }

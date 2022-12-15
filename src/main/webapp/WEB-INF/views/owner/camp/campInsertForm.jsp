@@ -76,7 +76,7 @@
 			
 			
 			$("#campRequestCancelBtn").click(function(){
-				$(location).attr('href','${pageContext.request.contextPath}/main');
+				$(location).attr('href','${pageContext.request.contextPath}/');
 			});
 		})
    </script>

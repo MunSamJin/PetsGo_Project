@@ -35,7 +35,7 @@ public class CampServiceImpl implements CampService {
 		System.out.println("캠핑장 신청 service encodedPassword = " + encodedPassword);
 		
 		camp.setCampPassword(encodedPassword); 
-		camp.setCampState(1);
+		camp.setCampState(0);
 		camp.setCampLat("0");
 		camp.setCampLong("0");
 		camp.setCampManageNo("temporaryNo");

@@ -21,6 +21,138 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/../../css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/../../images/favicon.png" />
+  
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+  <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+  
+  <script type="text/javascript">
+  		
+		 $(function(){
+			 $.ajax({
+					type:"POST",
+					url:"${pageContext.request.contextPath}/admin/pages/chart/adminChart",	
+					dataType:"json",  //서버가 응답(보내 온)한 데이터 타입(text | html | xml | json)
+					data:"${_csrf.parameterName}=${_csrf.token}", //서버에게 보낼 parameter 정보 
+					success:function(data) {
+						let campList = [];
+				    	let scrapList = [];
+				    	let reservList = [];
+				    	
+				    	console.log("ddd = "+data.campList[0].scrapList.length)
+				    	console.log("ddd = "+data.campList[0].reservationList.length)
+					
+						$.each(data.campList, function(index, item){ //item => camp
+						    console.log("camp = "+item.campName);
+						    
+						    campList.push(item.campName);
+						    scrapList.push(item.scrapList.length);
+						    reservList.push(item.reservationList.length);
+				        });
+						
+						/* $.each(data.scrapList, function(index, item){ //item => scrap
+						    console.log("camp scrapSize = " + item.length);
+						    
+						    scrapList.push(item.scrapList.length);
+				        });
+						
+						$.each(data.reservList, function(index, item){ //item => reserv
+						    console.log("camp reservSize = " + item.length);
+						    
+						    reservList.push(item.length);
+				        }); */
+					
+
+						//예약
+						const ctx3 = document.getElementById('campReservChart').getContext('2d');
+						const campReservChart = new Chart(ctx3, {
+						    type: 'pie',
+						    data: {
+						        labels: campList, //x축
+						        datasets: [{
+						            label: '캠핑장 이용',
+						            data: scrapList, //값
+						            backgroundColor: [
+						                'rgba(255, 99, 132, 0.2)',
+						                'rgba(54, 162, 235, 0.2)',
+						                'rgba(255, 206, 86, 0.2)',
+						                'rgba(75, 192, 192, 0.2)',
+						                'rgba(153, 102, 255, 0.2)',
+						                'rgba(255, 159, 64, 0.2)'
+						            ],
+						            borderColor: [
+						                'rgba(255, 99, 132, 1)',
+						                'rgba(54, 162, 235, 1)',
+						                'rgba(255, 206, 86, 1)',
+						                'rgba(75, 192, 192, 1)',
+						                'rgba(153, 102, 255, 1)',
+						                'rgba(255, 159, 64, 1)'
+						            ],
+						            borderWidth: 1
+						        }]
+						    },
+						    options: {
+						        scales: {
+						            y: {
+						                beginAtZero: true,
+						                ticks:{ // y축 줄당 표시 값
+						                    stepSize:2
+						                  }
+						            }
+						        }
+						    }
+						})
+						
+						
+						//스크랩
+						const ctx4 = document.getElementById('campScrapChart').getContext('2d');
+						const campScrapChart = new Chart(ctx4, {
+						    type: 'bar',
+						    data: {
+						        labels: campList, //x축
+						        datasets: [{
+						            label: '숙소 예약 횟수',
+						            data: reservList, //값
+						            backgroundColor: [
+						                'rgba(255, 99, 132, 0.2)',
+						                'rgba(54, 162, 235, 0.2)',
+						                'rgba(255, 206, 86, 0.2)',
+						                'rgba(75, 192, 192, 0.2)',
+						                'rgba(153, 102, 255, 0.2)',
+						                'rgba(255, 159, 64, 0.2)'
+						            ],
+						            borderColor: [
+						                'rgba(255, 99, 132, 1)',
+						                'rgba(54, 162, 235, 1)',
+						                'rgba(255, 206, 86, 1)',
+						                'rgba(75, 192, 192, 1)',
+						                'rgba(153, 102, 255, 1)',
+						                'rgba(255, 159, 64, 1)'
+						            ],
+						            borderWidth: 1
+						        }]
+						    },
+						    options: {
+						        scales: {
+						            y: {
+						                beginAtZero: true,
+						                ticks:{ // y축 줄당 표시 값
+						                    stepSize:2
+						                  }
+						            }
+						        }
+						    }
+						})
+						
+					},
+					error : function(err){
+					    alert("에러(error) : " + err);
+					} 
+										
+				 			
+			});//ajax
+		})
+   </script>
 </head>
 
 <body>
@@ -108,59 +240,26 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-            <div class="col-lg-6 grid-margin stretch-card">
+            <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Line chart</h4>
-                  <canvas id="lineChart"></canvas>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Bar chart</h4>
-                  <canvas id="barChart"></canvas>
+                  <h4 class="card-title">캠핑장별 이용 통계</h4>
+                  <canvas id="campReservChart"></canvas>
                 </div>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-6 grid-margin stretch-card">
+            <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Area chart</h4>
-                  <canvas id="areaChart"></canvas>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Doughnut chart</h4>
-                  <canvas id="doughnutChart"></canvas>
+                  <h4 class="card-title">캠핑장별 스크랩 통계</h4>
+                  <canvas id="campScrapChart"></canvas>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-lg-6 grid-margin grid-margin-lg-0 stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Pie chart</h4>
-                  <canvas id="pieChart"></canvas>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 grid-margin grid-margin-lg-0 stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Scatter chart</h4>
-                  <canvas id="scatterChart"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
+          
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->

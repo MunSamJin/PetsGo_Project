@@ -101,11 +101,11 @@ public class Camp {
 	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
 	private List<Residence> residenceList;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 
+	//@JsonIgnore //세륜 차트하면서 주석
+	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL ) 
 	private List<Scrap> scrapList;
 
-	@JsonIgnore
+	//@JsonIgnore //세륜 차트하면서 주석
 	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 
 	private List<Reservation> reservationList;
 
