@@ -172,10 +172,10 @@
                           <td class="text-success"><a href="${pageContext.request.contextPath}/admin/camp/campcheckPage/${camp.campNo}">캠핑장 정보</a><i class="ti-arrow-up"></i></td>
                           <c:choose>
                           	<c:when test="${camp.campState == 0}">
-                      			<td><label class="badge badge-info" >등록승인대기</label></td>
+                      			<td><label class="badge badge-success" >등록승인대기</label></td>
 	                      	</c:when>
 	                      	<c:when test="${camp.campState == 1}">
-	                      		<td><label class="badge badge-success">승인</label></td>
+	                      		<td><label class="badge badge-info">승인</label></td>
 	                      	</c:when>
 	                      	<c:when test="${camp.campState == 2}">
 	                      		<td><label class="badge badge-danger">종료승인대기</label></td>
@@ -264,11 +264,11 @@
 						
 						if(item.campState == 0) {
 							state = "등록승인대기";
-							style = "badge badge-info";
+							style = "badge badge-success";
 						}
 						else if(item.campState == 1) {
 							state = "승인";
-							style = "badge badge-success";
+							style = "badge badge-info";
 						}
 						else if(item.campState == 2) {
 							state = "종료승인대기";

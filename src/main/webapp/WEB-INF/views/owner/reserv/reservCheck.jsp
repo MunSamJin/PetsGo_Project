@@ -209,10 +209,10 @@
 	                          </td>
 	                          <c:choose>
 	                          	<c:when test="${reserv.reservState == 0}">
-	                      			<td><label class="badge badge-info" >예약대기</label></td>
+	                      			<td><label class="badge badge-success" >예약대기</label></td>
 		                      	</c:when>
 		                      	<c:when test="${reserv.reservState == 1}">
-		                      		<td><label class="badge badge-success">예약확정</label></td>
+		                      		<td><label class="badge badge-info">예약확정</label></td>
 		                      	</c:when>
 		                      	<c:when test="${reserv.reservState == 3}">
 		                      		<td><label class="badge badge-wait">예약취소</label></td>
@@ -303,11 +303,11 @@
 						
 						if(item.reservState == 0) {
 							state = "예약대기";
-							style = "badge badge-info";
+							style = "badge badge-success";
 						}
 						else if(item.reservState == 1) {
 							state = "예약확정";
-							style = "badge badge-success";
+							style = "badge badge-infos";
 						}
 						else if(item.reservState == 3) {
 							state = "예약취소";
