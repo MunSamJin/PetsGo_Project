@@ -26,10 +26,6 @@
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/../../images/favicon.png" />
   
   <style type="text/css">
-   .table-responsive {	
-		text-align: center;
-   }
-   
    .pagination-container {
 		text-align: center;
 		margin: 10px 680px;
