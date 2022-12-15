@@ -6,8 +6,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>PetsGo</title>
+	
 </head>
 <body>
-	<!-- <b>정보가 일치하지 않습니다!</b> -->
+	<!-- <div class="container"> -->
+		<img src="${pageContext.request.contextPath}/img/error.png" />
+	<!-- </div> -->
+	
 </body>
 </html>
