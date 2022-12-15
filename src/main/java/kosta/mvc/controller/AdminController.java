@@ -26,6 +26,7 @@ import kosta.mvc.domain.QnaBoard;
 import kosta.mvc.domain.Reservation;
 import kosta.mvc.domain.Residence;
 import kosta.mvc.domain.Scrap;
+import kosta.mvc.dto.CampChartDTO;
 import kosta.mvc.mail.CampStateMail;
 import kosta.mvc.service.CampService;
 import kosta.mvc.service.MemberService;
@@ -179,7 +180,7 @@ public class AdminController {
 	@RequestMapping("/camp/campStateUpdate")
 	@ResponseBody
 	public Camp campStateUpdate(Long campNo, int campState) {
-		
+		System.out.println("campNO="+campNo+" , campState="+campState);
 		String campEmail = "";
 		
 		if(campState==5) {
@@ -210,7 +211,7 @@ public class AdminController {
 	/**
 	 * 관리자 차트
 	 */
-	@RequestMapping("/pages/chart/adminChart")
+	/*@RequestMapping("/pages/chart/adminChart")
 	@ResponseBody
 	public Map<String,Object> adminChart() {
 		List<Camp> campList = campService.selectAll();
@@ -222,7 +223,7 @@ public class AdminController {
 		List<Integer> scrapListLen = new ArrayList<Integer>();
 		List<Integer> reservListLen = new ArrayList<Integer>();
 		
-		System.out.println("캠프리스트 " + campList);
+		//System.out.println("캠프리스트 " + campList);
 		
 		//for(Camp c : campList) {
 		//	 scrapListLen.add(c.getScrapList().size());
@@ -237,13 +238,23 @@ public class AdminController {
 			System.out.println();*/
 		//}
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("campList", campList);
+		//Map<String, Object> map = new HashMap<String, Object>();
+		//map.put("campList", campList);
 		//map.put("scrapListLen", scrapListLen);
 		//map.put("reservListLen", reservListLen);
 		
-		System.out.println("map put!!!!");
+		//System.out.println("map put!!!!");
 		
-		return map;
+		//return map;
+	//}*/
+/////////////////////////////////////////////////////////////////////////////////////
+    @RequestMapping("/pages/chart/adminChart")
+	@ResponseBody
+	public List<CampChartDTO> adminChart() {
+		List<CampChartDTO> campList = campService.selectAllChart();
+		
+		return campList;
 	}
+    
+    /////////////////////////////////////////////////////////////////
 }

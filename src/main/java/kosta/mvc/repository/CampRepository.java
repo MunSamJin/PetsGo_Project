@@ -20,8 +20,8 @@ public interface CampRepository extends JpaRepository<Camp, Long>, QuerydslPredi
 	  @EntityGraph(attributePaths = { "scrapList"})
 	 List<Camp> findAll() ;*/
 	
-	//@Query("select c from Camp c join fetch c.residenceList.camp")
-	//List<Camp> findAllTest() ;
+	@Query("select distinct c from Camp c left join fetch c.scrapList ")
+	List<Camp> findAllTest() ;
 	
 	
 	

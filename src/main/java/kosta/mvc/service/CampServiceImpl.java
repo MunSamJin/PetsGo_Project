@@ -1,5 +1,6 @@
 package kosta.mvc.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Camp;
+import kosta.mvc.dto.CampChartDTO;
 import kosta.mvc.repository.CampRepository;
 
 @Service
@@ -119,6 +121,21 @@ public class CampServiceImpl implements CampService {
 	public List<Camp> selectAll() {
 		List<Camp> campList = campRep.findAll();
 		return campList;
+	}
+	
+	@Override
+	public List<CampChartDTO> selectAllChart(){
+		List<Camp> campList = campRep.findAllTest();
+		
+		List<CampChartDTO>  campChartDTOList = new ArrayList<CampChartDTO>();
+		
+		System.out.println("-------------");
+		for(Camp c:campList) {
+			campChartDTOList.add(new CampChartDTO(c.getCampName() , c.getScrapList().size() , c.getReservationList().size()));
+		}
+		
+		System.out.println("------------------------------------");
+		return campChartDTOList;
 	}
 	
 	

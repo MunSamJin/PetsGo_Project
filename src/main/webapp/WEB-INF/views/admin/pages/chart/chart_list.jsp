@@ -39,15 +39,19 @@
 				    	let scrapList = [];
 				    	let reservList = [];
 				    	
-				    	console.log("ddd = "+data.campList[0].scrapList.length)
-				    	console.log("ddd = "+data.campList[0].reservationList.length)
+				    	console.log("ddd = "+data)
+				    	console.log("ddd = "+data[0].campName)
+				    	console.log("ddd = "+data[0].scrapSize)
+				    	console.log("ddd = "+data[0].reservationSize)
 					
-						$.each(data.campList, function(index, item){ //item => camp
-						    console.log("camp = "+item.campName);
+						$.each(data, function(index, item){ //item => camp
+						    //console.log("1 = "+item.campName);
+						    //console.log("2 = "+item.scrapSize);
+						    //console.log("3 = "+item.reservationSize);
 						    
 						    campList.push(item.campName);
-						    scrapList.push(item.scrapList.length);
-						    reservList.push(item.reservationList.length);
+						    scrapList.push(item.scrapSize);
+						    reservList.push(item.scrapSize);
 				        });
 						
 						/* $.each(data.scrapList, function(index, item){ //item => scrap
