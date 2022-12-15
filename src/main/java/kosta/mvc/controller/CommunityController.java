@@ -73,7 +73,7 @@ public class CommunityController {
 		//태그로 검색하기 + 정렬기능 + 페이징 처리
 		if(tag != null) {
 			if(tag.equals("좋아요")) {
-				page = PageRequest.of( (nowPage)-1, PAGE_COUNT, Direction.DESC, "board_no");
+				page = PageRequest.of( (nowPage)-1, PAGE_COUNT, Direction.DESC, "likecount");
 				Page<LikeBoardArrange> likeList = communityService.selectLikeBoardArrange(page);
 				System.out.println("likeList = " + likeList);
 				
@@ -212,16 +212,23 @@ public class CommunityController {
 	 *  수정폼
 	 */
 	@RequestMapping("/updateForm")
-	public ModelAndView updateForm(Long boardNo) {
+	public void updateForm(Long boardNo, Model model) {
 		CommunityBoard board = communityService.selectBy(boardNo);
-		return new ModelAndView("community/updateForm", "board", board);
+		model.addAttribute("board", board);
+		
+		Member member =(Member)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long memberNo = member.getMemberNo();
+		List<Reservation> list = memberService.selectAll(memberNo);
+		//System.out.println("member컨트롤러 list = " + list);
+		
+		model.addAttribute("reservation", list);
 	}
 	
 	/**
 	 *  수정완료하기
 	 */
 	@RequestMapping("/update")
-	public ModelAndView update(CommunityBoard board, @RequestParam("files") List<MultipartFile> files,
+	public String update(CommunityBoard board, @RequestParam("files") List<MultipartFile> files,
 			HttpSession session) {
 		
 		Long boardNo = board.getBoardNo();
@@ -259,9 +266,11 @@ public class CommunityController {
 		}
 		
 		
+		System.out.println("컨트롤러 서비스 호출해보자");
 		CommunityBoard dbBoard = communityService.update(board);
 		
-		return new ModelAndView("community/read", "communityBoard", dbBoard);
+		
+		return "redirect:/community/read/"+boardNo;
 	}
 	
 	/**

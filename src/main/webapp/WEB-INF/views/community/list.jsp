@@ -111,7 +111,7 @@
 		.communityImg{width: 400px; height: 300px; border-radius: 10px; cursor: pointer;}
 		.communityBoardContent{display: inline-block; width: 270px; white-space: nowrap;
 								overflow: hidden; text-overflow: ellipsis;}
-		ul{text-align: center;}
+		ul{text-align: left; }
 		li{display: inline-block; margin-left: 10px;margin-right: 8px; }
 
 		
@@ -188,7 +188,7 @@
 	
 <!-- 커뮤니티 전체조회 -->	
     
-		<div class="container" ><!-- style="width: 80%; margin-left: auto; margin-right: auto; margin-bottom: 50px" -->
+		<div class="container" style="padding-left:80px"><!-- style="width: 80%; margin-left: auto; margin-right: auto; margin-bottom: 50px" -->
 			
 			<ul id="tagResult">
 			<c:choose>
