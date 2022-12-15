@@ -72,5 +72,12 @@ public interface CommunityService {
 	 * 후기 검색(캠핑장 페이지)
 	 */
 	List<CommunityBoard> selectByCampRe(String campName);
+	
+	/**
+	 * 마이페이지 내가 받은 좋아요 갯수
+	 * @param memberNo
+	 * @return
+	 */
+	int selectLikeTotal(Long memberNo);
 
 }
