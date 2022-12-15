@@ -297,7 +297,7 @@
 											 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 												<div class="modal-content">
 												  <div class="modal-header">
-												     <h3 class="modal-title fs-5" id="exampleModalLabel">문의답변 삭제</h3>
+												     <h3 class="modal-title fs-5" id="exampleModalLabel">캠핑장 후기</h3>
 												  </div>
 												  <form name="commForm" method="post" id="commForm" action="${pageContext.request.contextPath}/community/read/${review.boardNo}">
 													 <div class="modal-body" style="overflow:">

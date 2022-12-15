@@ -290,7 +290,8 @@
 	                                        		  	'resiPop','width=600,height=400,left=200,top=100')"
 	                                        	style="cursor: pointer;">			                        		
 			                        	</span>
-                                        <p class="listing-resi-intro">${resi.resiIntro}</p>
+                                        <p class="listing-resi-intro" style="display: inline-block; width: 270px; white-space: nowrap;
+								overflow: hidden; text-overflow: ellipsis;">${resi.resiIntro}</p>
                                     </div>
                                 </div>
 

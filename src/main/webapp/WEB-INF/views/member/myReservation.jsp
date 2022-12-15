@@ -132,7 +132,9 @@
 			                            </div>
 			                            <div class="blog_details">
 			                                <a class="d-inline-block" href="#">
+			                                	<h5>${reservation.camp.campName }</h5>
 			                                    <h2>${reservation.residence.resiName}</h2>
+			                                    
 			                                </a>
 			                                <div class="rev_detail">
 			                                    <div class="detials01">

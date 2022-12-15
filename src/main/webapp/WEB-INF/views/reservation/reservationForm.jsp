@@ -455,7 +455,7 @@
                                                                 <div class="sc-jYCGPb eLPgDl input">
                                                                     <div class="sc-Qpmqz kFeFTm">
                                                                         <input
-                                                                                placeholder="몸무게"
+                                                                                placeholder="최근 광견병 예방 접종일"
                                                                                 class="sc-dHnuKO ikCiJV input_error"
                                                                                 type="text" maxlength="50" minlength="0"
                                                                                 tabindex="0" id="petsdate"
