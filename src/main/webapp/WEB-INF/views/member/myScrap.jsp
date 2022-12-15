@@ -41,60 +41,61 @@ pageEncoding="UTF-8"%>
     
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
     <script type="text/javascript">
-    	$(function() {
-    		$("#moreBtn").click(function() {
-    			let len = $("div[name=hideview]").length;
-    			if(len===0) {
-    				alert("더 이상 게시물이 없습니다.");
-    			} else {
-    				let arr = new Array(len);
-    				for(var i=0; i<4; i++){         
-    					arr[i] = $("div[name=hideview]").eq(i);
-    			    }
-    				for(var j=0; j<4; j++) {
-    					arr[j].attr('name', 'showview');
-    					arr[j].css('display', 'block');
-    				}
-    				$("html, body").animate({scrollTop:$(document).height()}, 500);
-    			}
-    		});
-    		
-    		$(".ti-share").click(function() {
-    			let aa = $(this).parent().parent().parent().parent();
-    			let member = $("#member").val();
-    			let camp = $(this).next().val();
-    			
-    			$.ajax({
-    				url : '${pageCotext.request.contextPath}/scrap/scrap',
-    				type : 'post',
-    				dataType : 'text',
-    				data : {
-    					member : member,
-    					camp : camp
-    				},
-    				success : function(message) {
-    					aa.remove();
-    					alert(message);
-    				},
-    				error : function(err) {
-    					alert(err);
-    				}
-    			});
-			});
-  
-		});
+       $(function() {
+          $("#moreBtn").click(function() {
+             let len = $("div[name=hideview]").length;
+             if(len===0) {
+                alert("더 이상 게시물이 없습니다.");
+             } else {
+                let arr = new Array(len);
+                for(var i=0; i<4; i++){         
+                   arr[i] = $("div[name=hideview]").eq(i);
+                 }
+                for(var j=0; j<4; j++) {
+                   arr[j].attr('name', 'showview');
+                   arr[j].css('display', 'block');
+                }
+                $("html, body").animate({scrollTop:$(document).height()}, 500);
+             }
+          });
+          
+          $(".ti-share").click(function() {
+             let aa = $(this).parent().parent().parent().parent();
+             let member = $("#member").val();
+             let camp = $(this).next().val();
+             
+             $.ajax({
+                url : '${pageCotext.request.contextPath}/scrap/scrap',
+                type : 'post',
+                dataType : 'text',
+                data : {
+                   member : member,
+                   camp : camp
+                },
+                success : function(message) {
+                   aa.remove();
+                   alert(message);
+                },
+                error : function(err) {
+                   alert(err);
+                }
+             });
+         });
+          
+      });
     </script>
     
     <style type="text/css">
-    	.blog_item_img img{
-    		height: 220px;
-    		width: 300px;
-    		object-fit: cover;
-    	}
-    	
-    	.col-lg-6 {
-    		margin-bottom: -80px;
-    	}
+       .blog_item_img img{
+          height: 220px;
+          width: 300px;
+          object-fit: cover;
+       }
+       
+       .col-lg-6 {
+          margin-bottom: -80px;
+       }
+
     
     </style>
 </head>
@@ -159,8 +160,8 @@ pageEncoding="UTF-8"%>
                                <p>${camp.campAddr}</p>
                             </div>
                             <div class="details_icon text-right">
-                                  <img src="${pageContext.request.contextPath}/img/bookmark_g.png" alt="" 
-                                   style="width: 5%; margin: 0 10px 10px 0">
+                                   <img class="ti-share"  src="${pageContext.request.contextPath}/img/bookmark_g.png" alt=""  style="width: 5%; margin: 0 10px 10px 0">
+
                                    <input type="hidden" value="${camp.campNo}">
                                  </div>
                          </article>
