@@ -2,12 +2,10 @@ package kosta.mvc.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
-
-import com.google.common.base.Optional;
 
 import kosta.mvc.domain.Camp;
 
@@ -18,6 +16,14 @@ public interface CampRepository extends JpaRepository<Camp, Long>, QuerydslPredi
 	//@Query("select c from Camp c where c.campRegNo =?1") 
 	//Camp selectCamp(String campRegNo);
 	 
+	 /* @Override
+	  @EntityGraph(attributePaths = { "scrapList"})
+	 List<Camp> findAll() ;*/
+	
+	@Query("select distinct c from Camp c left join fetch c.scrapList ")
+	List<Camp> findAllTest() ;
+	
+	
 	
 	Camp findByCampRegNo(String campRegNo);
 	

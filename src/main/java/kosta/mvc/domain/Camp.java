@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.BatchSize;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -98,15 +99,18 @@ public class Camp {
 	private String campRole;
 	
 	//@JsonIgnore
+	//@BatchSize(size = 1000)
 	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
 	private List<Residence> residenceList;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 
+	//@BatchSize(size = 1000)
+	//@JsonIgnore //세륜 차트하면서 주석
+	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL , fetch = FetchType.LAZY) 
 	private List<Scrap> scrapList;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) 
+	//@BatchSize(size = 1000)
+	//@JsonIgnore //세륜 차트하면서 주석
+	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL ,fetch = FetchType.LAZY) 
 	private List<Reservation> reservationList;
 
 	

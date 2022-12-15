@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import kosta.mvc.domain.Camp;
+import kosta.mvc.dto.CampChartDTO;
 
 public interface CampService {
 
@@ -22,6 +23,10 @@ public interface CampService {
 	 */
 	List<Camp> selectAll();
 	
+	/**
+	 * 캠핑장 차트 
+	 * */
+	List<CampChartDTO> selectAllChart();
 
 	/**
 	 * 캠핑장 번호로 검색
