@@ -845,7 +845,7 @@
 	  Kakao.init('646a0d07558214ebe7ff129447bc2ed2'); //발급 받았던 javascript key를 여기에 넣는다.
 		 
 	  $("a[class=kakaotalk-sharing-btn]").click(function(e) { //jquery를 사용한다 가정
-	 		alert("카카오!");
+	 		//alert("카카오!");
 			e.preventDefault();   //이벤트 버블링 prevent
 
 			Kakao.Link.sendCustom({
