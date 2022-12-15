@@ -351,7 +351,7 @@
                                              <c:otherwise>
                                                 <div class="rating_days d-flex justify-content-between">
                                                     <div class="days">
-                                                        <i class="fa fa-clock-o"></i>
+                                                        <img src="${pageContext.request.contextPath}/img/bookmark_g.png" alt="" style="width: 20%;">
                                                         <a href="#" name="scrap">스크랩</a>
                                                         <input type="hidden" value="${camp.campNo}">
                                                     </div>
