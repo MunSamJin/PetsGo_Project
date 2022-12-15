@@ -54,28 +54,6 @@
 			.menu .depth_1{display:none; position:absolute; left:0; right:0; text-align:center;}
 			.menu .depth_1 a{display:block; padding:5px; background:white; color:#fff;}
     </style>
-    
-    <script type="text/javascript">
-    	$(function(){
-    		//alert("반응오니??");
-    		
-    		
-    		/* 게시물 클릭 */
-    		$("a[name=communityList]").on("click", function(){
-    			$("div[name=contents_box_02]").hide();
-    			$("div[name=contents_box_01]").show();
-    			
-    		});
-    		
-    		/* 좋아요 리스트 클릭 */
-    		$("a[name=likeList]").on("click", function(){
-    			$("div[name=contents_box_01]").hide();
-    			$("div[name=contents_box_02]").show();
-    		});
-    		
-    		
-    	});//readyEnd
-    </script>
 
 </head>
 
@@ -102,7 +80,7 @@
 			                         &nbsp	
 			                         <a href="javascript:void(0);" name="likeList">
 			                         	<i class="far fa-star"></i> 
-			                         	<p style="display: inline-block;">좋아요 리스트</p>
+			                         	<p style="display: inline-block;">좋아요 리스트</p>			                         				                         	
 			                         </a>
 			                         
                             </aside>
@@ -111,7 +89,7 @@
                    
                     <div class="col-lg-8 mb-5 mb-lg-0">
                         <!-- my_community field01 -->  
-                        <div class="contents_box" name="contents_box_01">
+                        <div class="contents_box">
                             
                             <c:forEach items="${requestScope.myCommunity}" var="myCommunity" varStatus="status" >
                             
@@ -156,41 +134,6 @@
                         </c:forEach>
                     </div> 
                     <!-- my_community field01 End -->
-                    
-                    
-                    <!-- my_community field02 -->  
-                        <div class="contents_box" name="contents_box_02" style="display: none;">
-                            
-                            <c:forEach items="${requestScope.likeList}" var="likeList" varStatus="status" >
-                            
-	                            <article class="contents cont02" >
-	                                <header class="top">
-	                                    <div class="user_container">
-	                                        <div class="profile_img">
-	                                            <img src="${pageContext.request.contextPath}/img/regi_profile/${likeList.communityBoard.member.memberProfile}" alt="">
-	                                        </div>
-	                                        <div class="user_name">
-	                                            <div class="nick_name">${likeList.communityBoard.member.memberNickname}</div> 
-	                                        </div>
-	                                    </div>
-	                                </header>
-	
-	                                <div class="img_section">
-	                                    <div class="trans_inner">
-	                                        <div style="text-align: center; width:330px; height: 410px">
-	                                        	<img style="width: 300px; height: 400px; cursor: pointer;"
-	                                        		 src="${pageContext.request.contextPath}/img//samjin/${fn:split(likeList.communityBoard.boardFileName,',')[0]}" alt=""
-	                                        		 onclick="javascript:window.open('${pageContext.request.contextPath}/community/read/${likeList.communityBoard.boardNo}',
-	                                        		  			'communityPop','width=800,height=400,left=200,top=100')">	                                        		
-	                                        </div>	                                        
-	                                    </div>
-	                                </div>
-	
-	                        </article>
-                        </c:forEach>
-                    </div> 
-                    <!-- my_community field02 End -->
-                    
                 </div>
             </div>
         </div>

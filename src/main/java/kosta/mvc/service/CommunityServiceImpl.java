@@ -160,6 +160,12 @@ public class CommunityServiceImpl implements CommunityService {
 				.fetch();
 	}
 
+	@Override
+	public int selectLikeTotal(Long memberNo) {
+		
+		return communityRepository.selectLikeTotal(memberNo);
+	}
+
 
 
 }

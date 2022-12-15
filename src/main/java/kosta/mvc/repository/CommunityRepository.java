@@ -58,4 +58,14 @@ public interface CommunityRepository extends JpaRepository<CommunityBoard, Long>
 	 */
 	@Query("select c from CommunityBoard c where c.boardTag like ?1 order by c.boardDate desc")
 	Page<CommunityBoard> campTagSelect(String tag, Pageable page);
+	
+	/**
+	 * 마이페이지 내가 받은 좋아요 갯수
+	 */
+	@Query(value = "select sum(count(c.board_no)) from community_board c\r\n"
+			+ "        join like_board l\r\n"
+			+ "        on c.board_no = l.board_no\r\n"
+			+ "        group by c.board_no, c.member_no\r\n"
+			+ "        having c.member_no = ?1", nativeQuery = true)
+	int selectLikeTotal(Long memberNo);
 }

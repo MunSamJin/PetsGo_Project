@@ -129,14 +129,21 @@ public class MemberController {
 		if(object instanceof Member) {
 			member = (Member)auth.getPrincipal();
 		}
+		
 		Long memberNo = member.getMemberNo();
 		
 		List<Scrap> scrapList = scrapService.selectByMember(memberNo);
 		List<Camp> campList = new ArrayList<Camp>();
+		
 		for(Scrap s : scrapList) {
 			campList.add(campService.selectBy(s.getCamp().getCampNo()));
 		}
+		
 		model.addAttribute("campList", campList);
+		
+		//int likeTotal = communityService.selectLikeTotal(memberNo);
+		//System.out.println("likeTotal??? " + likeTotal);
+		//model.addAttribute("likeTotal", likeTotal);
 	}
 	
 	/**
@@ -271,23 +278,20 @@ public class MemberController {
 		
 		List<CommunityBoard> list = memberService.selectCommunityAll(memberNo);
 		System.out.println("member컨트롤러 list = " + list);
-		
-		List<LikeBoard> likeList = memberService.selectLikeList(memberNo);
-		
 		model.addAttribute("myCommunity", list);
-		model.addAttribute("likeList", likeList);
+
 	}
 
 	/**
 
 	 * 마이페이지 내커뮤니티 게시글 삭제
 	 */
-	@RequestMapping("/delete/{boardNo}")
+	/*@RequestMapping("/delete/{boardNo}")
 	public String delete(@PathVariable Long boardNo) {
 		System.out.println("마이페이지컨트롤러 boardNo = " + boardNo);
 		communityService.delete(boardNo);
 		return "redirect:/member/myCommunity";
-	}
+	}*/
 
    /**
     * 마이페이지 내 문의 삭제하기
