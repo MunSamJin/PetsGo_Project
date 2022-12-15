@@ -97,12 +97,6 @@ public class MemberController {
 		return dbReservState;
 	}
 
-	/*
-	 * 마이페이지 내 스크랩북 이동
-	 * */
-	@RequestMapping("/myScrap")
-	public void myScrap() {}
-	
 	/**
 	 * 마이페이지 내 회원 정보 이동
 	 * */
@@ -155,35 +149,14 @@ public class MemberController {
 	 * 회원 정보 수정 전 비밀번호 확인
 	 * */
 	@RequestMapping("/passwordCheck")
-	@ResponseBody
-	/* public String passwordCheck(HttpServletRequest request) {
-		return memberService.passwordCheck(request.getParameter("memberPassword"));
-	} */
-	/* public String passwordCheck(Authentication auth, @RequestParam("memberPassword") String password) {
-		//return memberService.passwordCheck(request.getParameter("memberPassword"));
-		
-		Member member = (Member)auth.getPrincipal();
-		//String dbPwd = member.getMemberPassword();
-		
-		if(!passwordEncoder.matches(password, member.getMemberPassword())){
-			return "fail";
-		} else {
-			return "ok";
-		}
-	} */
-	
+	@ResponseBody	
 	public String passwordCheck(HttpServletRequest request, Authentication auth) {
-		//return memberService.passwordCheck();
 		String password = request.getParameter("memberPassword");
 		
 		Member member = (Member)auth.getPrincipal();
-		//String dbPwd = member.getMemberPassword();
 		
-		if(!passwordEncoder.matches(password, member.getMemberPassword())){
-			return "fail";
-		} else {
-			return "ok";
-		}
+		if(!passwordEncoder.matches(password, member.getMemberPassword())) return "fail";
+		else return "ok";
 	}
 	
 	/**

@@ -12,8 +12,8 @@
     <link rel="icon" href="${pageContext.request.contextPath}/img/petsgoweb.png">
     
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    
+   <!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+     -->
     <link rel="icon" href="${pageContext.request.contextPath}/img/favicon.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
@@ -38,10 +38,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <!-- my_reservation style CSS --> 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/my_reservation.css">
-    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage_style.css">
     
     <!-- myInfo CSS -->
-	<%-- <link href="${pageContext.request.contextPath}/css/minjeong/myInfo.css" rel="stylesheet"> --%>
+	<link href="${pageContext.request.contextPath}/css/minjeong/myInfo.css" rel="stylesheet">
 	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
@@ -51,7 +51,7 @@
 	<!--================ Area =================-->
     <section class="blog_area single-post-area section_padding">
         <div class="container">
-            <div class="my_topmenu">나의 문의답변</div>
+            <div class="my_topmenu">나의 정보</div>
             <div class="row">
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
@@ -79,44 +79,96 @@
 						</ul>
 						<div class="tab-content" id="myTabContent">
 							<sec:authentication var="mvo" property="principal" />
-							<div class="tab-pane fade show active" id="member-tab-pane" role="tabpanel" aria-labelledby="member-tab" tabindex="0">
-								<h3>회원 정보</h3>
-								사진 <p>
-								<img alt="" src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}"> <p>
-								이메일 ${mvo.memberEmail} <p>
-								닉네임 ${mvo.memberNickname} <p>
-								휴대폰번호 ${mvo.memberPhone} <p>
-								생년월일 ${mvo.memberBirthDate} <p>
-					
-								<a href="${pageContext.request.contextPath}/member/passwordCheckForm">수정</a>
+							<div class="tab-pane fade show active" id="member-tab-pane" role="tabpanel" aria-labelledby="member-tab" tabindex="0">								
+								<form id="myInfo" action="${pageContext.request.contextPath}/member/passwordCheckForm" method="post">
+									<div class="form-content">
+										<label for="memberEmail" class="form-label">이메일</label>
+										<input type="text" class="form-control" name="memberEmail" value="${mvo.memberEmail}" readonly>
+									</div>
+									<div class="form-content">	
+										<label for="memberNickname" class="form-label">닉네임</label>
+										<input type="text" class="form-control" name="memberNickname" value="${mvo.memberNickname}" readonly>
+									</div>
+									<div class="form-content">	
+										<label for="memberPhone" class="form-label">휴대폰번호</label>
+										<input type="text" class="form-control" name="memberPhone" value="${mvo.memberPhone} " readonly>
+									</div>
+									<div class="form-content">	
+										<label for="memberBirthDate" class="form-label">생년월일</label>
+										<input type="text" class="form-control" name="memberBirthDate" value="${mvo.memberBirthDate} " readonly>	
+									</div>
+									<div class="buttons">
+										<input type="submit" class="btn btn-primary" value="수정">
+									</div>
+								</form>
 							</div>
 					
 							<div class="tab-pane fade" id="pet-tab-pane" role="tabpanel" aria-labelledby="pet-tab" tabindex="0">
-								<h3>반려견 정보</h3>
-								<a href="${pageContext.request.contextPath}/member/addPetForm">추가</a> <br><br>
+								<%-- <a href="${pageContext.request.contextPath}/member/addPetForm">추가</a> <br><br> --%>
+								<form id="myInfo" action="#" method="post">
+									<c:forEach items="${petList}" var="pet">
+
+										
+
 								
-								<c:forEach items="${petList}" var="pet">
-									${pet.petWeight}kg <p> 
-									<c:choose>
-							        	<c:when test="${pet.petNeuter == 0}">
-							        		중성화 비수술
-							        	</c:when>
-							        	<c:otherwise>
-							        		중성화 수술 완료
-							        	</c:otherwise>
-							        </c:choose>
-									<p>
-									<c:choose>
-							        	<c:when test="${pet.petVaccine == null}">
-							        		광견병 예방 미접종
-							        	</c:when>
-							        	<c:otherwise>
-							        		광견병 예방 접종일 ${pet.petVaccine}
-							        	</c:otherwise>
-							        </c:choose>
-									 <p>
-									${pet.petOther} <br><br><br>
-								</c:forEach>			
+								
+								
+								
+								
+								
+								
+								
+									<div class="form-content">
+										<label for="petName" class="form-label">이름</label>
+										<input type="text" class="form-control" name="petName" value="${pet.petName}" readonly>
+									</div>
+									<div class="form-content">	
+										<label for="petWeight" class="form-label">몸무게</label>
+										<input type="text" class="form-control" name="petWeight" value="${pet.petWeight}kg" readonly>
+									</div>
+									<div class="form-content">	
+										<label for="memberPhone" class="form-label">중성화</label>
+										<c:choose>
+								        	<c:when test="${pet.petNeuter == 0}">
+								        		<input type="text" class="form-control" name="memberPhone" value="비수술" readonly>
+								        	</c:when>
+								        	<c:otherwise>
+								        		<input type="text" class="form-control" name="memberPhone" value="수술 완료" readonly>
+								        	</c:otherwise>
+								        </c:choose>
+									</div>
+									
+									<div class="form-content">	
+										<label for="memberBirthDate" class="form-label">광견병 예방</label>
+										<c:choose>
+								        	<c:when test="${pet.petVaccine == null}">
+								        		<!-- 광견병 예방 미접종 -->
+								        		<input type="text" class="form-control" name="memberBirthDate" value="미접종" readonly>	
+								        	</c:when>
+								        	<c:otherwise>
+								        		<%-- 광견병 예방 접종일 ${pet.petVaccine} --%>
+								        		<input type="text" class="form-control" name="memberBirthDate" value="${pet.petVaccine}" readonly>	
+								        	</c:otherwise>
+								        </c:choose>
+										
+										
+									</div>
+									<div class="form-content">	
+										<label for="memberBirthDate" class="form-label">기타 특이사항</label>
+										<input type="text" class="form-control" name="memberBirthDate" value="${pet.petOther}" readonly>	
+									</div>
+									<div class="buttons">
+										<%-- <a href="${pageContext.request.contextPath}/member/deleteInfo"><button type="button" class="btn btn-light">탈퇴하기</button></a> --%>
+										<input type="submit" class="btn btn-primary" value="수정">
+									</div>
+									</c:forEach>
+								</form>
+								
+								
+								
+								
+								
+									
 							</div>
 						</div>
 						<!-- myInfo part end -->

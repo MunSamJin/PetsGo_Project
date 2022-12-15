@@ -40,7 +40,8 @@ public class SecurityConfigInMemory extends WebSecurityConfigurerAdapter {
 				.logoutSuccessUrl("/")
 				.invalidateHttpSession(true)
 				.deleteCookies("JSESSIONID")
-				.and();	
+				.and()
+				.csrf().disable();	
 	}
 	
 	@Override
