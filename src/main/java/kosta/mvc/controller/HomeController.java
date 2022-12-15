@@ -78,7 +78,7 @@ public class HomeController {
 			return "redirect:/";
 		} else {
 			Camp  c = (Camp)auth.getPrincipal();
-			return "redirect:/owner/campHome";
+			return "redirect:/owner/reserv/reservCheck/"+ c.getCampNo();
 		} 
 	}
 	

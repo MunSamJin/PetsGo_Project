@@ -52,7 +52,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-              <a class="dropdown-item preview-item" href="${pageContext.request.contextPath}/owner/review/campReview">
+              <a class="dropdown-item preview-item" href="${pageContext.request.contextPath}/owner/review/campReview/${secCamp.campNo}">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-info">
                     <i class="ti-user mx-0"></i>

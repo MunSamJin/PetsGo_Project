@@ -31,11 +31,68 @@
   <link rel="icon" href="data:,">
   
   <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
-  <script type="text/javascript">
-		$(function(){
-			
-		})
-   </script>
+  <style type="text/css">
+   	a {text-decoration: none}
+  
+	.pagination-container {
+		margin: 100px auto;
+		text-align: center;
+	}
+	
+	.pagination {
+		position: relative;
+	}
+	
+	.pagination a {
+		position: relative;
+		display: inline-block;
+		color: #2c3e50;
+		text-decoration: none;
+		font-size: 1.2rem;
+		padding: 8px 16px 10px;
+	}
+	
+	.pagination a:before {
+		z-index: -1;
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		content: "";
+		top: 0;
+		left: 0;
+		background-color: #2c3e50;
+		border-radius: 24px;
+		-webkit-transform: scale(0);
+		transform: scale(0);
+		transition: all 0.2s;
+	}
+	
+	.pagination a:hover, .pagination a .pagination-active {
+		color: #fff;
+	}
+	
+	.pagination a:hover:before, .pagination a .pagination-active:before {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+	
+	.pagination .pagination-active {
+		color: #fff;
+	}
+	
+	.pagination .pagination-active:before {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+	
+	.pagination-newer {
+		margin-right: 50px;
+	}
+	
+	.pagination-older {
+		margin-left: 50px;
+	}
+  </style>
    
 </head>
 
@@ -44,8 +101,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/images/logo_owner.svg" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="${pageContext.request.contextPath}/owner/campHome"><img src="${pageContext.request.contextPath}/images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="${pageContext.request.contextPath}/owner/reserv/reservCheck/${secCamp.campNo}"><img src="${pageContext.request.contextPath}/images/logo_owner.svg" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="${pageContext.request.contextPath}/owner/reserv/reservCheck/${secCamp.campNo}"><img src="${pageContext.request.contextPath}/images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -63,7 +120,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-              <a class="dropdown-item preview-item" href="${pageContext.request.contextPath}/owner/review/campReview">
+              <a class="dropdown-item preview-item" href="${pageContext.request.contextPath}/owner/review/campReview/${secCamp.campNo}">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-info">
                     <i class="ti-user mx-0"></i>
@@ -115,7 +172,7 @@
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item">
+          <li class="nav-item" style="display: none;">
             <a class="nav-link" href="${pageContext.request.contextPath}/owner/campHome">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">캠핑장 홈</span>
@@ -144,7 +201,7 @@
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reserv/reservCheck/${secCamp.campNo}">예약 신청 관리</a></li>
-                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reserv/reservChart">예약 통계</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/owner/reserv/reservChart/${secCamp.campNo}">예약 통계</a></li>
               </ul>
             </div>
           </li>
@@ -189,7 +246,7 @@
                     ${secCamp.campName}과 관련된 게시글
                   </p>
                   <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped" >
                       <thead>
                         <tr>
                           <th>회원이름</th>
@@ -219,11 +276,15 @@
 			                          </td>
 			                          <td>
 			                            <div>
-			                            	<!-- <p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"> -->
-			                            	${review.boardContent}
-			                            	<%-- <a href="${pageContext.request.contextPath}/admin/pages/qna/replyWriteForm">${qna.qnaContent}
-			                            		<input type="hidden" name="qnaNo" value="${qna.qnaNo}" />
-			                            	</a> --%>
+			                            <c:choose>
+			                            	<c:when test="${fn:length(review.boardContent) gt 42}">
+			                            	<c:out value="${fn:substring(review.boardContent, 0, 40)}">
+									        </c:out></c:when>
+									        <c:otherwise>
+									        <c:out value="${review.boardContent}">
+									        </c:out></c:otherwise>
+			                            </c:choose>
+			                            	
 			                            </div>
 			                          </td>
 			                          <td>
@@ -239,9 +300,9 @@
 												     <h3 class="modal-title fs-5" id="exampleModalLabel">문의답변 삭제</h3>
 												  </div>
 												  <form name="commForm" method="post" id="commForm" action="${pageContext.request.contextPath}/community/read/${review.boardNo}">
-													 <div class="modal-body" style="overflow: auto;">
+													 <div class="modal-body" style="overflow:">
 													   <b>게시글 내용</b> <p>
-													    <span>${review.boardContent} <br><br><br></span>
+													    ${review.boardContent} <br><br><br>
 														<input type="hidden" name="qnaNo" value="${review.boardNo}" />
 													   <b>태그</b> <p>
 														${review.boardTag} <br><br><br>
@@ -253,7 +314,7 @@
 													 </div>
 													 <div class="modal-footer">
 													 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-													 <button type="submit" class="btn btn-danger">게시글 확인</button>
+													 <!-- <button type="submit" class="btn btn-danger">게시글 확인</button> -->
 													</div>
 												  </form>
 												</div>
