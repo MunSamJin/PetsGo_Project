@@ -54,7 +54,7 @@
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 						<input type="hidden" name="memberRole" value="ROLE_MEMBER">
                         <div class="form-content">
-                            <label for="file" class="form-label">아이콘</label>
+                            <label for="file" class="form-label">프로필</label>
                             <input type="radio" name="memberProfile" id="file" value="dog_01.png" checked>
                             <img src="${pageContext.request.contextPath}/img/regi_profile/dog_01.png" alt="">
                            

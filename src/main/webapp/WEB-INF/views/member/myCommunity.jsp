@@ -68,22 +68,25 @@
                         <div class="blog_right_sidebar">
                         	<sec:authentication var="mvo" property="principal" />
                             <aside class="single_sidebar_widget instagram_feeds">                          
-                                    <div class="my_img">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" >
-                                    </div>
-                                     <h4 class="widget_title">${mvo.memberNickname}님</h4><br>
-                                     
-			                         <a href="javascript:void(0);" name="communityList">
-			                         	<i class="far fa-star"></i> 
-			                         	<p style="display: inline-block;">게시물</p>
-			                         </a>
-			                         &nbsp	
-			                         <a href="javascript:void(0);" name="likeList">
-			                         	<i class="far fa-star"></i> 
-			                         	<p style="display: inline-block;">좋아요 리스트</p>			                         				                         	
-			                         </a>
-			                         
-                            </aside>
+
+			                     <div class="my_img">
+			                        <img class="img-fluid" src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" >
+			                     </div>                                      
+			                     <h4 class="widget_title">${mvo.memberNickname}님</h4>
+			                      
+			                      <img src="${pageContext.request.contextPath}/img/bookmark_1.png" alt="" style="width: 7%; opacity: 68%;">                    
+			                     <a href="javascript:void(0);" name="communityList">
+			                        <p style="display: inline-block;">스크랩</p>
+			                        <b>7</b>
+			                      </a>
+			                      &nbsp 
+			                      <i class="far fa-star"></i>   
+			                      <a href="javascript:void(0);" name="likeList">
+			                        <p style="display: inline-block;">좋아요</p>
+			                        <b>33</b>
+			                      </a>
+			                  </aside>
+
                         </div>
                     </div>
                    

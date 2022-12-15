@@ -57,9 +57,9 @@
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="${pageContext.request.contextPath}/admin/main">
+        <a class="navbar-brand brand-logo mr-5" href="${pageContext.request.contextPath}/admin/pages/camp/campcheck">
         <img src="${pageContext.request.contextPath}/../../images/logo.svg" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="${pageContext.request.contextPath}/admin/main">
+        <a class="navbar-brand brand-logo-mini" href="${pageContext.request.contextPath}/admin/pages/camp/campcheck">
         <img src="${pageContext.request.contextPath}/../../images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -120,7 +120,7 @@
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
          <ul class="nav">
-           <li class="nav-item">
+           <li class="nav-item" style="display: none;">
             <a class="nav-link" href="${pageContext.request.contextPath}/admin/main">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">홈</span>
@@ -144,7 +144,7 @@
               <span class="menu-title">수익통계</span>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" style="display: none;">
             <a class="nav-link" href="${pageContext.request.contextPath}/admin/pages/banner/banner_list" aria-expanded="false" aria-controls="banner">
               <i class="icon-grid-2 menu-icon"></i>
               <span class="menu-title">배너관리</span>

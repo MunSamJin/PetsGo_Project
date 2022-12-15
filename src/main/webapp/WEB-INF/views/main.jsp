@@ -72,7 +72,7 @@
 	</script>
 	
 	<style type="text/css">
-	  .camp_title {font-size: 18px;}
+	  .camp_title {font-size: 16px; font-family: SCDream3;}
 	</style>
 
 </head>
@@ -159,7 +159,7 @@
     <!--주간 펫츠고 인기순 영역-->
     <section class="top_place section_padding" style="padding-top: 240px;">
         <div class="container">
-             <span style="color: #25483a; font-family: BMJUA; font-size: 28px;">이번주 펫츠GO! PICK!</span>
+             <span style="color: #25483a; font-family: BMJUA; font-size: 30px;">이번주 펫츠GO! PICK!</span>
 
             <div class="row">            
                 <div class="col-lg-6 col-md-6">
@@ -323,7 +323,9 @@
     <!--지도로 보는 캠핑장 kakao map API -->
     <section class="event_part section_padding" style="background-image: none;">
         <div class="container">
-         <span style="color: #25483a; font-family: BMJUA; font-size: 28px;">한눈에 보는 경기도 캠핑장</span>
+         <span style="color: #25483a; font-family: BMJUA; font-size: 30px;">
+         <img src="${pageContext.request.contextPath}/img/camping-tent.png" alt="" style="width: 3%;"> 
+         한눈에 보는 경기도 캠핑장</span>
             <div class="row">
                <div class="map_wrap" style="justify-content: center;">
                 <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden; margin-top:10px;"></div>
@@ -573,7 +575,10 @@
             <div class="row ">
                 <div class="col-xl-6">
                     <div class="section_tittle">
-                         <span style="color: #ffecdc; font-family: BMJUA; font-size: 28px;">커뮤니티 인기 콘텐츠</span>
+                         <span style="color: #ffecdc; font-family: BMJUA; font-size: 30px;">
+                         커뮤니티 금주 인기 콘텐츠
+                         <img src="${pageContext.request.contextPath}/img/icon-live.png" alt="" style="width:;"> 
+                         </span>
                     </div>
                 </div>
             </div>

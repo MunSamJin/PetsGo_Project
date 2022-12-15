@@ -1177,13 +1177,31 @@ li {
     background-color: #30c0a3;
 }
 
-.map-ratings-review-area > a:nth-child(2) {
-    background-color: #165738;
-}
 
 .map-ratings-review-area > a:last-child {
-    background-color: #a56934;
+    background-color: #165738;
     color: #fff;
+    padding: 5px 20px;
+ 
+}
+
+.reservationBtn {
+	width: 100px;
+	padding: 15px 5px;
+	background-color: #f7612f;
+    color: #fff;
+    border-right: double;
+    font-family: SCDream4;
+}
+
+.reservationBtn:hover {
+	width: 100px;
+	padding: 15px 5px;
+	background-color: #165738;
+    color: #fff;
+   border-right: dotted;
+    font-family: SCDream4;
+    
 }
 
 .book-a-table-widget {
@@ -1346,7 +1364,27 @@ li {
 }
 
 .single-listing-menu p {
-    margin-bottom: 0;
+    margin: 8px;
+    
+}
+
+.listing-menu-title h6 {
+	font-size: 20px;
+    font-weight: 700;
+    color: #165738;
+    font-family: SCDream4; 
+}
+
+.listing-menu-price h6 {
+	font-size: 16px;
+    font-weight: 600;
+    color: #808080;
+    font-family: SCDream3; 
+}
+
+.listing-resi-img {
+	
+	margin: 10px;
 }
 
 .single-listing-menu:nth-child(odd) {

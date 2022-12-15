@@ -13,7 +13,7 @@ z-index: 9;
 position: relative;
 }
 
-.booking_part .form-row .form_colum input::placeholder {color:#f7612f;}
+.booking_part .form-row .form_colum input::placeholder {color:#f7612f; font-family: SCDream4;}
 .booking_part .form-row .form_colum input {border: 1px solid #f7612f !important;}
 .booking_part .form-row .form_colum .gj-datepicker-md [role=right-icon] {
     color:#f7612f ;
@@ -120,6 +120,9 @@ padding: 20px;
     color: #f1faf7;
     }
 
+.form-row {
+	font-family: SCDream4;
+}
 
 /*============== camp list css ==============*/
 .form_colum {

@@ -84,88 +84,135 @@ pageEncoding="UTF-8"%>
   
 		});
     </script>
+    
+    <style type="text/css">
+    	.blog_item_img img{
+    		height: 220px;
+    		width: 300px;
+    		object-fit: cover;
+    	}
+    	
+    	.col-lg-6 {
+    		margin-bottom: -80px;
+    	}
+    
+    </style>
 </head>
 <body>
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-	<sec:authentication var="mvo" property="principal" />
-	<input type="hidden" id="member" value="${mvo.memberNo}">
+   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+   <sec:authentication var="mvo" property="principal" />
+   <input type="hidden" id="member" value="${mvo.memberNo}">
 
-	<section class="blog_area single-post-area section_padding">
-		<div class="container">
-	    	<div class="my_topmenu">나의 스크랩</div>
-	        <div class="row">
-	
-		        <!-- 프로필 -->
-		        <div class="col-lg-4">
-				   <div class="blog_right_sidebar">
-				      <sec:authentication var="mvo" property="principal" />
-						<aside class="single_sidebar_widget instagram_feeds">                          
-						   <div class="my_img">
-						      <img class="img-fluid" src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" >
-						   </div>		                                
-						   <h4 class="widget_title">${mvo.memberNickname}님</h4>
-						                        
-						   <a href="javascript:void(0);" name="communityList">
-					         <i class="far fa-star"></i> 
-					         <p style="display: inline-block;">스크랩</p>
-					       </a>
-					       &nbsp	
-					       <a href="javascript:void(0);" name="likeList">
-					         <i class="far fa-star"></i> 
-					         <p style="display: inline-block;">좋아요 리스트</p>
-					       </a>
-						</aside>
-					</div>
-				 </div>
-		
-		         <!-- 캠핑장 -->
-		         <div class="contents_box" >
-			         <div class="col-lg-8">
-			           <div class="row">
-			                
-			           <!-- 반복문 -->
-			             <c:forEach items="${campList}" var="camp" varStatus="status">
-			               <c:choose>
-			                 <c:when test="${status.count<=3}">
-			                    <div class="col-lg-6 col-md-6"  name="showview">
-			                 </c:when>
-			                 <c:otherwise>
-			                    <div class="col-lg-6 col-md-6"  style="display: none" name="hideview">
-			                 </c:otherwise>
-			               </c:choose>
-			               
-			               <div class="blog_left_sidebar">
-			                <article class="blog_item">
-			                	<div class="blog_item_img">
-			                		<img src="${pageContext.request.contextPath}/img/seryun/${fn:split(camp.campFilename, ',')[0]}" alt="">
-			                	</div>
-				                <div class="blog_details">
-				               		<a class="d-inline-block" href="#">
-				                		<h2>${camp.campName }</h2>
-				               		</a>
-				               		<p>${camp.campAddr}</p>
-				            	</div>
-				              <div class="details_icon text-right">
-					              <i class="ti-share" alt="스크랩북"></i>
-					              <input type="hidden" value="${camp.campNo}">
-					          </div>
-			            	</article>
-			               </div>
-			           	  </c:forEach>
-			            </div>      	
-			         </div>
-		                
-			         <div class="row">
-			             <div class="col-lg-12">
-				            <div class="more_place_btn text-center">
-				               <button type="button" class="boxed-btn4" id="moreBtn">More Places</button>
-				            </div>
-				          </div>
-			         </div>
-		         </div>
-	         </div>
-	    </div>
-	</section>
+   <section class="blog_area single-post-area section_padding">
+      <div class="container">
+          <div class="my_topmenu">나의 스크랩</div>
+           <div class="row">
+   
+              <!-- 프로필 -->
+              <div class="col-lg-4">
+               <div class="blog_right_sidebar">
+                  <sec:authentication var="mvo" property="principal" />
+                  <aside class="single_sidebar_widget instagram_feeds">                          
+                     <div class="my_img">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" >
+                     </div>                                      
+                     <h4 class="widget_title">${mvo.memberNickname}님</h4>
+                      
+                      <img src="${pageContext.request.contextPath}/img/bookmark_1.png" alt="" style="width: 7%; opacity: 68%;">                    
+                     <a href="javascript:void(0);" name="communityList">
+                        <p style="display: inline-block;">스크랩</p>
+                        <b>7</b>
+                      </a>
+                      &nbsp 
+                      <i class="far fa-star"></i>   
+                      <a href="javascript:void(0);" name="likeList">
+                        <p style="display: inline-block;">좋아요</p>
+                        <b>33</b>
+                      </a>
+                  </aside>
+               </div>
+             </div>
+      
+               <!-- 캠핑장 -->
+            <div class="col-lg-8">
+                <div class="row">
+                
+                   <!-- 반복문 -->
+                   <c:forEach items="${campList}" var="camp" varStatus="status">
+                      <c:choose>
+                             <c:when test="${status.count<=3}">
+                                <div class="col-lg-6 col-md-6"  name="showview">
+                             </c:when>
+                             <c:otherwise>
+                                <div class="col-lg-6 col-md-6"  style="display: none" name="hideview">
+                             </c:otherwise>
+                          </c:choose>
+                      <div class="blog_left_sidebar">
+                         <article class="blog_item">
+                            <div class="blog_item_img">
+                               <img src="${pageContext.request.contextPath}/img/seryun/${fn:split(camp.campFilename, ',')[0]}" alt="">
+                            </div>
+                            <div class="blog_details">
+                               <a class="d-inline-block" href="#">
+                                  <h2>${camp.campName }</h2>
+                               </a>
+                               <p>${camp.campAddr}</p>
+                            </div>
+                            <div class="details_icon text-right">
+                                  <img src="${pageContext.request.contextPath}/img/bookmark_g.png" alt="" 
+                                   style="width: 5%; margin: 0 10px 10px 0">
+                                   <input type="hidden" value="${camp.campNo}">
+                                 </div>
+                         </article>
+                      </div>
+                   </div>
+                   </c:forEach>
+                   
+                </div>
+                
+                <div class="row">
+                   <div class="col-lg-12">
+                      <div class="more_place_btn text-center">
+                         <button type="button" class="boxed-btn4" id="moreBtn">More Places</button>
+                      </div>
+                   </div>
+               </div>
+               
+            </div>
+            
+            <div class="col-lg-8 mb-5 mb-lg-0">
+               <!-- my_community field02 -->  
+               <div class="contents_box" name="contents_box_02" style="display: none;">
+                  <c:forEach items="${requestScope.likeList}" var="likeList" varStatus="status" >
+                     <article class="contents cont02" >
+                       <header class="top">
+                          <div class="user_container">
+                             <div class="profile_img">
+                                <img src="${pageContext.request.contextPath}/img/regi_profile/${likeList.communityBoard.member.memberProfile}" alt="">
+                             </div>
+                             <div class="user_name">
+                                 <div class="nick_name">${likeList.communityBoard.member.memberNickname}</div> 
+                             </div>
+                           </div>
+                        </header>
+      
+                        <div class="img_section">
+                            <div class="trans_inner">
+                                <div style="text-align: center; width:330px; height: 410px">
+                                      <img style="width: 300px; height: 400px; cursor: pointer;"
+                                            src="${pageContext.request.contextPath}/img//samjin/${fn:split(likeList.communityBoard.boardFileName,',')[0]}" alt=""
+                                             onclick="javascript:window.open('${pageContext.request.contextPath}/community/read/${likeList.communityBoard.boardNo}',
+                                                    'communityPop','width=800,height=400,left=200,top=100')">                                                 
+                                 </div>                                           
+                             </div>
+                        </div>
+                  </article>
+                   </c:forEach>
+                </div> 
+                 <!-- my_community field02 End -->
+          </div>
+       </div>
+   </section>
 
 <!--================ Area end =================-->
 

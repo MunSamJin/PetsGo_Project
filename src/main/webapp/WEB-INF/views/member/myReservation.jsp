@@ -86,12 +86,22 @@
 		                <div class="col-lg-4">
 		                    <div class="blog_right_sidebar">
 		                    <sec:authentication var="mvo" property="principal" />
-								<aside class="single_sidebar_widget instagram_feeds">                          
-				                	<div class="my_img">
-				                    	<img class="img-fluid" src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" >
-				                    </div>		                                
-				                        <h4 class="widget_title">${mvo.memberNickname}님</h4>
-				                </aside>
+							<aside class="single_sidebar_widget instagram_feeds" style="text-align: center;">                          
+	                             <div class="my_img">
+	                                 <img class="img-fluid" src="${pageContext.request.contextPath}/img/regi_profile/${mvo.memberProfile}" >
+	                             </div>
+	                              <h4 class="widget_title">${mvo.memberNickname}님</h4><br>
+		                                  
+		                         <a href="javascript:void(0);" name="communityList">
+		                         	<img src="${pageContext.request.contextPath}/img/bookmark_1.png" alt="" style="width: 7%; opacity: 68%;">
+		                         	<p style="display: inline-block;">스크랩</p>
+		                         </a>
+		                         &nbsp
+		                         <i class="far fa-star" style="opacity: 68%;"></i>
+		                         <a href="javascript:void(0);" name="likeList">
+		                         	<p style="display: inline-block;">좋아요</p>
+		                         </a>			                         
+	                         </aside>
 			            </div>
 		                </div>
 		                <div class="col-lg-8 mb-5 mb-lg-0">
@@ -172,7 +182,7 @@
 			                        </article>
 		                        </c:forEach>
 		                        
-		                        <nav class="blog-pagination justify-content-center d-flex">
+		                        <!-- <nav class="blog-pagination justify-content-center d-flex">
 		                            <ul class="pagination">
 		                                <li class="page-item">
 		                                    <a href="#" class="page-link" aria-label="Previous">
@@ -191,7 +201,7 @@
 		                                    </a>
 		                                </li>
 		                            </ul>
-		                        </nav>
+		                        </nav> -->
 		                    </div>
 		                </div>
 		                

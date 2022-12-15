@@ -51,10 +51,6 @@
         	background-color: #165738;
         }
         
-        #scrollUp {
-        	background-color:#165738; 
-        }
-        
         .single-listing-nav li a {
         	font-family: SCDream4;
         	font-size: 16px;
@@ -106,7 +102,7 @@
 		
 		.gallery figure img {
 			width: 800px;
-			higth: 800px;
+			higth: 600px;
 		}
 		
 		.jumbotron {
@@ -126,6 +122,9 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.1.js"></script>
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
             integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" crossorigin="anonymous"></script>
+
+    </script>
+    
     <script type="text/javascript">
         Kakao.init('507651c271794aae6b448c4df48e74f3');
         let kakaoUrl = 'http://localhost:9000/camp/detail?campNo='+${camp.campNo}+"&resiPeople=0&checkIn="+'${checkIn}'+"&checkOut="+'${checkOut}';
@@ -234,8 +233,8 @@
 			</div>
 		</div>
 		<div class="map-ratings-review-area d-flex">
-         <a id="kakaotalk-sharing-btn" href="javascript:Kakao.Share.createDefaultButton;">공유하기</a>
-         <a href="#">리뷰 작성</a>
+		 
+         <a id="kakaotalk-sharing-btn" href="javascript:Kakao.Share.createDefaultButton;"><img src="${pageContext.request.contextPath}/img/icon/kakao_icon.png"  alt="" style="margin-right: 6px;">공유하기</a>
      	</div>
         <div class="row justify-content-center">
             <!-- Single Listing Content -->
@@ -298,7 +297,7 @@
                                 <!-- Listing Menu Price -->
                                 <div class="listing-menu-price">
                                     <h6><fmt:formatNumber value="${resi.resiPrice}" pattern="###,###"/></h6>
-                                    <button class="reservationBtn" type="button" style="margin-top: 80px">예약하기</button>
+                                    <button class="reservationBtn" type="button" style="margin-top: 130px">예약하기</button>
                                     <input type="hidden" name="resiNo" value="${resi.resiNo}">
                                 </div>
                             </div>

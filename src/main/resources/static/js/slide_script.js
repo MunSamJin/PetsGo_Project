@@ -21,10 +21,10 @@
 		index = i;
 		carousel.style.setProperty('--index', i);
 
-		if (timer) clearTimeout(timer);
+		/*if (timer) clearTimeout(timer);
 		timer = setTimeout(() => {
 			setIndex(pause ? i : (i + 1) % count);
-		}, time);
+		}, time);*/
 	}
 
 	galleryImages.forEach(e => {
@@ -38,3 +38,10 @@
 
 	setIndex(0);
 })();
+
+function scrollDisable(){
+    $('html, body').addClass('hidden');
+}
+function scrollAble(){
+    $('html, body').removeClass('hidden');
+}
