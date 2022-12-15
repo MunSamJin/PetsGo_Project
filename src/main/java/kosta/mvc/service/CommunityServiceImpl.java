@@ -63,15 +63,21 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public CommunityBoard update(CommunityBoard board) {
+		
+		System.out.println("서비스 들어왔니?? repository 호출하자.");
+		
 		CommunityBoard dbBoard = communityRepository.findById(board.getBoardNo()).orElse(null);
 		if(dbBoard==null) {
 			throw new RuntimeException("글번호 오류로 수정할 수 없습니다.");
 		}
 		
+		System.out.println("repository 다녀왔니??");
 		//수정하자
 		dbBoard.setBoardTag(board.getBoardTag());
 		dbBoard.setBoardContent(board.getBoardContent());
 		dbBoard.setBoardFileName(board.getBoardFileName());
+		
+		System.out.println("결과는?? dbBoard = " + dbBoard );
 		
 		return dbBoard;
 	}

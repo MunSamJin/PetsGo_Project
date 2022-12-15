@@ -48,7 +48,12 @@
 				
 				 var boardTag ="";
 				 
-				 boardTag = "#"+boardTag1+"#"+boardTag2+"#"+boardTag3;
+				 if(boardTag3 != null){
+					 boardTag = "#"+boardTag1+"#"+boardTag2+"#"+boardTag3;
+				 }else{
+					 boardTag = "#"+boardTag1+"#"+boardTag2;
+				 }
+				 
 				 
 				$("[name=boardTag]").attr("value", boardTag);
 			});

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 
 <!DOCTYPE html>
 <html>
@@ -39,10 +40,15 @@
 			//select 값 합치기
 				 var boardTag1 =$("[name=boardTag1]").val();
 				 var boardTag2 =$("[name=boardTag2]").val();
+				 var boardTag3 =$("[name=boardTag3]").val();
 				
 				 var boardTag ="";
 				 
-				 boardTag = "#" + boardTag1 + "#" + boardTag2;
+				 if(boardTag3 != null){
+					 boardTag = "#"+boardTag1+"#"+boardTag2+"#"+boardTag3;
+				 }else{
+					 boardTag = "#"+boardTag1+"#"+boardTag2;
+				 }
 				 
 				$("[name=boardTag]").attr("value", boardTag);
 			});
@@ -80,7 +86,9 @@
 		
 
 		<form name="writeForm" method="post" action="${pageContext.request.contextPath}/community/update" 
-			  onSubmit='return checkValid()' enctype="multipart/form-data">			  
+			  onSubmit='return checkValid()' enctype="multipart/form-data">		
+			<sec:authentication var="mvo" property="principal" />	
+			<input type=hidden name="memberNo" value="${mvo.memberNo}">  
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">  
 			<%-- <input type=hidden name="memberNo" value="${member.memberNo}"> --%>
 			
@@ -91,6 +99,25 @@
 			<table style="width: 70%; margin-left: auto; margin-right: auto;">
 				<tr>
 					<td>
+						<c:if test="${not empty reservation}">
+						
+							 <select name="boardTag3"
+									 style="display: inline-block; margin-left: 6px; border-color: #4876ef; color: gray; background-color: #fff;
+						  	  			   border: 1px solid #edeef0; box-sizing: border-box; text-align: center;padding: 0 8px 1px; height: 24px;
+						 				   border-radius: 4px; font-size: 12px; letter-spacing: -0.5px; line-height: 20px; cursor: pointer;">
+  							
+  								<option value="">캠핑장 이름</option>
+     							<c:forEach var="reservation" items="${requestScope.reservation}">
+	     							<option value="${reservation.camp.campName}">
+	     								${reservation.camp.campName} / 예약일 : ${reservation.reservDate}
+	     								
+	     							</option>
+     							</c:forEach>
+   							</select>&nbsp&nbsp&nbsp* 캠핑장 이용 후기를 등록하시려면 선택해주세요.
+ 						</c:if>
+ 						
+ 						<br><br>
+						
 						<select name="boardTag1" 
 								style="display: inline-block; margin-left: 6px; border-color: #4876ef; color: gray; background-color: #fff;
 									   border: 1px solid #edeef0; box-sizing: border-box; text-align: center;padding: 0 8px 1px; height: 24px;
@@ -102,6 +129,7 @@
 							<option value="글램핑">글램핑</option>
 							<option value="펜션">펜션</option>
 							<option value="차박">차박</option>
+							<option value="기타">기타</option>
 						</select>
 			
 						<select name="boardTag2"
