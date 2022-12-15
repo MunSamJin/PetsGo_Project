@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Insert title here</title>
+<title>PetsGo</title>
 
     <link rel="icon" href="${pageContext.request.contextPath}/img/favicon.png">
     <!-- Bootstrap CSS -->
@@ -41,6 +41,17 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/commu_style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage_style.css">
 
+	<script>
+		$(document).ready(function(){
+			$("#commentForm").submit(function(){
+				if($("#comment").val().trim()==""){
+					alert("문의 내용을 입력해 주세요");	
+					$("#comment").focus();
+					return false;
+				}
+			})	
+		})	
+	</script>
 </head>
 
 <body>

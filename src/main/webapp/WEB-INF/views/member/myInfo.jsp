@@ -10,10 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>PetsGo</title>
     <link rel="icon" href="${pageContext.request.contextPath}/img/petsgoweb.png">
-    
-    <!-- Bootstrap CSS -->
-   <!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-     -->
+
     <link rel="icon" href="${pageContext.request.contextPath}/img/favicon.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
@@ -67,7 +64,6 @@
 
                 <div class="col-lg-8 mb-5 mb-lg-0">
                     <div class="blog_left_sidebar">
-
                         <!-- myInfo part start -->
 						<ul class="nav nav-tabs" id="myTab" role="tablist">
 							<li class="nav-item" role="presentation">
@@ -102,22 +98,10 @@
 									</div>
 								</form>
 							</div>
-					
 							<div class="tab-pane fade" id="pet-tab-pane" role="tabpanel" aria-labelledby="pet-tab" tabindex="0">
 								<%-- <a href="${pageContext.request.contextPath}/member/addPetForm">추가</a> <br><br> --%>
 								<form id="myInfo" action="#" method="post">
 									<c:forEach items="${petList}" var="pet">
-
-										
-
-								
-								
-								
-								
-								
-								
-								
-								
 									<div class="form-content">
 										<label for="petName" class="form-label">이름</label>
 										<input type="text" class="form-control" name="petName" value="${pet.petName}" readonly>
@@ -137,7 +121,6 @@
 								        	</c:otherwise>
 								        </c:choose>
 									</div>
-									
 									<div class="form-content">	
 										<label for="memberBirthDate" class="form-label">광견병 예방</label>
 										<c:choose>
@@ -150,8 +133,6 @@
 								        		<input type="text" class="form-control" name="memberBirthDate" value="${pet.petVaccine}" readonly>	
 								        	</c:otherwise>
 								        </c:choose>
-										
-										
 									</div>
 									<div class="form-content">	
 										<label for="memberBirthDate" class="form-label">기타 특이사항</label>
@@ -162,20 +143,12 @@
 										<input type="submit" class="btn btn-primary" value="수정">
 									</div>
 									</c:forEach>
-								</form>
-								
-								
-								
-								
-								
-									
+								</form>	
 							</div>
 						</div>
 						<!-- myInfo part end -->
-
                     </div>
                 </div>
-
             </div>
         </div>
     </section>

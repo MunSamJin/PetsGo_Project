@@ -17,21 +17,11 @@ public class QnaServiceImpl implements QnaService {
 	@Autowired
 	private QnaRepository qnaRep;
 
-	/* @Override
-	public void qnaInsert(QnaBoard qnaBoard) {
-		qnaRep.save(qnaBoard);
-	} */
-	
 	@Override
 	public Page<QnaBoard> selectAll(Pageable page) {
 		return qnaRep.findAll(page);
 	}
 
-	/* @Override
-	public void replyInsert(QnaBoard qna) {
-		qnaRep.save(qna);
-	} */
-	
 	@Override
 	public QnaBoard replyInsert(QnaBoard qna) {		
 		QnaBoard dbQna = qnaRep.findById(qna.getQnaNo()).orElse(null);
@@ -44,46 +34,14 @@ public class QnaServiceImpl implements QnaService {
 		return dbQna;
 	}
 
-	/////////////////////////////////////////////
-	
 	@Override
 	public QnaBoard replyDelete(QnaBoard qna) {		
 		QnaBoard dbQna = qnaRep.findById(qna.getQnaNo()).orElse(null);
 		
 		if(dbQna == null) throw new RuntimeException("답변을 삭제할 수 없습니다.");
 		
-		dbQna.setQnaReContent(null);
+		dbQna.setQnaReContent("");
 		
 		return dbQna;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -5,9 +5,9 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>PetsGo</title>
 </head>
 <body>
-
+	<!-- <b>정보가 일치하지 않습니다!</b> -->
 </body>
 </html>

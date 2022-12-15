@@ -298,5 +298,14 @@ public class MemberController {
       
       return "redirect:/member/myQna";
    }
+   
+   /**
+	 * 닉네임 중복 확인
+	 * */
+	@RequestMapping("/nicknameCheck")
+	@ResponseBody
+	public String nicknameCheck(HttpServletRequest request) {
+		return memberService.nicknameCheck(request.getParameter("memberNickname"));
+	}
 }
 
