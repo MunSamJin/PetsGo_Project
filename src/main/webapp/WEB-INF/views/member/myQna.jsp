@@ -119,7 +119,8 @@
 			                                                <p class="date">
 			                                                	<fmt:parseDate value="${qna.qnaDate}" pattern="yyyy-MM-dd" var="parsedDateTime" type="both" />
 			                              						<fmt:formatDate value="${parsedDateTime}" pattern="yyyy-MM-dd"/>
-			                                                </p>
+			                                                </p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			                                                <a href="${pageContext.request.contextPath}/member/qnaDelete/${qna.qnaNo}"><button type="button" class="btn btn-light">삭제</button></a>
 			                                            </div>
 			                                        </div>
 			                                    </div>

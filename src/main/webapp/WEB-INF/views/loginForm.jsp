@@ -61,7 +61,14 @@
 					  </div>					  
 					  <div class="tab-pane fade" id="owner-tab-pane" role="tabpanel" aria-labelledby="owner-tab" tabindex="0">
 						<form id="ownerLoginForm" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
-							<input type="text" class="form-control" name="id" id="no" placeholder="사업자 등록 번호"> 
+							<input type="text" class="form-control" name="id" id="no" oninput="autoHyphen(this)" placeholder="사업자 등록 번호"> 
+							<script>																
+								const autoHyphen = (target) => {
+									target.value = target.value
+									.replace(/[^0-9]/g, '')
+									.replace(/^(\d{3})(\d{2})(\d{5})$/, `$1-$2-$3`);
+								}
+						  	</script>
 							<span id="noValid"></span>
 							<input type="password" class="form-control" name="password" id="campPassword" placeholder="비밀번호"> 
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />		
