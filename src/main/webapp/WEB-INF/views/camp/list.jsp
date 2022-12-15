@@ -170,6 +170,11 @@
 		    height: 200px;
 		    object-fit: cover;
 		}
+		
+		.place_info {
+			height: 150px;
+   			object-fit: cover;
+		}
     </style>
 
 

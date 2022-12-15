@@ -55,7 +55,10 @@ public class AdminController {
 	public void url2() {}
 	
 	@RequestMapping("/main")
-	public void main() {}
+	public String main() {
+		return "admin/pages/camp/campcheck";
+	}
+	
 	
 	/**
 	 * 로그인 폼

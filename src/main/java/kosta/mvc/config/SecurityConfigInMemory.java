@@ -31,7 +31,7 @@ public class SecurityConfigInMemory extends WebSecurityConfigurerAdapter {
 				.loginProcessingUrl("/admin/adminLogin")
 				.usernameParameter("id")
 				.passwordParameter("password")
-				.defaultSuccessUrl("/admin/main")
+				.defaultSuccessUrl("/admin/pages/camp/campcheck")
 				//.failureHandler(memberAuthenticationFailurHandler)
 				.failureForwardUrl("/loginForm?err")
 				.and()
@@ -40,7 +40,8 @@ public class SecurityConfigInMemory extends WebSecurityConfigurerAdapter {
 				.logoutSuccessUrl("/")
 				.invalidateHttpSession(true)
 				.deleteCookies("JSESSIONID")
-				.and();	
+				.and()
+				.csrf().disable();
 	}
 	
 	@Override
