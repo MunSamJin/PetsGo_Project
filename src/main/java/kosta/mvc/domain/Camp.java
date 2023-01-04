@@ -1,11 +1,11 @@
 package kosta.mvc.domain;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,13 +13,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.BatchSize;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -27,6 +31,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Builder
+//@ToString(exclude = {"residenceList","scrapList","reservationList"})
 /**
  *  캠핑장 도메인
  */
@@ -72,7 +77,7 @@ public class Camp {
 	private MultipartFile campImg;
 	
 	@Column(nullable = false, length = 1000)
-	private String campFileName;//파일이름
+	private String campFilename;//파일이름
 	
 	@Column(nullable = false, length = 1000)
 	private String campNotify;
@@ -93,16 +98,21 @@ public class Camp {
 	
 	private String campRole;
 	
-	/*
-	 * @OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) private
-	 * List<Residence> residenceList;
-	 * 
-	 * @OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) private List<Scrap>
-	 * scrapList;
-	 * 
-	 * @OneToMany(mappedBy = "camp", cascade = CascadeType.ALL) private
-	 * List<Reservation> reservationList;
-	 */
+	//@JsonIgnore
+	//@BatchSize(size = 1000)
+	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
+	private List<Residence> residenceList;
+	
+	//@BatchSize(size = 1000)
+	//@JsonIgnore //세륜 차트하면서 주석
+	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL , fetch = FetchType.LAZY) 
+	private List<Scrap> scrapList;
+
+	//@BatchSize(size = 1000)
+	//@JsonIgnore //세륜 차트하면서 주석
+	@OneToMany(mappedBy = "camp", cascade = CascadeType.ALL ,fetch = FetchType.LAZY) 
+	private List<Reservation> reservationList;
+
 	
 
 }

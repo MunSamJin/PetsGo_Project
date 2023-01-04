@@ -1,0 +1,105 @@
+.registerForm {
+	padding: 24px;
+	margin: 66px auto 120px;
+	min-height: 0px;
+	max-width: 700px;
+}
+
+h1 {
+	margin-top: 28px;
+	margin-bottom: 50px;
+	font-size: 28px;
+	font-weight: 700;
+    text-align: center;
+    letter-spacing: -1px;
+	color: #25483a;
+}
+
+.line {
+    padding-bottom: 10px;
+    border-bottom: 2px solid #25483a;
+    line-height: 17px;
+    text-align: right;
+    margin-bottom: 28px;
+}
+
+.necessary {
+    color: red;
+}
+
+#registerForm {
+    padding: 10px;
+}
+
+.form-content {
+    display: flex;
+    margin-top: 28px !important;
+}
+
+.form-label {
+    width: 150px;
+    padding-top: 6px;
+}
+
+#emailValid {
+	font-size: 13px;	
+	/* transition: 0.3s; */
+	margin-left: 115px;
+	margin-top: 8px;
+}
+
+#emailCheck {
+	font-size: 13px;	
+	/* transition: 0.3s; */
+	margin-left: 115px;
+	margin-top: 8px;
+}
+
+#passwordValid {
+	font-size: 13px;	
+	/* transition: 0.3s; */
+	margin-left: 115px;
+	margin-top: 8px;
+}
+
+#passwordEqual {
+	font-size: 13px;	
+	/* transition: 0.3s; */
+	margin-left: 115px;
+	margin-top: 8px;
+}
+
+#nicknameValid {
+	font-size: 13px;	
+	/* transition: 0.3s; */
+	margin-left: 115px;
+	margin-top: 8px;
+}
+
+#nicknameCheck {
+	font-size: 13px;	
+	/* transition: 0.3s; */
+	margin-left: 115px;
+	margin-top: 8px;
+}
+
+.buttons {
+	text-align: center;
+}
+
+.btn {
+	margin-top: 28px;
+	border-radius: 20px !important;
+}
+
+.btn-primary {
+	color: #fff !important;
+    background-color: #25483a !important;
+    border-color: #25483a !important;
+}
+
+@media screen and (max-width: 768px) {
+	.registerForm {
+		padding: 12px 24px;
+	}
+}

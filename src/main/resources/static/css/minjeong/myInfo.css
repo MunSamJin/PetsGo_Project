@@ -1,0 +1,37 @@
+#myInfo {
+	padding: 24px;
+	font-family:SCDream3;
+}
+
+.form-content {
+    display: flex;
+    margin-top: 28px !important;
+}
+
+.form-label {
+    width: 150px;
+    padding-top: 6px;
+}
+
+#myInfo > div.buttons > input {
+	font-family:SCDream3;
+	background-color: #25483a !important; 
+	border: #25483a !important; 
+	margin-top: 28px;
+	border-radius: 20px !important;
+}
+
+.buttons {
+	text-align: center;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+@media screen and (max-width: 768px) {
+	.myInfoView {
+		padding: 12px 24px;
+	}
+}

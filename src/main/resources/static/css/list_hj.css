@@ -1,0 +1,67 @@
+    .gj-textbox-md {
+	    padding: 11px !important;
+	    background-color: #fff !important;
+	    border: 1px solid #ededed !important;
+    }
+    
+    .gj-icon {
+	    margin-top: 12px;
+	    color: #f7612f !important;
+    }
+    
+    .where_togo_area {
+    	background: #25483a;
+    }
+    
+    .btn_1 {
+	    border: 1px solid #40725a;
+	    padding: 8px 30px !important;
+	}
+	
+	.nc_select {
+		width: 130px !important;
+	}
+	
+	.nice-select .list {
+		border-radius: 0px;
+	}
+	
+	#datepicker_1 {
+	 padding: 9px !important;
+	 color: #f7612f;
+	}
+	
+	#datepicker_2 {
+	 padding: 9px !important;
+	 color: #f7612f;
+	}
+	
+	input::placeholder {
+	  color: #f7612f;
+	  font-style: italic;
+	}
+	
+	.form_area {
+		display: flex;
+	}
+	
+	.container {
+		font-family: SCDream4;
+	}
+	
+	.row button {
+		font-family: SCDream5;
+	}
+	
+	.col-lg-8 {
+		margin-top: 28px;
+	}
+	
+	.camp_name {
+		font-family: SCDream5;
+		font-size: 18px;
+		color: #f7612f;
+	}
+	
+	
+    

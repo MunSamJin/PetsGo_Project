@@ -1,0 +1,182 @@
+  .navbar-expand-lg .navbar-collapse {justify-content: right;}
+        .main_menu .main-menu-item ul li .nav-link {color: #235017;}
+
+.booking_part{
+margin-top: -280px;
+z-index: 9;
+position: relative;
+}
+
+.booking_part_list{
+margin-top: 10px;
+z-index: 9;
+position: relative;
+}
+
+.booking_part .form-row .form_colum input::placeholder {color:#f7612f; font-family: SCDream4;}
+.booking_part .form-row .form_colum input {border: 1px solid #f7612f !important;}
+.booking_part .form-row .form_colum .gj-datepicker-md [role=right-icon] {
+    color:#f7612f ;
+}
+.current {color:#f7612f;}
+.list {color:#532d2f;}
+.booking_part .form-row .form_colum .nc_select, .booking_part .form-row .form_colum .gj-datepicker{
+    border-color: #f7612f;
+}
+
+.btn_1 {background-color: #2c6b52;}
+.btn_1:hover {background-color: #f7612f;}
+
+.gj-textbox-md { border: 1px solid #f7612f;}
+
+.banner_part{
+    height: 580px;
+    position: relative;
+    overflow: hidden;
+    background-image: url(../img/banner_bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+.input-group {
+    width: 250px;
+    border-color: #fe5c24;
+    border-radius: 0;
+    color: #fe5c24;
+    height: 50px;
+    display: flex;
+    align-items: center;         
+}
+
+.section_padding {padding: 100px 0;}
+
+.top_place .single_place {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 20px;
+}
+
+.col-lg-6 {
+    position: relative;
+    width: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.top_place .single_place:after {border-radius: 6px; background-color: #2a6648;}
+
+.booking_part .booking_content{
+background-color: rgb(255, 255, 255, 0.9);
+box-shadow: 0px 10px 40px 0px rgba(221, 221, 221, 0.3);
+padding: 20px;
+ }
+
+ .single-input-primary::placeholder {
+        color:#f7612f;
+ }
+
+ .genric-btn.primary {
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    background: #f7612f;
+    border: 1px solid transparent;
+ }
+
+.footer-area {
+    background-color: #25483a; 
+}
+
+.footer-area .copyright_part_text {
+    background-color: #172d23;
+}
+
+.footer-area .copyright_part_text p{
+        color: #73837c;
+}
+
+.client_review {
+    background-color:#532d2f;
+}
+
+.client_review .owl-nav button {background-color: #ffecdc !important; color: #532d2f !important;}
+
+.event_part{
+   background-position: center;
+}
+
+.hover_text_iner{
+    font-family: SCDream4; }
+
+.main_menu_iner {
+	border-bottom: 1px solid #ededed;
+}  
+
+.search_text {
+	font-family: BMJUA;
+    font-size: 28px;
+    color: #f1faf7;
+    }
+
+.form-row {
+	font-family: SCDream4;
+}
+
+/*============== camp list css ==============*/
+.form_colum {
+	    margin-right: 10px;
+}
+
+
+
+
+
+/*============== Font ==============*/
+
+/*---------------------------------------------*/
+@font-face {
+  font-family: SCDream1;
+  src: url('../fonts/SCDream1.otf'); 
+}
+
+@font-face {
+  font-family: SCDream2;
+  src: url('../fonts/SCDream2.otf'); 
+}
+
+@font-face {
+  font-family: SCDream3;
+  src: url('../fonts/SCDream3.otf'); 
+}
+
+@font-face {
+  font-family: SCDream4;
+  src: url('../fonts/SCDream4.otf'); 
+}
+
+@font-face {
+  font-family: SCDream5;
+  src: url('../fonts/SCDream5.otf'); 
+}
+
+@font-face {
+  font-family: SCDream6;
+  src: url('../fonts/SCDream6.otf'); 
+}
+
+@font-face {
+  font-family: SCDream7;
+  src: url('../fonts/SCDream7.otf'); 
+}
+
+@font-face {
+  font-family: BMJUA;
+  src: url('../fonts/BMJUA.ttf'); 
+}
+
+
+    
+    
+    

@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,13 +33,14 @@ public class Scrap {
 	@SequenceGenerator(name = "scrap_sno_seq", allocationSize = 1, sequenceName = "scrap_sno_seq")
 	private Long scrapNo;
 	
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "memberNo") private Member member;
-	 * 
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "campNo") private Camp camp;
-	 */
+	@JsonIgnore ////세륜 차트하면서 주석
+	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	@JoinColumn(name = "memberNo") 
+	private Member member;
+	 
+	@JsonIgnore //세륜 차트하면서 주석
+	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	@JoinColumn(name = "campNo") 
+	private Camp camp;
+	 
 }

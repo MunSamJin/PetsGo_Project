@@ -17,11 +17,14 @@ import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -29,6 +32,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Builder
+//@ToString(exclude = {"camp","reservationList" , "residenceDetailList"})
 /**
  *  숙소 도메인
  */
@@ -59,21 +63,24 @@ public class Residence {
 	@Transient
 	private MultipartFile resiFile;
 	
-	@Column(length = 1000, name = "resi_file_name")
-	private String resiFileName;
+	@Column(length = 1000, name = "resi_filename")
+	private String resiFilename;
 	
 	private int resiPeople;
 	
-	private int resiPet;
+	private String resiPet;
 	
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "campNo") private Camp camp;
-	 * 
-	 * @OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) private
-	 * List<Reservation> reservationList;
-	 */
 	
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	@JoinColumn(name = "camp_no")
+	private Camp camp;
 
+	//@JsonIgnore
+	@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
+	private List<Reservation> reservationList;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "residence", cascade = CascadeType.ALL) 
+	private List<ResidenceDetail> residenceDetailList;
 }

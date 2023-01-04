@@ -14,14 +14,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -29,6 +33,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Builder
+//@ToString(exclude = {"residence","detailList","camp"})
 /**
  *  예약 도메인
  */
@@ -64,25 +69,26 @@ public class Reservation {
 	
 	@Column(nullable = true)
 	private int reservInsuranceTotal;
+	
+	 @JsonIgnore
+	 @ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	 @JoinColumn(name = "memberNo")
+	 private Member member;
+	 
+	 @JsonIgnore
+     @ManyToOne(fetch = FetchType.LAZY)//지연로딩
+     @JoinColumn(name = "campNo")
+     private Camp camp;
 
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "memberNo") private Member member;
-	 * 
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "campNo") private Camp camp;
-	 * 
-	 * @ManyToOne(fetch = FetchType.LAZY)//지연로딩
-	 * 
-	 * @JoinColumn(name = "resiNo") private Residence residence;
-	 * 
-	 * @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL) private
-	 * List<Detail> detailList;
-	 * 
-	 * @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL) private
-	 * List<CommunityBoard> communityBoardList;
-	 */ 
+	 @JsonIgnore
+	 @ManyToOne(fetch = FetchType.LAZY)//지연로딩
+	 @JoinColumn(name = "resiNo")
+	 private Residence residence;
+	 
+	 @JsonIgnore
+	 @ManyToOne(fetch = FetchType.LAZY)
+	 @Transient
+	 private List<Detail> detailList;
+
 	
 }

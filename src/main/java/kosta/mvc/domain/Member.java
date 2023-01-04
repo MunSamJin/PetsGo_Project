@@ -1,6 +1,6 @@
 package kosta.mvc.domain;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,11 +12,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -24,17 +29,21 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Builder
+@RequiredArgsConstructor
+//@ToString(exclude = {"petList" , "qnaBoardList","communityBoardList","reservationList","likeList","petList"})
 /**
  * 회원 도메인
  */
-public class Member {
+//@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+public class Member implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_mno_seq")
 	@SequenceGenerator(name = "member_mno_seq", allocationSize = 1, sequenceName = "member_mno_seq")
+	@NonNull
 	private Long memberNo; //회원번호
 	
-	private String memberProfile; //프로필아이콘
+	private String memberProfile; //프로필 사진
 	
 	@Column(nullable = false)
 	private String memberEmail; //이메일
@@ -53,27 +62,31 @@ public class Member {
 	
 	private String memberAuth; //본인인증
 	
-	private String memberRole;
+	private String memberRole;//권한
+
 	
-	/*
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private List<Pet>
-	 * petList;
-	 * 
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	 * List<QnaBoard> qnaBoardList;
-	 * 
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	 * List<Scrap> scrapList;
-	 * 
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	 * List<Reservation> reservationList;
-	 * 
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	 * List<CommunityBoard> communityBoardList;
-	 * 
-	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) private
-	 * List<LikeBoard> likeList;
-	 */ 
-	
-	
+    @JsonIgnore
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	private List<Pet> petList;
+	  
+     @JsonIgnore
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	private List<QnaBoard> qnaBoardList;
+	  
+     @JsonIgnore
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	private	List<Scrap> scrapList;
+	 
+     @JsonIgnore
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	private List<Reservation> reservationList;
+
+	 @JsonIgnore
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	private List<CommunityBoard> communityBoardList;
+ 
+	 @JsonIgnore
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL) 
+	private List<LikeBoard> likeList;
+
 }
